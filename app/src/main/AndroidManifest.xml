@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sih">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Change_Phone"></activity>
+        <activity android:name=".Update_Certificates" />
+        <activity android:name=".Change_Password" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Language" />
+        <activity android:name=".Forgot_Password" />
+        <activity android:name=".Login" />
+        <activity android:name=".Rating" />
+        <activity android:name=".PhoneVerification" />
+        <activity android:name=".Tenders" />
+        <activity android:name=".Free_Lancing" />
+        <activity android:name=".Government" />
+        <activity android:name=".Non_Government" />
+        <activity android:name=".Register2" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Register" />
+        <activity android:name=".Intro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
