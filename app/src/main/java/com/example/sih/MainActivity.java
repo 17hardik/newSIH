@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +21,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     ImageView bgapp;
@@ -68,6 +74,23 @@ public class MainActivity extends AppCompatActivity {
             English = true;
             toEng();
         }
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                           //currently I am writing nothing here, you can write whatever you want but just inform me.
+                            return;
+                        }
+                        //your tokens will be stored as soon as you open this activity
+                        String token = task.getResult().getToken();
+                        String user_token = getString(R.string.msg_token_fmt, token);
+                        Log.d("Token", user_token);
+                        Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
+                        reference.child(phone).child("Message Token").setValue(user_token);
+                    }
+                });
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         Gov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

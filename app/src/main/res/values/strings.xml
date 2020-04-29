@@ -118,5 +118,6 @@
     <string name="phone_verify1">फ़ोन सत्यापित करें</string>
     <string name="profle1">प्रोफ़ाइल</string>
     <string name="phone_changed1">आपका फ़ोन नंबर बदल दिया गया है</string>
+    <string name="msg_token_fmt">%s</string>
 
 </resources>
