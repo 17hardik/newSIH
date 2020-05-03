@@ -119,5 +119,6 @@
     <string name="profle1">प्रोफ़ाइल</string>
     <string name="phone_changed1">आपका फ़ोन नंबर बदल दिया गया है</string>
     <string name="msg_token_fmt">%s</string>
+    <string name="username_dob_incorrect">उपयोगकर्ता नाम या जन्म तिथि गलत है</string>
 
 </resources>

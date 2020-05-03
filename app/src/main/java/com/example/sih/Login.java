@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.math.BigInteger;
 
 public class Login extends AppCompatActivity {
-    TextView register;
+    TextView register, forget;
     EditText Phone, Password;
     Button loginButton;
     String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null";
@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
         register = findViewById(R.id.register);
+        forget = findViewById(R.id.forget);
         Phone = findViewById(R.id.phone);
         Password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
@@ -50,6 +51,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Login.this, Register.class));
+            }
+        });
+        forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, Forgot_Password.class));
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {

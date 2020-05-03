@@ -10,41 +10,41 @@
 
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/new_password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Enter Your Username"
+        android:hint="Enter Your New Password"
+        android:inputType="textPassword"
         android:maxLines="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55"/>
-
-    <EditText
-        android:id="@+id/dob"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="Enter Your Date Of Birth"
-        android:layout_height="wrap_content"
-        android:layout_width="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.65"/>
 
-    <Button
-        android:id="@+id/verifyButton"
+    <EditText
+        android:id="@+id/confirm_password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Verify"
+        android:hint="Confirm Your Password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75"/>
+
+    <Button
+        android:id="@+id/passwordButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Change"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77"/>
-
+        app:layout_constraintVertical_bias="0.87"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
