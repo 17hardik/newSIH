@@ -18,6 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.firebase.client.Firebase;
 
+/** Activity through which users can rate this app
+ * Feedback provided by users are stored in database associated with users's phone number
+ */
+
 public class Rating extends AppCompatActivity {
 
     ImageView charPlace;

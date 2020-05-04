@@ -15,7 +15,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(freeIntent);
             }
         });
+        //An animation for 2 seconds
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
         bgapp.animate().translationY(-2000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);

@@ -53,6 +53,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+/** Activity through which users can view their profile and can make edit in it
+ * Both database reading and writing functionality are working here
+ */
+
 public class Profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     EditText ETUsername, ETName, ETPhone;
     Button BTUsername, BTName, BTPhone, BTPassword, BTCertificates;
@@ -130,11 +134,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             pd.setMessage("Updating Image...");
         }
         firebase = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-        try{
-
-        } catch(Exception e){
-
-        }
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -476,6 +475,8 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     private void checkPermission() {
+
+        //Checking Storage read permission for fetching internal documents
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {

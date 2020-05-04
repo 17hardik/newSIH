@@ -6,7 +6,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -31,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -82,6 +80,8 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         t = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(t);
+
+        //To convert  navigation drawer icon alternatively on each click
         t.syncState();
         menu2 = navigationView.getMenu();
         Gov = menu2.findItem(R.id.government);
@@ -115,6 +115,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             }
         });
 
+        //Fetching username, phone and picture from database
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -128,6 +129,8 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                             .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
+
+                                    //Retrieving picture from database and displaying it over navigation drawer and saving it locally
                                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                     DisplayMetrics dm = new DisplayMetrics();
                                     getWindowManager().getDefaultDisplay().getMetrics(dm);

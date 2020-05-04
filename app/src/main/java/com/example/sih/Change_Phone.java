@@ -28,6 +28,10 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/** Activity through which users can update or change their phone number
+ * An OTP will be sent to verify the provided phone number
+ */
+
 public class Change_Phone extends AppCompatActivity implements View.OnClickListener {
 
     EditText etOtp;

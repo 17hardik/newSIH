@@ -18,6 +18,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.math.BigInteger;
 
+/** Another activity for account recovery
+ * Here, users can will write their new password as changed password
+ * After verification, new password will be assigned to them
+ */
+
 public class Forgot_Second extends AppCompatActivity {
     EditText ETNew, ETConfirm;
     Button BTPassword;

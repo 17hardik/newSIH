@@ -12,6 +12,7 @@ public class Language extends AppCompatActivity {
     int g, j;
     Button ButtonEng, ButtonHin;
 
+//This is the activity from where users can select their desired language just after opening the app for first time
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

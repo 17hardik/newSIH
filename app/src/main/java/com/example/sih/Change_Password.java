@@ -3,7 +3,6 @@ package com.example.sih;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -14,15 +13,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.math.BigInteger;
+
+/** Through this activity, a user can change his/her password by providing their current password
+ * After verification, new password will be assigned to the user
+ */
 
 public class Change_Password extends AppCompatActivity {
     EditText ETOld, ETNew, ETConfirm;

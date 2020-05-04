@@ -27,6 +27,11 @@ import java.math.BigInteger;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/** This is the activity after filling registration form
+ *  For phone verification
+ *  Verification is done by sending an OTP on given number and verifying the OTP
+ */
+
 public class PhoneVerification extends AppCompatActivity implements View.OnClickListener {
 
     EditText etOtp;

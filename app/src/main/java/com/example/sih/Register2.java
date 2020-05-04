@@ -24,6 +24,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/** Activity through which users can submit their related documents
+ * Documents are then stored in Firebase Storage associated with user's phone number
+ * Users can also skip this activity if they don't want to share their document of don't have all the documents at the moment
+ */
+
 public class Register2 extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
@@ -69,6 +74,8 @@ public class Register2 extends AppCompatActivity {
         Button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Here counter is checking whether all documents are submitted that is 3
                 if(counter==3){
                     if(check.equals("Hin")){
                         skip.setText(R.string.next1);
@@ -204,6 +211,8 @@ public class Register2 extends AppCompatActivity {
                             }else {
                                 textViewStatus.setText("File Uploaded Successfully");
                             }
+
+                            //Increasing the value of counter after submission of every document
                             counter++;
                             ButtonGr.setEnabled(false);
                             if(check.equals("Hin")){

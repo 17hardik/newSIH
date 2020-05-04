@@ -2,42 +2,37 @@ package com.example.sih;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.firebase.client.Firebase;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+/** Activity for account recovery inn case if a user forgets his/her password
+ * Users can change their password by verifying their DOB and Username
+ */
+
 public class Forgot_Password extends AppCompatActivity {
-    EditText Username, DOB;
-    Calendar myCalendar;
-    String dob, username, storedDOB, storedUsername, phone, S, M, check, K;
-    Button Verify;
+    private EditText Username, DOB;
+    private Calendar myCalendar;
+    private String dob, username, storedDOB, storedUsername, phone, check;
+    String S, M, K;
+    private Button Verify;
     int i, j, l;
-    Boolean English = true;
     DatabaseReference reff;
 
     @Override
@@ -138,7 +133,7 @@ public class Forgot_Password extends AppCompatActivity {
 
                          @Override
                          public void onCancelled(@NonNull DatabaseError databaseError) {
-                             if (check.equals("Hin") || !English) {
+                             if (check.equals("Hin")) {
                                  Toast.makeText(Forgot_Password.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                              } else {
                                  Toast.makeText(Forgot_Password.this, "There is some error", Toast.LENGTH_SHORT).show();

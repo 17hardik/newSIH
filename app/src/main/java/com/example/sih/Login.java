@@ -31,8 +31,12 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences1 = getSharedPreferences(M,j);
+
+        // Checking the current selected language inside app
         check = preferences1.getString("Lang","Eng");
         SharedPreferences preferences = getSharedPreferences(S,i);
+
+        //retrieving original and changed phone number from SharedPreferences
         realPhone = preferences.getString("Phone","Null");
         new_phone = preferences.getString("NewPhone","Null");
         getSupportActionBar().hide();
@@ -103,6 +107,8 @@ public class Login extends AppCompatActivity {
                         }
                     }
                     pd.show();
+
+                    // If there is some value in realPhone then extracting encrypted password by combining phone number and entered password
                     if(!(realPhone.equals("Null"))) {
                         BigInteger hash = BigInteger.valueOf((realPhone.charAt(0) - '0') + (realPhone.charAt(2) - '0') + (realPhone.charAt(4) - '0') + (realPhone.charAt(6) - '0') + (realPhone.charAt(8) - '0'));
                         StringBuilder sb = new StringBuilder();

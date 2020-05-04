@@ -238,6 +238,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                     pd.setMessage("Sending OTP...");
                                 }
                                 pd.show();
+
+                                //Sending OTP to verify provided phone number
                                 send_data();
                             }
 
