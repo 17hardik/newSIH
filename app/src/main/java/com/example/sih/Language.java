@@ -22,6 +22,8 @@ public class Language extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(L,g).edit();
         editor.putString("Status","Opened");
         editor.apply();
+        ButtonEng.setBackgroundResource(R.drawable.button);
+        ButtonHin.setBackgroundResource(R.drawable.button);
         ButtonEng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

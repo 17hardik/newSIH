@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,7 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         loginButton.setBackgroundResource(R.drawable.button);
+
         if(check.equals("Hin"))
         {
             toHin();
@@ -76,15 +78,19 @@ public class Login extends AppCompatActivity {
                 if(phone.equals("")){
                     if(check.equals("Hin")){
                         Phone.setError(getResources().getString(R.string.must_be_filled1));
+                        Phone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }else {
                         Phone.setError("Must be filled");
+                        Phone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                 }
                 else if(pass.equals("")){
                     if(check.equals("Hin")){
                         Password.setError(getResources().getString(R.string.must_be_filled1));
+                        Password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }else {
                         Password.setError("Must be filled");
+                        Password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                 }
                 else if(!(phone.equals(new_phone))){

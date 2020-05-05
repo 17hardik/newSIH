@@ -14,6 +14,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -416,8 +417,10 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             public void onVerificationFailed(FirebaseException e) {
                 if (check.equals("Hin")) {
                     ETPhone.setError(getResources().getString(R.string.valid1));
+                    ETPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                 } else {
                     ETPhone.setError("Enter a valid number");
+                    ETPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                 }
             }
             @Override

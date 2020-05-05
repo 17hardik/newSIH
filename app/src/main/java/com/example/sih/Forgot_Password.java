@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -96,15 +97,19 @@ public class Forgot_Password extends AppCompatActivity {
                  if(username.equals("")){
                     if(check.equals("Hin")){
                         Username.setError(getResources().getString(R.string.must_be_filled1));
+                        Username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }else {
                         Username.setError("Must be filled");
+                        Username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                 }
                  else if(dob.equals("")){
                      if(check.equals("Hin")){
                          DOB.setError(getResources().getString(R.string.must_be_filled1));
+                         DOB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                      }else {
                          DOB.setError("Must be filled");
+                         DOB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                      }
                  }
                  else {

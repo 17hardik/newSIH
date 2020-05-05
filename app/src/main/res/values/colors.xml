@@ -5,4 +5,5 @@
     <color name="colorAccent">#2f0739</color>
     <color name="colorActive">#d4d4d4</color>
     <color name="colorStand">#2f0739</color>
+    <color name="colorRed">#ff0000</color>
 </resources>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -86,14 +87,18 @@ public class Forgot_Second extends AppCompatActivity {
                     if (!(new_pass.equals(conf_pass))) {
                         if (check.equals("Hin")) {
                             ETConfirm.setError(getResources().getString(R.string.passwords_matching1));
+                            ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         } else {
                             ETConfirm.setError("Passwords are not matching");
+                            ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         }
                     } else if (new_pass.length() < 5) {
                         if (check.equals("Hin")) {
                             ETNew.setError(getResources().getString(R.string.too_short1));
+                            ETNew.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         } else {
                             ETNew.setError("At least 5 characters must be there");
+                            ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         }
                     } else{
                         SharedPreferences.Editor editor = getSharedPreferences(K,l).edit();

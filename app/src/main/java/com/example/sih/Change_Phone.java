@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.MenuItem;
@@ -122,8 +123,10 @@ public class Change_Phone extends AppCompatActivity implements View.OnClickListe
                 if (etOtp.getText().toString().equals("")) {
                     if(check.equals("Hin")){
                         etOtp.setError(getResources().getString(R.string.must_be_filled1));
+                        etOtp.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }else {
                         etOtp.setError("Must be filled");
+                        etOtp.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                 }else {
                     final ProgressDialog pd = new ProgressDialog(Change_Phone.this);
