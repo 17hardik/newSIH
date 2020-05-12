@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 /** Introduction activity which will execute first on every device
  * A kind of flash activity which will execute for two seconds that include app's logo
@@ -20,13 +21,14 @@ public class Intro extends AppCompatActivity {
         getSupportActionBar().hide();
         SharedPreferences preferences = getSharedPreferences(S,i);
 
-        //checking whether the user has logged in already by using SharedPreerences
+        //checking whether the user has logged in already by using SharedPreferences
         isLogged = preferences.getString("Status","Null");
         SharedPreferences preferences1 = getSharedPreferences(L,g);
         //checking whether the app is running first time on a particular device
-        status = preferences1.getString("Status","Not Opened");
+        status = preferences1.getString("isOpened","Not Opened");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
+        Toast.makeText(this, isLogged, Toast.LENGTH_SHORT).show();
         new Handler().postDelayed((new Runnable() {
             @Override
             public void run() {

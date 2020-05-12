@@ -19,9 +19,6 @@ public class Language extends AppCompatActivity {
         setContentView(R.layout.activity_language);
         ButtonEng = findViewById(R.id.buttonEnglish);
         ButtonHin = findViewById(R.id.buttonHindi);
-        SharedPreferences.Editor editor = getSharedPreferences(L,g).edit();
-        editor.putString("Status","Opened");
-        editor.apply();
         ButtonEng.setBackgroundResource(R.drawable.button);
         ButtonHin.setBackgroundResource(R.drawable.button);
         ButtonEng.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +28,9 @@ public class Language extends AppCompatActivity {
                 SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
                 editor1.putString("Lang",lang);
                 editor1.apply();
+                SharedPreferences.Editor editor = getSharedPreferences(L,g).edit();
+                editor.putString("isOpened","Opened");
+                editor.apply();
                 Intent intent = new Intent(Language.this, Login.class);
                 startActivity(intent);
                 finish();
@@ -43,6 +43,9 @@ public class Language extends AppCompatActivity {
                 SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
                 editor1.putString("Lang",lang);
                 editor1.apply();
+                SharedPreferences.Editor editor = getSharedPreferences(L,g).edit();
+                editor.putString("isOpened","Opened");
+                editor.apply();
                 Intent intent = new Intent(Language.this, Login.class);
                 startActivity(intent);
                 finish();
