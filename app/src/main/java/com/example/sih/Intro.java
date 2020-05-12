@@ -28,7 +28,6 @@ public class Intro extends AppCompatActivity {
         status = preferences1.getString("isOpened","Not Opened");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
-        Toast.makeText(this, isLogged, Toast.LENGTH_SHORT).show();
         new Handler().postDelayed((new Runnable() {
             @Override
             public void run() {
