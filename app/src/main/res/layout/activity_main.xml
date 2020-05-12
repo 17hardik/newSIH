@@ -47,7 +47,7 @@
                         android:id="@+id/gov"
                         android:background="#00FFFFFF"
                         android:scaleType="fitStart"
-                        android:src="@drawable/gov"
+                        android:src="@drawable/gov_img"
                         android:layout_marginBottom="3dp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                         android:background="#00FFFFFF"
                         android:layout_marginTop="10dp"
                         android:scaleType="fitStart"
-                        android:src="@drawable/free"
+                        android:src="@drawable/freelancing_img"
                         android:layout_marginBottom="3dp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                         android:id="@+id/non"
                         android:background="#00FFFFFF"
                         android:scaleType="fitStart"
-                        android:src="@drawable/non"
+                        android:src="@drawable/non_gov_img"
                         android:layout_marginBottom="3dp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                         android:background="#00FFFFFF"
                         android:scaleType="fitStart"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/tender"
+                        android:src="@drawable/tenderimg"
                         android:layout_marginBottom="3dp"/>
                     <TextView
                         android:layout_width="wrap_content"
