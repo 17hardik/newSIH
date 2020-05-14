@@ -63,7 +63,7 @@ public class Rating extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 answerValue = String.valueOf((int) (rateStars.getRating()));
                 if (answerValue.equals("1")) {
-                    charPlace.setImageResource(R.drawable.star1);
+                    charPlace.setImageResource(R.drawable.cryemo);
                     charPlace.startAnimation(charanim);
                     if(check.equals("Hin")){
                         if(!English) {
@@ -80,7 +80,7 @@ public class Rating extends AppCompatActivity {
                     }
                     Rating = "Poor (1 Star)";
                 } else if (answerValue.equals("2")) {
-                    charPlace.setImageResource(R.drawable.star2);
+                    charPlace.setImageResource(R.drawable.sademo);
                     charPlace.startAnimation(charanim);
                     if(check.equals("Hin")){
                         if(!English) {
@@ -97,7 +97,7 @@ public class Rating extends AppCompatActivity {
                     }
                     Rating = "Just So So (2 Stars)";
                 } else if (answerValue.equals("3")) {
-                    charPlace.setImageResource(R.drawable.star3);
+                    charPlace.setImageResource(R.drawable.okemo);
                     charPlace.startAnimation(charanim);
                     if(check.equals("Hin")){
                         if(!English) {
@@ -114,7 +114,7 @@ public class Rating extends AppCompatActivity {
                     }
                     Rating = "Not Bad (3 Stars)";
                 } else if (answerValue.equals("4")) {
-                    charPlace.setImageResource(R.drawable.star4);
+                    charPlace.setImageResource(R.drawable.happyemo);
                     charPlace.startAnimation(charanim);
                     if(check.equals("Hin")){
                         if(!English) {
@@ -131,7 +131,7 @@ public class Rating extends AppCompatActivity {
                     }
                     Rating = "Good Job (4 Stars)";
                 } else if (answerValue.equals("5")) {
-                    charPlace.setImageResource(R.drawable.star5);
+                    charPlace.setImageResource(R.drawable.awsomeemo);
                     charPlace.startAnimation(charanim);
                     if(check.equals("Hin")){
                         if(!English) {

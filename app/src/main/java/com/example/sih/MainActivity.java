@@ -174,13 +174,11 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
                 finishAffinity();
                 break;
-
             }
             case R.id.rate_us:
                 Intent rateIntent = new Intent(MainActivity.this, Rating.class);
                 startActivity(rateIntent);
                 return true;
-
             case R.id.contact_us:
                 String recipient = "firstloveyourself1999@gmail.com";
                 String subject = "Related to Rojgar App";
