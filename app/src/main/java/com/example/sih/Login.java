@@ -103,15 +103,12 @@ public class Login extends AppCompatActivity {
                 else{
                     String url = "https://smart-e60d6.firebaseio.com/Users.json";
                     final ProgressDialog pd = new ProgressDialog(Login.this);
-                    if(check.equals("Hin")){
-                        pd.setMessage(getResources().getString(R.string.logging_in1));
-                    }else {
+
                         if(check.equals("Hin")){
                             pd.setMessage(getResources().getString(R.string.logging_in1));
                         }else {
                             pd.setMessage("Logging in...");
                         }
-                    }
                     pd.show();
 
                     // If there is some value in realPhone then extracting encrypted password by combining phone number and entered password
@@ -214,6 +211,7 @@ public class Login extends AppCompatActivity {
         register.setText(R.string.register1);
         loginButton.setText(R.string.login1);
         Phone.setHint(R.string.phone1);
+        forget.setText(R.string.forgot_password1);
         Password.setHint(R.string.password1);
     }
 

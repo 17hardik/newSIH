@@ -359,7 +359,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTName.setText(R.string.change_name1);
         BTCertificates.setText(R.string.update_qualification_certificates1);
         BTPhone.setText(R.string.change_phone1);
-        getSupportActionBar().setTitle(R.string.profle1);
+        getSupportActionBar().setTitle(R.string.profile1);
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
