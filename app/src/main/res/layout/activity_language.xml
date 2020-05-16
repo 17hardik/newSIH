@@ -11,20 +11,22 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="228dp"
         android:text="Continue In English"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.45"/>
 
     <Button
         android:id="@+id/buttonHindi"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="328dp"
         android:text="हिंदी में जारी रखें"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 </androidx.constraintlayout.widget.ConstraintLayout>
