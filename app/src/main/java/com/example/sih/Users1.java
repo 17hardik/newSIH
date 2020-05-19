@@ -2,7 +2,6 @@ package com.example.sih;
 
 public class Users1 {
     private String Cname;
-    private String CRpost;
     private String CRemail;
     private String CRnumo;
     private String Cloc;
@@ -16,14 +15,6 @@ public class Users1 {
 
     public void setCname(String cname) {
         Cname = cname;
-    }
-
-    public String getCRpost() {
-        return CRpost;
-    }
-
-    public void setCRpost(String CRpost) {
-        this.CRpost = CRpost;
     }
 
     public String getCRemail() {
