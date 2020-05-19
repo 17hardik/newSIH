@@ -5,6 +5,7 @@ public class Users1 {
     private String CRemail;
     private String CRnumo;
     private String Cloc;
+    private String CRpost;
 
     public Users1() {
     }
@@ -39,5 +40,13 @@ public class Users1 {
 
     public void setCloc(String cloc) {
         Cloc = cloc;
+    }
+
+    public String getCRpost() {
+        return CRpost;
+    }
+
+    public void setCRpost(String CRpost) {
+        this.CRpost = CRpost;
     }
 }
