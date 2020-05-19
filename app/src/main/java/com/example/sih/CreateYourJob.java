@@ -35,8 +35,7 @@ public class CreateYourJob extends AppCompatActivity {
         Cregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int CRnumb = Integer.parseInt(CRnum.getText().toString().trim());
-
+                String CRnumb = (CRnum.getText().toString().trim());
                 users1.setCname(Cname.getText().toString().trim());
                 users1.setCRpost(CRpost.getText().toString().trim());
                 users1.setCRemail(CRemail.getText().toString().trim());

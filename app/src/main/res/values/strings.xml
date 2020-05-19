@@ -116,7 +116,9 @@
     <string name="username_updated1">यूज़रनेम सफलतापूर्वक परिवर्तित किया गया</string>
     <string name="phone_updated1">फ़ोन सफलतापूर्वक परिवर्तित किया गया</string>
     <string name="phone_verify1">फ़ोन सत्यापित करें</string>
-    <string name="profle1">प्रोफ़ाइल</string>
+    <string name="profile1">प्रोफ़ाइल</string>
     <string name="phone_changed1">आपका फ़ोन नंबर बदल दिया गया है</string>
     <string name="msg_token_fmt">%s</string>
+    <string name="username_dob_incorrect">उपयोगकर्ता नाम या जन्म तिथि गलत है</string>
+    <string name="forgot_password1">पासवर्ड भूल गए?</string>
 </resources>

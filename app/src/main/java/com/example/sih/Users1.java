@@ -4,7 +4,7 @@ public class Users1 {
     private String Cname;
     private String CRpost;
     private String CRemail;
-    private Integer CRnumo;
+    private String CRnumo;
     private String Cloc;
 
     public Users1() {
@@ -34,11 +34,11 @@ public class Users1 {
         this.CRemail = CRemail;
     }
 
-    public Integer getCRnum() {
+    public String getCRnum() {
         return CRnumo;
     }
 
-    public void setCRnum(Integer CRnum) {
+    public void setCRnum(String CRnum) {
         this.CRnumo = CRnum;
     }
 
