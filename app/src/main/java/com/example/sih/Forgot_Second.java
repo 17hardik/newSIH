@@ -27,9 +27,10 @@ import java.math.BigInteger;
 public class Forgot_Second extends AppCompatActivity {
     EditText ETNew, ETConfirm;
     Button BTPassword;
-    String phone, M, S, check, password, new_pass, conf_pass, New_Cipher, lang, K, clicked;
-    int i, j, l;
+    String phone, M, check, password, new_pass, conf_pass, New_Cipher, lang, K, clicked;
+    int j, l;
     Firebase firebase;
+    Intent intent;
     DatabaseReference reff;
     Boolean English = true;
 
@@ -40,8 +41,6 @@ public class Forgot_Second extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Change Password");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        SharedPreferences preferences = getSharedPreferences(S, i);
-        phone = preferences.getString("Phone","");
         SharedPreferences preferences2 = getSharedPreferences(K, l);
         clicked = preferences2.getString("Clicked","");
         SharedPreferences preferences1 = getSharedPreferences(M, j);
@@ -53,6 +52,8 @@ public class Forgot_Second extends AppCompatActivity {
         BTPassword = findViewById(R.id.passwordButton);
         BTPassword.setBackgroundResource(R.drawable.button);
         Firebase.setAndroidContext(this);
+        intent = getIntent();
+        phone = intent.getStringExtra("phone");
         if(check.equals("Hin")){
             toHin();
         } else{
