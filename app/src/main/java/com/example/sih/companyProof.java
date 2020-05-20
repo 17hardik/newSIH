@@ -80,7 +80,7 @@ public class companyProof extends AppCompatActivity {
 
 
                 reff.child(phone).child("Company").setValue(company);
-                reff.child("Jobs").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
+                reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
                 Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
             }
         });
