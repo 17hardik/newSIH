@@ -72,7 +72,7 @@ public class companyProof extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                users1.setCname(CRpost.getText().toString().trim());
+                users1.setCRpost(CRpost.getText().toString().trim());
 
                 Intent intent = new Intent(companyProof.this, jobDetails.class );
                 startActivity(intent);
