@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -39,15 +40,17 @@ public class companyProof extends AppCompatActivity {
     int counter = 1, i, j;
     DatabaseReference mDatabaseReference;
     Button upButton, register;
-    String phone, newPhone;
+    String phone, newPhone, S, company;
     DatabaseReference reff;
     Users1 users1;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences1 = getSharedPreferences(S,i);
+        phone = preferences1.getString("Phone","");
         setContentView(R.layout.activity_company_proof);
-
         companyName = findViewById(R.id.textView3);
 
 
@@ -62,13 +65,15 @@ public class companyProof extends AppCompatActivity {
         textViewStatus = findViewById(R.id.textView5);
         upButton = findViewById(R.id.button2);
         register = findViewById(R.id.button3);
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
-
+        intent = getIntent();
+        company = intent.getStringExtra("companyName");
+        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+        users1 = new Users1();
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 users1.setCname(CRpost.getText().toString().trim());
-                reff.child("member1").setValue(users1);
+                reff.child("Company").setValue(company);
                 Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
             }
         });

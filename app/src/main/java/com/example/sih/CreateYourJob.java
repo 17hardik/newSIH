@@ -46,7 +46,7 @@ public class CreateYourJob extends AppCompatActivity {
                 intent.putExtra("companyName", cName);
                 startActivity(intent);
 
-                reff.child("member1").setValue(users1);
+                reff.child("Jobs").child(CRnumb).setValue(users1);
 
                 Toast.makeText(CreateYourJob.this, "data inserted successfully",Toast.LENGTH_LONG).show();
             }
