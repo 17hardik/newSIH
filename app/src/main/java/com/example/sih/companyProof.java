@@ -82,7 +82,7 @@ public class companyProof extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                newPhone = dataSnapshot.child("Phone").getValue().toString();
+                newPhone = dataSnapshot.child(phone).child("Phone").getValue().toString();
             }
 
             @Override
