@@ -2,10 +2,10 @@ package com.example.sih;
 
 public class Users1 {
     private String Cname;
-    private String CRpost;
     private String CRemail;
     private String CRnumo;
     private String Cloc;
+    private String CRpost;
 
     public Users1() {
     }
@@ -16,14 +16,6 @@ public class Users1 {
 
     public void setCname(String cname) {
         Cname = cname;
-    }
-
-    public String getCRpost() {
-        return CRpost;
-    }
-
-    public void setCRpost(String CRpost) {
-        this.CRpost = CRpost;
     }
 
     public String getCRemail() {
@@ -48,5 +40,13 @@ public class Users1 {
 
     public void setCloc(String cloc) {
         Cloc = cloc;
+    }
+
+    public String getCRpost() {
+        return CRpost;
+    }
+
+    public void setCRpost(String CRpost) {
+        this.CRpost = CRpost;
     }
 }
