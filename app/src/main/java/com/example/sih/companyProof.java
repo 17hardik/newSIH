@@ -67,17 +67,20 @@ public class companyProof extends AppCompatActivity {
         register = findViewById(R.id.button3);
         intent = getIntent();
         company = intent.getStringExtra("companyName");
-        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+        reff = FirebaseDatabase.getInstance().getReference().child("Users");
         users1 = new Users1();
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 users1.setCRpost(CRpost.getText().toString().trim());
 
+
                 Intent intent = new Intent(companyProof.this, jobDetails.class );
                 startActivity(intent);
 
-                reff.child("Company").setValue(company);
+
+                reff.child(phone).child("Company").setValue(company);
+                reff.child("Jobs").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
                 Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
             }
         });
@@ -85,7 +88,7 @@ public class companyProof extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                newPhone = dataSnapshot.child("Phone").getValue().toString();
+                newPhone = dataSnapshot.child(phone).child("Phone").getValue().toString();
             }
 
             @Override
