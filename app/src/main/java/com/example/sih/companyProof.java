@@ -73,6 +73,10 @@ public class companyProof extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 users1.setCname(CRpost.getText().toString().trim());
+
+                Intent intent = new Intent(companyProof.this, jobDetails.class );
+                startActivity(intent);
+
                 reff.child("Company").setValue(company);
                 Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
             }
