@@ -72,7 +72,7 @@ public class companyProof extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                users1.setCname(CRpost.getText().toString().trim());
+                users1.setCRpost(CRpost.getText().toString().trim());
                 reff.child(phone).child("Company").setValue(company);
                 reff.child("Jobs").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
                 Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
