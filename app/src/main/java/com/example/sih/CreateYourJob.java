@@ -41,7 +41,6 @@ public class CreateYourJob extends AppCompatActivity {
                 users1.setCRemail(CRemail.getText().toString().trim());
                 users1.setCRnum(CRnumb);
                 users1.setCloc(Cloc.getText().toString().trim());
-
                 reff.child("member1").setValue(users1);
 
                 Toast.makeText(CreateYourJob.this, "data inserted successfully",Toast.LENGTH_LONG).show();
