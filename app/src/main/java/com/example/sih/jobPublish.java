@@ -15,9 +15,9 @@ public class jobPublish extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_publish);
 
-        reg.findViewById(R.id.button1);
-        create.findViewById(R.id.button2);
-        prev.findViewById(R.id.button3);
+        reg = findViewById(R.id.button1);
+        create = findViewById(R.id.button2);
+        prev = findViewById(R.id.button3);
 
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
