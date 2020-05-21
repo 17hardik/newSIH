@@ -47,6 +47,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
         <activity android:name=".CreateYourJob" />
+        <activity android:name=".Forgot_Second"/>
         <activity android:name=".Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

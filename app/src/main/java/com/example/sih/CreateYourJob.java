@@ -23,7 +23,6 @@ public class CreateYourJob extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_your_job);
-
         Cname = findViewById(R.id.editText);
         CRemail = findViewById(R.id.editText3);
         CRnum = findViewById(R.id.editText4);
@@ -31,7 +30,6 @@ public class CreateYourJob extends AppCompatActivity {
         Cregister = findViewById(R.id.button);
         users1 = new Users1();
         reff = FirebaseDatabase.getInstance().getReference().child("Users");
-
         Cregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,17 +38,13 @@ public class CreateYourJob extends AppCompatActivity {
                 users1.setCRemail(CRemail.getText().toString().trim());
                 users1.setCRnum(CRnumb);
                 users1.setCloc(Cloc.getText().toString().trim());
-
                 String cName = Cname.getText().toString();
                 Intent intent = new Intent(CreateYourJob.this, companyProof.class);
                 intent.putExtra("companyName", cName);
                 startActivity(intent);
-
                 reff.child("Jobs").child(CRnumb).setValue(users1);
-
                 Toast.makeText(CreateYourJob.this, "data inserted successfully",Toast.LENGTH_LONG).show();
             }
         });
-
     }
 }

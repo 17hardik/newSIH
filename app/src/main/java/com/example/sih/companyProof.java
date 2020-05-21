@@ -52,12 +52,8 @@ public class companyProof extends AppCompatActivity {
         phone = preferences1.getString("Phone","");
         setContentView(R.layout.activity_company_proof);
         companyName = findViewById(R.id.textView3);
-
-
         String Jname = getIntent().getStringExtra("companyName");
-
         companyName.setText("Your Company/Start-up Name: " + Jname);
-
         CRpost = findViewById(R.id.editText2);
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -159,7 +155,6 @@ public class companyProof extends AppCompatActivity {
                                 textViewStatus.setText((int) progress + "% Uploading...");
                         }
                     });
-
 
     }
 

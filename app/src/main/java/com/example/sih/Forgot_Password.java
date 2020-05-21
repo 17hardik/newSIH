@@ -60,7 +60,6 @@ public class Forgot_Password extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         Firebase.setAndroidContext(this);
-
         myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
