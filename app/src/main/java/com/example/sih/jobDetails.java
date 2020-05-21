@@ -48,8 +48,8 @@ public class jobDetails extends AppCompatActivity {
                 details.setCity(city.getText().toString().trim());
                 details.setEmail(email.getText().toString().trim());
 
-//                reff.child("Job Post").child(String.valueOf(title)).setValue(details);
-                reff.child("Job Post").child(phone).setValue(details);
+                reff.child("Job Post").child(phone).child(title.getText().toString().trim()).setValue(details);
+
                 Toast.makeText(jobDetails.this, "Uploaded Job Details Successfully",Toast.LENGTH_LONG).show();
             }
         });
