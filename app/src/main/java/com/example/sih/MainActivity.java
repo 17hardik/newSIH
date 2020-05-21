@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
                 case R.id.create_your_job:
-                Intent jCreateIntent = new Intent(MainActivity.this, CreateYourJob.class);
+                Intent jCreateIntent = new Intent(MainActivity.this, jobPublish.class);
                 startActivity(jCreateIntent);
                 return true;
 

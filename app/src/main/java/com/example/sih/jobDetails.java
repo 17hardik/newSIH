@@ -2,6 +2,7 @@ package com.example.sih;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telecom.Call;
@@ -51,6 +52,9 @@ public class jobDetails extends AppCompatActivity {
                 reff.child("Job Post").child(phone).child(title.getText().toString().trim()).setValue(details);
 
                 Toast.makeText(jobDetails.this, "Uploaded Job Details Successfully",Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(jobDetails.this, jobPublish.class);
+                startActivity(intent);
             }
         });
 

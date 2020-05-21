@@ -71,7 +71,7 @@ public class companyProof extends AppCompatActivity {
                 users1.setCRpost(CRpost.getText().toString().trim());
 
 
-                Intent intent = new Intent(companyProof.this, jobDetails.class );
+                Intent intent = new Intent(companyProof.this, jobPublish.class );
                 startActivity(intent);
 
 
