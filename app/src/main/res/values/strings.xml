@@ -20,6 +20,11 @@
     <string name="writer_jobs">Writer Jobs</string>
     <string name="details">Details</string>
     <string name="register">Register</string>
+    <string name="title">Job Title: </string>
+    <string name="desc">Job Description: </string>
+    <string name="exp">Work Experience: </string>
+    <string name="city">Reporting City: </string>
+    <string name="email">Contact E-mail: </string>
     <string name="top_categories1">शीर्ष श्रेणियां</string>
     <string name="bank_jobs1">बैंक नौकरियां</string>
     <string name="engineering_jobs1">इंजीनियरिंग नौकरियां</string>
