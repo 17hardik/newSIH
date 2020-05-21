@@ -49,7 +49,7 @@
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55"/>
+        app:layout_constraintVertical_bias="0.55" />
 
 
     <EditText
@@ -63,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.63"/>
+        app:layout_constraintVertical_bias="0.63" />
 
 
     <EditText
@@ -77,62 +77,62 @@
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.71"/>
+        app:layout_constraintVertical_bias="0.71" />
 
 
     <EditText
         android:id="@+id/dob"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="false"
         android:hint="Enter Your Date Of Birth"
-        android:layout_height="wrap_content"
-        android:layout_width="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79"/>
+        app:layout_constraintVertical_bias="0.79" />
 
     <Button
         android:id="@+id/register_button"
         android:layout_width="300dp"
-        android:textColor="#FFFFFF"
         android:layout_height="wrap_content"
         android:text="Register"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89"/>
+        app:layout_constraintVertical_bias="0.89" />
 
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/already"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:textColor="#aaaaaa"
         android:text="Already Registered? "
+        android:textColor="#aaaaaa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97"/>
+        app:layout_constraintVertical_bias="0.97" />
 
     <TextView
         android:id="@+id/login2"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:textColor="#aaaaaa"
         android:text="Login"
+        android:textColor="#aaaaaa"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.99999"/>
+        app:layout_constraintVertical_bias="0.99999" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
