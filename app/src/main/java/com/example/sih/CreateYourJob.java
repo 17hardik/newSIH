@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,13 +50,40 @@ public class CreateYourJob extends AppCompatActivity {
                 users1.setCloc(Cloc.getText().toString().trim());
 
                 String cName = Cname.getText().toString();
-                Intent intent = new Intent(CreateYourJob.this, companyProof.class);
-                intent.putExtra("companyName", cName);
-                startActivity(intent);
 
-                reff.child("Company Representative Details").child(phone).setValue(users1);
+                try{
 
-                Toast.makeText(CreateYourJob.this, "data inserted successfully",Toast.LENGTH_LONG).show();
+                    if (Cname.getText().toString().trim().equals("")){
+                        Cname.setError("Must be Filled");
+                        Cname.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else if (CRemail.getText().toString().trim().equals("")){
+                        CRemail.setError("Must be Filled");
+                        CRemail.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else if (CRnumb.equals("")){
+                        CRnum.setError("Must be Filled");
+                        CRnum.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else if (Cloc.getText().toString().trim().equals("")){
+                        Cloc.setError("Must be Filled");
+                        Cloc.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else{
+                        reff.child("Company Representative Details").child(phone).setValue(users1);
+                        Toast.makeText(CreateYourJob.this, "data inserted successfully",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(CreateYourJob.this, companyProof.class);
+                        intent.putExtra("companyName", cName);
+                        startActivity(intent);
+                    }
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 

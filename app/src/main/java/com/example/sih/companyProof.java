@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,19 +66,31 @@ public class companyProof extends AppCompatActivity {
         company = intent.getStringExtra("companyName");
         reff = FirebaseDatabase.getInstance().getReference().child("Users");
         users1 = new Users1();
+        register.setEnabled(false);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 users1.setCRpost(CRpost.getText().toString().trim());
 
+                try{
 
-                Intent intent = new Intent(companyProof.this, jobPublish.class );
-                startActivity(intent);
+                    if (CRpost.getText().toString().trim().equals("")) {
+                        CRpost.setError("Must be Filled");
+                        CRpost.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
 
+                    else {
 
-                reff.child(phone).child("Company").setValue(company);
-                reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
-                Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
+                        reff.child(phone).child("Company").setValue(company);
+                        reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
+                        Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(companyProof.this, jobPublish.class );
+                        startActivity(intent);
+                    }
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -145,6 +158,7 @@ public class companyProof extends AppCompatActivity {
                             counter++;
                             upButton.setEnabled(false);
                                 upButton.setText("Uploaded");
+                                register.setEnabled(true);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
