@@ -60,7 +60,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     EditText ETUsername, ETName, ETPhone;
-    Button BTUsername, BTName, BTPhone, BTPassword, BTCertificates;
+    Button BTUsername, BTName, BTPhone, BTPassword, BTCertificates, BTDelete;
     DatabaseReference reff;
     TextView uname, uphone;
     ImageView camera, profile, drawerProfile;
@@ -102,6 +102,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTPhone = findViewById(R.id.phoneBT);
         BTPassword = findViewById(R.id.password);
         BTCertificates = findViewById(R.id.certificate);
+        BTDelete = findViewById(R.id.delete);
         FirebaseApp.initializeApp(this);
         Firebase.setAndroidContext(this);
         drawer = findViewById(R.id.draw_layout);
@@ -139,13 +140,17 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user_name = dataSnapshot.child("Username").getValue().toString();
-                name = dataSnapshot.child("Name").getValue().toString();
-                user_phone = dataSnapshot.child("Phone").getValue().toString();
-                mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
-                ETUsername.setText(user_name);
-                ETName.setText(name);
-                ETPhone.setText(user_phone);
+                try {
+                    user_name = dataSnapshot.child("Username").getValue().toString();
+                    name = dataSnapshot.child("Name").getValue().toString();
+                    user_phone = dataSnapshot.child("Phone").getValue().toString();
+                    mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
+                    ETUsername.setText(user_name);
+                    ETName.setText(name);
+                    ETPhone.setText(user_phone);
+                } catch(Exception e){
+
+                }
 
                 try {
                     final long ONE_MEGABYTE = 1024 * 1024;
@@ -257,6 +262,13 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 }
             }
         });
+        BTDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Delete_Acc del=new Delete_Acc(Profile.this);
+                del.show();
+            }
+        });
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -345,6 +357,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTName.setText("Change Name");
         BTCertificates.setText("Update Qualification Certificates");
         BTPhone.setText("Change Phone");
+        BTDelete.setText("Delete Your Account");
         getSupportActionBar().setTitle("Profile");
         English = true;
         lang = "Eng";
@@ -359,6 +372,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTName.setText(R.string.change_name1);
         BTCertificates.setText(R.string.update_qualification_certificates1);
         BTPhone.setText(R.string.change_phone1);
+        BTDelete.setText(R.string.delete_your_account1);
         getSupportActionBar().setTitle(R.string.profile1);
         English = false;
         lang = "Hin";
