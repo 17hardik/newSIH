@@ -35,7 +35,7 @@ public class jobsPublished extends AppCompatActivity {
         SharedPreferences preferences1 = getSharedPreferences(S,i);
         phone = preferences1.getString("Phone","");
 
-        recyclerView = (RecyclerView) findViewById(R.id.jobs);
+        recyclerView = findViewById(R.id.jobs);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<jobPost>();
 

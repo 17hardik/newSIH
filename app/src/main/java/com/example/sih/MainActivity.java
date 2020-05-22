@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
     ImageButton Gov, Non_Gov, Tenders, Free_Lancing;
     RelativeLayout menus;
     DatabaseReference reff;
-    String phone, S, M, user_name, check, lang;
+    String phone, S, M, user_name, check, lang, X;
     Menu menu1;
     Boolean English = true;
-    int i, j;
+    int i, j, y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,23 +73,7 @@ public class MainActivity extends AppCompatActivity {
             English = true;
             toEng();
         }
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                           //currently I am writing nothing here, you can write whatever you want but just inform me.
-                            return;
-                        }
-                        //your tokens will be stored as soon as you open this activity
-                        String token = task.getResult().getToken();
-                        String user_token = getString(R.string.msg_token_fmt, token);
-                        Log.d("Token", user_token);
-                        Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-                        reference.child(phone).child("Message Token").setValue(user_token);
-                    }
-                });
-        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+
         Gov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,14 +106,56 @@ public class MainActivity extends AppCompatActivity {
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
         bgapp.animate().translationY(-2000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
-        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+        try {
+            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+        } catch(Exception e){
+            if(check.equals("Eng") || English) {
+                Toast.makeText(this, "Your account has been deleted", Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(this, getResources().getString(R.string.account_deleted1), Toast.LENGTH_SHORT).show();
+            }
+        }
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user_name = dataSnapshot.child("Username").getValue().toString();
-                SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                editor.putString("UName", user_name);
-                editor.apply();
+                try {
+                    user_name = dataSnapshot.child("Username").getValue().toString();
+                    SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                    editor.putString("UName", user_name);
+                    editor.apply();
+                    SharedPreferences.Editor editor2 = getSharedPreferences(X, y).edit();
+                    editor2.putString("isDeleted", "No");
+                    editor2.apply();
+                    FirebaseInstanceId.getInstance().getInstanceId()
+                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        //currently I am writing nothing here, you can write whatever you want but just inform me.
+                                        return;
+                                    }
+                                    //your tokens will be stored as soon as you open this activity
+                                    String token = task.getResult().getToken();
+                                    String user_token = getString(R.string.msg_token_fmt, token);
+                                    Log.d("Token", user_token);
+                                    Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
+                                    reference.child(phone).child("Message Token").setValue(user_token);
+                                }
+                            });
+                    FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+                } catch(Exception e){
+                    if(check.equals("Eng") && English){
+                        Toast.makeText(MainActivity.this, "Your account has been deleted", Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(MainActivity.this, getResources().getString(R.string.account_deleted1), Toast.LENGTH_SHORT).show();
+                    }
+                    SharedPreferences.Editor editor = getSharedPreferences(X, y).edit();
+                    editor.putString("isDeleted", "Yes");
+                    editor.apply();
+                    Intent logIntent = new Intent(MainActivity.this, Login.class);
+                    startActivity(logIntent);
+                    finishAffinity();
+                }
             }
 
             @Override
