@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class jobsPublished extends AppCompatActivity {
 
@@ -42,6 +43,7 @@ public class jobsPublished extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                list = new ArrayList<jobPost>();
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                     jobPost j = dataSnapshot1.getValue(jobPost.class);
                     list.add(j);
