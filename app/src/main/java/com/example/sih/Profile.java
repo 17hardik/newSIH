@@ -550,6 +550,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 if (img != null) {
                     pd.show();
                     profile.setImageBitmap(img);
+                    fullProfile.setImageBitmap(img);
                     drawerProfile.setImageBitmap(img);
                     uploadFile(data.getData());
                     path = saveToInternalStorage(img);
