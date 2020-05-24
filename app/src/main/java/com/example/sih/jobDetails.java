@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.view.View;
@@ -49,12 +50,48 @@ public class jobDetails extends AppCompatActivity {
                 details.setCity(city.getText().toString().trim());
                 details.setEmail(email.getText().toString().trim());
 
-                reff.child("Job Post").child(phone).child(title.getText().toString().trim()).setValue(details);
+                try{
 
-                Toast.makeText(jobDetails.this, "Uploaded Job Details Successfully",Toast.LENGTH_LONG).show();
+                    if (title.getText().toString().trim().equals("")) {
+                        title.setError("Must be Filled");
+                        title.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
 
-                Intent intent = new Intent(jobDetails.this, jobPublish.class);
-                startActivity(intent);
+                    else if (description.getText().toString().trim().equals("")) {
+                        description.setError("Must be Filled");
+                        description.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else if (description.getText().toString().trim().length() < 30){
+                        description.setError("At least 30 characters must be there");
+                        description.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else if (experience.getText().toString().trim().equals("")) {
+                        experience.setError("Must be Filled");
+                        experience.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else if (city.getText().toString().trim().equals("")) {
+                        city.setError("Must be Filled");
+                        city.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else  if (email.getText().toString().trim().equals("")) {
+                        email.setError("Must be Filled");
+                        email.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
+
+                    else {
+                        reff.child("Job Post").child(phone).child(title.getText().toString().trim()).setValue(details);
+                        Toast.makeText(jobDetails.this, "Uploaded Job Details Successfully",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(jobDetails.this, jobPublish.class);
+                        startActivity(intent);
+                    }
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
