@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
         } catch(Exception e){
-            if(check.equals("Eng") || English) {
+            if(check.equals("Eng") && English) {
                 Toast.makeText(this, "Your account has been deleted", Toast.LENGTH_SHORT).show();
             } else{
                 Toast.makeText(this, getResources().getString(R.string.account_deleted1), Toast.LENGTH_SHORT).show();
