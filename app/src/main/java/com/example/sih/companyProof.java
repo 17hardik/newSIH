@@ -45,6 +45,7 @@ public class companyProof extends AppCompatActivity {
     DatabaseReference reff;
     Users1 users1;
     Intent intent;
+    Boolean isUploaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,6 @@ public class companyProof extends AppCompatActivity {
         company = intent.getStringExtra("companyName");
         reff = FirebaseDatabase.getInstance().getReference().child("Users");
         users1 = new Users1();
-        register.setEnabled(false);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,8 +79,11 @@ public class companyProof extends AppCompatActivity {
                         CRpost.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
-                    else {
+                    else if (!isUploaded){
+                        Toast.makeText(companyProof.this, "Upload Company ID",Toast.LENGTH_LONG).show();
+                    }
 
+                    else {
                         reff.child(phone).child("Company").setValue(company);
                         reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
                         Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
@@ -158,7 +161,7 @@ public class companyProof extends AppCompatActivity {
                             counter++;
                             upButton.setEnabled(false);
                                 upButton.setText("Uploaded");
-                                register.setEnabled(true);
+                            isUploaded = true;
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

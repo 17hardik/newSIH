@@ -10,7 +10,7 @@ public class jobPost {
     public jobPost() {
     }
 
-    public jobPost(String title, String desc, String exp, String city, String email) {
+    public jobPost(String title, String description, String experience, String city, String email) {
         this.title = title;
         this.description = description;
         this.experience = experience;

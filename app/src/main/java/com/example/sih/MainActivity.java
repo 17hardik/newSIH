@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Menu menu1;
     Boolean English = true;
     int i, j, y;
+    Boolean isRegistered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,29 @@ public class MainActivity extends AppCompatActivity {
         Non_Gov = findViewById(R.id.non);
         Tenders = findViewById(R.id.tenders);
         Free_Lancing = findViewById(R.id.free);
+
+
+        reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try{
+
+                    String post = dataSnapshot.child("Post").getValue().toString();
+                    isRegistered = true;
+
+                } catch (Exception e){
+                        isRegistered = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, "Something went wrong",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         if(check.equals("Hin")){
             English = false;
             toHin();
@@ -178,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.switch1:
@@ -220,8 +243,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
                 case R.id.create_your_job:
-                Intent jCreateIntent = new Intent(MainActivity.this, jobPublish.class);
-                startActivity(jCreateIntent);
+                if (!isRegistered) {
+                    Intent jCreateIntent = new Intent(MainActivity.this, CreateYourJob.class);
+                    startActivity(jCreateIntent);
+                }
+                else{
+                    Intent viewIntent = new Intent(MainActivity.this, jobsPublished.class);
+                    startActivity(viewIntent);
+                }
                 return true;
 
             default:

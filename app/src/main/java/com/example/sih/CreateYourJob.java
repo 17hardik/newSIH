@@ -21,7 +21,7 @@ public class CreateYourJob extends AppCompatActivity {
     DatabaseReference reff;
     Users1 users1;
     int i;
-    String phone, newPhone, S;
+    String phone, S;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
