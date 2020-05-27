@@ -39,7 +39,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Job Description >30 words"
+        android:hint="Job Description >30 characters"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

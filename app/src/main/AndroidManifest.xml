@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".jobDetails"></activity>
+        <activity android:name=".companyProof" />
 
         <service
             android:name=".MyFirebaseMessagingService"
@@ -29,7 +31,6 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".Forgot_Second"/>
         <activity android:name=".Change_Phone" />
         <activity android:name=".Update_Certificates" />
         <activity android:name=".Change_Password" />
@@ -46,6 +47,8 @@
         <activity android:name=".Register2" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
+        <activity android:name=".CreateYourJob" />
+        <activity android:name=".Forgot_Second"/>
         <activity android:name=".Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

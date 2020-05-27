@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/layout"
         tools:context=".Profile">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -128,8 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.80"
-        app:layout_constraintHorizontal_bias="0.10"/>
+        app:layout_constraintVertical_bias="0.79"/>
 
     <Button
         android:layout_width="300dp"
@@ -142,8 +142,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.90"
-        app:layout_constraintHorizontal_bias="0.10"/>
+        app:layout_constraintVertical_bias="0.89"/>
+
+    <Button
+       android:layout_width="300dp"
+       android:layout_height="wrap_content"
+       android:id="@+id/delete"
+       android:background="@color/colorRed"
+       android:textColor="#ffffff"
+       android:text="Delete Your Account"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.99"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -157,5 +170,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/navigation_menu" />
+
+    <ImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image_full"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_person_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

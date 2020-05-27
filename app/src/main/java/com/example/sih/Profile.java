@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -60,11 +61,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     EditText ETUsername, ETName, ETPhone;
-    Button BTUsername, BTName, BTPhone, BTPassword, BTCertificates;
+    Button BTUsername, BTName, BTPhone, BTPassword, BTCertificates, BTDelete;
     DatabaseReference reff;
     TextView uname, uphone;
-    ImageView camera, profile, drawerProfile;
-    Boolean English = true;
+    ConstraintLayout Layout;
+    ImageView camera, profile, drawerProfile, fullProfile;
+    Boolean English = true, isFull = false;
     Firebase firebase;
     StorageReference mStorageReference;
     String user_name, name, phone, S, M, check, lang, mVerificationId, user_phone;
@@ -92,16 +94,19 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_profile);
+        Layout = findViewById(R.id.layout);
         ETUsername = findViewById(R.id.usernameET);
         ETName = findViewById(R.id.nameET);
         camera = findViewById(R.id.camera);
         profile = findViewById(R.id.profile_image);
+        fullProfile = findViewById(R.id.profile_image_full);
         ETPhone = findViewById(R.id.phoneET);
         BTUsername = findViewById(R.id.usernameBT);
         BTName = findViewById(R.id.nameBT);
         BTPhone = findViewById(R.id.phoneBT);
         BTPassword = findViewById(R.id.password);
         BTCertificates = findViewById(R.id.certificate);
+        BTDelete = findViewById(R.id.delete);
         FirebaseApp.initializeApp(this);
         Firebase.setAndroidContext(this);
         drawer = findViewById(R.id.draw_layout);
@@ -139,13 +144,17 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user_name = dataSnapshot.child("Username").getValue().toString();
-                name = dataSnapshot.child("Name").getValue().toString();
-                user_phone = dataSnapshot.child("Phone").getValue().toString();
-                mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
-                ETUsername.setText(user_name);
-                ETName.setText(name);
-                ETPhone.setText(user_phone);
+                try {
+                    user_name = dataSnapshot.child("Username").getValue().toString();
+                    name = dataSnapshot.child("Name").getValue().toString();
+                    user_phone = dataSnapshot.child("Phone").getValue().toString();
+                    mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
+                    ETUsername.setText(user_name);
+                    ETName.setText(name);
+                    ETPhone.setText(user_phone);
+                } catch(Exception e){
+
+                }
 
                 try {
                     final long ONE_MEGABYTE = 1024 * 1024;
@@ -159,6 +168,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                                     profile.setMinimumHeight(dm.heightPixels);
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
+                                    fullProfile.setImageBitmap(bm);
                                     path = saveToInternalStorage(bm);
                                     SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
                                     editor1.putString("path", path);
@@ -201,7 +211,9 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission();
+              fullProfile.setVisibility(View.VISIBLE);
+              Layout.setVisibility(View.INVISIBLE);
+              isFull = true;
             }
         });
 
@@ -255,6 +267,21 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     initFireBaseCallbacks();
                     send_data();
                 }
+            }
+        });
+        BTDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Delete_Acc del=new Delete_Acc(Profile.this);
+                del.show();
+            }
+        });
+        fullProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fullProfile.setVisibility(View.GONE);
+                Layout.setVisibility(View.VISIBLE);
+                isFull = false;
             }
         });
     }
@@ -345,6 +372,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTName.setText("Change Name");
         BTCertificates.setText("Update Qualification Certificates");
         BTPhone.setText("Change Phone");
+        BTDelete.setText("Delete Your Account");
         getSupportActionBar().setTitle("Profile");
         English = true;
         lang = "Eng";
@@ -359,6 +387,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTName.setText(R.string.change_name1);
         BTCertificates.setText(R.string.update_qualification_certificates1);
         BTPhone.setText(R.string.change_phone1);
+        BTDelete.setText(R.string.delete_your_account1);
         getSupportActionBar().setTitle(R.string.profile1);
         English = false;
         lang = "Hin";
@@ -402,6 +431,10 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer((GravityCompat.START));
+        } else if(isFull){
+            fullProfile.setVisibility(View.GONE);
+            Layout.setVisibility(View.VISIBLE);
+            isFull = false;
         } else {
             finish();
         }
@@ -517,6 +550,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 if (img != null) {
                     pd.show();
                     profile.setImageBitmap(img);
+                    fullProfile.setImageBitmap(img);
                     drawerProfile.setImageBitmap(img);
                     uploadFile(data.getData());
                     path = saveToInternalStorage(img);
@@ -578,6 +612,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             File f=new File(path, "profile.jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             profile.setImageBitmap(b);
+            fullProfile.setImageBitmap(b);
             drawerProfile.setImageBitmap(b);
         }
         catch (FileNotFoundException e)

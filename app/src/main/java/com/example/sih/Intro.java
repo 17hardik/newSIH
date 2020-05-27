@@ -12,19 +12,21 @@ import android.view.WindowManager;
  */
 
 public class Intro extends AppCompatActivity {
-    private int time = 2000, i, g;
-    String S, isLogged, L, status;
+    int time = 2000, i, g, y;
+    String S, isLogged, L, status, accountInfo, X;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         SharedPreferences preferences = getSharedPreferences(S,i);
-
         //checking whether the user has logged in already by using SharedPreferences
         isLogged = preferences.getString("Status","Null");
         SharedPreferences preferences1 = getSharedPreferences(L,g);
         //checking whether the app is running first time on a particular device
         status = preferences1.getString("isOpened","Not Opened");
+        SharedPreferences preferences2 = getSharedPreferences(X,y);
+        //checking whether the app is running first time on a particular device
+        accountInfo = preferences2.getString("isDeleted","No");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
         new Handler().postDelayed((new Runnable() {
@@ -36,7 +38,7 @@ public class Intro extends AppCompatActivity {
                     startActivity(lang);
                 }
                 // If the user has not logged in then user will be redirected to Login activity
-                else if(isLogged.equals("Null")) {
+                else if(isLogged.equals("Null") || accountInfo.equals("Yes")) {
                     Intent intro = new Intent(Intro.this, Login.class);
                     startActivity(intro);
                 }

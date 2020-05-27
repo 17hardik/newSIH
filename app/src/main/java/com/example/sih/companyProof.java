@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class companyProof extends AppCompatActivity {
     DatabaseReference reff;
     Users1 users1;
     Intent intent;
+    Boolean isUploaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +72,28 @@ public class companyProof extends AppCompatActivity {
             public void onClick(View view) {
                 users1.setCRpost(CRpost.getText().toString().trim());
 
+                try{
 
-                Intent intent = new Intent(companyProof.this, jobDetails.class );
-                startActivity(intent);
+                    if (CRpost.getText().toString().trim().equals("")) {
+                        CRpost.setError("Must be Filled");
+                        CRpost.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    }
 
+                    else if (!isUploaded){
+                        Toast.makeText(companyProof.this, "Upload Company ID",Toast.LENGTH_LONG).show();
+                    }
 
-                reff.child(phone).child("Company").setValue(company);
-                reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
-                Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
+                    else {
+                        reff.child(phone).child("Company").setValue(company);
+                        reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
+                        Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(companyProof.this, jobPublish.class );
+                        startActivity(intent);
+                    }
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -145,6 +161,7 @@ public class companyProof extends AppCompatActivity {
                             counter++;
                             upButton.setEnabled(false);
                                 upButton.setText("Uploaded");
+                            isUploaded = true;
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

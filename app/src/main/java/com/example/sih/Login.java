@@ -53,6 +53,7 @@ public class Login extends AppCompatActivity {
         {
             toHin();
         }
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +186,11 @@ public class Login extends AppCompatActivity {
                                         }
                                     }
                                 } catch (JSONException e) {
+                                    if(check.equals("Hin")){
+                                        Toast.makeText(Login.this, R.string.user_not_found1, Toast.LENGTH_LONG).show();
+                                    }else {
+                                        Toast.makeText(Login.this, "User not found", Toast.LENGTH_LONG).show();
+                                    }
                                     e.printStackTrace();
                                 }
                             }

@@ -20,6 +20,11 @@
     <string name="writer_jobs">Writer Jobs</string>
     <string name="details">Details</string>
     <string name="register">Register</string>
+    <string name="title">Job Title: </string>
+    <string name="desc">Job Description: </string>
+    <string name="exp">Work Experience: </string>
+    <string name="city">Reporting City: </string>
+    <string name="email">Contact E-mail: </string>
     <string name="top_categories1">शीर्ष श्रेणियां</string>
     <string name="bank_jobs1">बैंक नौकरियां</string>
     <string name="engineering_jobs1">इंजीनियरिंग नौकरियां</string>
@@ -121,4 +126,10 @@
     <string name="msg_token_fmt">%s</string>
     <string name="username_dob_incorrect">उपयोगकर्ता नाम या जन्म तिथि गलत है</string>
     <string name="forgot_password1">पासवर्ड भूल गए?</string>
+    <string name="account_deleted1">आपका खाता हटा दिया गया है</string>
+    <string name="want_to_delete">Do you really want to delete your account ?</string>
+    <string name="want_to_delete1">क्या आप वास्तव में अपना खाता हटाना चाहते हैं?</string>
+    <string name="yes1">हाँ</string>
+    <string name="no1">नहीं</string>
+    <string name="delete_your_account1">अपना खाता हटाएं</string>
 </resources>
