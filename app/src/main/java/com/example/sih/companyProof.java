@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -87,7 +88,7 @@ public class companyProof extends AppCompatActivity {
                         reff.child(phone).child("Company").setValue(company);
                         reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
                         Toast.makeText(companyProof.this, "Company Registered successfully",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(companyProof.this, jobPublish.class );
+                        Intent intent = new Intent(companyProof.this, jobsPublished.class );
                         startActivity(intent);
                     }
 
