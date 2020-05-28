@@ -2,6 +2,7 @@ package com.example.sih;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -88,4 +89,34 @@ public class CreateYourJob extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        String s1 = sh.getString("name","");
+        String s2 = sh.getString("email","");
+        String s3 = sh.getString("num","");
+        String s4 = sh.getString("loc","");
+
+        Cname.setText(s1);
+        CRemail.setText(s2);
+        CRnum.setText(s3);
+        Cloc.setText(s4);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("name", Cname.getText().toString());
+        myEdit.putString("email", CRemail.getText().toString());
+        myEdit.putString("num", CRnum.getText().toString());
+        myEdit.putString("loc", Cloc.getText().toString());
+
+        myEdit.apply();
+    }
+
 }
