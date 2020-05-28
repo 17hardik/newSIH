@@ -34,7 +34,6 @@ public class jobsPublished extends AppCompatActivity {
     jAdapter adapter;
     int i;
     String phone, S;
-    Boolean isCreated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +57,9 @@ public class jobsPublished extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try{
                     String num = dataSnapshot.child(phone).getValue().toString();
-                    isCreated = true;
+                    status.setText("You created the following jobs:");
                 } catch (Exception e){
-                    isCreated = false;
+                    status.setText("You have not created any job yet");
                 }
             }
             @Override
@@ -68,12 +67,6 @@ public class jobsPublished extends AppCompatActivity {
                 Toast.makeText(jobsPublished.this, "Something went wrong",Toast.LENGTH_LONG).show();
             }
         });
-
-        if (!isCreated){
-            status.setText("No jobs created yet");
-        } else{
-            status.setText("You created the following jobs:");
-        }
 
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
