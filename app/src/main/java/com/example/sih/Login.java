@@ -2,6 +2,7 @@ package com.example.sih;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -11,20 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.math.BigInteger;
 
 public class Login extends AppCompatActivity {
     TextView register, forget;
     EditText Phone, Password;
     Button loginButton;
+    DatabaseReference reff;
     String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null";
     int i, j;
 
@@ -94,15 +93,7 @@ public class Login extends AppCompatActivity {
                         Password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                 }
-                else if(!(phone.equals(new_phone))){
-                    if(check.equals("Hin")){
-                        Toast.makeText(Login.this, R.string.user_not_found1, Toast.LENGTH_LONG).show();
-                    }else {
-                        Toast.makeText(Login.this, "User not found", Toast.LENGTH_LONG).show();
-                    }
-                }
                 else{
-                    String url = "https://smart-e60d6.firebaseio.com/Users.json";
                     final ProgressDialog pd = new ProgressDialog(Login.this);
 
                         if(check.equals("Hin")){
@@ -110,22 +101,8 @@ public class Login extends AppCompatActivity {
                         }else {
                             pd.setMessage("Logging in...");
                         }
-                    pd.show();
 
-                    // If there is some value in realPhone then extracting encrypted password by combining phone number and entered password
-                    if(!(realPhone.equals("Null"))) {
-                        BigInteger hash = BigInteger.valueOf((realPhone.charAt(0) - '0') + (realPhone.charAt(2) - '0') + (realPhone.charAt(4) - '0') + (realPhone.charAt(6) - '0') + (realPhone.charAt(8) - '0'));
-                        StringBuilder sb = new StringBuilder();
-                        char[] letters = pass.toCharArray();
-
-                        for (char ch : letters) {
-                            sb.append((byte) ch);
-                        }
-                        String a = sb.toString();
-                        BigInteger temp = new BigInteger(a);
-                        hash = temp.multiply(hash);
-                        Cipher = String.valueOf(hash);
-                    } else{
+                        pd.show();
                         BigInteger hash = BigInteger.valueOf((phone.charAt(0) - '0') + (phone.charAt(2) - '0') + (phone.charAt(4) - '0') + (phone.charAt(6) - '0') + (phone.charAt(8) - '0'));
                         StringBuilder sb = new StringBuilder();
                         char[] letters = pass.toCharArray();
@@ -137,78 +114,47 @@ public class Login extends AppCompatActivity {
                         BigInteger temp = new BigInteger(a);
                         hash = temp.multiply(hash);
                         Cipher = String.valueOf(hash);
-                    }
-                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
-                        @Override
-                        public void onResponse(String s) {
-                            if(s.equals("null")){
-                                if(check.equals("Hin")){
-                                    Toast.makeText(Login.this, R.string.user_not_found1, Toast.LENGTH_LONG).show();
-                                }else {
-                                    Toast.makeText(Login.this, "User not found", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                            else{
+                        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+                        reff.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 try {
-                                    JSONObject obj = new JSONObject(s);
-
-                                    if(realPhone.equals("Null") && obj.getJSONObject(phone).getString("Password").equals(Cipher)){
+                                    String storedPass = dataSnapshot.child("Password").getValue().toString();
+                                    if (storedPass.equals(Cipher)) {
                                         SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
                                         editor.putString("Status", "Yes");
                                         editor.putString("Phone", phone);
                                         editor.apply();
                                         startActivity(new Intent(Login.this, MainActivity.class));
-                                        finish();
-                                    }
-
-                                   else if(obj.getJSONObject(realPhone).getString("Password").equals(Cipher)){
-                                        SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
-                                        editor.putString("Status", "Yes");
-                                        editor.putString("Phone", realPhone);
-                                        editor.apply();
-                                        startActivity(new Intent(Login.this, MainActivity.class));
-                                        finish();
-                                    }
-
-                                    else if(!obj.has(realPhone)){
-                                        if(check.equals("Hin")){
-                                            Toast.makeText(Login.this, R.string.user_not_found1, Toast.LENGTH_LONG).show();
-                                        }else {
-                                            Toast.makeText(Login.this, "User not found", Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-
-                                    else {
+                                        finishAffinity();
+                                    } else {
                                         if(check.equals("Hin")){
                                             Toast.makeText(Login.this, R.string.incorrect_password1, Toast.LENGTH_LONG).show();
                                         }else {
                                             Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_LONG).show();
                                         }
                                     }
-                                } catch (JSONException e) {
+                                } catch (Exception e) {
                                     if(check.equals("Hin")){
                                         Toast.makeText(Login.this, R.string.user_not_found1, Toast.LENGTH_LONG).show();
                                     }else {
                                         Toast.makeText(Login.this, "User not found", Toast.LENGTH_LONG).show();
                                     }
-                                    e.printStackTrace();
                                 }
+                                pd.dismiss();
                             }
 
-                            pd.dismiss();
-                        }
-                    },new Response.ErrorListener(){
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            System.out.println("" + volleyError);
-                            pd.dismiss();
-                        }
-                    });
-
-                    RequestQueue rQueue = Volley.newRequestQueue(Login.this);
-                    rQueue.add(request);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                if(check.equals("Hin")) {
+                                    Toast.makeText(Login.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
+                                } else{
+                                    Toast.makeText(Login.this, "There is some error", Toast.LENGTH_SHORT).show();
+                                }
+                                pd.dismiss();
+                            }
+                        });
                 }
-
             }
         });
     }

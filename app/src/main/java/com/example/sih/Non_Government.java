@@ -122,6 +122,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
+                String username = decryptUsername(u_name).toString();
                 mStorageReference = FirebaseStorage.getInstance().getReference().child(phone).child("Profile Picture");
                 try {
                     final long ONE_MEGABYTE = 1024 * 1024;
@@ -152,7 +153,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
                 }
                 uphone.setText(phone);
-                uname.setText(u_name);
+                uname.setText(username);
             }
 
             @Override
@@ -380,5 +381,29 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             }
         }
         return directory.getAbsolutePath();
+    }
+    public StringBuilder decryptUsername(String uname) {
+        int pllen;
+        StringBuilder sb = new StringBuilder();
+        int ciplen = uname.length();
+
+                String temp = Character.toString(uname.charAt(ciplen - 2));
+                if (temp.matches("[a-z]+")) {
+                    pllen = Character.getNumericValue(uname.charAt(ciplen - 1));
+                    pllen -= 2;
+                } else {
+                    String templen = uname.charAt(ciplen - 2) + Character.toString(uname.charAt(ciplen - 1));
+                    pllen = Integer.parseInt(templen);
+                    pllen -= 2;
+                }
+                String[] separated = uname.split("[a-zA-Z]");
+                for (int i = 0; i < pllen; i++) {
+                    String splitted = separated[i];
+                    int split = Integer.parseInt(splitted);
+                    split = split + pllen + (2 * i);
+                    char pln = (char) split;
+                    sb.append(pln);
+                }
+               return sb;
     }
 }

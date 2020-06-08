@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import java.math.BigInteger;
+import java.util.Random;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +38,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
     EditText etOtp;
     Button btResendOtp, btVerifyOtp;
     private FirebaseAuth mAuth;
-    String name, password, phone, username, dob, Cipher, mVerificationId, S, M, check;
+    String name, password, phone, username, dob, Cipher, mVerificationId, S, M, check, encryptedUsername;
     int i, j;
     Intent intent;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -61,7 +62,9 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
         password = intent.getStringExtra("password");
         mResendToken = intent.getParcelableExtra("mResendToken");
         mVerificationId = intent.getStringExtra("verificationId");
+
         mAuth = FirebaseAuth.getInstance();
+        encryptedUsername = encryptUsername(username).toString();
         BigInteger hash = BigInteger.valueOf((phone.charAt(0)-'0')+(phone.charAt(2)-'0')+(phone.charAt(4)-'0')+(phone.charAt(6)-'0')+(phone.charAt(8)-'0'));
         StringBuilder sb = new StringBuilder();
         char[] letters = password.toCharArray();
@@ -153,7 +156,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                                                 editor1.putString("NewPhone", phone);
                                                 editor1.apply();
                                                 Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-                                                reference.child(phone).child("Username").setValue(username);
+                                                reference.child(phone).child("Username").setValue(encryptedUsername);
                                                 reference.child(phone).child("Password").setValue(Cipher);
                                                 reference.child(phone).child("Name").setValue(name);
                                                 reference.child(phone).child("DOB").setValue(dob);
@@ -241,6 +244,21 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
         etOtp.setHint(R.string.verify_otp1);
         btResendOtp.setText(R.string.resend_otp1);
         btVerifyOtp.setText(R.string.verify_otp_btn1);
+    }
+
+    public StringBuilder encryptUsername(String uname) {
+        StringBuilder stringBuilder = new StringBuilder();
+        Random r = new Random();
+            int len = uname.length();
+            for (int i = 0; i < len; i++) {
+                char a = uname.charAt(i);
+                char c = (char) (r.nextInt(26) + 'a');
+                stringBuilder.append((a - len) - (2 * i));
+                stringBuilder.append(c);
+            }
+            String strlen = Integer.toString(len + 2);
+            stringBuilder.append(strlen);
+            return stringBuilder;
     }
 
 }

@@ -53,6 +53,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /** Activity through which users can view their profile and can make edit in it
@@ -148,8 +149,9 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     user_name = dataSnapshot.child("Username").getValue().toString();
                     name = dataSnapshot.child("Name").getValue().toString();
                     user_phone = dataSnapshot.child("Phone").getValue().toString();
+                    String username = decryptUsername(user_name).toString();
                     mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
-                    ETUsername.setText(user_name);
+                    ETUsername.setText(username);
                     ETName.setText(name);
                     ETPhone.setText(user_phone);
                 } catch(Exception e){
@@ -220,7 +222,8 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    firebase.child(phone).child("Username").setValue(ETUsername.getText().toString().trim());
+                String encryptedUsername = encryptUsername(ETUsername.getText().toString().trim()).toString();
+                    firebase.child(phone).child("Username").setValue(encryptedUsername);
                     if(check.equals("Hin") || !English){
                         Toast.makeText(Profile.this, getResources().getString(R.string.username_updated1), Toast.LENGTH_SHORT).show();
                     } else {
@@ -620,5 +623,43 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             e.printStackTrace();
         }
 
+    }
+    public StringBuilder decryptUsername(String uname) {
+        int pllen;
+        StringBuilder sb = new StringBuilder();
+        int ciplen = uname.length();
+
+        String temp = Character.toString(uname.charAt(ciplen - 2));
+        if (temp.matches("[a-z]+")) {
+            pllen = Character.getNumericValue(uname.charAt(ciplen - 1));
+            pllen -= 2;
+        } else {
+            String templen = uname.charAt(ciplen - 2) + Character.toString(uname.charAt(ciplen - 1));
+            pllen = Integer.parseInt(templen);
+            pllen -= 2;
+        }
+        String[] separated = uname.split("[a-zA-Z]");
+        for (int i = 0; i < pllen; i++) {
+            String splitted = separated[i];
+            int split = Integer.parseInt(splitted);
+            split = split + pllen + (2 * i);
+            char pln = (char) split;
+            sb.append(pln);
+        }
+        return sb;
+    }
+    public StringBuilder encryptUsername(String uname) {
+        StringBuilder stringBuilder = new StringBuilder();
+        Random r = new Random();
+        int len = uname.length();
+        for (int i = 0; i < len; i++) {
+            char a = uname.charAt(i);
+            char c = (char) (r.nextInt(26) + 'a');
+            stringBuilder.append((a - len) - (2 * i));
+            stringBuilder.append(c);
+        }
+        String strlen = Integer.toString(len + 2);
+        stringBuilder.append(strlen);
+        return stringBuilder;
     }
 }

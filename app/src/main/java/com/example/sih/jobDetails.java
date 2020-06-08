@@ -85,7 +85,7 @@ public class jobDetails extends AppCompatActivity {
                     else {
                         reff.child("Job Post").child(phone).child(title.getText().toString().trim()).setValue(details);
                         Toast.makeText(jobDetails.this, "Uploaded Job Details Successfully",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(jobDetails.this, jobPublish.class);
+                        Intent intent = new Intent(jobDetails.this, jobsPublished.class);
                         startActivity(intent);
                     }
 
