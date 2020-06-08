@@ -155,6 +155,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                                                 editor1.putString("Phone", phone);
                                                 editor1.putString("NewPhone", phone);
                                                 editor1.apply();
+                                            Toast.makeText(PhoneVerification.this, phone, Toast.LENGTH_SHORT).show();
                                                 Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
                                                 reference.child(phone).child("Username").setValue(encryptedUsername);
                                                 reference.child(phone).child("Password").setValue(Cipher);

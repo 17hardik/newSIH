@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".jobsPublished"></activity>
+        <activity android:name=".jobsPublished" />
         <activity android:name=".jobDetails" />
         <activity android:name=".companyProof" />
 
@@ -31,9 +31,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Change_Phone" />
         <activity android:name=".Update_Certificates" />
