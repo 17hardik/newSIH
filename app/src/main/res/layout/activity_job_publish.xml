@@ -6,23 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".jobPublish">
 
-    <Button
+    <ImageButton
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="Published jobs"
+        android:layout_width="184dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_published_jobs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="create job"
+        android:layout_width="184dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_create_jobs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,9 +34,9 @@
 
     <ImageButton
         android:id="@+id/button1"
-        android:layout_width="194dp"
-        android:layout_height="195dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="184dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="10dp"
         android:background="#00FFFFFF"
         android:scaleType="fitStart"
         android:src="@drawable/ic_company_rreg"
