@@ -12,6 +12,14 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".progressTracker"></activity>
+        <activity android:name=".Agriculture" />
+        <activity android:name=".Marketing" />
+        <activity android:name=".EduSector" />
+        <activity android:name=".BankSector" />
+        <activity android:name=".ItSector" />
+        <activity android:name=".careerFields" />
+        <activity android:name=".introRoadmap" />
         <activity android:name=".jobsPublished" />
         <activity android:name=".jobDetails" />
         <activity android:name=".companyProof" />

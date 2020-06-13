@@ -253,6 +253,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
 
+            case R.id.roadmap:
+                Intent roadmapIntent = new Intent(MainActivity.this, introRoadmap.class);
+                startActivity(roadmapIntent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(menuItem);
         }

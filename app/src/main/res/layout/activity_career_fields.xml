@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".careerFields">
+
+    <ImageView
+        android:id="@+id/fields"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fields" />
+
+    <TextView
+        android:id="@+id/fieldsQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/abril_fatface"
+        android:padding="16dp"
+        android:text="Which CAREER FIELD do you aspire to be in?"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fields" />
+
+    <RadioGroup
+        android:id="@+id/careerFields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fieldsQ">
+
+        <RadioButton
+            android:id="@+id/IT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="IT SECTOR"
+            android:textSize="18sp"
+            android:onClick="checkButton"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/BANK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="BANK SECTOR"
+            android:textSize="18sp"
+            android:onClick="checkButton"/>
+
+        <RadioButton
+            android:id="@+id/EDUCATION"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="EDUCATION SECTOR"
+            android:textSize="18sp"
+            android:onClick="checkButton"/>
+
+        <RadioButton
+            android:id="@+id/MARKETING"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="MARKETING SECTOR"
+            android:textSize="18sp"
+            android:onClick="checkButton"/>
+
+        <RadioButton
+            android:id="@+id/AGRICULTURE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="AGRICULTURE"
+            android:textSize="18sp"
+            android:onClick="checkButton"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/getRoadmap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="GET ROADMAP"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/careerFields" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

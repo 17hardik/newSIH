@@ -87,6 +87,7 @@ public class jobDetails extends AppCompatActivity {
                         Toast.makeText(jobDetails.this, "Uploaded Job Details Successfully",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(jobDetails.this, jobsPublished.class);
                         startActivity(intent);
+                        finish();
                     }
 
                 } catch (Exception e){
