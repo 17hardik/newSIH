@@ -74,7 +74,7 @@ public class progressTracker extends AppCompatActivity {
 
     public void onClickOk(View v){
 
-        int temp_level = ((Integer.parseInt(etPercent.getText().toString()))*MAX_LEVEL)/100;
+        int temp_level = ((Integer.parseInt(etPercent.getText().toString()))*MAX_LEVEL)/5;
         if (toLevel == temp_level || temp_level > MAX_LEVEL){
             return;
         }
