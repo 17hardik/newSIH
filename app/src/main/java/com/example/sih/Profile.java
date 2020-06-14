@@ -56,6 +56,8 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+
 /** Activity through which users can view their profile and can make edit in it
  * Both database reading and writing functionality are working here
  */
@@ -519,19 +521,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (check.equals("Hin")) {
-                Toast.makeText(this, R.string.permission1, Toast.LENGTH_SHORT).show();
-            } else {
-                if(check.equals("Hin") || !English) {
-                    Toast.makeText(this, getResources().getString(R.string.permission1), Toast.LENGTH_SHORT).show();
-                } else{
-                    Toast.makeText(this, "Please grant storage permission", Toast.LENGTH_SHORT).show();
-                }
-            }
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.parse("package:" + getPackageName()));
-            startActivity(intent);
-            return;
+            requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, 1);
         }
         Intent intent = new Intent();
         intent.setType("image/*");

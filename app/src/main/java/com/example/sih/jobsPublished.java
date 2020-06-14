@@ -39,10 +39,8 @@ public class jobsPublished extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_published);
-
         SharedPreferences preferences1 = getSharedPreferences(S,i);
         phone = preferences1.getString("Phone","");
-
         companyName = findViewById(R.id.companyName);
         companyLocation = findViewById(R.id.companyLocation);
         createJob = findViewById(R.id.createJob);

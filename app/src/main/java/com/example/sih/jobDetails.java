@@ -29,9 +29,7 @@ public class jobDetails extends AppCompatActivity {
 
         SharedPreferences preferences1 = getSharedPreferences(S,i);
         phone = preferences1.getString("Phone","");
-
         setContentView(R.layout.activity_job_details);
-
         title = findViewById(R.id.editText1);
         description = findViewById(R.id.editText2);
         experience = findViewById(R.id.editText3);

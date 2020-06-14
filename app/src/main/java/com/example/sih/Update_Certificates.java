@@ -29,6 +29,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class Update_Certificates extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
@@ -109,14 +112,7 @@ public class Update_Certificates extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if(check.equals("Hin")){
-                Toast.makeText(this, R.string.permission1, Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this, "Please grant storage permission", Toast.LENGTH_SHORT).show();
-            }
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.parse("package:" + getPackageName()));
-            startActivity(intent);
+            requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, 1);
             return;
         }
 

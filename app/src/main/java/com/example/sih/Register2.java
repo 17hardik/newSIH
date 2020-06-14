@@ -24,6 +24,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+
 /** Activity through which users can submit their related documents
  * Documents are then stored in Firebase Storage associated with user's phone number
  * Users can also skip this activity if they don't want to share their document of don't have all the documents at the moment
@@ -120,14 +122,7 @@ public class Register2 extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if(check.equals("Hin")){
-                Toast.makeText(this, R.string.permission1, Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this, "Please grant storage permission", Toast.LENGTH_SHORT).show();
-            }
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.parse("package:" + getPackageName()));
-            startActivity(intent);
+            requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, 1);
             return;
         }
 
