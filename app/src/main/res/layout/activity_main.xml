@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:layout_width="128dp"
+                        android:layout_height="110dp"
+                        android:id="@+id/gov"
+                        android:background="#00FFFFFF"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/gov"
+                        android:layout_marginBottom="3dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/govText"
+                        android:layout_marginStart="-6dp"
+                        android:text="Government Jobs"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <ImageButton
+                        android:layout_width="128dp"
+                        android:layout_height="110dp"
+                        android:id="@+id/free"
+                        android:background="#00FFFFFF"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/free"
+                        android:layout_marginBottom="3dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/freeText"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-8dp"
+                        android:text="Freelancing"
+                        android:textColor="@color/colorPrimary"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:layout_width="128dp"
+                        android:layout_height="110dp"
+                        android:id="@+id/non"
+                        android:background="#00FFFFFF"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/non"
+                        android:layout_marginBottom="3dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/nonText"
+                        android:text="Non-Government Jobs"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <ImageButton
+                        android:layout_width="128dp"
+                        android:layout_height="110dp"
+                        android:id="@+id/tenders"
+                        android:background="#00FFFFFF"
+                        android:scaleType="fitStart"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/tender"
+                        android:layout_marginBottom="3dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tenderText"
+                        android:text="Tenders"
+                        android:layout_marginStart="-8dp"
+                        android:textColor="@color/colorPrimary"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/bgapp"
+        android:layout_width="526dp"
+        android:layout_height="920dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        android:src="@drawable/namastefinal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

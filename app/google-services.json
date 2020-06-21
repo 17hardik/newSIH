@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "436230505588",
+    "firebase_url": "https://smart-e60d6.firebaseio.com",
+    "project_id": "smart-e60d6",
+    "storage_bucket": "smart-e60d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436230505588:android:76d18562e2060313d13d21",
+        "android_client_info": {
+          "package_name": "com.example.sih"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436230505588-lnmv8q4q2im22mek7iaqipip6igm576a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sih",
+            "certificate_hash": "7eec0022a7f8439d82f6a38d00d54d989d98d606"
+          }
+        },
+        {
+          "client_id": "436230505588-rn9o8pqotklau831cn3p2r6qmdalv3l2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBugtD5zC3uQX-DRE4c1_z7vvAf9wyPhQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436230505588-rn9o8pqotklau831cn3p2r6qmdalv3l2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
