@@ -2,7 +2,6 @@ package com.example.sih;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -18,11 +17,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Menu menu1;
     Boolean English = true;
     int i, j, y;
+    FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false;
 
     @Override
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Tenders = findViewById(R.id.tenders);
         Free_Lancing = findViewById(R.id.free);
 
-
+        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,43 +132,40 @@ public class MainActivity extends AppCompatActivity {
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
         bgapp.animate().translationY(-2000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
-        try {
-            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
-        } catch(Exception e){
-            if(check.equals("Eng") && English) {
-                Toast.makeText(this, "Your account has been deleted", Toast.LENGTH_SHORT).show();
-            } else{
-                Toast.makeText(this, getResources().getString(R.string.account_deleted1), Toast.LENGTH_SHORT).show();
+        Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
+        reference.child(phone).child("UID").setValue(currentFirebaseUser.getUid());
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    //currently I am writing nothing here, you can write whatever you want but just inform me.
+                    return;
+                } else {
+                    //token will be saved in database
+                    Toast.makeText(MainActivity.this, phone, Toast.LENGTH_SHORT).show();
+                    String token = task.getResult().getToken();
+                    String user_token = getString(R.string.msg_token_fmt, token);
+                    Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
+                    reference.child(phone).child("Message Token").setValue(user_token);
+
+                }
             }
-        }
+        });
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
-                    user_name = dataSnapshot.child("Username").getValue().toString();
+                    String uname = dataSnapshot.child("Username").getValue().toString();
+                    user_name = decryptUsername(uname).toString();
                     SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                     editor.putString("UName", user_name);
                     editor.apply();
                     SharedPreferences.Editor editor2 = getSharedPreferences(X, y).edit();
                     editor2.putString("isDeleted", "No");
                     editor2.apply();
-                    FirebaseInstanceId.getInstance().getInstanceId()
-                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                    if (!task.isSuccessful()) {
-                                        //currently I am writing nothing here, you can write whatever you want but just inform me.
-                                        return;
-                                    }
-                                    //your tokens will be stored as soon as you open this activity
-                                    String token = task.getResult().getToken();
-                                    String user_token = getString(R.string.msg_token_fmt, token);
-                                    Log.d("Token", user_token);
-                                    Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-                                    reference.child(phone).child("Message Token").setValue(user_token);
-                                }
-                            });
-                    FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+
                 } catch(Exception e){
                     if(check.equals("Eng") && English){
                         Toast.makeText(MainActivity.this, "Your account has been deleted", Toast.LENGTH_SHORT).show();
@@ -326,5 +325,29 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
+    public StringBuilder decryptUsername(String uname) {
+        int pllen;
+        StringBuilder sb = new StringBuilder();
+        int ciplen = uname.length();
+
+        String temp = Character.toString(uname.charAt(ciplen - 2));
+        if (temp.matches("[a-z]+")) {
+            pllen = Character.getNumericValue(uname.charAt(ciplen - 1));
+            pllen -= 2;
+        } else {
+            String templen = uname.charAt(ciplen - 2) + Character.toString(uname.charAt(ciplen - 1));
+            pllen = Integer.parseInt(templen);
+            pllen -= 2;
+        }
+        String[] separated = uname.split("[a-zA-Z]");
+        for (int i = 0; i < pllen; i++) {
+            String splitted = separated[i];
+            int split = Integer.parseInt(splitted);
+            split = split + pllen + (2 * i);
+            char pln = (char) split;
+            sb.append(pln);
+        }
+        return sb;
     }
 }

@@ -35,6 +35,7 @@ public class Forgot_Password extends AppCompatActivity {
     String M, K;
     private Button Verify;
     int j, l;
+
     DatabaseReference reff;
 
     @Override
