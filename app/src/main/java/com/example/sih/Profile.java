@@ -78,6 +78,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     DrawerLayout drawer;
     NavigationView navigationView;
     ActionBarDrawerToggle t;
+    Boolean isRegistered = false;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -204,6 +205,25 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 }
             }
         });
+        reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try{
+
+                    String post = dataSnapshot.child("Post").getValue().toString();
+                    isRegistered = true;
+
+                } catch (Exception e){
+                    isRegistered = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Something went wrong",Toast.LENGTH_LONG).show();
+            }
+        });
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -306,6 +326,16 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 Intent intent5 = new Intent(Profile.this, Tenders.class);
                 startActivity(intent5);
                 break;
+            case R.id.create_your_job:
+                if (!isRegistered) {
+                    Intent jCreateIntent = new Intent(Profile.this, CreateYourJob.class);
+                    startActivity(jCreateIntent);
+                }
+                else{
+                    Intent viewIntent = new Intent(Profile.this, jobsPublished.class);
+                    startActivity(viewIntent);
+                }
+                return true;
             case R.id.non_government:
                 Intent intent6 = new Intent(Profile.this, Non_Government.class);
                 startActivity(intent6);
