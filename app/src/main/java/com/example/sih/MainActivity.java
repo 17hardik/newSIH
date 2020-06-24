@@ -133,7 +133,11 @@ public class MainActivity extends AppCompatActivity {
         bgapp.animate().translationY(-2000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
         Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-        reference.child(phone).child("UID").setValue(currentFirebaseUser.getUid());
+        try {
+            reference.child(phone).child("UID").setValue(currentFirebaseUser.getUid());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
