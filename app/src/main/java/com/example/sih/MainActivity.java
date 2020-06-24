@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 } else {
                     //token will be saved in database
-                    Toast.makeText(MainActivity.this, phone, Toast.LENGTH_SHORT).show();
                     String token = task.getResult().getToken();
                     String user_token = getString(R.string.msg_token_fmt, token);
                     Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");

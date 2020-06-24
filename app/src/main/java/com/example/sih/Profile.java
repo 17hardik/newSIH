@@ -315,7 +315,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         switch (menuItem.getItemId()){
 
             case R.id.government:
-                Intent intent1 = new Intent(Profile.this,Government.class);
+                Intent intent1 = new Intent(Profile.this, Government.class);
                 startActivity(intent1);
                 break;
             case R.id.free_lancing:
