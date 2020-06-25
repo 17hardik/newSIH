@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -126,8 +127,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 mStorageReference = FirebaseStorage.getInstance().getReference().child(phone).child("Profile Picture");
                 try {
                     final long ONE_MEGABYTE = 1024 * 1024;
-                    mStorageReference.getBytes(ONE_MEGABYTE)
-                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    mStorageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
 
@@ -232,6 +232,13 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             case R.id.rate_us:
                 Intent rateIntent = new Intent(Non_Government.this, Rating.class);
                 startActivity(rateIntent);
+                return true;
+
+            case R.id.contact_us:
+                String recipient = "firstloveyourself1999@gmail.com";
+                Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+                intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
+                startActivity(intent4);
                 return true;
 
             case R.id.go_to_profile:

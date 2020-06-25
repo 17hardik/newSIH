@@ -263,10 +263,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 return true;
             case R.id.contact_us:
                 String recipient = "firstloveyourself1999@gmail.com";
-                String subject = "Related to Rojgar App";
                 Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
                 intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                intent4.putExtra(Intent.EXTRA_SUBJECT, subject);
                 startActivity(intent4);
                 return true;
 
