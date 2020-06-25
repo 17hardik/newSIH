@@ -6,6 +6,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -36,9 +39,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    TextView Det1, Det2, Det3, Det4, Det5, Det6, More, BJ, PJ, RJ, EJ, TJ, TC, FDJ, uphone, uname;
+    TextView uphone, uname;
     Boolean English = true;
     String lang, M, check, S, phone, u_name, path;
     int j,i;
@@ -50,10 +54,50 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
     DatabaseReference reff;
+    RecyclerView gov_jobs;
+    ArrayList<data_in_cardview> content;
+    gov_adapter govAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        gov_jobs = (RecyclerView) findViewById(R.id.gov_jobs);
+        try {
+            gov_jobs.setLayoutManager(new LinearLayoutManager(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        content = new ArrayList<data_in_cardview>();
+
+        reff = FirebaseDatabase.getInstance().getReference().child("Job Posts");
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
+
+                    data_in_cardview d = dataSnapshot2.getValue(data_in_cardview.class);
+                    content.add(d);
+
+                }
+
+                try {
+                    govAdapter = new gov_adapter(Government.this, content);
+                    gov_jobs.setAdapter(govAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Government.this, "This is Inevitable", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Government Jobs");
         SharedPreferences preferences = getSharedPreferences(S,i);
@@ -62,20 +106,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_government);
-        Det1 = findViewById(R.id.det1);
-        Det2 = findViewById(R.id.det2);
-        Det3 = findViewById(R.id.det3);
-        Det4 = findViewById(R.id.det4);
-        Det5 = findViewById(R.id.det5);
-        Det6 = findViewById(R.id.det6);
-        TC = findViewById(R.id.tc);
-        More = findViewById(R.id.mi);
-        BJ = findViewById(R.id.bj);
-        PJ = findViewById(R.id.pj);
-        RJ = findViewById(R.id.rj);
-        EJ = findViewById(R.id.ej);
-        TJ = findViewById(R.id.tj);
-        FDJ = findViewById(R.id.fdj);
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
@@ -251,20 +281,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     }
 
     public void toEng(){
-        Det1.setText(R.string.details);
-        Det2.setText(R.string.details);
-        Det3.setText(R.string.details);
-        Det4.setText(R.string.details);
-        Det5.setText(R.string.details);
-        Det6.setText(R.string.details);
-        More.setText("     More Info");
-        TJ.setText(R.string.teaching_jobs);
-        RJ.setText(R.string.railway_jobs);
-        FDJ.setText(R.string.forest_department_jobs);
-        EJ.setText(R.string.engineering_jobs);
-        PJ.setText(R.string.police_jobs);
-        TC.setText(R.string.top_categories);
-        BJ.setText(R.string.bank_jobs);
         getSupportActionBar().setTitle("Government Jobs");
         English = true;
         lang = "Eng";
@@ -274,20 +290,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     }
 
     public void toHin(){
-        Det1.setText(R.string.details1);
-        Det2.setText(R.string.details1);
-        Det3.setText(R.string.details1);
-        Det4.setText(R.string.details1);
-        Det5.setText(R.string.details1);
-        Det6.setText(R.string.details1);
-        More.setText(R.string.more_info1);
-        PJ.setText(R.string.police_jobs1);
-        RJ.setText(R.string.railway_jobs1);
-        EJ.setText(R.string.engineering_jobs1);
-        TJ.setText(R.string.teaching_jobs1);
-        FDJ.setText(R.string.forest_department_jobs1);
-        TC.setText(R.string.top_categories1);
-        BJ.setText(R.string.bank_jobs1);
         getSupportActionBar().setTitle(R.string.government_jobs1);
         English = false;
         lang = "Hin";
@@ -415,4 +417,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         }
         return sb;
     }
+
+
+
 }
