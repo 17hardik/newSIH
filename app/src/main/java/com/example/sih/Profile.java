@@ -85,6 +85,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     PhoneAuthProvider.ForceResendingToken mResendToken;
     ProgressDialog pd;
     File mypath;
+    String username;
     String path;
 
     @Override
@@ -152,7 +153,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     user_name = dataSnapshot.child("Username").getValue().toString();
                     name = dataSnapshot.child("Name").getValue().toString();
                     user_phone = dataSnapshot.child("Phone").getValue().toString();
-                    String username = decryptUsername(user_name).toString();
+                    username  = decryptUsername(user_name).toString();
                     mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
                     ETUsername.setText(username);
                     ETName.setText(name);
@@ -192,8 +193,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 
                 }
                uphone.setText(user_phone);
-               uname.setText(user_name);
-
+               uname.setText(username);
             }
 
             @Override
@@ -389,10 +389,8 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 
             case R.id.contact_us:
                 String recipient = "firstloveyourself1999@gmail.com";
-                String subject = "Related to Rojgar App";
                 Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
                 intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                intent4.putExtra(Intent.EXTRA_SUBJECT, subject);
                 startActivity(intent4);
                 return true;
 

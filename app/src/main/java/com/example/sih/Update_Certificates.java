@@ -41,7 +41,7 @@ public class Update_Certificates extends AppCompatActivity {
     int counter = 1, i, j;
     DatabaseReference mDatabaseReference;
     Button Button10, Button12, ButtonGr;
-    String M, check, user_name, phone, newPhone, S;
+    String M, check, phone, newPhone, S;
     DatabaseReference reff;
 
     @Override
