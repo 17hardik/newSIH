@@ -56,11 +56,11 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            job_post = (TextView) itemView.findViewById(R.id.job_post);
-            company_name = (TextView) itemView.findViewById(R.id.company_name);
-            company_location = (TextView) itemView.findViewById(R.id.company_location);
-            salary = (TextView) itemView.findViewById(R.id.salary);
-            company_logo = (ImageView) itemView.findViewById(R.id.company_logo);
+            job_post = itemView.findViewById(R.id.job_post);
+            company_name = itemView.findViewById(R.id.company_name);
+            company_location = itemView.findViewById(R.id.company_location);
+            salary = itemView.findViewById(R.id.salary);
+            company_logo = itemView.findViewById(R.id.company_logo);
 
         }
     }

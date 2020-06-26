@@ -25,48 +25,46 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/job_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp"/>
+
+                    <TextView
+                        android:id="@+id/company_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/company_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp" />
+                </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/company_logo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_create_jobs"
-                        ></ImageView>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></ImageView>
 
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/job_post"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="36sp"
-                        android:text="Android Developer"/>
-                    <TextView
-                        android:id="@+id/company_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        android:text="EDWATH"/>
-                    <TextView
-                        android:id="@+id/company_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        android:text="Gwalior"/>
-                    <TextView
-                        android:id="@+id/salary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="36sp"
-                        android:text="500000 p.a."/>
-                </LinearLayout>
 
             </LinearLayout>
 
