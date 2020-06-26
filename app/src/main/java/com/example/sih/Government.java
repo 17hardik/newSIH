@@ -61,17 +61,14 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_government);
 
-        gov_jobs = (RecyclerView) findViewById(R.id.gov_jobs);
-        try {
-            gov_jobs.setLayoutManager(new LinearLayoutManager(this));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        gov_jobs = findViewById(R.id.gov_jobs);
+        gov_jobs.setLayoutManager(new LinearLayoutManager(this));
 
         content = new ArrayList<data_in_cardview>();
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Job Posts");
+        reff = FirebaseDatabase.getInstance().getReference().child("Government");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -82,15 +79,9 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                     content.add(d);
 
                 }
-
-                try {
-                    govAdapter = new gov_adapter(Government.this, content);
-                    gov_jobs.setAdapter(govAdapter);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                govAdapter = new gov_adapter(Government.this, content);
+                gov_jobs.setAdapter(govAdapter);
                 }
-
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
