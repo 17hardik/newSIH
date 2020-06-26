@@ -102,9 +102,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 if(check.equals("Hin")){
-                    TPhone.setError(getResources().getString(R.string.valid1));
+                    TPhone.setError(getResources().getString(R.string.error1));
                 } else {
-                    TPhone.setError("Enter a valid number");
+                    TPhone.setError("Error: "+e.getMessage());
                 }
                 pd.dismiss();
             }

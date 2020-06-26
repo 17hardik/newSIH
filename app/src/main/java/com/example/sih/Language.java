@@ -19,8 +19,6 @@ public class Language extends AppCompatActivity {
         setContentView(R.layout.activity_language);
         ButtonEng = findViewById(R.id.buttonEnglish);
         ButtonHin = findViewById(R.id.buttonHindi);
-        ButtonEng.setBackgroundResource(R.drawable.button);
-        ButtonHin.setBackgroundResource(R.drawable.button);
         ButtonEng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

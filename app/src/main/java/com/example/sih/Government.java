@@ -121,7 +121,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
-        loadImageFromStorage(path);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,10 +162,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                                     profile.setMinimumHeight(dm.heightPixels);
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
-                                    path = saveToInternalStorage(bm);
-                                    SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
-                                    editor1.putString("path", path);
-                                    editor1.apply();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -358,39 +353,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             }
         }
     }
-    private void loadImageFromStorage(String path)
-    {
 
-        try {
-            File f=new File(path, "profile.jpg");
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            profile.setImageBitmap(b);
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-    private String saveToInternalStorage(Bitmap bitmapImage){
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        File directory = cw.getDir("profile_picture", Context.MODE_PRIVATE);
-        File mypath = new File(directory,"profile.jpg");
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(mypath);
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return directory.getAbsolutePath();
-    }
     public StringBuilder decryptUsername(String uname) {
         int pllen;
         StringBuilder sb = new StringBuilder();

@@ -38,7 +38,7 @@ public class Intro extends AppCompatActivity {
                     startActivity(lang);
                 }
                 // If the user has not logged in then user will be redirected to Login activity
-                else if(isLogged.equals("Null") || accountInfo.equals("Yes")) {
+                else if(!isLogged.equals("Yes") || accountInfo.equals("Yes")) {
                     Intent intro = new Intent(Intro.this, Login.class);
                     startActivity(intro);
                 }

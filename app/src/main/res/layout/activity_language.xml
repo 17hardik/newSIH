@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:text="Continue In English"
+        android:background="@drawable/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.45"/>
+        app:layout_constraintVertical_bias="0.40"/>
 
     <Button
         android:id="@+id/buttonHindi"
@@ -24,9 +25,10 @@
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:text="हिंदी में जारी रखें"
+        android:background="@drawable/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
+        app:layout_constraintVertical_bias="0.60" />
 </androidx.constraintlayout.widget.ConstraintLayout>

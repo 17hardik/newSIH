@@ -46,7 +46,7 @@ public class Delete_Acc extends Dialog implements View.OnClickListener{
         BTYes =  findViewById(R.id.yes_button);
         BTNo = findViewById(R.id.no_button);
         deleteText = findViewById(R.id.delete_text);
-        currentuser = FirebaseAuth.getInstance().getCurrentUser() ;
+        currentuser = FirebaseAuth.getInstance().getCurrentUser();
         mStorageReference = FirebaseStorage.getInstance().getReference();
         if(check.equals("Hin")){
             deleteText.setText(R.string.want_to_delete1);
@@ -62,6 +62,7 @@ public class Delete_Acc extends Dialog implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.yes_button:
                 currentuser.delete();
+                activity.deleteFile("profile_picture");
                 reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
                 StorageReference sRef1 = mStorageReference.child(phone).child("12th marksheet.pdf");
                 StorageReference sRef2 = mStorageReference.child(phone).child("10th marksheet.pdf");
