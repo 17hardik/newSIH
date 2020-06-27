@@ -55,7 +55,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
     DatabaseReference reff;
     RecyclerView gov_jobs;
-    ArrayList<data_in_cardview> content;
+    ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
 
     @Override
@@ -65,21 +65,32 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
         gov_jobs = findViewById(R.id.gov_jobs);
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
+        details = new ArrayList<>();
 
-        content = new ArrayList<data_in_cardview>();
-
-        reff = FirebaseDatabase.getInstance().getReference().child("Government");
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("1");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
 
+                    details = new ArrayList<>();
+//                    try {
+//                        String Company_logo = dataSnapshot2.child("Company_logo").getValue(String.class);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    String Job_Post = dataSnapshot2.child("Job_Post").getValue(String.class);
+//                    String Company_Name = dataSnapshot2.child("Company_Name").getValue(String.class);
+//                    String Location = dataSnapshot2.child("Location").getValue(String.class);
+//                    String Salary_PA_in_Rs = dataSnapshot2.child("Salary_PA_in_Rs").getValue(String.class);
+
+
                     data_in_cardview d = dataSnapshot2.getValue(data_in_cardview.class);
-                    content.add(d);
+                    details.add(d);
 
                 }
-                govAdapter = new gov_adapter(Government.this, content);
+                govAdapter = new gov_adapter(Government.this, details);
                 gov_jobs.setAdapter(govAdapter);
                 }
 
