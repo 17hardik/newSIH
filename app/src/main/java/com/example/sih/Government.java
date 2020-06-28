@@ -76,14 +76,14 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
                     details = new ArrayList<>();
 //                    try {
-//                        String Company_logo = dataSnapshot2.child("Company_logo").getValue(String.class);
+//                        String Company_logo = dataSnapshot2.child("Company_logo").getValue().toString();
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
-//                    String Job_Post = dataSnapshot2.child("Job_Post").getValue(String.class);
-//                    String Company_Name = dataSnapshot2.child("Company_Name").getValue(String.class);
-//                    String Location = dataSnapshot2.child("Location").getValue(String.class);
-//                    String Salary_PA_in_Rs = dataSnapshot2.child("Salary_PA_in_Rs").getValue(String.class);
+//                    String Job_Post = dataSnapshot2.child("Job_Post").getValue().toString();
+//                    String Company_Name = dataSnapshot2.child("Company_Name").getValue().toString();
+//                    String Location = dataSnapshot2.child("Location").getValue().toString();
+//                    String Salary_PA_in_Rs = dataSnapshot2.child("Salary_PA_in_Rs").getValue().toString();
 
 
                     data_in_cardview d = dataSnapshot2.getValue(data_in_cardview.class);

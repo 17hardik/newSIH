@@ -35,18 +35,18 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.Job_Post.setText(details.get(position).getJob_Post());
-        holder.Company_Name.setText(details.get(position).getCompany_Name());
-        holder.Location.setText(details.get(position).getLocation());
-        holder.Salary_PA_in_Rs.setText(details.get(position).getSalary_PA_in_Rs());
-        holder.Jobs_Types.setText(details.get(position).getJobs_Types());
-        holder.Jobs_Description.setText(details.get(position).getJobs_Description());
-        holder.Key_Skills.setText(details.get(position).getKey_Skills());
-        holder.Qualification.setText(details.get(position).getQualification());
-        holder.Rating.setText(details.get(position).getRating());
-        holder.Sector.setText(details.get(position).getSector());
+        holder.Job_Post.setText(details.get(position).getJob_Post().toString());
+        holder.Company_Name.setText(details.get(position).getCompany_Name().toString());
+        holder.Location.setText(details.get(position).getLocation().toString());
+        holder.Salary_PA_in_Rs.setText(details.get(position).getSalary_PA_in_Rs().toString());
+        holder.Jobs_Types.setText(details.get(position).getJobs_Types().toString());
+        holder.Jobs_Description.setText(details.get(position).getJobs_Description().toString());
+        holder.Key_Skills.setText(details.get(position).getKey_Skills().toString());
+        holder.Qualification.setText(details.get(position).getQualification().toString());
+        holder.Rating.setText(details.get(position).getRating().toString());
+        holder.Sector.setText(details.get(position).getSector().toString());
         try {
-            Picasso.get().load(details.get(position).getCompany_logo()).into(holder.company_logo);
+            Picasso.get().load(details.get(position).getCompany_logo().toString()).into(holder.company_logo);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return details.size();
+        return details ==null ? 0 : details.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{

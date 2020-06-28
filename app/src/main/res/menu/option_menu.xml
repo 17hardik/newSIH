@@ -15,4 +15,6 @@
         android:title="Publish Your Job"/>
     <item android:id="@+id/roadmap"
         android:title="Career ROADMAP"/>
+    <item android:id="@+id/testing"
+        android:title="Testing"/>
 </menu>
