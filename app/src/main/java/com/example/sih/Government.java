@@ -65,7 +65,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
         gov_jobs = findViewById(R.id.gov_jobs);
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
-
         content = new ArrayList<data_in_cardview>();
 
         reff = FirebaseDatabase.getInstance().getReference().child("Government");

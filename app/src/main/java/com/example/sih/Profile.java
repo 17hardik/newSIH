@@ -174,9 +174,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
                                     fullProfile.setImageBitmap(bm);
-                                    SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
-                                    editor1.putString("path", path);
-                                    editor1.apply();
                                     drawerProfile.setMinimumHeight(dm.heightPixels);
                                     drawerProfile.setMinimumWidth(dm.widthPixels);
                                     drawerProfile.setImageBitmap(bm);
@@ -184,7 +181,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-
+                            Toast.makeText(Profile.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } catch(Exception e){
@@ -211,7 +208,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 
                     String post = dataSnapshot.child("Post").getValue().toString();
                     isRegistered = true;
-
                 } catch (Exception e){
                     isRegistered = false;
                 }
@@ -579,7 +575,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 
                 }
             } catch (Exception e) {
-
+                Toast.makeText(this, "This format is not supported", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -609,7 +605,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         int pllen;
         StringBuilder sb = new StringBuilder();
         int ciplen = uname.length();
-
         String temp = Character.toString(uname.charAt(ciplen - 2));
         if (temp.matches("[a-z]+")) {
             pllen = Character.getNumericValue(uname.charAt(ciplen - 1));

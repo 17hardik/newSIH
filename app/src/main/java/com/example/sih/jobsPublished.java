@@ -76,7 +76,6 @@ public class jobsPublished extends AppCompatActivity {
                     String name = dataSnapshot.child("cname").getValue().toString();
                     String location = dataSnapshot.child("cloc").getValue().toString();
                     companyName.setText(name);
-
                     companyLocation.setText(location);
 
                 } catch (Exception e){
