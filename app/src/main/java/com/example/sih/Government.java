@@ -75,19 +75,18 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
 
                     details = new ArrayList<>();
-//                    try {
-//                        String Company_logo = dataSnapshot2.child("Company_logo").getValue().toString();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    String Job_Post = dataSnapshot2.child("Job_Post").getValue().toString();
-//                    String Company_Name = dataSnapshot2.child("Company_Name").getValue().toString();
-//                    String Location = dataSnapshot2.child("Location").getValue().toString();
-//                    String Salary_PA_in_Rs = dataSnapshot2.child("Salary_PA_in_Rs").getValue().toString();
+                    try {
+                        String Company_logo = dataSnapshot2.child("company_logo").getValue().toString();
+                    } catch (Exception e) {
+                       e.printStackTrace();
+                   }
+                    String Job_Post = dataSnapshot.child("Job_Post").getValue().toString();
+                    String Company_Name = dataSnapshot.child("Company_Name").getValue().toString();
+                    String Location = dataSnapshot.child("Location").getValue().toString();
+                    String Salary_PA_in_Rs = dataSnapshot.child("Salary_PA_in_Rs").getValue().toString();
 
-
-                    data_in_cardview d = dataSnapshot2.getValue(data_in_cardview.class);
-                    details.add(d);
+                   data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
+                   details.add(d);
 
                 }
                 govAdapter = new gov_adapter(Government.this, details);

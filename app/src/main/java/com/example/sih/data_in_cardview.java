@@ -16,7 +16,7 @@ public class data_in_cardview {
     public data_in_cardview() {
     }
 
-    public data_in_cardview(String company_logo, String job_Post, String company_Name, String location, String salary_PA_in_Rs, String jobs_Types, String jobs_Description, String key_Skills, String qualification, String rating, String sector) {
+    public void data_in_cardview(String company_logo, String job_Post, String company_Name, String location, String salary_PA_in_Rs, String jobs_Types, String jobs_Description, String key_Skills, String qualification, String rating, String sector) {
         this.company_logo = company_logo;
         Job_Post = job_Post;
         Company_Name = company_Name;
