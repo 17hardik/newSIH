@@ -26,9 +26,22 @@
                 android:layout_marginTop="8dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/company_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></ImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/job_post"
@@ -53,18 +66,55 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/Job_Types"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/Jobs_Description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/Key_Skills"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/Qualification"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/Rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/Sector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp" />
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1">-->
 
-                    <ImageView
-                        android:id="@+id/company_logo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></ImageView>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/company_logo"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"></ImageView>-->
 
-                </RelativeLayout>
+<!--                </LinearLayout>-->
 
             </LinearLayout>
 

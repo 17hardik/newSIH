@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".progressTracker"></activity>
+        <activity android:name=".Testing"></activity>
+        <activity android:name=".progressTracker" />
         <activity android:name=".Agriculture" />
         <activity android:name=".Marketing" />
         <activity android:name=".EduSector" />

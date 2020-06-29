@@ -55,7 +55,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
     DatabaseReference reff;
     RecyclerView gov_jobs;
-    ArrayList<data_in_cardview> content;
+    ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
 
     @Override
@@ -65,20 +65,32 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
         gov_jobs = findViewById(R.id.gov_jobs);
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
-        content = new ArrayList<data_in_cardview>();
+        details = new ArrayList<>();
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Government");
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("1");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
 
+                    details = new ArrayList<>();
+//                    try {
+//                        String Company_logo = dataSnapshot2.child("Company_logo").getValue().toString();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    String Job_Post = dataSnapshot2.child("Job_Post").getValue().toString();
+//                    String Company_Name = dataSnapshot2.child("Company_Name").getValue().toString();
+//                    String Location = dataSnapshot2.child("Location").getValue().toString();
+//                    String Salary_PA_in_Rs = dataSnapshot2.child("Salary_PA_in_Rs").getValue().toString();
+
+
                     data_in_cardview d = dataSnapshot2.getValue(data_in_cardview.class);
-                    content.add(d);
+                    details.add(d);
 
                 }
-                govAdapter = new gov_adapter(Government.this, content);
+                govAdapter = new gov_adapter(Government.this, details);
                 gov_jobs.setAdapter(govAdapter);
                 }
 
@@ -111,6 +123,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
+        loadImageFromStorage(path);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +165,10 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                                     profile.setMinimumHeight(dm.heightPixels);
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
+                                    path = saveToInternalStorage(bm);
+                                    SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
+                                    editor1.putString("path", path);
+                                    editor1.apply();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -343,7 +360,39 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             }
         }
     }
+    private void loadImageFromStorage(String path)
+    {
 
+        try {
+            File f=new File(path, "profile.jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            profile.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+    private String saveToInternalStorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("profile_picture", Context.MODE_PRIVATE);
+        File mypath = new File(directory,"profile.jpg");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
     public StringBuilder decryptUsername(String uname) {
         int pllen;
         StringBuilder sb = new StringBuilder();

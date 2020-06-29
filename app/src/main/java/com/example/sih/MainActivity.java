@@ -258,6 +258,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(roadmapIntent);
                 return true;
 
+            case R.id.testing:
+                Intent testingIntent = new Intent(MainActivity.this, Testing.class);
+                startActivity(testingIntent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
