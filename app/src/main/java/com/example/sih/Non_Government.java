@@ -6,6 +6,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -36,10 +39,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Non_Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    TextView Det1, Det2, Det3, Det4, Det5, More, BJ, CJ, MJ, EJ, DJ, TC, uphone, uname;
+    TextView uphone, uname;
     Boolean English = true;
     String lang, M, check, S, phone, u_name, path;
     int j, i;
@@ -51,10 +55,57 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
     DatabaseReference reff;
+    RecyclerView private_jobs;
+    ArrayList<data_in_cardview> details;
+    gov_adapter govAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_non__government);
+
+//        private_jobs = findViewById(R.id.private_jobs);
+//        private_jobs.setLayoutManager(new LinearLayoutManager(this));
+//        details = new ArrayList<>();
+//
+//        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("1");
+//        reff.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
+//                details.add(d);
+//
+//                if (dataSnapshot.exists()) {
+//
+////                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+////
+//////                        details = new ArrayList<>();
+//////                    try {
+//////                        String Company_logo = dataSnapshot1.child("company_logo").getValue().toString();
+//////                    } catch (Exception e) {
+//////                       e.printStackTrace();
+//////                   }
+//////                    String Job_Post = dataSnapshot1.child("Job_Post").getValue().toString();
+//////                    String Company_Name = dataSnapshot1.child("Company_Name").getValue().toString();
+//////                    String Location = dataSnapshot1.child("Location").getValue().toString();
+//////                    String Salary_PA_in_Rs = dataSnapshot1.child("Salary_PA_in_Rs").getValue().toString();
+////
+////                        data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
+////                        details.add(d);
+////
+////                    }
+//                    govAdapter = new gov_adapter(Non_Government.this, details);
+//                    private_jobs.setAdapter(govAdapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(Non_Government.this, "This is Inevitable", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Non-Government Jobs");
         SharedPreferences preferences = getSharedPreferences(S,i);
@@ -63,18 +114,6 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_non__government);
-        Det1 = findViewById(R.id.det1);
-        Det2 = findViewById(R.id.det2);
-        Det3 = findViewById(R.id.det3);
-        Det4 = findViewById(R.id.det4);
-        Det5 = findViewById(R.id.det5);
-        TC = findViewById(R.id.tc);
-        More = findViewById(R.id.mi);
-        BJ = findViewById(R.id.bj);
-        CJ = findViewById(R.id.cj);
-        MJ = findViewById(R.id.mj);
-        EJ = findViewById(R.id.ej);
-        DJ = findViewById(R.id.dj);
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
@@ -250,18 +289,6 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     }
 
     public void toEng(){
-        Det1.setText(R.string.details);
-        Det2.setText(R.string.details);
-        Det3.setText(R.string.details);
-        Det4.setText(R.string.details);
-        Det5.setText(R.string.details);
-        More.setText("     More Info");
-        CJ.setText(R.string.clerk_jobs);
-        MJ.setText(R.string.managing_jobs);
-        EJ.setText(R.string.engineering_jobs);
-        DJ.setText(R.string.designer_jobs);
-        TC.setText(R.string.top_categories);
-        BJ.setText(R.string.bank_jobs);
         getSupportActionBar().setTitle("Non-Government Jobs");
         English = true;
         lang = "Eng";
@@ -271,18 +298,6 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     }
 
     public void toHin(){
-        Det1.setText(R.string.details1);
-        Det2.setText(R.string.details1);
-        Det3.setText(R.string.details1);
-        Det4.setText(R.string.details1);
-        Det5.setText(R.string.details1);
-        More.setText(R.string.more_info1);
-        CJ.setText(R.string.clerk_jobs1);
-        MJ.setText(R.string.managing_jobs1);
-        EJ.setText(R.string.engineering_jobs1);
-        DJ.setText(R.string.designer_jobs1);
-        TC.setText(R.string.top_categories1);
-        BJ.setText(R.string.bank_jobs1);
         getSupportActionBar().setTitle(R.string.non_government_jobs1);
         English = false;
         lang = "Hin";
@@ -379,4 +394,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 }
                return sb;
     }
+
+
+
 }

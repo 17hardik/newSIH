@@ -2,6 +2,8 @@ package com.example.sih;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,12 +16,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class Testing extends AppCompatActivity {
 
-    private TextView job_post;
-    int i;
-    String phone, S;
     DatabaseReference reff;
+    RecyclerView job_s;
+    ArrayList<data_in_cardview> details;
+    gov_adapter govAdapter;
+    int j, size;
 
 
     @Override
@@ -27,35 +32,39 @@ public class Testing extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testing);
 
-        SharedPreferences preferences1 = getSharedPreferences(S,i);
-        phone = preferences1.getString("Phone","");
+        job_s = findViewById(R.id.job_s);
+        job_s.setLayoutManager(new LinearLayoutManager(this));
+        details = new ArrayList<>();
 
-        job_post = findViewById(R.id.job_post);
-
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("1");
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                try {
+                data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
+                details.add(d);
+                size = (int) dataSnapshot.getChildrenCount();
 
-                    String post = dataSnapshot.child("Job_Post").getValue().toString();
+                if (dataSnapshot.exists()) {
 
-                    job_post.setText(post);
+                    for (j=0;j<=size;j++){
+
+                        String i = Integer.toString(j);
+//                        details.add()
+
+                    }
 
 
-                } catch (Exception e){
-
+                    govAdapter = new gov_adapter(Testing.this, details);
+                    job_s.setAdapter(govAdapter);
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Testing.this, "Something went wrong",Toast.LENGTH_LONG).show();
+                Toast.makeText(Testing.this, "This is Inevitable", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-
 }

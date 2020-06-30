@@ -38,18 +38,12 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.Job_Post.setText(details.get(position).getJob_Post().toString());
-        holder.Company_Name.setText(details.get(position).getCompany_Name().toString());
-        holder.Location.setText(details.get(position).getLocation().toString());
-        holder.Salary_PA_in_Rs.setText(details.get(position).getSalary_PA_in_Rs().toString());
-        holder.Jobs_Types.setText(details.get(position).getJobs_Types().toString());
-        holder.Jobs_Description.setText(details.get(position).getJobs_Description().toString());
-        holder.Key_Skills.setText(details.get(position).getKey_Skills().toString());
-        holder.Qualification.setText(details.get(position).getQualification().toString());
-        holder.Rating.setText(details.get(position).getRating().toString());
-        holder.Sector.setText(details.get(position).getSector().toString());
+        holder.Job_Post.setText(details.get(position).getJob_Post());
+        holder.Company_Name.setText(details.get(position).getCompany_Name());
+        holder.Location.setText(details.get(position).getLocation());
+        holder.Salary_PA_in_Rs.setText(details.get(position).getSalary_PA_in_Rs());
         try {
-            Picasso.get().load(details.get(position).getCompany_logo().toString()).into(holder.company_logo);
+            Picasso.get().load(details.get(position).getCompany_logo()).into(holder.company_logo);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +57,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView Job_Post, Company_Name, Location, Salary_PA_in_Rs, Jobs_Types, Jobs_Description, Key_Skills, Qualification, Rating, Sector;
+        TextView Job_Post, Company_Name, Location, Salary_PA_in_Rs;
         ImageView company_logo;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -74,12 +68,6 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
             Location = itemView.findViewById(R.id.company_location);
             Salary_PA_in_Rs = itemView.findViewById(R.id.salary);
             company_logo = itemView.findViewById(R.id.company_logo);
-            Jobs_Types = itemView.findViewById(R.id.Job_Types);
-            Jobs_Description = itemView.findViewById(R.id.Jobs_Description);
-            Key_Skills = itemView.findViewById(R.id.Key_Skills);
-            Qualification = itemView.findViewById(R.id.Qualification);
-            Rating = itemView.findViewById(R.id.Rating);
-            Sector = itemView.findViewById(R.id.Sector);
         }
     }
 

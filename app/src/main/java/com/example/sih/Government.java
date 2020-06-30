@@ -72,25 +72,28 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
+                if (dataSnapshot.exists()) {
 
-                    details = new ArrayList<>();
-                    try {
-                        String Company_logo = dataSnapshot2.child("company_logo").getValue().toString();
-                    } catch (Exception e) {
-                       e.printStackTrace();
-                   }
-                    String Job_Post = dataSnapshot.child("Job_Post").getValue().toString();
-                    String Company_Name = dataSnapshot.child("Company_Name").getValue().toString();
-                    String Location = dataSnapshot.child("Location").getValue().toString();
-                    String Salary_PA_in_Rs = dataSnapshot.child("Salary_PA_in_Rs").getValue().toString();
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                   data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
-                   details.add(d);
+//                        details = new ArrayList<>();
+//                    try {
+//                        String Company_logo = dataSnapshot1.child("company_logo").getValue().toString();
+//                    } catch (Exception e) {
+//                       e.printStackTrace();
+//                   }
+//                    String Job_Post = dataSnapshot1.child("Job_Post").getValue().toString();
+//                    String Company_Name = dataSnapshot1.child("Company_Name").getValue().toString();
+//                    String Location = dataSnapshot1.child("Location").getValue().toString();
+//                    String Salary_PA_in_Rs = dataSnapshot1.child("Salary_PA_in_Rs").getValue().toString();
 
+                        data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
+                        details.add(d);
+
+                    }
+                    govAdapter = new gov_adapter(Government.this, details);
+                    gov_jobs.setAdapter(govAdapter);
                 }
-                govAdapter = new gov_adapter(Government.this, details);
-                gov_jobs.setAdapter(govAdapter);
                 }
 
             @Override
