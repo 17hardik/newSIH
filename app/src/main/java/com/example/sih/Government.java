@@ -45,7 +45,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     TextView uphone, uname;
     Boolean English = true;
     String lang, M, check, S, phone, u_name, path;
-    int j,i;
+    int j, i;
     DrawerLayout drawer;
     ImageView profile;
     NavigationView navigationView;
@@ -62,21 +62,17 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_government);
-
         gov_jobs = findViewById(R.id.gov_jobs);
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
-
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("1");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
-
                     details = new ArrayList<>();
                     try {
-                        String Company_logo = dataSnapshot2.child("company_logo").getValue().toString();
+                        String Company_logo = dataSnapshot.child("company_logo").getValue().toString();
                     } catch (Exception e) {
                        e.printStackTrace();
                    }
@@ -84,10 +80,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                     String Company_Name = dataSnapshot.child("Company_Name").getValue().toString();
                     String Location = dataSnapshot.child("Location").getValue().toString();
                     String Salary_PA_in_Rs = dataSnapshot.child("Salary_PA_in_Rs").getValue().toString();
-
-                   data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
-                   details.add(d);
-
+                    data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
+                    details.add(d);
                 }
                 govAdapter = new gov_adapter(Government.this, details);
                 gov_jobs.setAdapter(govAdapter);
@@ -416,7 +410,4 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         }
         return sb;
     }
-
-
-
 }

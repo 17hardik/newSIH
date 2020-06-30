@@ -12,8 +12,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +27,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+//import com.google.auth.oauth2.GoogleCredentials;
+//import com.google.cloud.translate.Translate;
+//import com.google.cloud.translate.TranslateOptions;
+//import com.google.cloud.translate.Translation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +43,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Non_Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -51,6 +59,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
     DatabaseReference reff;
+   // Translate translate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,11 +217,12 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
-                if (English) {
+                if(English) {
                     toHin();
                     NavHin();
                     optionHin();
-                } else {
+                }
+                else{
                     toEng();
                     NavEng();
                     optionEng();
