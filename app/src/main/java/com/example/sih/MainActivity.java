@@ -2,10 +2,16 @@ package com.example.sih;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +27,10 @@ import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +42,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     ImageView bgapp;
@@ -47,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     int i, j, y;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false;
+    Translate translate;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         Non_Gov = findViewById(R.id.non);
         Tenders = findViewById(R.id.tenders);
         Free_Lancing = findViewById(R.id.free);
+        pd = new ProgressDialog(this);
+        pd.setMessage("Translating");
 
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
@@ -91,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         if(check.equals("Hin")){
+
             English = false;
             toHin();
         } else{
@@ -211,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
                     toHin();
                     optionHin();
                     English = false;
+
                 }else{
                     toEng();
                     optionEng();
@@ -269,24 +287,41 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     public void toHin(){
-        GovText.setText(R.string.government_jobs1);
-        NonText.setText(R.string.non_government_jobs1);
-        TenderText.setText(R.string.tenders1);
-        FreeText.setText(R.string.freelancing1);
         lang = "Hin";
+        pd.setMessage("अनुवाद हो रहा है");
+        if (checkInternetConnection()) {
+            getTranslateService();
+            translateToHin(GovText.getText().toString(), GovText);
+            translateToHin(NonText.getText().toString(), NonText);
+            translateToHin(FreeText.getText().toString(), FreeText);
+            translateToHin(TenderText.getText().toString(), TenderText);
+
+
+        } else {
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+        }
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
         editor1.putString("Lang",lang);
         editor1.apply();
+        pd.dismiss();
     }
     public void toEng(){
-        GovText.setText("Government Jobs");
-        NonText.setText("Non-Government Jobs");
-        TenderText.setText("Tenders");
-        FreeText.setText("Freelancing");
         lang = "Eng";
+        pd.setMessage("Translating");
+        if (checkInternetConnection()) {
+            getTranslateService();
+            translateToEng(GovText.getText().toString(), GovText);
+            translateToEng(NonText.getText().toString(), NonText);
+            translateToEng(FreeText.getText().toString(), FreeText);
+            translateToEng(TenderText.getText().toString(), TenderText);
+
+        } else {
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+        }
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
         editor1.putString("Lang",lang);
         editor1.apply();
+        pd.dismiss();
     }
 
     private void setOptionTitle(int id, String title)
@@ -355,5 +390,38 @@ public class MainActivity extends AppCompatActivity {
             sb.append(pln);
         }
         return sb;
+    }
+    public void getTranslateService() {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try (InputStream is = getResources().openRawResource(R.raw.translate)) {
+
+            final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
+
+            TranslateOptions translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
+            translate = translateOptions.getService();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+
+        }
+    }
+
+    public void translateToHin (String originalText, TextView target) {
+        Translation translation = translate.translate(originalText, Translate.TranslateOption.targetLanguage("hin"), Translate.TranslateOption.model("base"));
+        target.setText(translation.getTranslatedText());
+    }
+
+    public void translateToEng (String originalText, TextView target) {
+        Translation translation = translate.translate(originalText, Translate.TranslateOption.targetLanguage("eng"), Translate.TranslateOption.model("base"));
+        target.setText(translation.getTranslatedText());
+    }
+
+    public boolean checkInternetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+        return connected;
     }
 }

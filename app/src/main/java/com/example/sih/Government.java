@@ -45,7 +45,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     TextView uphone, uname;
     Boolean English = true;
     String lang, M, check, S, phone, u_name, path;
-    int j,i;
+    int j, i;
     DrawerLayout drawer;
     ImageView profile;
     NavigationView navigationView;
@@ -62,11 +62,9 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_government);
-
         gov_jobs = findViewById(R.id.gov_jobs);
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
-
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("1");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -419,7 +417,4 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         }
         return sb;
     }
-
-
-
 }
