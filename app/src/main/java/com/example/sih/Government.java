@@ -58,6 +58,7 @@ public class Government extends AppCompatActivity {
     RecyclerView gov_jobs;
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
+    gov_adapter.MyViewHolder myViewHolder;
     int size, k;
 
     @Override
@@ -107,8 +108,8 @@ public class Government extends AppCompatActivity {
 
 
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Government Jobs");
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setTitle("Government Jobs");
 //        SharedPreferences preferences = getSharedPreferences(S,i);
 //        phone= preferences.getString("Phone","");
 //        path = preferences.getString("path", "");
@@ -397,7 +398,6 @@ public class Government extends AppCompatActivity {
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-//        }
 //        return directory.getAbsolutePath();
 //    }
 //    public StringBuilder decryptUsername(String uname) {

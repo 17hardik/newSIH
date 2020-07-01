@@ -3,27 +3,40 @@ package com.example.sih;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.annotations.NotNull;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class Job_Details extends AppCompatActivity {
 
     private TextView job_post, company_name, company_location, job_details, salaryLabel, salary, sectorLabel, sector, jobDescriptionLabel, jobDescription;
     DatabaseReference reff, reff1;
-    int size, j;
+    int size, j, k;
+    String M, check;
+    Translate translate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences1 = getSharedPreferences(M, k);
+        check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_job__details);
 
         job_post = findViewById(R.id.job_post);
@@ -54,6 +67,7 @@ public class Job_Details extends AppCompatActivity {
                     Salary = snapshot.child("Salary_PA_in_Rs").getValue().toString();
                     Sector = snapshot.child("Sector").getValue().toString();
                     job_description = snapshot.child("Jobs_Description").getValue().toString();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -64,6 +78,26 @@ public class Job_Details extends AppCompatActivity {
                 salary.setText(Salary);
                 sector.setText(Sector);
                 jobDescription.setText(job_description);
+
+                if(check.equals("Hin")){
+                    try{
+
+                        getTranslateService();
+                        translateToHin(job_post.getText().toString(), job_post);
+                        translateToHin(company_name.getText().toString(), company_name);
+                        translateToHin(company_location.getText().toString(), company_location);
+                        translateToHin(salary.getText().toString(), salary);
+                        translateToHin(sector.getText().toString(), sector);
+                        translateToHin(jobDescription.getText().toString(), jobDescription);
+                        translateToHin(salaryLabel.getText().toString(), salaryLabel);
+                        translateToHin(jobDescriptionLabel.getText().toString(), jobDescriptionLabel);
+                        translateToHin(sectorLabel.getText().toString(), sectorLabel);
+                        translateToHin(job_details.getText().toString(), job_details);
+
+                    } catch(Exception e){
+                        Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
             @Override
@@ -144,6 +178,27 @@ public class Job_Details extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
 
+    }
+    public void getTranslateService() {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try (InputStream is = getResources().openRawResource(R.raw.translate)) {
+
+            final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
+
+            TranslateOptions translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
+            translate = translateOptions.getService();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+
+        }
+    }
+    public void translateToHin (String originalText, TextView target) {
+        Translation translation = translate.translate(originalText, Translate.TranslateOption.targetLanguage("hin"), Translate.TranslateOption.model("base"));
+        target.setText(translation.getTranslatedText());
     }
 
 }
