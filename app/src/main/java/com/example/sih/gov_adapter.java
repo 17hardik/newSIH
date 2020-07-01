@@ -1,6 +1,7 @@
 package com.example.sih;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +39,19 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.Job_Post.setText(details.get(position).getJob_Post());
-        holder.Company_Name.setText(details.get(position).getCompany_Name());
-        holder.Location.setText(details.get(position).getLocation());
-        holder.Salary_PA_in_Rs.setText(details.get(position).getSalary_PA_in_Rs());
         try {
+            holder.Job_Post.setText(details.get(position).getJob_Post());
+            holder.Company_Name.setText(details.get(position).getCompany_Name());
+            holder.Location.setText(details.get(position).getLocation());
+            holder.Salary_PA_in_Rs.setText(details.get(position).getSalary_PA_in_Rs());
             Picasso.get().load(details.get(position).getCompany_logo()).into(holder.company_logo);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.getContext().startActivity(new Intent(context, Job_Details.class));
+
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

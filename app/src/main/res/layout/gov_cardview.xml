@@ -11,67 +11,66 @@
         android:id="@+id/gov_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
         app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_weight="1">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/company_logo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/company_logo"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:src="@drawable/ic_person_black_24dp">
-                    </ImageView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/job_post"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="22sp"/>
-
-                    <TextView
-                        android:id="@+id/company_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/company_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/salary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="22sp" />
-
-                </LinearLayout>
+                    android:layout_height="100dp"></ImageView>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/job_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/company_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/company_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/salary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

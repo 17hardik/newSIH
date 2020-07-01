@@ -1,6 +1,8 @@
 package com.example.sih;
 
-public class data_in_cardview {
+import java.io.Serializable;
+
+public class data_in_cardview implements Serializable {
     private String company_logo;
     private String Job_Post;
     private String Company_Name;

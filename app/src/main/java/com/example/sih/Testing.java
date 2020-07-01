@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 public class Testing extends AppCompatActivity {
 
-    DatabaseReference reff;
+    DatabaseReference reff, reff1;
     RecyclerView job_s;
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
-    int j, size;
+    int size,j;
 
 
     @Override
@@ -41,22 +41,30 @@ public class Testing extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
-                details.add(d);
                 size = (int) dataSnapshot.getChildrenCount();
 
-                if (dataSnapshot.exists()) {
+                for (j = 0; j <= size; j++){
 
-                    for (j=0;j<=size;j++){
+                    String i = Integer.toString(j);
+                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child(i);
+                    reff1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String i = Integer.toString(j);
-//                        details.add()
+                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                            details.add(d);
+                            govAdapter = new gov_adapter(Testing.this, details);
+                            job_s.setAdapter(govAdapter);
 
-                    }
+                        }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    govAdapter = new gov_adapter(Testing.this, details);
-                    job_s.setAdapter(govAdapter);
+                            Toast.makeText(Testing.this, "This is Inevitable", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
                 }
             }
 
