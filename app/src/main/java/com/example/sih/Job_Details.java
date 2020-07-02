@@ -7,9 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.firebase.client.annotations.NotNull;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
@@ -28,18 +31,23 @@ public class Job_Details extends AppCompatActivity {
 
     private TextView job_post, company_name, company_location, job_details, salaryLabel, salary, sectorLabel, sector, jobDescriptionLabel, jobDescription;
     DatabaseReference reff, reff1;
-    int size, j, k;
-    String M, check;
+    int size, j, k, i;
+    String M, check, phone, S;
     Translate translate;
+    Firebase firebase;
+    Button FavButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences = getSharedPreferences(S,i);
+        phone = preferences.getString("Phone","");
         SharedPreferences preferences1 = getSharedPreferences(M, k);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_job__details);
 
         job_post = findViewById(R.id.job_post);
+        FavButton = findViewById(R.id.favButton);
         company_name = findViewById(R.id.company_name);
         company_location = findViewById(R.id.company_location);
         job_details = findViewById(R.id.job_details);
@@ -49,7 +57,7 @@ public class Job_Details extends AppCompatActivity {
         sector = findViewById(R.id.sector);
         jobDescriptionLabel = findViewById(R.id.jobDescriptionLabel);
         jobDescription = findViewById(R.id.jobDescription);
-
+        firebase = new Firebase("https://smart-e60d6.firebaseio.com/Users");
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("0");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,6 +79,31 @@ public class Job_Details extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                FavButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child("Favorite Companies");
+                            reff1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                  long childCount = snapshot.getChildrenCount();
+                                  firebase.child(phone).child("Favourite Companies").child(Long.toString(childCount+1)).setValue("Government" + "0");
+                                  Toast.makeText(Job_Details.this, "Company saved as favorite", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        } catch (Exception e){
+                            firebase.child(phone).child("Favourite Companies").child("1").setValue("Government" + "0");
+                            Toast.makeText(Job_Details.this, "Company saved as favorite", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 job_post.setText(post);
                 company_name.setText(name);
