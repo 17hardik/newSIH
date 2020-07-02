@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,7 +60,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     RecyclerView gov_jobs;
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
-    gov_adapter.MyViewHolder myViewHolder;
+    ProgressDialog pd;
     int size, k;
 
     @Override
@@ -74,6 +76,9 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+        pd = new ProgressDialog(Government.this);
+        pd.setMessage("Getting Jobs");
+        pd.show();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -92,7 +97,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                             details.add(d);
                             govAdapter = new gov_adapter(Government.this, details);
                             gov_jobs.setAdapter(govAdapter);
-
                         }
 
                         @Override
@@ -110,9 +114,13 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 Toast.makeText(Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pd.dismiss();
+            }
+        }, 3000);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Government Jobs");
         drawer = findViewById(R.id.draw_layout);
@@ -248,16 +256,16 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
-                if(English) {
-                    toHin();
-                    NavHin();
-                    optionHin();
+                if(check.equals("Eng")) {
+                    SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
+                    editor1.putString("Lang", "Hin");
+                    editor1.apply();
+                } else{
+                    SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
+                    editor1.putString("Lang", "Eng");
+                    editor1.apply();
                 }
-                else{
-                    toEng();
-                    NavEng();
-                    optionEng();
-                }
+                recreate();
                 return true;
             case R.id.logout: {
                 Intent intent = new Intent(Government.this, Login.class);
