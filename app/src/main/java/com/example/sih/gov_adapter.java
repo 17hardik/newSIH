@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,25 +49,28 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         try {
             holder.Job_Post.setText(details.get(position).getJob_Post());
             holder.Company_Name.setText(details.get(position).getCompany_Name());
             holder.Location.setText(details.get(position).getLocation());
-            holder.Salary_PA_in_Rs.setText(details.get(position).getSalary_PA_in_Rs());
-            Picasso.get().load(details.get(position).getCompany_logo()).into(holder.company_logo);
+//            Picasso.get().load(details.get(position).getCompany_logo()).into(holder.company_logo);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    view.getContext().startActivity(new Intent(context, Job_Details.class));
+
+                    Intent intent = new Intent(context, Job_Details.class);
+                    String pos = Integer.toString(position);
+                    intent.putExtra("jobReference", pos);
+                    view.getContext().startActivity(intent);
+
                 }
             });
             if(check.equals("Hin")) {
                 getTranslateService();
                 translateToHin(holder.Job_Post.getText().toString(), holder.Job_Post);
                 translateToHin(holder.Location.getText().toString(), holder.Location);
-                translateToHin(holder.Salary_PA_in_Rs.getText().toString(), holder.Salary_PA_in_Rs);
                 translateToHin(holder.Company_Name.getText().toString(), holder.Company_Name);
             }
         } catch (Exception e) {

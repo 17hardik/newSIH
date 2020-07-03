@@ -6,6 +6,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -14,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,10 +41,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Free_Lancing extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView Det1, Det2, Det3, Det4, More, EDJ, MJ, WJ, DJ, TC, uphone, uname;
+    TextView uphone, uname;
     Boolean English = true;
     String lang, M, check, S, phone, u_name, path;
     int j, i;
@@ -50,29 +56,73 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
-    DatabaseReference reff;
+    DatabaseReference reff, reff1;
+    RecyclerView freelance;
+    ArrayList<data_in_cardview> details;
+    gov_adapter govAdapter;
+    ProgressDialog pd;
+    int size, k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Freelancing");
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone= preferences.getString("Phone","");
         path = preferences.getString("path", "");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_free__lancing);
-        Det1 = findViewById(R.id.det1);
-        Det2 = findViewById(R.id.det2);
-        Det3 = findViewById(R.id.det3);
-        Det4 = findViewById(R.id.det4);
-        TC = findViewById(R.id.tc);
-        More = findViewById(R.id.mi);
-        EDJ = findViewById(R.id.edj);
-        MJ = findViewById(R.id.mj);
-        WJ = findViewById(R.id.wj);
-        DJ = findViewById(R.id.dj);
+        freelance = findViewById(R.id.freelance);
+        freelance.setLayoutManager(new LinearLayoutManager(this));
+        details = new ArrayList<>();
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+        pd = new ProgressDialog(Free_Lancing.this);
+        pd.setMessage("Getting Jobs");
+        pd.show();
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                size = (int) dataSnapshot.getChildrenCount();
+
+                for (k = 0; k < size; k++) {
+
+                    String i = Integer.toString(k);
+                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing").child(i);
+                    reff1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                            details.add(d);
+                            govAdapter = new gov_adapter(Free_Lancing.this, details);
+                            freelance.setAdapter(govAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                            Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pd.dismiss();
+            }
+        }, 3000);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Freelancing");
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
@@ -88,7 +138,17 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
-        profile.setOnClickListener(new View.OnClickListener() {
+
+//        The commented code is trying to interact with image in local storage and as decided earlier, we have deleted image files from local storage.
+//        loadImageFromStorage(path);
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent profileIntent = new Intent(Government.this, Profile.class);
+//                startActivity(profileIntent);
+//            }
+//        });
+        uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent profileIntent = new Intent(Free_Lancing.this, Profile.class);
@@ -96,13 +156,6 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
             }
         });
         uname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profileIntent = new Intent(Free_Lancing.this, Profile.class);
-                startActivity(profileIntent);
-            }
-        });
-        uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent profileIntent = new Intent(Free_Lancing.this, Profile.class);
@@ -129,6 +182,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                                     profile.setMinimumHeight(dm.heightPixels);
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
+                                    // path = saveToInternalStorage(bm);
                                     SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
                                     editor1.putString("path", path);
                                     editor1.apply();
@@ -155,6 +209,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+
         if(check.equals("Hin")){
             NavHin();
             toHin();
@@ -171,12 +226,12 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 Intent intent1 = new Intent(Free_Lancing.this, Non_Government.class);
                 startActivity(intent1);
                 break;
-            case R.id.tenders:
-                Intent intent = new Intent(Free_Lancing.this, Tenders.class);
+            case R.id.free_lancing:
+                Intent intent = new Intent(Free_Lancing.this, Free_Lancing.class);
                 startActivity(intent);
                 break;
-            case R.id.government:
-                Intent intent5 = new Intent(Free_Lancing.this, Government.class);
+            case R.id.tenders:
+                Intent intent5 = new Intent(Free_Lancing.this, Tenders.class);
                 startActivity(intent5);
                 break;
         }
@@ -189,7 +244,8 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.option_menu,menu);
         if(check.equals("Hin")){
             optionHin();
-        } else {
+        }
+        else{
             optionEng();
         }
         return true;
@@ -200,16 +256,16 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
             return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
-                if(English) {
-                    toHin();
-                    NavHin();
-                    optionHin();
+                if(check.equals("Eng")) {
+                    SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
+                    editor1.putString("Lang", "Hin");
+                    editor1.apply();
+                } else{
+                    SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
+                    editor1.putString("Lang", "Eng");
+                    editor1.apply();
                 }
-                else{
-                    toEng();
-                    NavEng();
-                    optionEng();
-                }
+                recreate();
                 return true;
             case R.id.logout: {
                 Intent intent = new Intent(Free_Lancing.this, Login.class);
@@ -242,17 +298,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     }
 
     public void toEng(){
-        Det1.setText(R.string.details);
-        Det2.setText(R.string.details);
-        Det3.setText(R.string.details);
-        Det4.setText(R.string.details);
-        More.setText("     More Info");
-        EDJ.setText(R.string.editor_jobs);
-        WJ.setText(R.string.writer_jobs);
-        DJ.setText(R.string.designer_jobs);
-        MJ.setText(R.string.managing_jobs);
-        TC.setText(R.string.top_categories);
-        getSupportActionBar().setTitle("Freelancing");
+        getSupportActionBar().setTitle("Government Jobs");
         English = true;
         lang = "Eng";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -261,17 +307,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     }
 
     public void toHin(){
-        Det1.setText(R.string.details1);
-        Det2.setText(R.string.details1);
-        Det3.setText(R.string.details1);
-        Det4.setText(R.string.details1);
-        More.setText(R.string.more_info1);
-        EDJ.setText(R.string.editor_jobs1);
-        WJ.setText(R.string.writer_jobs1);
-        MJ.setText(R.string.managing_jobs1);
-        DJ.setText(R.string.designer_jobs1);
-        TC.setText(R.string.top_categories1);
-        getSupportActionBar().setTitle(R.string.freelancing1);
+        getSupportActionBar().setTitle(R.string.government_jobs1);
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -326,12 +362,53 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
             English = false;
             NavHin();
             toHin();
+            try{
+                optionHin();
+            } catch(Exception e){
+            }
         } else{
             English = true;
             NavEng();
             toEng();
+            try{
+                optionEng();
+            } catch(Exception e){
+
+            }
         }
     }
+    //    private void loadImageFromStorage(String path)
+//    {
+//
+//        try {
+//            File f=new File(path, "profile.jpg");
+//            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+//            profile.setImageBitmap(b);
+//        }
+//        catch (FileNotFoundException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//    private String saveToInternalStorage(Bitmap bitmapImage){
+//        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+//        File directory = cw.getDir("profile_picture", Context.MODE_PRIVATE);
+//        File mypath = new File(directory,"profile.jpg");
+//        FileOutputStream fos = null;
+//        try {
+//            fos = new FileOutputStream(mypath);
+//            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                fos.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        return directory.getAbsolutePath();
+//    }
     public StringBuilder decryptUsername(String uname) {
         int pllen;
         StringBuilder sb = new StringBuilder();

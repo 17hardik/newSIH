@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -62,75 +64,79 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
-    DatabaseReference reff;
+    DatabaseReference reff, reff1;
     RecyclerView private_jobs;
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
-   // Translate translate;
+    ProgressDialog pd;
+    int size, k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_non__government);
-
-//        private_jobs = findViewById(R.id.private_jobs);
-//        private_jobs.setLayoutManager(new LinearLayoutManager(this));
-//        details = new ArrayList<>();
-//
-//        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child("1");
-//        reff.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
-//                details.add(d);
-//
-//                if (dataSnapshot.exists()) {
-//
-////                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-////
-//////                        details = new ArrayList<>();
-//////                    try {
-//////                        String Company_logo = dataSnapshot1.child("company_logo").getValue().toString();
-//////                    } catch (Exception e) {
-//////                       e.printStackTrace();
-//////                   }
-//////                    String Job_Post = dataSnapshot1.child("Job_Post").getValue().toString();
-//////                    String Company_Name = dataSnapshot1.child("Company_Name").getValue().toString();
-//////                    String Location = dataSnapshot1.child("Location").getValue().toString();
-//////                    String Salary_PA_in_Rs = dataSnapshot1.child("Salary_PA_in_Rs").getValue().toString();
-////
-////                        data_in_cardview d = dataSnapshot.getValue(data_in_cardview.class);
-////                        details.add(d);
-////
-////                    }
-//                    govAdapter = new gov_adapter(Non_Government.this, details);
-//                    private_jobs.setAdapter(govAdapter);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Toast.makeText(Non_Government.this, "This is Inevitable", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Non-Government Jobs");
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone= preferences.getString("Phone","");
         path = preferences.getString("path", "");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_non__government);
+        private_jobs = findViewById(R.id.private_jobs);
+        private_jobs.setLayoutManager(new LinearLayoutManager(this));
+        details = new ArrayList<>();
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private");
+        pd = new ProgressDialog(Non_Government.this);
+        pd.setMessage("Getting Jobs");
+        pd.show();
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                size = (int) dataSnapshot.getChildrenCount();
+
+                for (k = 0; k < size; k++) {
+
+                    String i = Integer.toString(k);
+                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private").child(i);
+                    reff1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                            details.add(d);
+                            govAdapter = new gov_adapter(Non_Government.this, details);
+                            private_jobs.setAdapter(govAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                            Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pd.dismiss();
+            }
+        }, 3000);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Non Government Jobs");
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
         navigationView.setNavigationItemSelectedListener(this);
         t = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(t);
-
-        //To convert  navigation drawer icon alternatively on each click
         t.syncState();
         menu2 = navigationView.getMenu();
         Gov = menu2.findItem(R.id.government);
@@ -141,13 +147,15 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profileIntent = new Intent(Non_Government.this, Profile.class);
-                startActivity(profileIntent);
-            }
-        });
+//        The commented code is trying to interact with image in local storage and as decided earlier, we have deleted image files from local storage.
+//        loadImageFromStorage(path);
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent profileIntent = new Intent(Government.this, Profile.class);
+//                startActivity(profileIntent);
+//            }
+//        });
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,8 +170,6 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 startActivity(profileIntent);
             }
         });
-
-        //Fetching username, phone and picture from database
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -174,17 +180,17 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 mStorageReference = FirebaseStorage.getInstance().getReference().child(phone).child("Profile Picture");
                 try {
                     final long ONE_MEGABYTE = 1024 * 1024;
-                    mStorageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    mStorageReference.getBytes(ONE_MEGABYTE)
+                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
-
-                                    //Retrieving picture from database and displaying it over navigation drawer and saving it locally
                                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                     DisplayMetrics dm = new DisplayMetrics();
                                     getWindowManager().getDefaultDisplay().getMetrics(dm);
                                     profile.setMinimumHeight(dm.heightPixels);
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
+                                    // path = saveToInternalStorage(bm);
                                     SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
                                     editor1.putString("path", path);
                                     editor1.apply();
@@ -211,6 +217,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 }
             }
         });
+
         if(check.equals("Hin")){
             NavHin();
             toHin();
@@ -223,8 +230,8 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.government:
-                Intent intent1 = new Intent(Non_Government.this,Government.class);
+            case R.id.non_government:
+                Intent intent1 = new Intent(Non_Government.this, Non_Government.class);
                 startActivity(intent1);
                 break;
             case R.id.free_lancing:
@@ -245,7 +252,8 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         getMenuInflater().inflate(R.menu.option_menu,menu);
         if(check.equals("Hin")){
             optionHin();
-        }else {
+        }
+        else{
             optionEng();
         }
         return true;
@@ -256,16 +264,16 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
-                if(English) {
-                    toHin();
-                    NavHin();
-                    optionHin();
+                if(check.equals("Eng")) {
+                    SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
+                    editor1.putString("Lang", "Hin");
+                    editor1.apply();
+                } else{
+                    SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
+                    editor1.putString("Lang", "Eng");
+                    editor1.apply();
                 }
-                else{
-                    toEng();
-                    NavEng();
-                    optionEng();
-                }
+                recreate();
                 return true;
             case R.id.logout: {
                 Intent intent = new Intent(Non_Government.this, Login.class);
@@ -280,7 +288,6 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 Intent rateIntent = new Intent(Non_Government.this, Rating.class);
                 startActivity(rateIntent);
                 return true;
-
             case R.id.contact_us:
                 String recipient = "firstloveyourself1999@gmail.com";
                 Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
@@ -299,7 +306,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     }
 
     public void toEng(){
-        getSupportActionBar().setTitle("Non-Government Jobs");
+        getSupportActionBar().setTitle("Government Jobs");
         English = true;
         lang = "Eng";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -308,7 +315,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     }
 
     public void toHin(){
-        getSupportActionBar().setTitle(R.string.non_government_jobs1);
+        getSupportActionBar().setTitle(R.string.government_jobs1);
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -329,6 +336,11 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         setOptionTitle(R.id.contact_us, "Contact Us");
         setOptionTitle(R.id.go_to_profile, "Go To Profile");
     }
+    private void setOptionTitle(int id, String title)
+    {
+        MenuItem item = menu1.findItem(id);
+        item.setTitle(title);
+    }
     public void NavHin(){
         Gov.setTitle("                  सरकारी नौकरियों");
         Non_Gov.setTitle("                  गैर सरकारी नौकरी");
@@ -341,12 +353,6 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         Tender.setTitle("                  Tenders");
         Free_Lancing.setTitle("                  Freelancing");
     }
-    private void setOptionTitle(int id, String title)
-    {
-        MenuItem item = menu1.findItem(id);
-        item.setTitle(title);
-    }
-
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
@@ -379,32 +385,60 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             }
         }
     }
-
+    //    private void loadImageFromStorage(String path)
+//    {
+//
+//        try {
+//            File f=new File(path, "profile.jpg");
+//            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+//            profile.setImageBitmap(b);
+//        }
+//        catch (FileNotFoundException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//    private String saveToInternalStorage(Bitmap bitmapImage){
+//        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+//        File directory = cw.getDir("profile_picture", Context.MODE_PRIVATE);
+//        File mypath = new File(directory,"profile.jpg");
+//        FileOutputStream fos = null;
+//        try {
+//            fos = new FileOutputStream(mypath);
+//            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                fos.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        return directory.getAbsolutePath();
+//    }
     public StringBuilder decryptUsername(String uname) {
         int pllen;
         StringBuilder sb = new StringBuilder();
         int ciplen = uname.length();
 
-                String temp = Character.toString(uname.charAt(ciplen - 2));
-                if (temp.matches("[a-z]+")) {
-                    pllen = Character.getNumericValue(uname.charAt(ciplen - 1));
-                    pllen -= 2;
-                } else {
-                    String templen = uname.charAt(ciplen - 2) + Character.toString(uname.charAt(ciplen - 1));
-                    pllen = Integer.parseInt(templen);
-                    pllen -= 2;
-                }
-                String[] separated = uname.split("[a-zA-Z]");
-                for (int i = 0; i < pllen; i++) {
-                    String splitted = separated[i];
-                    int split = Integer.parseInt(splitted);
-                    split = split + pllen + (2 * i);
-                    char pln = (char) split;
-                    sb.append(pln);
-                }
-               return sb;
+        String temp = Character.toString(uname.charAt(ciplen - 2));
+        if (temp.matches("[a-z]+")) {
+            pllen = Character.getNumericValue(uname.charAt(ciplen - 1));
+            pllen -= 2;
+        } else {
+            String templen = uname.charAt(ciplen - 2) + Character.toString(uname.charAt(ciplen - 1));
+            pllen = Integer.parseInt(templen);
+            pllen -= 2;
+        }
+        String[] separated = uname.split("[a-zA-Z]");
+        for (int i = 0; i < pllen; i++) {
+            String splitted = separated[i];
+            int split = Integer.parseInt(splitted);
+            split = split + pllen + (2 * i);
+            char pln = (char) split;
+            sb.append(pln);
+        }
+        return sb;
     }
-
-
-
 }

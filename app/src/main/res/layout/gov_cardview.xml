@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#A6A0A6"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -15,7 +15,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        android:padding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +35,10 @@
                 <ImageView
                     android:id="@+id/company_logo"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"></ImageView>
+                    android:layout_height="125dp"
+                    android:src="@drawable/ic_create_jobs">
+
+                </ImageView>
 
             </LinearLayout>
 
@@ -48,6 +52,7 @@
                     android:id="@+id/job_post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:textSize="22sp" />
 
                 <TextView
@@ -61,12 +66,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/salary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="22sp" />
 
             </LinearLayout>
 
