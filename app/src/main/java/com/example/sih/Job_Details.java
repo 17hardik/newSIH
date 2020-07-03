@@ -43,6 +43,7 @@ public class Job_Details extends AppCompatActivity {
     Button FavButton;
     Intent intent;
     ProgressDialog pd;
+    Boolean stopTransaction = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +79,22 @@ public class Job_Details extends AppCompatActivity {
         FavButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopTransaction = false;
                 try {
-                    reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child("Dream Jobs");
+                    reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child(phone).child("Dream Jobs");
                     reff1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             long childCount = snapshot.getChildrenCount();
-                            firebase.child(phone).child("Dream Jobs").child(Long.toString(childCount+1)).setValue("Government" + "0");
-                            Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                            if(!stopTransaction) {
+                                if (childCount == 0) {
+                                    firebase.child(phone).child("Dream Jobs").child("1").setValue("Government" + jobReference);
+                                } else {
+                                    firebase.child(phone).child("Dream Jobs").child(Long.toString(childCount + 1)).setValue("Government" + jobReference);
+                                }
+                                stopTransaction = true;
+                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
@@ -94,8 +103,7 @@ public class Job_Details extends AppCompatActivity {
                         }
                     });
                 } catch (Exception e){
-                    firebase.child(phone).child("Dream Jobs").child("1").setValue("Government" + "0");
-                    Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
