@@ -78,7 +78,7 @@ public class Job_Details extends AppCompatActivity {
         FavButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebase.child(phone).child("Dream Jobs").child("Government" + jobReference).setValue("Government" + jobReference);
+                firebase.child(phone).child("Dream Jobs").child("Government").child(jobReference).setValue("Government" + jobReference);
                 Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
             }
         });
