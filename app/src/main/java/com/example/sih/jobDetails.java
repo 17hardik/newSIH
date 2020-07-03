@@ -21,7 +21,7 @@ public class jobDetails extends AppCompatActivity {
     DatabaseReference reff;
     details details;
     int i;
-    String phone, newPhone, S;
+    String phone, S;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
