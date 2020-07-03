@@ -36,8 +36,8 @@ public class Job_Details extends AppCompatActivity {
 
     private TextView job_post, company_name, company_location, job_details, salaryLabel, salary, sectorLabel, sector, jobDescriptionLabel, jobDescription;
     DatabaseReference reff, reff1;
-    int k, i;
-    String M, check, phone, S, jobCategory, jobReference, post, name, location, Salary, Sector, jobDesc;
+    int k, i, x;
+    String M, J, check, phone, activity, S, jobCategory, jobReference, post, name, location, Salary, Sector, jobDesc;
     Translate translate;
     Firebase firebase;
     Button FavButton;
@@ -54,11 +54,13 @@ public class Job_Details extends AppCompatActivity {
         SharedPreferences preferences1 = getSharedPreferences(M, k);
         check = preferences1.getString("Lang","Eng");
 
+        SharedPreferences preferences2 = getSharedPreferences(J,x);
+        activity = preferences2.getString("Activity","");
+
         setContentView(R.layout.activity_job__details);
 
         intent = getIntent();
         jobReference = intent.getStringExtra("jobReference");
-        jobCategory = intent.getStringExtra("jobCategory");
         job_post = findViewById(R.id.job_post);
         FavButton = findViewById(R.id.favButton);
         company_name = findViewById(R.id.company_name);
@@ -81,13 +83,27 @@ public class Job_Details extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child("Dream Jobs");
+                    reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child(phone).child("Dream Jobs");
                     reff1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             long childCount = snapshot.getChildrenCount();
-                            firebase.child(phone).child("Dream Jobs").child(Long.toString(childCount+1)).setValue("Government" + "0");
-                            Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                            if (activity.equals("Government")) {
+                                firebase.child(phone).child("Dream Jobs").child("Government").child(jobReference).setValue("Government" + jobReference);
+                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                            }
+                            else if (activity.equals("Non Government")){
+                                firebase.child(phone).child("Dream Jobs").child("Private").child(jobReference).setValue("Private" + jobReference);
+                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                            }
+                            else if (activity.equals("Freelancing")){
+                                firebase.child(phone).child("Dream Jobs").child("Freelancing").child(jobReference).setValue("Freelancing" + jobReference);
+                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                firebase.child(phone).child("Dream Jobs").child("Tender").child(jobReference).setValue("Tender" + jobReference);
+                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
@@ -136,217 +152,734 @@ public class Job_Details extends AppCompatActivity {
 
     }
 
-    public void getJobPost(final String jobReference){
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    post = dataSnapshot.child(jobReference).child("Job_Post").getValue().toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                job_post.setText(post);
-                if (check.equals("Hin")){
-                    getTranslateService();
+
+    public void getJobPost(final String jobReference) {
+
+        if (activity.equals("Government")) {
+
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     try {
-                        translateToHin(job_post.getText().toString(), job_post);
+                        post = dataSnapshot.child(jobReference).child("Job_Post").getValue().toString();
                     } catch (Exception e) {
-                        Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    public void getCompanyName(final String jobReference){
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    name = dataSnapshot.child(jobReference).child("Company_Name").getValue().toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                company_name.setText(name);
-                if (check.equals("Hin")){
-                    getTranslateService();
-                    try {
-                        translateToHin(company_name.getText().toString(), company_name);
-                    } catch (Exception e) {
-                        Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    public void getLocation(final String jobReference){
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child(jobCategory);
-                reff1.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                    job_post.setText(post);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
                         try {
-                            location = snapshot.child(jobReference).child("Location").getValue().toString();
+                            translateToHin(job_post.getText().toString(), job_post);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else if (activity.equals("Non Government")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        post = dataSnapshot.child(jobReference).child("Job_Post").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    job_post.setText(post);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(job_post.getText().toString(), job_post);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else if (activity.equals("Freelancing")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        post = dataSnapshot.child(jobReference).child("Job_Post").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    job_post.setText(post);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(job_post.getText().toString(), job_post);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Tender");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        post = dataSnapshot.child(jobReference).child("Job_Post").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    job_post.setText(post);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(job_post.getText().toString(), job_post);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+    }
+
+    public void getCompanyName(final String jobReference) {
+         if (activity.equals("Government")) {
+
+             reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+             reff.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                     try {
+                         name = dataSnapshot.child(jobReference).child("Company_Name").getValue().toString();
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
+                     company_name.setText(name);
+                     if (check.equals("Hin")) {
+                         getTranslateService();
+                         try {
+                             translateToHin(company_name.getText().toString(), company_name);
+                         } catch (Exception e) {
+                             Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                         }
+                     }
+                 }
+
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                     Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                 }
+             });
+         }
+
+         else if (activity.equals("Non Government")) {
+             reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private");
+             reff.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                     try {
+                         name = dataSnapshot.child(jobReference).child("Company_Name").getValue().toString();
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
+                     company_name.setText(name);
+                     if (check.equals("Hin")) {
+                         getTranslateService();
+                         try {
+                             translateToHin(company_name.getText().toString(), company_name);
+                         } catch (Exception e) {
+                             Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                         }
+                     }
+                 }
+
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                     Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                 }
+             });
+         }
+
+            else if (activity.equals("Freelancing")) {
+             reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+             reff.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                     try {
+                         name = dataSnapshot.child(jobReference).child("Company_Name").getValue().toString();
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
+                     company_name.setText(name);
+                     if (check.equals("Hin")) {
+                         getTranslateService();
+                         try {
+                             translateToHin(company_name.getText().toString(), company_name);
+                         } catch (Exception e) {
+                             Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                         }
+                     }
+                 }
+
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                     Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                 }
+             });
+         }
+
+            else {
+             reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Tender");
+             reff.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                     try {
+                         name = dataSnapshot.child(jobReference).child("Company_Name").getValue().toString();
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
+                     company_name.setText(name);
+                     if (check.equals("Hin")) {
+                         getTranslateService();
+                         try {
+                             translateToHin(company_name.getText().toString(), company_name);
+                         } catch (Exception e) {
+                             Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                         }
+                     }
+                 }
+
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                     Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                 }
+             });
+         }
+    }
+
+    public void getLocation(final String jobReference) {
+
+        if (activity.equals("Government")) {
+
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        location = snapshot.child(jobReference).child("Location").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    company_location.setText(location);
+
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(company_location.getText().toString(), company_location);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+            else if (activity.equals("Non Government")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        location = snapshot.child(jobReference).child("Location").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    company_location.setText(location);
+
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(company_location.getText().toString(), company_location);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+            else if (activity.equals("Freelancing")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        location = snapshot.child(jobReference).child("Location").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    company_location.setText(location);
+
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(company_location.getText().toString(), company_location);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+            else {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Tender");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        location = snapshot.child(jobReference).child("Location").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    company_location.setText(location);
+
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(company_location.getText().toString(), company_location);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        }
+
+    public void getSalary(final String jobReference) {
+
+        if (activity.equals("Government")) {
+
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Salary = dataSnapshot.child(jobReference).child("Salary_PA_in_Rs").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    salary.setText(Salary);
+                    if (check.equals("Hin")) {
+                        try {
+                            getTranslateService();
+                            translateToHin(salary.getText().toString(), salary);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                    }
+                }
 
-                        company_location.setText(location);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
-                        if (check.equals("Hin")){
+                }
+            });
+        }
+
+            else if (activity.equals("Non Government")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Salary = dataSnapshot.child(jobReference).child("Salary_PA_in_Rs").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    salary.setText(Salary);
+                    if (check.equals("Hin")) {
+                        try {
+                            getTranslateService();
+                            translateToHin(salary.getText().toString(), salary);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else if (activity.equals("Freelancing")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Salary = dataSnapshot.child(jobReference).child("Salary_PA_in_Rs").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    salary.setText(Salary);
+                    if (check.equals("Hin")) {
+                        try {
+                            getTranslateService();
+                            translateToHin(salary.getText().toString(), salary);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Tender");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Salary = dataSnapshot.child(jobReference).child("Salary_PA_in_Rs").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    salary.setText(Salary);
+                    if (check.equals("Hin")) {
+                        try {
+                            getTranslateService();
+                            translateToHin(salary.getText().toString(), salary);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+    }
+
+    public void getSector(final String jobReference){
+
+        if (activity.equals("Government")) {
+
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Sector = dataSnapshot.child(jobReference).child("Sector").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    sector.setText(Sector);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(sector.getText().toString(), sector);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else if (activity.equals("Non Government")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Sector = dataSnapshot.child(jobReference).child("Sector").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    sector.setText(Sector);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(sector.getText().toString(), sector);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else if (activity.equals("Freelancing")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Sector = dataSnapshot.child(jobReference).child("Sector").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    sector.setText(Sector);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(sector.getText().toString(), sector);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Tender");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Sector = dataSnapshot.child(jobReference).child("Sector").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    sector.setText(Sector);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(sector.getText().toString(), sector);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+    }
+
+    public void getJobDescription(final String jobReference){
+
+        if (activity.equals("Government")) {
+
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        jobDesc = dataSnapshot.child(jobReference).child("Job_Description").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    jobDescription.setText(jobDesc);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(jobDescription.getText().toString(), jobDescription);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else if (activity.equals("Non Government")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Private");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        jobDesc = dataSnapshot.child(jobReference).child("Job_Description").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    jobDescription.setText(jobDesc);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(jobDescription.getText().toString(), jobDescription);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else if (activity.equals("Freelancing")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        jobDesc = dataSnapshot.child(jobReference).child("Job_Description").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    jobDescription.setText(jobDesc);
+                    if (check.equals("Hin")) {
+                        getTranslateService();
+                        try {
+                            translateToHin(jobDescription.getText().toString(), jobDescription);
+                        } catch (Exception e) {
+                            Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+            else {
+                reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Tender");
+                reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        try {
+                            jobDesc = dataSnapshot.child(jobReference).child("Job_Description").getValue().toString();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        jobDescription.setText(jobDesc);
+                        if (check.equals("Hin")) {
                             getTranslateService();
                             try {
-                                translateToHin(company_location.getText().toString(), company_location);
+                                translateToHin(jobDescription.getText().toString(), jobDescription);
                             } catch (Exception e) {
                                 Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
-
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
                     }
                 });
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-            }
-        });
-       /* reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    location = dataSnapshot.child(jobReference).child("Location").getValue().toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                company_location.setText(location);
-                if (check.equals("Hin")){
-                    getTranslateService();
-                    try {
-                        translateToHin(company_location.getText().toString(), company_location);
-                    } catch (Exception e) {
-                        Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
-            }
-        }); */
-    }
-
-    public void getSalary(final String jobReference){
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    Salary = dataSnapshot.child(jobReference).child("Salary_PA_in_Rs").getValue().toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                salary.setText(Salary);
-                if (check.equals("Hin")){
-                    try {
-                        getTranslateService();
-                        translateToHin(salary.getText().toString(), salary);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    public void getSector(final String jobReference){
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    Sector = dataSnapshot.child(jobReference).child("Sector").getValue().toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                sector.setText(Sector);
-                if (check.equals("Hin")){
-                    getTranslateService();
-                    try {
-                        translateToHin(sector.getText().toString(), sector);
-                    } catch (Exception e) {
-                        Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    public void getJobDescription(final String jobReference){
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    jobDesc = dataSnapshot.child(jobReference).child("Jobs_Description").getValue().toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                jobDescription.setText(jobDesc);
-                if (check.equals("Hin")){
-                    getTranslateService();
-                    try {
-                        translateToHin(jobDescription.getText().toString(), jobDescription);
-                    } catch (Exception e) {
-                        Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        }
     }
 
     @Override

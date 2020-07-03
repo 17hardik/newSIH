@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
     ImageButton Gov, Non_Gov, Tenders, Free_Lancing;
     RelativeLayout menus;
     DatabaseReference reff;
-    String phone, S, M, user_name, check, lang, X;
+    String phone, S, M, J, user_name, check, lang, X;
     Menu menu1;
     Boolean English = true;
-    int i, j, y;
+    int i, j, y, x;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false;
 
@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
         Gov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Government");
+                editor.apply();
                 Intent govIntent = new Intent(MainActivity.this, Government.class);
                 startActivity(govIntent);
             }
@@ -110,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         Non_Gov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Non Government");
+                editor.apply();
                 Intent nonIntent = new Intent(MainActivity.this, Non_Government.class);
                 startActivity(nonIntent);
             }
@@ -117,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
         Tenders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "tenders");
+                editor.apply();
                 Intent tenderIntent = new Intent(MainActivity.this, Tenders.class);
                 startActivity(tenderIntent);
             }
@@ -124,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
         Free_Lancing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Freelancing");
+                editor.apply();
                 Intent freeIntent = new Intent(MainActivity.this, Free_Lancing.class);
                 startActivity(freeIntent);
             }

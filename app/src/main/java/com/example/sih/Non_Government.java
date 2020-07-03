@@ -55,8 +55,8 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
     TextView uphone, uname;
     Boolean English = true;
-    String lang, M, check, S, phone, u_name, path;
-    int j, i;
+    String lang, M, J, check, S, phone, u_name, path;
+    int j, i, x;
     DrawerLayout drawer;
     ImageView profile;
     NavigationView navigationView;
@@ -230,15 +230,24 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.non_government:
-                Intent intent1 = new Intent(Non_Government.this, Non_Government.class);
+            case R.id.government:
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Government");
+                editor.apply();
+                Intent intent1 = new Intent(Non_Government.this, Government.class);
                 startActivity(intent1);
                 break;
             case R.id.free_lancing:
+                SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
+                editor1.putString("Activity", "Freelancing");
+                editor1.apply();
                 Intent intent = new Intent(Non_Government.this, Free_Lancing.class);
                 startActivity(intent);
                 break;
             case R.id.tenders:
+                SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
+                editor2.putString("Activity", "Tenders");
+                editor2.apply();
                 Intent intent5 = new Intent(Non_Government.this, Tenders.class);
                 startActivity(intent5);
                 break;
@@ -306,7 +315,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     }
 
     public void toEng(){
-        getSupportActionBar().setTitle("Government Jobs");
+        getSupportActionBar().setTitle("Non Government Jobs");
         English = true;
         lang = "Eng";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -315,7 +324,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     }
 
     public void toHin(){
-        getSupportActionBar().setTitle(R.string.government_jobs1);
+        getSupportActionBar().setTitle(R.string.non_government_jobs1);
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();

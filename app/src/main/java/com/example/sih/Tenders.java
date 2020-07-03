@@ -47,8 +47,8 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
 
     TextView uphone, uname;
     Boolean English = true;
-    String lang, M, check, S, phone, u_name, path;
-    int j, i;
+    String lang, M, J, check, S, phone, u_name, path;
+    int j, i, x;
     DrawerLayout drawer;
     ImageView profile;
     NavigationView navigationView;
@@ -222,16 +222,25 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.non_government:
-                Intent intent1 = new Intent(Tenders.this, Non_Government.class);
+            case R.id.government:
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Government");
+                editor.apply();
+                Intent intent1 = new Intent(Tenders.this, Government.class);
                 startActivity(intent1);
                 break;
-            case R.id.free_lancing:
-                Intent intent = new Intent(Tenders.this, Free_Lancing.class);
+            case R.id.non_government:
+                SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
+                editor1.putString("Activity", "Non Government");
+                editor1.apply();
+                Intent intent = new Intent(Tenders.this, Non_Government.class);
                 startActivity(intent);
                 break;
-            case R.id.tenders:
-                Intent intent5 = new Intent(Tenders.this, Tenders.class);
+            case R.id.free_lancing:
+                SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
+                editor2.putString("Activity", "Freelancing");
+                editor2.apply();
+                Intent intent5 = new Intent(Tenders.this, Free_Lancing.class);
                 startActivity(intent5);
                 break;
         }
@@ -298,7 +307,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     public void toEng(){
-        getSupportActionBar().setTitle("Government Jobs");
+        getSupportActionBar().setTitle("Tenders");
         English = true;
         lang = "Eng";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -307,7 +316,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     public void toHin(){
-        getSupportActionBar().setTitle(R.string.government_jobs1);
+        getSupportActionBar().setTitle(R.string.tenders1);
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();

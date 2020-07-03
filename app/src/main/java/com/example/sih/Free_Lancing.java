@@ -47,8 +47,8 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
     TextView uphone, uname;
     Boolean English = true;
-    String lang, M, check, S, phone, u_name, path;
-    int j, i;
+    String lang, M, J, check, S, phone, u_name, path;
+    int j, i, x;
     DrawerLayout drawer;
     ImageView profile;
     NavigationView navigationView;
@@ -222,15 +222,24 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.non_government:
-                Intent intent1 = new Intent(Free_Lancing.this, Non_Government.class);
+            case R.id.government:
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Government");
+                editor.apply();
+                Intent intent1 = new Intent(Free_Lancing.this, Government.class);
                 startActivity(intent1);
                 break;
-            case R.id.free_lancing:
-                Intent intent = new Intent(Free_Lancing.this, Free_Lancing.class);
+            case R.id.non_government:
+                SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
+                editor1.putString("Activity", "Non Government");
+                editor1.apply();
+                Intent intent = new Intent(Free_Lancing.this, Non_Government.class);
                 startActivity(intent);
                 break;
             case R.id.tenders:
+                SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
+                editor2.putString("Activity", "Tenders");
+                editor2.apply();
                 Intent intent5 = new Intent(Free_Lancing.this, Tenders.class);
                 startActivity(intent5);
                 break;
@@ -298,7 +307,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     }
 
     public void toEng(){
-        getSupportActionBar().setTitle("Government Jobs");
+        getSupportActionBar().setTitle("Freelancing");
         English = true;
         lang = "Eng";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -307,7 +316,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     }
 
     public void toHin(){
-        getSupportActionBar().setTitle(R.string.government_jobs1);
+        getSupportActionBar().setTitle(R.string.freelancing1);
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();

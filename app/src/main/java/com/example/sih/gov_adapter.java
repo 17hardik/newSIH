@@ -50,7 +50,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         try {
             holder.Job_Post.setText(details.get(position).getJob_Post());
@@ -63,7 +63,6 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
                     Intent intent = new Intent(context, Job_Details.class);
                     String pos = Integer.toString(position);
-                    intent.putExtra("jobCategory", details.get(position).getJob_Type());
                     intent.putExtra("jobReference", pos);
                     view.getContext().startActivity(intent);
 
