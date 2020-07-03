@@ -20,6 +20,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -62,6 +63,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
                     Intent intent = new Intent(context, Job_Details.class);
                     String pos = Integer.toString(position);
+                    intent.putExtra("jobCategory", details.get(position).getJob_Type());
                     intent.putExtra("jobReference", pos);
                     view.getContext().startActivity(intent);
 
@@ -86,7 +88,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView Job_Post, Company_Name, Location, Salary_PA_in_Rs;
+        TextView Job_Post, Company_Name, Location;
         ImageView company_logo;
         String M;
         int j;
@@ -98,7 +100,6 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
             Job_Post = itemView.findViewById(R.id.job_post);
             Company_Name = itemView.findViewById(R.id.company_name);
             Location = itemView.findViewById(R.id.company_location);
-            Salary_PA_in_Rs = itemView.findViewById(R.id.salary);
             company_logo = itemView.findViewById(R.id.company_logo);
             check = preferences.getString("Lang","Eng");
         }

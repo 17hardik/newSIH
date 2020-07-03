@@ -37,7 +37,7 @@ public class Job_Details extends AppCompatActivity {
     private TextView job_post, company_name, company_location, job_details, salaryLabel, salary, sectorLabel, sector, jobDescriptionLabel, jobDescription;
     DatabaseReference reff, reff1;
     int k, i;
-    String M, check, phone, S, jobReference, post, name, location, Salary, Sector, jobDesc;
+    String M, check, phone, S, jobCategory, jobReference, post, name, location, Salary, Sector, jobDesc;
     Translate translate;
     Firebase firebase;
     Button FavButton;
@@ -57,6 +57,7 @@ public class Job_Details extends AppCompatActivity {
 
         intent = getIntent();
         jobReference = intent.getStringExtra("jobReference");
+        jobCategory = intent.getStringExtra("jobCategory");
         job_post = findViewById(R.id.job_post);
         FavButton = findViewById(R.id.favButton);
         company_name = findViewById(R.id.company_name);
@@ -95,7 +96,7 @@ public class Job_Details extends AppCompatActivity {
                     });
                 } catch (Exception e){
                     firebase.child(phone).child("Dream Jobs").child("1").setValue("Government" + "0");
-                    Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Job_Details.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -192,8 +193,47 @@ public class Job_Details extends AppCompatActivity {
     }
 
     public void getLocation(final String jobReference){
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs");
         reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child(jobCategory);
+                reff1.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        try {
+                            location = snapshot.child(jobReference).child("Location").getValue().toString();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        company_location.setText(location);
+
+                        if (check.equals("Hin")){
+                            getTranslateService();
+                            try {
+                                translateToHin(company_location.getText().toString(), company_location);
+                            } catch (Exception e) {
+                                Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+       /* reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
@@ -217,7 +257,7 @@ public class Job_Details extends AppCompatActivity {
                 Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        }); */
     }
 
     public void getSalary(final String jobReference){
