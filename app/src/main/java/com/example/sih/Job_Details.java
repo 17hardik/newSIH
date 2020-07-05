@@ -43,7 +43,6 @@ public class Job_Details extends AppCompatActivity {
     Button FavButton;
     Intent intent;
     ProgressDialog pd;
-    Boolean stopTransaction = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,22 +87,8 @@ public class Job_Details extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             long childCount = snapshot.getChildrenCount();
-                            if (activity.equals("Government")) {
-                                firebase.child(phone).child("Dream Jobs").child("Government").child(jobReference).setValue("Government" + jobReference);
+                                firebase.child(phone).child("Dream Jobs").child(activity + jobReference).setValue(activity + "-" + jobReference);
                                 Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
-                            }
-                            else if (activity.equals("Non Government")){
-                                firebase.child(phone).child("Dream Jobs").child("Private").child(jobReference).setValue("Private" + jobReference);
-                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
-                            }
-                            else if (activity.equals("Freelancing")){
-                                firebase.child(phone).child("Dream Jobs").child("Freelancing").child(jobReference).setValue("Freelancing" + jobReference);
-                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                firebase.child(phone).child("Dream Jobs").child("Tender").child(jobReference).setValue("Tender" + jobReference);
-                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
-                            }
                         }
 
                         @Override

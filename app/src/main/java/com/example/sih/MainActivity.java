@@ -1,6 +1,7 @@
 package com.example.sih;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -69,6 +70,22 @@ public class MainActivity extends AppCompatActivity {
         Non_Gov = findViewById(R.id.non);
         Tenders = findViewById(R.id.tenders);
         Free_Lancing = findViewById(R.id.free);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        View view =getSupportActionBar().getCustomView();
+
+        ImageButton imageButton= (ImageButton)view.findViewById(R.id.dream_jobs);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dreamIntent = new Intent(MainActivity.this, Dream_jobs.class);
+                startActivity(dreamIntent);
+            }
+        });
+
 
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
