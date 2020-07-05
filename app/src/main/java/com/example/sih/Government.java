@@ -62,7 +62,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     gov_adapter govAdapter;
     ProgressDialog pd;
     int size, k;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
