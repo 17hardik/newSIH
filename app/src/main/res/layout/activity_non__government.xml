@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/ic_sih_job_gradiant"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Non_Government">
