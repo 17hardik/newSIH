@@ -246,7 +246,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.tenders:
                 SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
-                editor2.putString("Activity", "Tenders");
+                editor2.putString("Activity", "Tender");
                 editor2.apply();
                 Intent intent5 = new Intent(Non_Government.this, Tenders.class);
                 startActivity(intent5);
