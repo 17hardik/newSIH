@@ -159,7 +159,6 @@ public class Job_Details extends AppCompatActivity {
                                 String[] arrOfStr = dreamJob.split("-", 2);
                                 String category = arrOfStr[0];
                                 String position = arrOfStr[1];
-                                Toast.makeText(Job_Details.this, "" + category, Toast.LENGTH_SHORT).show();
 
                                 reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child(category).child(position);
                                 reff.addValueEventListener(new ValueEventListener() {
