@@ -224,7 +224,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
             case R.id.non_government:
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Non Government");
+                editor.putString("Activity", "Private");
                 editor.apply();
                 Intent intent1 = new Intent(Government.this, Non_Government.class);
                 startActivity(intent1);
@@ -238,7 +238,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 break;
             case R.id.tenders:
                 SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
-                editor2.putString("Activity", "Tenders");
+                editor2.putString("Activity", "Tender");
                 editor2.apply();
                 Intent intent5 = new Intent(Government.this, Tenders.class);
                 startActivity(intent5);
