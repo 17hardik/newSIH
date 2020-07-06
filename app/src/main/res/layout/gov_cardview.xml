@@ -35,7 +35,7 @@
                     android:id="@+id/company_logo"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
-                    android:src="@drawable/ic_create_jobs">
+                    android:src="@drawable/ic_sih_cardview_img">
 
                 </ImageView>
 
@@ -58,13 +58,13 @@
                     android:id="@+id/company_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/company_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
