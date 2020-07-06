@@ -132,4 +132,7 @@
     <string name="yes1">हाँ</string>
     <string name="no1">नहीं</string>
     <string name="delete_your_account1">अपना खाता हटाएं</string>
+    <string name="atleast_one_option">कृपया कम से कम एक विकल्प चुनें</string>
+    <string name="atmost_three_sectors">आप अधिकतम तीन क्षेत्रों का चयन कर सकते हैं</string>
+
 </resources>

@@ -55,9 +55,8 @@ public class Dream_jobs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    jobCategory jc = dataSnapshot.getValue(jobCategory.class);
-                    String jobC = String.valueOf(jc);
-                    String[] arrOfStr = jobC.split("-", 2);
+                    String jc = dataSnapshot.getValue().toString();
+                    String[] arrOfStr = jc.split("-", 2);
                     category = arrOfStr[0];
                     position = arrOfStr[1];
                     reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child(category).child(position);

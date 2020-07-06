@@ -1,30 +1,137 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class Testing extends AppCompatActivity {
 
+    CheckBox cbScience, cbBusiness, cbFarming, cbCommunity, cbLabors, cbHealth, cbCommunications, cbArts, cbEducation, cbInstallation, cbOthers;
+    Button submitButton;
+    String check, M, S;
+    int i, j;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+        SharedPreferences preferences1 = getSharedPreferences(M,j);
+        check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_testing);
+        cbScience = findViewById(R.id.cbscience);
+        cbBusiness = findViewById(R.id.cbbusiness);
+        cbFarming = findViewById(R.id.cbfarming);
+        cbCommunity = findViewById(R.id.cbcommunity);
+        cbLabors = findViewById(R.id.cblabors);
+        cbHealth = findViewById(R.id.cbhealth);
+        cbCommunications = findViewById(R.id.cbcommunications);
+        cbArts = findViewById(R.id.cbarts);
+        cbEducation = findViewById(R.id.cbeducation);
+        cbInstallation = findViewById(R.id.cbinstallation);
+        cbOthers = findViewById(R.id.cbothers);
+        submitButton = findViewById(R.id.buttonsubmit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = 0;
+                if (!(cbScience.isChecked()) && !(cbBusiness.isChecked()) && !(cbFarming.isChecked()) && !(cbCommunity.isChecked()) && !(cbLabors.isChecked()) && !(cbHealth.isChecked()) && !(cbCommunications.isChecked()) && !(cbArts.isChecked()) && !(cbEducation.isChecked()) && !(cbInstallation.isChecked()) && !(cbOthers.isChecked())) {
+                    if (check.equals("Hin")) {
+                        Toast.makeText(Testing.this, R.string.atleast_one_option, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Testing.this, "Please select atleast one option", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (cbScience.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Science", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbBusiness.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Business", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbFarming.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Farming", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbCommunity.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Community", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbLabors.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Labors", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbHealth.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Health", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbCommunications.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Communications", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbArts.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Arts", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbEducation.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Education", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbInstallation.isChecked()) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("Installation", "Yes");
+                        editor.apply();
+                        count++;
+                    }
+                    if (cbOthers.isChecked()) {
+                        count++;
+                    }
+                        
+                        if(count > 3){
+                            if (check.equals("Hin")) {
+                                Toast.makeText(Testing.this, R.string.atmost_three_sectors, Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(Testing.this, "You can select atmost three sectors", Toast.LENGTH_SHORT).show();
+                            }
+                            SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
+                            editor.putString("Science", "No");
+                            editor.putString("Business", "No");
+                            editor.putString("Farming", "No");
+                            editor.putString("Community", "No");
+                            editor.putString("Labors", "No");
+                            editor.putString("Health", "No");
+                            editor.putString("Communications", "No");
+                            editor.putString("Arts", "No");
+                            editor.putString("Education", "No");
+                            editor.putString("Installation", "No");
+                            editor.apply();
+                        }
+                    }
+                }
+        });
 
     }
 }
