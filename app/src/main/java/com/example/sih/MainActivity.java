@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Main");
+                editor.apply();
                 Intent dreamIntent = new Intent(MainActivity.this, Dream_jobs.class);
                 startActivity(dreamIntent);
             }
@@ -131,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Non Government");
+                editor.putString("Activity", "Private");
                 editor.apply();
                 Intent nonIntent = new Intent(MainActivity.this, Non_Government.class);
                 startActivity(nonIntent);
@@ -141,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "tenders");
+                editor.putString("Activity", "Tender");
                 editor.apply();
                 Intent tenderIntent = new Intent(MainActivity.this, Tenders.class);
                 startActivity(tenderIntent);

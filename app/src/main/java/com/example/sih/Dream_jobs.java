@@ -47,7 +47,7 @@ public class Dream_jobs extends AppCompatActivity {
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone).child("Dream Jobs");
 
         pd = new ProgressDialog(Dream_jobs.this);
-        pd.setMessage("Getting Jobs");
+        pd.setMessage("Getting your Dream Jobs");
         pd.show();
 
         reff.addValueEventListener(new ValueEventListener() {
@@ -55,18 +55,26 @@ public class Dream_jobs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String jc = dataSnapshot.getValue().toString();
-                    String[] arrOfStr = jc.split("-", 2);
-                    category = arrOfStr[0];
-                    position = arrOfStr[1];
+                    try {
+                        String dreamJob = dataSnapshot.getValue().toString();
+                        String[] arrOfStr = dreamJob.split("-", 2);
+                        category = arrOfStr[0];
+                        position = arrOfStr[1];
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child(category).child(position);
                     reff1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                            details.add(d);
-                            govAdapter = new gov_adapter(Dream_jobs.this, details);
-                            dream_jobs.setAdapter(govAdapter);
+                            try {
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Dream_jobs.this, details);
+                                dream_jobs.setAdapter(govAdapter);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override

@@ -231,14 +231,14 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.non_government:
                 SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
-                editor1.putString("Activity", "Non Government");
+                editor1.putString("Activity", "Private");
                 editor1.apply();
                 Intent intent = new Intent(Free_Lancing.this, Non_Government.class);
                 startActivity(intent);
                 break;
             case R.id.tenders:
                 SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
-                editor2.putString("Activity", "Tenders");
+                editor2.putString("Activity", "Tender");
                 editor2.apply();
                 Intent intent5 = new Intent(Free_Lancing.this, Tenders.class);
                 startActivity(intent5);
