@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="star">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -56,8 +56,8 @@
 
     <Button
         android:layout_width="165dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:textColor="#ffffff"
         android:id="@+id/usernameBT"
         android:text="Change Username"
@@ -81,8 +81,8 @@
 
     <Button
         android:layout_width="165dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:textColor="#ffffff"
         android:id="@+id/nameBT"
         android:text="Change Name"
@@ -106,8 +106,8 @@
 
     <Button
         android:layout_width="165dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:textColor="#ffffff"
         android:id="@+id/phoneBT"
         android:text="Change Phone"
@@ -119,10 +119,10 @@
         app:layout_constraintHorizontal_bias="0.97"/>
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:id="@+id/password"
-        android:background="@color/colorPrimary"
         android:textColor="#ffffff"
         android:text="Change Password"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -132,10 +132,10 @@
         app:layout_constraintVertical_bias="0.79"/>
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:id="@+id/certificate"
-        android:background="@color/colorPrimary"
         android:textColor="#ffffff"
         android:text="Update Qualification Certificates"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -145,7 +145,7 @@
         app:layout_constraintVertical_bias="0.89"/>
 
     <Button
-       android:layout_width="300dp"
+       android:layout_width="200dp"
        android:layout_height="wrap_content"
        android:id="@+id/delete"
        android:background="@color/colorRed"
