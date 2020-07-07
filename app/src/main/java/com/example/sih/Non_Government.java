@@ -1,5 +1,21 @@
 package com.example.sih;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -9,33 +25,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.StrictMode;
-import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
-//import com.google.auth.oauth2.GoogleCredentials;
-//import com.google.cloud.translate.Translate;
-//import com.google.cloud.translate.TranslateOptions;
-//import com.google.cloud.translate.Translation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,19 +35,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.io.InputStream;
+
+//import com.google.auth.oauth2.GoogleCredentials;
+//import com.google.cloud.translate.Translate;
+//import com.google.cloud.translate.TranslateOptions;
+//import com.google.cloud.translate.Translation;
 
 public class Non_Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    TextView uphone, uname;
+    TextView uphone, uname, Premium, Days;
     Boolean English = true;
-    String lang, M, J, check, S, phone, u_name, path;
+    String lang, M, J, check, S, phone, u_name, path, isPremium, days;
     int j, i, x;
     DrawerLayout drawer;
     ImageView profile;
@@ -76,6 +68,8 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone= preferences.getString("Phone","");
+        isPremium = preferences.getString("isPremium", "No");
+        days = preferences.getString("remainingDays", "0");
         path = preferences.getString("path", "");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
@@ -146,6 +140,8 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
+        Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
+        Days = navigationView.getHeaderView(0).findViewById(R.id.days);
 
 //        The commented code is trying to interact with image in local storage and as decided earlier, we have deleted image files from local storage.
 //        loadImageFromStorage(path);
@@ -176,6 +172,15 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
+                if(isPremium.equals("Yes")){
+                    Premium.setVisibility(View.VISIBLE);
+                    if(days.equals("1")){
+                        Days.setText(days + " day remaining");
+                    } else {
+                        Days.setText(days + " days remaining");
+                    }
+                    Days.setVisibility(View.VISIBLE);
+                }
                 String username = decryptUsername(u_name).toString();
                 mStorageReference = FirebaseStorage.getInstance().getReference().child(phone).child("Profile Picture");
                 try {
@@ -250,6 +255,10 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 editor2.apply();
                 Intent intent5 = new Intent(Non_Government.this, Tenders.class);
                 startActivity(intent5);
+                break;
+            case R.id.premium:
+                Intent intent2 = new Intent(Non_Government.this, Testing.class);
+                startActivity(intent2);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

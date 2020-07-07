@@ -134,5 +134,10 @@
     <string name="delete_your_account1">अपना खाता हटाएं</string>
     <string name="atleast_one_option">कृपया कम से कम एक विकल्प चुनें</string>
     <string name="atmost_three_sectors">आप अधिकतम तीन क्षेत्रों का चयन कर सकते हैं</string>
+    <string name="congrats_premium">बधाई !, अब आप एक प्रीमियम सदस्य हैं</string>
+    <string name="congrats">बधाई !</string>
+    <string name="premium_member">अब आप एक प्रीमियम सदस्य हैं</string>
+    <string name="benefits">&#8226; Find your Dream Jobs\n\n&#8226; Get a Roadmap to begin the journey to your Dream Job\n\n&#8226; Get Premium Profile badge\n\n&#8226; No ads</string>
+    <string name="benefits1">&#8226; अपने ड्रीम जॉब खोजें\n\n&#8226; अपनी ड्रीम जॉब की यात्रा शुरू करने के लिए एक रोडमैप प्राप्त करें\n\n&#8226; प्रीमियम प्रोफ़ाइल बैज प्राप्त करें\n\n&#8226; विज्ञापन नहीं</string>
 
 </resources>

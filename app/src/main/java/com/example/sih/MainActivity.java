@@ -1,13 +1,9 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +14,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +34,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     ImageView bgapp;
     Animation bganim;
@@ -41,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     Animation frombotton;
     ImageButton Gov, Non_Gov, Tenders, Free_Lancing;
     RelativeLayout menus;
-    DatabaseReference reff;
-    String phone, S, M, J, user_name, check, lang, X;
+    DatabaseReference reff, reff1, reff2;
+    String phone, S, M, J, user_name, check, lang, X, premium_date, currentDate, remainingDays = "0", isPremium;
     Menu menu1;
     Boolean English = true;
     int i, j, y, x;
@@ -56,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         check = preferences1.getString("Lang","Eng");
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone = preferences.getString("Phone","");
+        isPremium = preferences.getString("isPremium", "No");
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
         Firebase.setAndroidContext(this);
@@ -76,23 +82,32 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         View view =getSupportActionBar().getCustomView();
 
-        ImageButton imageButton= (ImageButton)view.findViewById(R.id.dream_jobs);
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        currentDate = df.format(c);
 
+        ImageButton imageButton= view.findViewById(R.id.dream_jobs);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Main");
-                editor.apply();
-                Intent dreamIntent = new Intent(MainActivity.this, Dream_jobs.class);
-                startActivity(dreamIntent);
+                if(isPremium.equals("Yes")) {
+                    SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                    editor.putString("Activity", "Main");
+                    editor.apply();
+                    Intent dreamIntent = new Intent(MainActivity.this, Dream_jobs.class);
+                    startActivity(dreamIntent);
+                } else{
+                    Intent dreamIntent = new Intent(MainActivity.this, Testing.class);
+                    startActivity(dreamIntent);
+                }
             }
         });
 
 
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-        reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
-        reff.addValueEventListener(new ValueEventListener() {
+        reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
+        reff1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try{
@@ -111,6 +126,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        reff2 = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+        reff2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try{
+                    premium_date = snapshot.child("Premium Date").getValue().toString();
+                    String[] date = premium_date.split("-");
+                    remainingDays = calculateDays(date[0], date[1], date[2]);
+                    if(remainingDays.equals("0")){
+                        reff2.child("Premium Date").removeValue();
+                    } else{
+                        SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
+                        editor.putString("remainingDays", remainingDays);
+                        editor.apply();
+                    }
+                } catch (Exception e){
+                    SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
+                    editor.putString("isPremium", "No");
+                    editor.apply();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if(check.equals("Hin")){
             English = false;
@@ -182,7 +224,6 @@ public class MainActivity extends AppCompatActivity {
                     String user_token = getString(R.string.msg_token_fmt, token);
                     Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
                     reference.child(phone).child("Message Token").setValue(user_token);
-
                 }
             }
         });
@@ -200,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor2 = getSharedPreferences(X, y).edit();
                     editor2.putString("isDeleted", "No");
                     editor2.apply();
-
                 } catch(Exception e){
                     if(check.equals("Eng") && English){
                         Toast.makeText(MainActivity.this, "Your account has been deleted", Toast.LENGTH_SHORT).show();
@@ -286,8 +326,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.roadmap:
-                Intent roadmapIntent = new Intent(MainActivity.this, introRoadmap.class);
-                startActivity(roadmapIntent);
+                if(isPremium.equals("Yes")) {
+                    Intent roadmapIntent = new Intent(MainActivity.this, introRoadmap.class);
+                    startActivity(roadmapIntent);
+                } else{
+                    Intent roadmapIntent = new Intent(MainActivity.this, Testing.class);
+                    startActivity(roadmapIntent);
+                }
                 return true;
 
             case R.id.testing:
@@ -387,5 +432,74 @@ public class MainActivity extends AppCompatActivity {
             sb.append(pln);
         }
         return sb;
+    }
+
+    public String calculateDays(String day, String month, String year){
+        String current[] = currentDate.split("-");
+        String remaining;
+        if(!month.equals("Feb")){
+            if(month.equals("Apr") || month.equals("Jun") || month.equals("Sep") || month.equals("Nov")){
+                if(Integer.parseInt(current[0]) > Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if(Integer.parseInt(current[0]) < Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - ((30-Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if(current[1].equals(month) && current[0].equals(day)){
+                    remaining = "30";
+                } else{
+                    remaining = "0";
+                }
+            } else {
+                if (Integer.parseInt(current[0]) > Integer.parseInt(day) && month.equals(current[1])) {
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if (Integer.parseInt(current[0]) < Integer.parseInt(day) && !(current[1].equals("Mar"))) {
+                    remaining = Integer.toString(30 - ((31 - Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if (Integer.parseInt(current[0]) < Integer.parseInt(day) && !(Integer.parseInt(year) % 4 == 0) && (current[1].equals("Mar"))) {
+                    if (day.equals("30") && month.equals("Jan")) {
+                        remaining = "1";
+                    } else {
+                        remaining = "2";
+                    }
+
+                }
+                else if (Integer.parseInt(current[0]) < Integer.parseInt(day) && (Integer.parseInt(year) % 4 == 0) && (current[1].equals("Mar"))) {
+                    if (day.equals("30") && month.equals("Jan")) {
+                        remaining = "0";
+                    } else {
+                        remaining = "1";
+                    }
+                }else {
+                    remaining = "30";
+                }
+            }
+        } else{
+            if(Integer.parseInt(year)%4 != 0){
+                if(Integer.parseInt(current[0]) > Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if(Integer.parseInt(current[0]) < Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - ((29-Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if(current[1].equals(month) && current[0].equals(day)){
+                    remaining = "30";
+                } else if(!(current[1].equals(month)) && current[0].equals(day)){
+                    remaining = "1";
+                } else {
+                    remaining = "0";
+                }
+            } else{
+                if(Integer.parseInt(current[0]) > Integer.parseInt(day) && month.equals(current[1])){
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if(Integer.parseInt(current[0]) < Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - ((28-Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if(current[1].equals(month) && current[0].equals(day)){
+                    remaining = "30";
+                } else if(!(current[1].equals(month)) && current[0].equals(day)){
+                    remaining = "2";
+                }else if(Integer.parseInt(current[0]) > Integer.parseInt(day) && month.equals(current[1])){
+                    remaining = "1";
+                }else {
+                    remaining = "0";
+                }
+            }
+        }
+        return remaining;
     }
 }

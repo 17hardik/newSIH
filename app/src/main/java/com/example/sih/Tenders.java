@@ -1,17 +1,6 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -26,6 +15,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -36,18 +35,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class Tenders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView uphone, uname;
+    TextView uphone, uname, Premium, Days;
     Boolean English = true;
-    String lang, M, J, check, S, phone, u_name, path;
+    String lang, M, J, check, S, phone, u_name, path, isPremium, days;
     int j, i, x;
     DrawerLayout drawer;
     ImageView profile;
@@ -69,6 +64,8 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone= preferences.getString("Phone","");
         path = preferences.getString("path", "");
+        isPremium = preferences.getString("isPremium", "No");
+        days = preferences.getString("remainingDays", "0");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_tenders);
@@ -138,6 +135,8 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
+        Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
+        Days = navigationView.getHeaderView(0).findViewById(R.id.days);
 
 //        The commented code is trying to interact with image in local storage and as decided earlier, we have deleted image files from local storage.
 //        loadImageFromStorage(path);
@@ -168,6 +167,15 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
+                if(isPremium.equals("Yes")){
+                    Premium.setVisibility(View.VISIBLE);
+                    if(days.equals("1")){
+                        Days.setText(days + " day remaining");
+                    } else {
+                        Days.setText(days + " days remaining");
+                    }
+                    Days.setVisibility(View.VISIBLE);
+                }
                 String username = decryptUsername(u_name).toString();
                 mStorageReference = FirebaseStorage.getInstance().getReference().child(phone).child("Profile Picture");
                 try {
@@ -242,6 +250,10 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
                 editor2.apply();
                 Intent intent5 = new Intent(Tenders.this, Free_Lancing.class);
                 startActivity(intent5);
+                break;
+            case R.id.premium:
+                Intent intent2 = new Intent(Tenders.this, Testing.class);
+                startActivity(intent2);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

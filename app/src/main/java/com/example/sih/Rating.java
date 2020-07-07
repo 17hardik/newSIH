@@ -1,7 +1,5 @@
 package com.example.sih;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -16,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.client.Firebase;
 
 /** Activity through which users can rate this app
@@ -53,8 +53,8 @@ public class Rating extends AppCompatActivity {
         charanim = AnimationUtils.loadAnimation(this, R.anim.charanim);
         charPlace.startAnimation(charanim);
         if(check.equals("Hin")){
-           toHin();
-           English = false;
+            toHin();
+            English = false;
         }
         Rating = "Null";
         Firebase.setAndroidContext(this);

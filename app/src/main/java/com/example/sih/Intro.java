@@ -1,24 +1,36 @@
 package com.example.sih;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 /** Introduction activity which will execute first on every device
  * A kind of flash activity which will execute for two seconds that include app's logo
  */
 
 public class Intro extends AppCompatActivity {
-    int time = 2000, i, g, y;
-    String S, isLogged, L, status, accountInfo, X;
+
+    int time = 3000, i, g, y;
+    String S, isLogged, L, status, accountInfo, X, premium_date, phone;
+    DatabaseReference reff;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         SharedPreferences preferences = getSharedPreferences(S,i);
+        phone = preferences.getString("Phone","");
+        getSupportActionBar().hide();
         //checking whether the user has logged in already by using SharedPreferences
         isLogged = preferences.getString("Status","Null");
         SharedPreferences preferences1 = getSharedPreferences(L,g);
@@ -29,6 +41,31 @@ public class Intro extends AppCompatActivity {
         accountInfo = preferences2.getString("isDeleted","No");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
+        try {
+            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        premium_date = snapshot.child("Premium Date").getValue().toString();
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "Yes");
+                        editor.apply();
+                    } catch (Exception e) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "No");
+                        editor.apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch(Exception e){
+
+        }
         new Handler().postDelayed((new Runnable() {
             @Override
             public void run() {

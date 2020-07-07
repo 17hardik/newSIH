@@ -1,177 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Favorite_Sectors">
+    tools:context="com.example.sih.Login">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        android:text="Get Rojgar Premium"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal"
+        app:layout_constraintVertical_bias="0.18"
+        android:text="At ₹96/month"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select your favorite sectors"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35"
+        app:layout_constraintHorizontal_bias="0.15"
+        android:text="Benefits of Rojgar Premium"
+        android:textSize="23sp"/>
 
-    <CheckBox
-        android:id="@+id/cbscience"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Science and Tech"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbbusiness"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Business, Management and Administration"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.27"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbfarming"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Farming, Fishing and Forestry"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.34"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbcommunity"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Community and Social Services"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.41"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cblabors"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Labors"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.48"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbhealth"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Healthcare and Medical"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.55"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbcommunications"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Communications"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.62"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbarts"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Arts, Culture and Entertainment"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.69"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbeducation"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Education"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.76"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbinstallation"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Installation, Repair and Maintenance"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.83"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/cbothers"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Others"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.9"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/buttonsubmit"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        android:textColor="#000000"
-        app:layout_constraintVertical_bias="0.97"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.60"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/benefits"
+        android:textSize="18sp"/>
+
+
+    <Button
+        android:id="@+id/premiumButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="Get Premium"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
