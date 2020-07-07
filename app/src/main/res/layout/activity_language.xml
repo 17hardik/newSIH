@@ -8,11 +8,11 @@
 
     <Button
         android:id="@+id/buttonEnglish"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:textColor="#FFFFFF"
         android:text="Continue In English"
-        android:background="@drawable/button"
+        android:background="@drawable/ic_sih_button_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,11 +21,11 @@
 
     <Button
         android:id="@+id/buttonHindi"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:textColor="#FFFFFF"
         android:text="हिंदी में जारी रखें"
-        android:background="@drawable/button"
+        android:background="@drawable/ic_sih_button_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

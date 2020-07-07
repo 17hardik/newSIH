@@ -96,16 +96,17 @@
 
     <Button
         android:id="@+id/register_button"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:text="Register"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="0.904" />
 
     <TextView
         android:id="@+id/already"
