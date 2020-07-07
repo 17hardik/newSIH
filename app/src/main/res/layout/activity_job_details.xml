@@ -84,10 +84,10 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:background="@drawable/feedback_bg"
+        android:background="@drawable/ic_sih_button_bg"
         android:text="Upload and Post"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"

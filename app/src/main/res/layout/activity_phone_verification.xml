@@ -22,10 +22,11 @@
 
     <Button
         android:id="@+id/bt_verify_otp"
-        android:layout_width="match_parent"
+        android:layout_width="170dp"
         android:layout_height="60dp"
         android:textColor="#FFFFFF"
         android:text="Verify OTP"
+        android:background="@drawable/ic_sih_button_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,8 +35,9 @@
 
     <Button
         android:id="@+id/bt_resend_otp"
-        android:layout_width="match_parent"
+        android:layout_width="170dp"
         android:layout_height="60dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:textColor="#FFFFFF"
         android:text="Resend OTP"
         app:layout_constraintBottom_toBottomOf="parent"

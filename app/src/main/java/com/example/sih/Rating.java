@@ -131,7 +131,7 @@ public class Rating extends AppCompatActivity {
                     }
                     Rating = "Good Job (4 Stars)";
                 } else if (answerValue.equals("5")) {
-                    charPlace.setImageResource(R.drawable.awsomeemo);
+                    charPlace.setImageResource(R.drawable.ic_awsomeemo);
                     charPlace.startAnimation(charanim);
                     if(check.equals("Hin")){
                         if(!English) {

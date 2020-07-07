@@ -62,9 +62,9 @@
 
     <Button
         android:id="@+id/ratingButton"
-        android:layout_width="350dp"
+        android:layout_width="220dp"
         android:layout_height="59dp"
-        android:background="@drawable/feedback_bg"
+        android:background="@drawable/ic_sih_button_bg"
         android:text="Give Feedback"
         android:textAllCaps="false"
         android:textColor="#ffffff"

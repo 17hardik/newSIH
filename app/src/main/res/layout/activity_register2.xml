@@ -25,9 +25,11 @@
 
     <Button
         android:id="@+id/buttonUploadFile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:textColor="#FFFFFF"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/editTextFileName"
         android:text="Upload PDF" />
     <TextView
@@ -41,9 +43,11 @@
 
     <Button
         android:id="@+id/buttonUploadFile1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_sih_button_bg"
         android:textColor="#FFFFFF"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/editTextFileName1"
         android:text="Upload PDF" />
     <TextView
@@ -57,8 +61,10 @@
 
     <Button
         android:id="@+id/buttonUploadFile2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_sih_button_bg"
         android:textColor="#FFFFFF"
         android:layout_below="@id/editTextFileName2"
         android:text="Upload PDF" />
