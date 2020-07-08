@@ -3,7 +3,6 @@ package com.example.sih;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -13,6 +12,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,8 +25,10 @@ import com.firebase.client.Firebase;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -83,7 +87,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        registerButton.setBackgroundResource(R.drawable.button);
         if(check.equals("Hin")){
             toHin();
         }

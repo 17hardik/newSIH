@@ -1,25 +1,25 @@
 package com.example.sih;
 
-import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-
 import com.firebase.client.Firebase;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +32,7 @@ public class Testing extends AppCompatActivity {
     final int UPI_PAYMENT = 0;
     String check, M, phone, S, formattedDate, isPremium;
     int i, j;
-    TextView Title, Title2;
+    TextView Title, Title2, Description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +46,26 @@ public class Testing extends AppCompatActivity {
 
         Title = findViewById(R.id.title);
         Title2 = findViewById(R.id.title2);
+        Description = findViewById(R.id.description);
         PremiumButton = findViewById(R.id.premiumButton);
 
+        if(check.equals("Hin")){
+            Description.setText(R.string.benefits1);
+        }
+
         if(isPremium.equals("Yes")){
-            Title.setText("Congratulations!");
-            Title2.setText("You are already a premium member");
-            PremiumButton.setText("Go to dashboard");
+            if(check.equals("Eng")){
+                Title.setText("Congratulations!");
+                Title2.setText("You are already a premium member");
+                PremiumButton.setText("Go to dashboard");
+            } else{
+                Title.setText(R.string.congrats);
+                Title2.setText(R.string.premium_member);
+                PremiumButton.setText("डैशबोर्ड पर जाएं");
+            }
         }
         Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
+
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
         PremiumButton.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +76,7 @@ public class Testing extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Payment("Rojgar Premium", "himanshugangil1999@oksbi",
-                            "Monthly Premium", "96.00");
+                    Payment("Rojgar Premium", "rojgar@apl", "Monthly Premium", "96.00");
                 }
             }
         });
@@ -88,7 +98,11 @@ public class Testing extends AppCompatActivity {
         if(null != chooser.resolveActivity(getPackageManager())) {
             startActivityForResult(chooser, UPI_PAYMENT);
         } else {
-            Toast.makeText(Testing.this,"No UPI app found, please an UPI app to continue",Toast.LENGTH_LONG).show();
+            if(check.equals("Eng")) {
+                Toast.makeText(this, "No UPI app found, please download an UPI app to continue", Toast.LENGTH_LONG).show();
+            } else{
+                Toast.makeText(this, "कोई UPI ऐप नहीं मिला, जारी रखने के लिए कृपया UPI ऐप डाउनलोड करें", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -130,7 +144,6 @@ public class Testing extends AppCompatActivity {
             String paymentCancel = "";
             if(str == null) str = "discard";
             String status = "";
-            String approvalRefNo = "";
             String response[] = str.split("&");
             for (int i = 0; i < response.length; i++) {
                 String equalStr[] = response[i].split("=");
@@ -139,7 +152,6 @@ public class Testing extends AppCompatActivity {
                         status = equalStr[1].toLowerCase();
                     }
                     else if (equalStr[0].toLowerCase().equals("ApprovalRefNo".toLowerCase()) || equalStr[0].toLowerCase().equals("txnRef".toLowerCase())) {
-                        approvalRefNo = equalStr[1];
                     }
                 }
                 else {
@@ -157,31 +169,19 @@ public class Testing extends AppCompatActivity {
                 Intent intent = new Intent(Testing.this, MainActivity.class);
                 startActivity(intent);
                 if(check.equals("Hin")){
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(Testing.this)
-                            .setSmallIcon(R.drawable.logo)
-                            .setDefaults(Notification.DEFAULT_ALL)
-                            .setDefaults(Notification.DEFAULT_SOUND)
-                            .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
-                            .setContentTitle(getResources().getString(R.string.congrats))
-                            .setContentText(getResources().getString(R.string.premium_member));
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(1, builder.build());
+                    sendNotification(getResources().getString(R.string.congrats), getResources().getString(R.string.premium_member));
                     Toast.makeText(Testing.this, getResources().getString(R.string.congrats_premium), Toast.LENGTH_LONG).show();
                 }else {
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(Testing.this)
-                            .setSmallIcon(R.drawable.logo)
-                            .setDefaults(Notification.DEFAULT_ALL)
-                            .setDefaults(Notification.DEFAULT_SOUND)
-                            .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
-                            .setContentTitle("Congratulations!")
-                            .setContentText("You are now a premium member");
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(1, builder.build());
+                    sendNotification("Congratulations!", "You are now a premium member");
                     Toast.makeText(Testing.this, "Congratulations!, You are now a premium member", Toast.LENGTH_LONG).show();
                 }
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
-                Toast.makeText(Testing.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
+                if(check.equals("Eng")) {
+                    Toast.makeText(Testing.this, "Payment canceled by user", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(this, "उपयोगकर्ता द्वारा भुगतान रद्द किया गया", Toast.LENGTH_SHORT).show();
+                }
 
             }
             else {
@@ -205,6 +205,27 @@ public class Testing extends AppCompatActivity {
         }
         return false;
     }
+
+  public void sendNotification(String title, String message) {
+      Intent intent = new Intent(this, Testing.class);
+      PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+      String CHANNEL_ID = "Account";
+      NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+              .setSmallIcon(R.drawable.logo)
+              .setContentTitle(title)
+              .setContentText(message)
+              .setAutoCancel(true)
+              .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+              .setContentIntent(pendingIntent);
+      NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          CharSequence name = "Account Notification";
+          int importance = NotificationManager.IMPORTANCE_HIGH;
+          NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+          notificationManager.createNotificationChannel(mChannel);
+      }
+      notificationManager.notify(1, notificationBuilder.build());
+  }
 
 }
 

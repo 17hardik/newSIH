@@ -147,7 +147,13 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         if(isPremium.equals("No")){
             showAd();
         }
-
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(Government.this, Profile.class);
+                startActivity(profileIntent);
+            }
+        });
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

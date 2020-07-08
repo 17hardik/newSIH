@@ -47,7 +47,6 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".Change_Phone" />
         <activity android:name=".Update_Certificates" />
         <activity android:name=".Change_Password" />
         <activity android:name=".Profile" />
