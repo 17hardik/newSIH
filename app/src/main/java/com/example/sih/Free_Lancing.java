@@ -146,7 +146,13 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         if(isPremium.equals("No")){
            showAd();
         }
-
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(Free_Lancing.this, Profile.class);
+                startActivity(profileIntent);
+            }
+        });
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

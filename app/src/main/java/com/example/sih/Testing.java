@@ -17,12 +17,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-
 import com.firebase.client.Firebase;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,7 +32,7 @@ public class Testing extends AppCompatActivity {
     final int UPI_PAYMENT = 0;
     String check, M, phone, S, formattedDate, isPremium;
     int i, j;
-    TextView Title, Title2;
+    TextView Title, Title2, Description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +46,23 @@ public class Testing extends AppCompatActivity {
 
         Title = findViewById(R.id.title);
         Title2 = findViewById(R.id.title2);
+        Description = findViewById(R.id.description);
         PremiumButton = findViewById(R.id.premiumButton);
 
+        if(check.equals("Hin")){
+            Description.setText(R.string.benefits1);
+        }
+
         if(isPremium.equals("Yes")){
-            Title.setText("Congratulations!");
-            Title2.setText("You are already a premium member");
-            PremiumButton.setText("Go to dashboard");
+            if(check.equals("Eng")){
+                Title.setText("Congratulations!");
+                Title2.setText("You are already a premium member");
+                PremiumButton.setText("Go to dashboard");
+            } else{
+                Title.setText(R.string.congrats);
+                Title2.setText(R.string.premium_member);
+                PremiumButton.setText("डैशबोर्ड पर जाएं");
+            }
         }
         Date c = Calendar.getInstance().getTime();
 
@@ -68,8 +76,7 @@ public class Testing extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Payment("Rojgar Premium", "himanshugangil1999@oksbi",
-                            "Monthly Premium", "96.00");
+                    Payment("Rojgar Premium", "rojgar@apl", "Monthly Premium", "96.00");
                 }
             }
         });
@@ -91,7 +98,11 @@ public class Testing extends AppCompatActivity {
         if(null != chooser.resolveActivity(getPackageManager())) {
             startActivityForResult(chooser, UPI_PAYMENT);
         } else {
-            Toast.makeText(Testing.this,"No UPI app found, please an UPI app to continue", Toast.LENGTH_LONG).show();
+            if(check.equals("Eng")) {
+                Toast.makeText(this, "No UPI app found, please download an UPI app to continue", Toast.LENGTH_LONG).show();
+            } else{
+                Toast.makeText(this, "कोई UPI ऐप नहीं मिला, जारी रखने के लिए कृपया UPI ऐप डाउनलोड करें", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -133,7 +144,6 @@ public class Testing extends AppCompatActivity {
             String paymentCancel = "";
             if(str == null) str = "discard";
             String status = "";
-            String approvalRefNo = "";
             String response[] = str.split("&");
             for (int i = 0; i < response.length; i++) {
                 String equalStr[] = response[i].split("=");
@@ -142,7 +152,6 @@ public class Testing extends AppCompatActivity {
                         status = equalStr[1].toLowerCase();
                     }
                     else if (equalStr[0].toLowerCase().equals("ApprovalRefNo".toLowerCase()) || equalStr[0].toLowerCase().equals("txnRef".toLowerCase())) {
-                        approvalRefNo = equalStr[1];
                     }
                 }
                 else {
@@ -168,7 +177,11 @@ public class Testing extends AppCompatActivity {
                 }
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
-                Toast.makeText(Testing.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
+                if(check.equals("Eng")) {
+                    Toast.makeText(Testing.this, "Payment canceled by user", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(this, "उपयोगकर्ता द्वारा भुगतान रद्द किया गया", Toast.LENGTH_SHORT).show();
+                }
 
             }
             else {

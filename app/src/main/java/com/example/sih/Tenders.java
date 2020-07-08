@@ -146,7 +146,13 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         if(isPremium.equals("No")){
             showAd();
         }
-
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(Tenders.this, Profile.class);
+                startActivity(profileIntent);
+            }
+        });
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
