@@ -7,6 +7,18 @@
     android:background="@color/cardview_light_background"
     tools:context=".CreateYourJob">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_sih_createjob"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="323dp"
