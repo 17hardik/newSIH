@@ -1,20 +1,25 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +28,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+
 import java.math.BigInteger;
 import java.util.Random;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -163,26 +169,10 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                                                 reference.child(phone).child("Phone").setValue(phone);
 
                                                 if(check.equals("Hin")){
-                                                    NotificationCompat.Builder builder = new NotificationCompat.Builder(PhoneVerification.this)
-                                                            .setSmallIcon(R.drawable.logo)
-                                                            .setDefaults(Notification.DEFAULT_ALL)
-                                                            .setDefaults(Notification.DEFAULT_SOUND)
-                                                            .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
-                                                            .setContentTitle(getResources().getString(R.string.registration_successful1))
-                                                            .setContentText(getResources().getString(R.string.welcome1));
-                                                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                                    notificationManager.notify(1, builder.build());
+                                                    sendNotification(getResources().getString(R.string.registration_successful1), getResources().getString(R.string.welcome1));
                                                     Toast.makeText(PhoneVerification.this, getResources().getString(R.string.registration_successful1), Toast.LENGTH_LONG).show();
                                                 }else {
-                                                    NotificationCompat.Builder builder = new NotificationCompat.Builder(PhoneVerification.this)
-                                                            .setSmallIcon(R.drawable.logo)
-                                                            .setDefaults(Notification.DEFAULT_ALL)
-                                                            .setDefaults(Notification.DEFAULT_SOUND)
-                                                            .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
-                                                            .setContentTitle("Registration Successful")
-                                                            .setContentText("Welcome to Rojgar App");
-                                                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                                    notificationManager.notify(1, builder.build());
+                                                    sendNotification("Registration Successful", "Welcome to Rojgar");
                                                     Toast.makeText(PhoneVerification.this, "Registration Successful", Toast.LENGTH_LONG).show();
                                                 }
                                                 Intent verificationIntent = new Intent(PhoneVerification.this, Register2.class);
@@ -260,5 +250,24 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
             stringBuilder.append(strlen);
             return stringBuilder;
     }
-
+    public void sendNotification(String title, String message) {
+        Intent intent = new Intent(this, Testing.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        String CHANNEL_ID = "Account";
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Account Notification";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        notificationManager.notify(1, notificationBuilder.build());
+    }
 }

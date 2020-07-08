@@ -1,28 +1,16 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,13 +20,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,13 +44,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
@@ -63,8 +54,8 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
  */
 
 public class Profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    EditText ETUsername, ETName, ETPhone;
-    Button BTUsername, BTName, BTPhone, BTPassword, BTCertificates, BTDelete;
+    EditText ETUsername, ETName;
+    Button BTUsername, BTName, BTPassword, BTCertificates, BTDelete;
     DatabaseReference reff;
     TextView uname, uphone;
     ConstraintLayout Layout;
@@ -84,7 +75,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     PhoneAuthProvider.ForceResendingToken mResendToken;
     ProgressDialog pd;
-    File mypath;
     String username;
     String path;
 
@@ -105,10 +95,8 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         camera = findViewById(R.id.camera);
         profile = findViewById(R.id.profile_image);
         fullProfile = findViewById(R.id.profile_image_full);
-        ETPhone = findViewById(R.id.phoneET);
         BTUsername = findViewById(R.id.usernameBT);
         BTName = findViewById(R.id.nameBT);
-        BTPhone = findViewById(R.id.phoneBT);
         BTPassword = findViewById(R.id.password);
         BTCertificates = findViewById(R.id.certificate);
         BTDelete = findViewById(R.id.delete);
@@ -156,7 +144,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
                     ETUsername.setText(username);
                     ETName.setText(name);
-                    ETPhone.setText(user_phone);
                 } catch(Exception e){
 
                 }
@@ -272,22 +259,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
             }
         });
-        BTPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (user_phone.equals(ETPhone.getText().toString().trim())) {
-                    if(check.equals("Hin") || !English)
-                    {
-                        Toast.makeText(Profile.this, getResources().getString(R.string.phone_change1), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Profile.this, "Please change your phone before clicking", Toast.LENGTH_SHORT).show();
-                    }
-                } else{
-                    initFireBaseCallbacks();
-                    send_data();
-                }
-            }
-        });
         BTDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -398,7 +369,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTPassword.setText("Change Password");
         BTName.setText("Change Name");
         BTCertificates.setText("Update Qualification Certificates");
-        BTPhone.setText("Change Phone");
         BTDelete.setText("Delete Your Account");
         getSupportActionBar().setTitle("Profile");
         English = true;
@@ -413,7 +383,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         BTPassword.setText(R.string.change_password1);
         BTName.setText(R.string.change_name1);
         BTCertificates.setText(R.string.update_qualification_certificates1);
-        BTPhone.setText(R.string.change_phone1);
         BTDelete.setText(R.string.delete_your_account1);
         getSupportActionBar().setTitle(R.string.profile1);
         English = false;
@@ -466,52 +435,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             finish();
         }
     }
-    void initFireBaseCallbacks() {
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            @Override
-            public void onVerificationCompleted(PhoneAuthCredential credential) {
 
-            }
-
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-                if (check.equals("Hin")) {
-                    ETPhone.setError(getResources().getString(R.string.valid1));
-                    ETPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                } else {
-                    ETPhone.setError("Enter a valid number");
-                    ETPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                }
-            }
-            @Override
-            public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
-                if(check.equals("Hin"))
-                {
-                    Toast.makeText(Profile.this, getResources().getString(R.string.otp_sent1), Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(Profile.this, "OTP Sent", Toast.LENGTH_SHORT).show();
-                }
-                mVerificationId = verificationId;
-                mResendToken = token;
-                Intent intent = new Intent(Profile.this, Change_Phone.class);
-                intent.putExtra("verificationId", mVerificationId);
-                intent.putExtra("resendToken", mResendToken);
-                intent.putExtra("phone", phone);
-                intent.putExtra("newPhone", ETPhone.getText().toString().trim());
-                startActivity(intent);
-        }
-
-      };
-
-    }
-            public void send_data(){
-                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+91" + ETPhone.getText().toString().trim(),
-                1,
-                TimeUnit.MINUTES,
-                this,
-                mCallbacks);
-    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -527,7 +451,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             }
         } else{
             English = true;
-         //   NavEng();
+            NavEng();
             toEng();
             try{
                 optionEng();

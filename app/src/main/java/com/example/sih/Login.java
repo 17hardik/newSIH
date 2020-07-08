@@ -2,8 +2,6 @@ package com.example.sih;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -12,11 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.math.BigInteger;
 
 public class Login extends AppCompatActivity {
@@ -46,7 +49,6 @@ public class Login extends AppCompatActivity {
         Phone = findViewById(R.id.phone);
         Password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
-        loginButton.setBackgroundResource(R.drawable.button);
 
         if(check.equals("Hin"))
         {

@@ -1,13 +1,16 @@
 package com.example.sih;
 
-import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,7 +57,7 @@ public class Testing extends AppCompatActivity {
             PremiumButton.setText("Go to dashboard");
         }
         Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
+
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
         PremiumButton.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +91,7 @@ public class Testing extends AppCompatActivity {
         if(null != chooser.resolveActivity(getPackageManager())) {
             startActivityForResult(chooser, UPI_PAYMENT);
         } else {
-            Toast.makeText(Testing.this,"No UPI app found, please an UPI app to continue",Toast.LENGTH_LONG).show();
+            Toast.makeText(Testing.this,"No UPI app found, please an UPI app to continue", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -157,26 +160,10 @@ public class Testing extends AppCompatActivity {
                 Intent intent = new Intent(Testing.this, MainActivity.class);
                 startActivity(intent);
                 if(check.equals("Hin")){
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(Testing.this)
-                            .setSmallIcon(R.drawable.logo)
-                            .setDefaults(Notification.DEFAULT_ALL)
-                            .setDefaults(Notification.DEFAULT_SOUND)
-                            .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
-                            .setContentTitle(getResources().getString(R.string.congrats))
-                            .setContentText(getResources().getString(R.string.premium_member));
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(1, builder.build());
+                    sendNotification(getResources().getString(R.string.congrats), getResources().getString(R.string.premium_member));
                     Toast.makeText(Testing.this, getResources().getString(R.string.congrats_premium), Toast.LENGTH_LONG).show();
                 }else {
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(Testing.this)
-                            .setSmallIcon(R.drawable.logo)
-                            .setDefaults(Notification.DEFAULT_ALL)
-                            .setDefaults(Notification.DEFAULT_SOUND)
-                            .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
-                            .setContentTitle("Congratulations!")
-                            .setContentText("You are now a premium member");
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(1, builder.build());
+                    sendNotification("Congratulations!", "You are now a premium member");
                     Toast.makeText(Testing.this, "Congratulations!, You are now a premium member", Toast.LENGTH_LONG).show();
                 }
             }
@@ -205,6 +192,27 @@ public class Testing extends AppCompatActivity {
         }
         return false;
     }
+
+  public void sendNotification(String title, String message) {
+      Intent intent = new Intent(this, Testing.class);
+      PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+      String CHANNEL_ID = "Account";
+      NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+              .setSmallIcon(R.drawable.logo)
+              .setContentTitle(title)
+              .setContentText(message)
+              .setAutoCancel(true)
+              .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+              .setContentIntent(pendingIntent);
+      NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          CharSequence name = "Account Notification";
+          int importance = NotificationManager.IMPORTANCE_HIGH;
+          NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+          notificationManager.createNotificationChannel(mChannel);
+      }
+      notificationManager.notify(1, notificationBuilder.build());
+  }
 
 }
 
