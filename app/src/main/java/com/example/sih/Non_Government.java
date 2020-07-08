@@ -148,7 +148,13 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         if(isPremium.equals("No")){
             showAd();
         }
-
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(Non_Government.this, Profile.class);
+                startActivity(profileIntent);
+            }
+        });
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
