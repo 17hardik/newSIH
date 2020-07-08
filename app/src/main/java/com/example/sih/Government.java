@@ -25,6 +25,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -44,7 +49,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     String lang, M, J, check, S, phone, u_name, path, days, isPremium;
     int j, i, x;
     DrawerLayout drawer;
-    ImageView profile;
+    ImageView profile, crown;
     NavigationView navigationView;
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
@@ -55,6 +60,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
     ProgressDialog pd;
+    AdView mAdView;
     int size, k;
 
     @Override
@@ -136,16 +142,12 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
         Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
         Days = navigationView.getHeaderView(0).findViewById(R.id.days);
+        crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
 
-//        The commented code is trying to interact with image in local storage and as decided earlier, we have deleted image files from local storage.
-//        loadImageFromStorage(path);
-//        profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent profileIntent = new Intent(Government.this, Profile.class);
-//                startActivity(profileIntent);
-//            }
-//        });
+        if(isPremium.equals("No")){
+            showAd();
+        }
+
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +170,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 phone = dataSnapshot.child("Phone").getValue().toString();
                 if(isPremium.equals("Yes")){
                     Premium.setVisibility(View.VISIBLE);
+                    crown.setVisibility(View.VISIBLE);
                     if(days.equals("1")){
                         Days.setText(days + " day remaining");
                     } else {
@@ -397,38 +400,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             }
         }
     }
-//    private void loadImageFromStorage(String path)
-//    {
-//
-//        try {
-//            File f=new File(path, "profile.jpg");
-//            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-//            profile.setImageBitmap(b);
-//        }
-//        catch (FileNotFoundException e)
-//        {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//    private String saveToInternalStorage(Bitmap bitmapImage){
-//        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-//        File directory = cw.getDir("profile_picture", Context.MODE_PRIVATE);
-//        File mypath = new File(directory,"profile.jpg");
-//        FileOutputStream fos = null;
-//        try {
-//            fos = new FileOutputStream(mypath);
-//            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                fos.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        return directory.getAbsolutePath();
-//    }
+
     public StringBuilder decryptUsername(String uname) {
         int pllen;
         StringBuilder sb = new StringBuilder();
@@ -453,4 +425,16 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         }
         return sb;
     }
+
+    public void showAd(){
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
 }

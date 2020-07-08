@@ -52,13 +52,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"/>
 
                 <TextView
-                    android:id="@+id/cwrap_contentompany_name"
+                    android:id="@+id/company_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:id="@+id/company_location"
