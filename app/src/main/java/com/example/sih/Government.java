@@ -54,7 +54,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium;
     DatabaseReference reff, reff1;
     RecyclerView gov_jobs;
     ArrayList<data_in_cardview> details;
@@ -79,7 +79,13 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         details = new ArrayList<>();
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
         pd = new ProgressDialog(Government.this);
-        pd.setMessage("Getting Jobs");
+
+        if(check.equals("Eng")){
+            pd.setMessage("Fetching data");
+        } else{
+            pd.setMessage("डेटा लाया जा रहा है");
+        }
+
         pd.show();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -137,6 +143,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         Non_Gov = menu2.findItem(R.id.non_government);
         Tender = menu2.findItem(R.id.tenders);
         Free_Lancing = menu2.findItem(R.id.free_lancing);
+        GetPremium = menu2.findItem(R.id.premium);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
@@ -175,12 +182,23 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
                 if(isPremium.equals("Yes")){
+                    if(check.equals("Hin")){
+                        Premium.setText("प्रीमियम");
+                    }
                     Premium.setVisibility(View.VISIBLE);
                     crown.setVisibility(View.VISIBLE);
                     if(days.equals("1")){
-                        Days.setText(days + " day remaining");
+                        if (check.equals("Hin")) {
+                            Days.setText(days + " दिन शेष");
+                        } else {
+                            Days.setText(days + " day remaining");
+                        }
                     } else {
-                        Days.setText(days + " days remaining");
+                        if (check.equals("Hin")) {
+                            Days.setText(days + " दिन शेष");
+                        } else {
+                            Days.setText(days + " days remaining");
+                        }
                     }
                     Days.setVisibility(View.VISIBLE);
                 }
@@ -286,10 +304,12 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         switch (menuItem.getItemId()) {
             case R.id.switch1:
                 if(check.equals("Eng")) {
+                    pd.setMessage("डेटा लाया जा रहा है");
                     SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
                     editor1.putString("Lang", "Hin");
                     editor1.apply();
                 } else{
+                    pd.setMessage("Fetching data");
                     SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
                     editor1.putString("Lang", "Eng");
                     editor1.apply();
@@ -349,6 +369,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
         setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
+        setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
+        setOptionTitle(R.id.roadmap, getResources().getString(R.string.career_roadmap1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
@@ -356,6 +378,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
         setOptionTitle(R.id.go_to_profile, "Go To Profile");
+        setOptionTitle(R.id.create_your_job, "Publish Your Job");
+        setOptionTitle(R.id.roadmap, "Career Roadmap");
     }
     private void setOptionTitle(int id, String title)
     {
@@ -367,12 +391,22 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         Non_Gov.setTitle("                  गैर सरकारी नौकरी");
         Tender.setTitle("                  निविदाएं");
         Free_Lancing.setTitle("                  फ़्रीलांसिंग");
+        GetPremium.setTitle("                  प्रीमियम प्राप्त करें");
+        Premium.setText("प्रीमियम");
+        Days.setText(days + " दिन शेष");
     }
     public void NavEng(){
         Gov.setTitle("                  Government Jobs");
         Non_Gov.setTitle("                  Non-Government Jobs");
         Tender.setTitle("                  Tenders");
         Free_Lancing.setTitle("                  Freelancing");
+        GetPremium.setTitle("                  Get Premium");
+        Premium.setText("Premium");
+        if(days.equals("1")){
+            Days.setText(days + " day remaining");
+        } else {
+            Days.setText(days + "days remaining");
+        }
     }
     @Override
     public void onBackPressed() {

@@ -206,27 +206,25 @@ public class Testing extends AppCompatActivity {
         return false;
     }
 
-  public void sendNotification(String title, String message) {
-      Intent intent = new Intent(this, Testing.class);
-      PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-      String CHANNEL_ID = "Account";
-      NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-              .setSmallIcon(R.drawable.logo)
-              .setContentTitle(title)
-              .setContentText(message)
-              .setAutoCancel(true)
-              .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-              .setContentIntent(pendingIntent);
-      NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-          CharSequence name = "Account Notification";
-          int importance = NotificationManager.IMPORTANCE_HIGH;
-          NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
-          notificationManager.createNotificationChannel(mChannel);
-      }
-      notificationManager.notify(1, notificationBuilder.build());
-  }
+    public void sendNotification(String title, String message) {
+        Intent intent = new Intent(this, Testing.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        String CHANNEL_ID = "Account";
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Account Notification";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        notificationManager.notify(1, notificationBuilder.build());
+    }
 
 }
-
-
