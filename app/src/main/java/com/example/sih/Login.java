@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.math.BigInteger;
 
 public class Login extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     DatabaseReference reff;
     ImageView Eye;
-    String phone, pass, S, Cipher, M, check, new_phone, premium_date, realPhone = "Null";
+    String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null",premium_date;
     int i, j, count = 1;
 
     @Override
