@@ -4,10 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +30,9 @@ public class Login extends AppCompatActivity {
     EditText Phone, Password;
     Button loginButton;
     DatabaseReference reff;
-    String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null", premium_date;
-    int i, j;
+    ImageView Eye;
+    String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null";
+    int i, j, count = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +53,31 @@ public class Login extends AppCompatActivity {
         forget = findViewById(R.id.forget);
         Phone = findViewById(R.id.phone);
         Password = findViewById(R.id.password);
+        Eye = findViewById(R.id.eye);
         loginButton = findViewById(R.id.loginButton);
 
         if(check.equals("Hin"))
         {
             toHin();
         }
+
+        Eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(count%2!=0) {
+                    Password.setInputType(InputType.TYPE_CLASS_TEXT);
+                    Password.setSelection(Password.getText().length());
+                    Eye.setImageResource(R.drawable.closed_eye);
+                }
+                else{
+                    Password.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    Password.setTypeface(Typeface.SANS_SERIF);
+                    Password.setSelection(Password.getText().length());
+                    Eye.setImageResource(R.drawable.open_eye);
+                }
+                count++;
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

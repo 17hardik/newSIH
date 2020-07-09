@@ -15,12 +15,26 @@
         tools:context=".Profile">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:src="@drawable/ic_person_black_24dp"
             app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.10"
+            app:layout_constraintHorizontal_bias="0.50"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image_premium"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:src="@drawable/ic_person_black_24dp"
+            app:civ_border_color="#FFD700"
+            android:visibility="gone"
             app:civ_border_width="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

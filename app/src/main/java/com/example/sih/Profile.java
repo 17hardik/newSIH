@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -29,13 +28,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,9 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.util.Random;
-
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 /** Activity through which users can view their profile and can make edit in it
@@ -59,11 +54,11 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     DatabaseReference reff;
     TextView uname, uphone;
     ConstraintLayout Layout;
-    ImageView camera, profile, drawerProfile, fullProfile;
+    ImageView camera, profile, drawerProfile, fullProfile, premiumProfile;
     Boolean English = true, isFull = false;
     Firebase firebase;
     StorageReference mStorageReference;
-    String user_name, name, phone, S, M, check, lang, mVerificationId, user_phone;
+    String user_name, name, phone, S, M, check, lang, user_phone, isPremium;
     int i, j;
     final static int PICK_IMAGE_REQUEST = 2342;
     DrawerLayout drawer;
@@ -72,8 +67,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     Boolean isRegistered = false;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing;
-    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-    PhoneAuthProvider.ForceResendingToken mResendToken;
     ProgressDialog pd;
     String username;
     String path;
@@ -86,6 +79,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone = preferences.getString("Phone","");
         path = preferences.getString("path","");
+        isPremium = preferences.getString("isPremium", "No");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_profile);
@@ -94,6 +88,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         ETName = findViewById(R.id.nameET);
         camera = findViewById(R.id.camera);
         profile = findViewById(R.id.profile_image);
+        premiumProfile = findViewById(R.id.profile_image_premium);
         fullProfile = findViewById(R.id.profile_image_full);
         BTUsername = findViewById(R.id.usernameBT);
         BTName = findViewById(R.id.nameBT);
@@ -124,6 +119,11 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         } else{
             NavEng();
             toEng();
+        }
+
+        if(isPremium.equals("Yes")){
+            profile.setVisibility(View.INVISIBLE);
+            premiumProfile.setVisibility(View.VISIBLE);
         }
         pd = new ProgressDialog(Profile.this);
         if(check.equals("Hin") || !English){
@@ -157,9 +157,15 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                     DisplayMetrics dm = new DisplayMetrics();
                                     getWindowManager().getDefaultDisplay().getMetrics(dm);
-                                    profile.setMinimumHeight(dm.heightPixels);
-                                    profile.setMinimumWidth(dm.widthPixels);
-                                    profile.setImageBitmap(bm);
+                                    if(isPremium.equals("Yes")){
+                                        premiumProfile.setMinimumHeight(dm.heightPixels);
+                                        premiumProfile.setMinimumWidth(dm.widthPixels);
+                                        premiumProfile.setImageBitmap(bm);
+                                    } else {
+                                        profile.setMinimumHeight(dm.heightPixels);
+                                        profile.setMinimumWidth(dm.widthPixels);
+                                        profile.setImageBitmap(bm);
+                                    }
                                     fullProfile.setImageBitmap(bm);
                                     drawerProfile.setMinimumHeight(dm.heightPixels);
                                     drawerProfile.setMinimumWidth(dm.widthPixels);
@@ -219,6 +225,14 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
               fullProfile.setVisibility(View.VISIBLE);
               Layout.setVisibility(View.INVISIBLE);
               isFull = true;
+            }
+        });
+        premiumProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fullProfile.setVisibility(View.VISIBLE);
+                Layout.setVisibility(View.INVISIBLE);
+                isFull = true;
             }
         });
 
