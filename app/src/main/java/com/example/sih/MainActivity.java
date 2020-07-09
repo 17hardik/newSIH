@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -87,8 +88,19 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         currentDate = df.format(c);
 
-        ImageButton imageButton= view.findViewById(R.id.dream_jobs);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        Button Button= view.findViewById(R.id.premium);
+        Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Intent premiumIntent = new Intent(MainActivity.this, Testing.class);
+                    startActivity(premiumIntent);
+
+            }
+        });
+
+        ImageButton imageButton2= view.findViewById(R.id.dream_jobs);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isPremium.equals("Yes")) {
@@ -104,6 +116,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton imageButton3= view.findViewById(R.id.profile);
+        imageButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent profileIntent = new Intent(MainActivity.this, Profile.class);
+                startActivity(profileIntent);
+
+            }
+        });
 
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
