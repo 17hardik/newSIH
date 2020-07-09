@@ -19,12 +19,11 @@
         app:layout_constraintVertical_bias="0.4"
         app:layout_constraintHorizontal_bias="0.05"/>
 
-    <Button
+    <ImageView
         android:id="@+id/premium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/roundcorner"
-        android:text="Premium"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_sih_premium_crown"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintEnd_toStartOf="@id/dream_jobs"
