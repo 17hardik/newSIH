@@ -90,6 +90,7 @@
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_sih_nongov"
                         android:layout_marginBottom="3dp"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -117,8 +118,8 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
+
         </LinearLayout>
 
 
