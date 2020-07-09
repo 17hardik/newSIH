@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     DatabaseReference reff;
     ImageView Eye;
-    String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null";
+    String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null",premium_date;
     int i, j, count = 1;
 
     @Override
