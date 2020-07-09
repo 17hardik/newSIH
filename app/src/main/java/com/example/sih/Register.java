@@ -5,11 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +44,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     String user, pass, user_phone, user_name, date,confirm, mVerificationId, url, M, check;
     TextView login, already;
     ProgressDialog pd;
-    int j;
+    int j, count = 1;
+    ImageView Eye;
     Calendar myCalendar;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     PhoneAuthProvider.ForceResendingToken mResendToken;
@@ -58,6 +62,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         already = findViewById(R.id.already);
+        Eye = findViewById(R.id.eye);
         registerButton = findViewById(R.id.register_button);
         registerButton.setOnClickListener(this);
         TDate= findViewById(R.id.dob);
@@ -90,6 +95,30 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         if(check.equals("Hin")){
             toHin();
         }
+
+        Eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(count%2!=0) {
+                    password.setInputType(InputType.TYPE_CLASS_TEXT);
+                    password.setSelection(password.getText().length());
+                    TConfirm.setInputType(InputType.TYPE_CLASS_TEXT);
+                    TConfirm.setSelection(TConfirm.getText().length());
+                    Eye.setImageResource(R.drawable.closed_eye);
+                }
+                else{
+                    password.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setTypeface(Typeface.SANS_SERIF);
+                    password.setSelection(password.getText().length());
+                    TConfirm.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    TConfirm.setTypeface(Typeface.SANS_SERIF);
+                    TConfirm.setSelection(TConfirm.getText().length());
+                    Eye.setImageResource(R.drawable.open_eye);
+                }
+                count++;
+            }
+        });
+
         Firebase.setAndroidContext(this);
         pd = new ProgressDialog(Register.this);
         initFireBaseCallbacks();

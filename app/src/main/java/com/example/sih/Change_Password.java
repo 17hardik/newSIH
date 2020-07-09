@@ -4,13 +4,16 @@ package com.example.sih;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,9 +37,10 @@ public class Change_Password extends AppCompatActivity {
     EditText ETOld, ETNew, ETConfirm;
     Button BTPassword;
     String phone, pass, M, S, check, Cipher, password, new_pass, conf_pass, New_Cipher, lang;
-    int i, j;
+    int i, j, count = 1, count2 = 1;
     Firebase firebase;
     DatabaseReference reff;
+    ImageView Eye, EyeNew;
     Boolean isVerified = false, English = true;
     Menu menu1;
 
@@ -53,9 +57,10 @@ public class Change_Password extends AppCompatActivity {
         setContentView(R.layout.activity_change__password);
         ETOld = findViewById(R.id.old_password);
         ETNew = findViewById(R.id.new_password);
+        Eye = findViewById(R.id.eye);
+        EyeNew = findViewById(R.id.eyeNew);
         ETConfirm = findViewById(R.id.confirm_password);
         BTPassword = findViewById(R.id.passwordButton);
-        BTPassword.setBackgroundResource(R.drawable.button);
         ETNew.setEnabled(false);
         ETConfirm.setEnabled(false);
         Firebase.setAndroidContext(this);
@@ -64,6 +69,48 @@ public class Change_Password extends AppCompatActivity {
         } else{
             toEng();
         }
+
+        Eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(count%2!=0) {
+                    ETOld.setInputType(InputType.TYPE_CLASS_TEXT);
+                    ETOld.setSelection(ETOld.getText().length());
+                    Eye.setImageResource(R.drawable.closed_eye);
+                }
+                else{
+                    ETOld.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    ETOld.setTypeface(Typeface.SANS_SERIF);
+                    ETOld.setSelection(ETOld.getText().length());
+                    Eye.setImageResource(R.drawable.open_eye);
+                }
+                count++;
+            }
+        });
+
+        EyeNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(count2%2!=0) {
+                    ETNew.setInputType(InputType.TYPE_CLASS_TEXT);
+                    ETNew.setSelection(ETNew.getText().length());
+                    ETConfirm.setInputType(InputType.TYPE_CLASS_TEXT);
+                    ETConfirm.setSelection(ETConfirm.getText().length());
+                    EyeNew.setImageResource(R.drawable.closed_eye);
+                }
+                else{
+                    ETNew.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    ETNew.setTypeface(Typeface.SANS_SERIF);
+                    ETNew.setSelection(ETNew.getText().length());
+                    ETConfirm.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    ETConfirm.setTypeface(Typeface.SANS_SERIF);
+                    ETConfirm.setSelection(ETConfirm.getText().length());
+                    EyeNew.setImageResource(R.drawable.open_eye);
+                }
+                count2++;
+            }
+        });
+
         firebase = new Firebase("https://smart-e60d6.firebaseio.com/Users");
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
