@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         currentDate = df.format(c);
 
-        Button Button= view.findViewById(R.id.premium);
-        Button.setOnClickListener(new View.OnClickListener() {
+        ImageView crown = view.findViewById(R.id.premium);
+        crown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton2= view.findViewById(R.id.dream_jobs);
-        imageButton2.setOnClickListener(new View.OnClickListener() {
+        ImageView dream= view.findViewById(R.id.dream_jobs);
+        dream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isPremium.equals("Yes")) {
@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton3= view.findViewById(R.id.profile);
-        imageButton3.setOnClickListener(new View.OnClickListener() {
+        ImageView profile = view.findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
