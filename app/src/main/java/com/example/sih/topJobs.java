@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +29,7 @@ public class topJobs extends AppCompatActivity {
     TextView CategoryTV, descriptionTV;
     Button rankingButton;
     DatabaseReference reff;
-    LinearLayout InnerLayout;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +40,11 @@ public class topJobs extends AppCompatActivity {
         CategoryNumber = intent.getStringExtra("CategoryNumber");
         CategoryTV = findViewById(R.id.category);
         descriptionTV = findViewById(R.id.description);
-        InnerLayout = findViewById(R.id.innerLayout);
+        rankingButton = findViewById(R.id.viewRank);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Top Jobs");
-
-
 
         getCategory(CategoryNumber);
         getDescription(CategoryNumber);
@@ -69,11 +69,18 @@ public class topJobs extends AppCompatActivity {
         });
     }
     public void getDescription(final String CategoryNumber){
+
+        Firebase.setAndroidContext(this);
+        pd = new ProgressDialog(topJobs.this);
+        pd.setMessage("Loading...");
+        pd.show();
+
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 description = dataSnapshot.child("Category"+CategoryNumber).child("Description").getValue().toString();
                 descriptionTV.setText(description);
+                pd.dismiss();
             }
 
             @Override
@@ -91,7 +98,6 @@ public class topJobs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 URL = dataSnapshot.child("Category"+CategoryNumber).child("URL").getValue().toString();
-                Toast.makeText(topJobs.this, "" + URL, Toast.LENGTH_SHORT).show();
                 rankingButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
