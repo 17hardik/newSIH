@@ -227,6 +227,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
               isFull = true;
             }
         });
+
         premiumProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
