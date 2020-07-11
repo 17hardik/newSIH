@@ -17,4 +17,6 @@
         android:title="Career Roadmap"/>
     <item android:id="@+id/testing"
         android:title="Testing"/>
+    <item android:id="@+id/topJobs"
+        android:title="Top Jobs"/>
 </menu>

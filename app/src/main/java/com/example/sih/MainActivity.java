@@ -361,6 +361,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(testingIntent);
                 return true;
 
+            case R.id.topJobs:
+                Intent topJobsIntent = new Intent(MainActivity.this, topJobsFragment.class);
+                startActivity(topJobsIntent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(menuItem);
         }

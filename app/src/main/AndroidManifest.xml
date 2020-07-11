@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Favorite_Sectors"></activity>
+        <activity android:name=".topJobs"
+                  android:parentActivityName=".topJobsFragment">
+        </activity>
+        <activity android:name=".topJobsFragment"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".Favorite_Sectors" />
         <activity android:name=".Dream_jobs" />
         <activity android:name=".Job_Details" />
         <activity android:name=".Testing" />
@@ -37,9 +43,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1120892018817048~9802887224"/>
+            android:value="ca-app-pub-1120892018817048~9802887224" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo" />
