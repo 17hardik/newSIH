@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.testing:
-                Intent testingIntent = new Intent(MainActivity.this, Testing.class);
+                Intent testingIntent = new Intent(MainActivity.this, Favorite_Sectors.class);
                 startActivity(testingIntent);
                 return true;
 

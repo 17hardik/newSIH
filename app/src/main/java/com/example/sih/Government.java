@@ -6,17 +6,21 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,11 +46,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView uphone, uname, Premium, Days;
     Boolean English = true;
-    String lang, M, J, check, S, phone, u_name, path, days, isPremium;
+    String lang, M, J, check, S, phone, u_name, path, days, isPremium, Science, Business, Farming, Community, Labors, Health, Communications, Arts, Education, Installation;
     int j, i, x;
     DrawerLayout drawer;
     ImageView profile, crown;
@@ -63,10 +68,21 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     AdView mAdView;
     int size, k;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = getSharedPreferences(S,i);
+        Science = preferences.getString("Science","");
+        Business = preferences.getString("Business","");
+        Farming = preferences.getString("Farming","");
+        Community = preferences.getString("Community","");
+        Labors = preferences.getString("Labors","");
+        Health = preferences.getString("Health","");
+        Communications = preferences.getString("Communications","");
+        Arts = preferences.getString("Arts","");
+        Education = preferences.getString("Education","");
+        Installation = preferences.getString("Installation","");
         phone= preferences.getString("Phone","");
         path = preferences.getString("path", "");
         isPremium = preferences.getString("isPremium", "No");
@@ -105,6 +121,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                             details.add(d);
                             govAdapter = new gov_adapter(Government.this, details);
                             gov_jobs.setAdapter(govAdapter);
+
                         }
 
                         @Override
@@ -122,6 +139,45 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 Toast.makeText(Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
+
+        ArrayList<String> list = new ArrayList<>();
+        if (Science.equals("Yes")){
+            list.add("Science");
+        }
+        if (Business.equals("Yes")){
+            list.add("Business");
+        }
+        if (Farming.equals("Yes")){
+            list.add("Farming");
+        }
+        if (Community.equals("Yes")){
+            list.add("Community");
+        }
+        if (Labors.equals("Yes")){
+            list.add("Labors");
+        }
+        if (Health.equals("Yes")){
+            list.add("Health");
+        }
+        if (Communications.equals("Yes")){
+            list.add("Communication");
+        }
+        if (Arts.equals("Yes")){
+            list.add("Arts");
+        }
+        if (Education.equals("Yes")){
+            list.add("Education");
+        }
+        if (Installation.equals("Yes")){
+            list.add("Installation");
+        }
+
+        String choices = String.join(" ", list);
+        String[] arrOfChoices = choices.split(" ", 3);
+        String choice1 = arrOfChoices[0];
+//        Toast.makeText(this, "" + choice1, Toast.LENGTH_SHORT).show();
+
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -251,6 +307,10 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             NavEng();
             toEng();
         }
+
+        // Called Function to filter gov_adapter
+        onSearch();
+
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -465,6 +525,143 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         }
         return sb;
     }
+
+    // For Search View
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.option_search, menu);
+//
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public boolean onQueryTextChange(String choice) {
+//                String Science, Business, Farming, Community, Labors, Health, Communications, Arts, Education, Installation;
+//
+//                SharedPreferences preferences = getSharedPreferences(S,i);
+//                Science = preferences.getString("Science","");
+//                Business = preferences.getString("Business","");
+//                Farming = preferences.getString("Farming","");
+//                Community = preferences.getString("Community","");
+//                Labors = preferences.getString("Labors","");
+//                Health = preferences.getString("Health","");
+//                Communications = preferences.getString("Communications","");
+//                Arts = preferences.getString("Arts","");
+//                Education = preferences.getString("Education","");
+//                Installation = preferences.getString("Installation","");
+//
+//                ArrayList<String> list = new ArrayList<>();
+//                if (Science.equals("Yes")){
+//                    list.add("Science");
+//                }
+//                if (Business.equals("Yes")){
+//                    list.add("Business");
+//                }
+//                if (Farming.equals("Yes")){
+//                    list.add("Farming");
+//                }
+//                if (Community.equals("Yes")){
+//                    list.add("Community");
+//                }
+//                if (Labors.equals("Yes")){
+//                    list.add("Labors");
+//                }
+//                if (Health.equals("Yes")){
+//                    list.add("Health");
+//                }
+//                if (Communications.equals("Yes")){
+//                    list.add("Communication");
+//                }
+//                if (Arts.equals("Yes")){
+//                    list.add("Arts");
+//                }
+//                if (Education.equals("Yes")){
+//                    list.add("Education");
+//                }
+//                if (Installation.equals("Yes")){
+//                    list.add("Installation");
+//                }
+//
+//                String choices = String.join(" ", list);
+//                String[] arrOfChoices = choices.split(" ", 3);
+//                choice = arrOfChoices[0];
+//
+//
+//                govAdapter.getFilter().filter(choice);
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
+
+    // Function to directly search the choices by the user
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void onSearch(){
+
+                String Science, Business, Farming, Community, Labors, Health, Communications, Arts, Education, Installation;
+
+                SharedPreferences preferences = getSharedPreferences(S,i);
+                Science = preferences.getString("Science","");
+                Business = preferences.getString("Business","");
+                Farming = preferences.getString("Farming","");
+                Community = preferences.getString("Community","");
+                Labors = preferences.getString("Labors","");
+                Health = preferences.getString("Health","");
+                Communications = preferences.getString("Communications","");
+                Arts = preferences.getString("Arts","");
+                Education = preferences.getString("Education","");
+                Installation = preferences.getString("Installation","");
+
+                ArrayList<String> list = new ArrayList<>();
+                if (Science.equals("Yes")){
+                    list.add("Science");
+                }
+                if (Business.equals("Yes")){
+                    list.add("Business");
+                }
+                if (Farming.equals("Yes")){
+                    list.add("Farming");
+                }
+                if (Community.equals("Yes")){
+                    list.add("Community");
+                }
+                if (Labors.equals("Yes")){
+                    list.add("Labors");
+                }
+                if (Health.equals("Yes")){
+                    list.add("Health");
+                }
+                if (Communications.equals("Yes")){
+                    list.add("Communication");
+                }
+                if (Arts.equals("Yes")){
+                    list.add("Arts");
+                }
+                if (Education.equals("Yes")){
+                    list.add("Education");
+                }
+                if (Installation.equals("Yes")){
+                    list.add("Installation");
+                }
+
+                String choices = String.join(" ", list);
+                String[] arrOfChoices = choices.split(" ", 3);
+                String choice = arrOfChoices[0];
+                Toast.makeText(this, "" + choice, Toast.LENGTH_SHORT).show();
+                govAdapter.getFilter().filter(choice);
+    }
+
+
+
 
     public void showAd(){
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
