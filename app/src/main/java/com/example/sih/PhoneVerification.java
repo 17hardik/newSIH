@@ -179,15 +179,14 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                                                 verificationIntent.putExtra("userphone", phone);
                                                 startActivity(verificationIntent);
                                                 finishAffinity();
-                                                pd.dismiss();
                                         } else {
                                             if(check.equals("Hin")){
                                                 Toast.makeText(PhoneVerification.this, getResources().getString(R.string.verification_failed1), Toast.LENGTH_SHORT).show();
                                             }else {
                                                 Toast.makeText(PhoneVerification.this, "Verification Failed, Invalid OTP", Toast.LENGTH_SHORT).show();
                                             }
-                                            pd.dismiss();
                                         }
+                                        pd.dismiss();
                                     }
                                 });
                     }

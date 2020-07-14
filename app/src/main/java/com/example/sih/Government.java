@@ -11,11 +11,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +44,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView uphone, uname, Premium, Days;
@@ -172,11 +169,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             list.add("Installation");
         }
 
-        String choices = String.join(" ", list);
-        String[] arrOfChoices = choices.split(" ", 3);
-        String choice1 = arrOfChoices[0];
-//        Toast.makeText(this, "" + choice1, Toast.LENGTH_SHORT).show();
-
+       String choice1 = list.get(0);
+       Toast.makeText(this, "" + choice1, Toast.LENGTH_SHORT).show();
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -652,11 +646,10 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 if (Installation.equals("Yes")){
                     list.add("Installation");
                 }
-
-                String choices = String.join(" ", list);
-                String[] arrOfChoices = choices.split(" ", 3);
-                String choice = arrOfChoices[0];
-                Toast.makeText(this, "" + choice, Toast.LENGTH_SHORT).show();
+        govAdapter = new gov_adapter(Government.this, details);
+        gov_jobs.setAdapter(govAdapter);
+                String choice = list.get(2);
+                Toast.makeText(this, choice, Toast.LENGTH_LONG).show();
                 govAdapter.getFilter().filter(choice);
     }
 
