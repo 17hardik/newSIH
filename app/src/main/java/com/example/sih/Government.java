@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +49,7 @@ import java.util.ArrayList;
 public class Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView uphone, uname, Premium, Days;
     Boolean English = true;
-    String lang, M, J, check, S, phone, u_name, path, days, isPremium, Science, Business, Farming, Community, Labors, Health, Communications, Arts, Education, Installation;
+    String lang, M, J, check, S, phone, u_name, path, days, isPremium;
     int j, i, x;
     DrawerLayout drawer;
     ImageView profile, crown;
@@ -64,42 +65,49 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     ProgressDialog pd;
     AdView mAdView;
     int size, k;
+    SearchView mySearchView;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences preferences = getSharedPreferences(S,i);
-        Science = preferences.getString("Science","");
-        Business = preferences.getString("Business","");
-        Farming = preferences.getString("Farming","");
-        Community = preferences.getString("Community","");
-        Labors = preferences.getString("Labors","");
-        Health = preferences.getString("Health","");
-        Communications = preferences.getString("Communications","");
-        Arts = preferences.getString("Arts","");
-        Education = preferences.getString("Education","");
-        Installation = preferences.getString("Installation","");
-        phone= preferences.getString("Phone","");
+        SharedPreferences preferences = getSharedPreferences(S, i);
+        phone = preferences.getString("Phone", "");
         path = preferences.getString("path", "");
         isPremium = preferences.getString("isPremium", "No");
         days = preferences.getString("remainingDays", "0");
-        SharedPreferences preferences1 = getSharedPreferences(M,j);
-        check = preferences1.getString("Lang","Eng");
+        SharedPreferences preferences1 = getSharedPreferences(M, j);
+        check = preferences1.getString("Lang", "Eng");
         setContentView(R.layout.activity_government);
+        mySearchView = findViewById(R.id.SearchView);
         gov_jobs = findViewById(R.id.gov_jobs);
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
+
+        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                govAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
         pd = new ProgressDialog(Government.this);
 
-        if(check.equals("Eng")){
+        if (check.equals("Eng")) {
             pd.setMessage("Fetching data");
-        } else{
+        } else {
             pd.setMessage("डेटा लाया जा रहा है");
         }
 
         pd.show();
+
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -137,41 +145,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             }
         });
 
-        ArrayList<String> list = new ArrayList<>();
-        if (Science.equals("Yes")){
-            list.add("Science");
-        }
-        if (Business.equals("Yes")){
-            list.add("Business");
-        }
-        if (Farming.equals("Yes")){
-            list.add("Farming");
-        }
-        if (Community.equals("Yes")){
-            list.add("Community");
-        }
-        if (Labors.equals("Yes")){
-            list.add("Labors");
-        }
-        if (Health.equals("Yes")){
-            list.add("Health");
-        }
-        if (Communications.equals("Yes")){
-            list.add("Communication");
-        }
-        if (Arts.equals("Yes")){
-            list.add("Arts");
-        }
-        if (Education.equals("Yes")){
-            list.add("Education");
-        }
-        if (Installation.equals("Yes")){
-            list.add("Installation");
-        }
-
-       String choice1 = list.get(0);
-       Toast.makeText(this, "" + choice1, Toast.LENGTH_SHORT).show();
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -201,7 +174,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         Days = navigationView.getHeaderView(0).findViewById(R.id.days);
         crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
 
-        if(isPremium.equals("No")){
+        if (isPremium.equals("No")) {
             showAd();
         }
         profile.setOnClickListener(new View.OnClickListener() {
@@ -231,13 +204,13 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
-                if(isPremium.equals("Yes")){
-                    if(check.equals("Hin")){
+                if (isPremium.equals("Yes")) {
+                    if (check.equals("Hin")) {
                         Premium.setText("प्रीमियम");
                     }
                     Premium.setVisibility(View.VISIBLE);
                     crown.setVisibility(View.VISIBLE);
-                    if(days.equals("1")){
+                    if (days.equals("1")) {
                         if (check.equals("Hin")) {
                             Days.setText(days + " दिन शेष");
                         } else {
@@ -266,8 +239,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                                     profile.setMinimumHeight(dm.heightPixels);
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
-                                   // path = saveToInternalStorage(bm);
-                                    SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
+                                    // path = saveToInternalStorage(bm);
+                                    SharedPreferences.Editor editor1 = getSharedPreferences(S, i).edit();
                                     editor1.putString("path", path);
                                     editor1.apply();
                                 }
@@ -277,7 +250,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
                         }
                     });
-                } catch(Exception e){
+                } catch (Exception e) {
 
                 }
                 uphone.setText(phone);
@@ -286,25 +259,21 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Hin")) {
+                if (check.equals("Hin")) {
                     Toast.makeText(Government.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     Toast.makeText(Government.this, "There is some error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        if(check.equals("Hin")){
+        if (check.equals("Hin")) {
             NavHin();
             toHin();
-        } else{
+        } else {
             NavEng();
             toEng();
         }
-
-        // Called Function to filter gov_adapter
-        onSearch();
-
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -595,66 +564,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 //        });
 //        return true;
 //    }
-
-    // Function to directly search the choices by the user
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void onSearch(){
-
-                String Science, Business, Farming, Community, Labors, Health, Communications, Arts, Education, Installation;
-
-                SharedPreferences preferences = getSharedPreferences(S,i);
-                Science = preferences.getString("Science","");
-                Business = preferences.getString("Business","");
-                Farming = preferences.getString("Farming","");
-                Community = preferences.getString("Community","");
-                Labors = preferences.getString("Labors","");
-                Health = preferences.getString("Health","");
-                Communications = preferences.getString("Communications","");
-                Arts = preferences.getString("Arts","");
-                Education = preferences.getString("Education","");
-                Installation = preferences.getString("Installation","");
-
-                ArrayList<String> list = new ArrayList<>();
-                if (Science.equals("Yes")){
-                    list.add("Science");
-                }
-                if (Business.equals("Yes")){
-                    list.add("Business");
-                }
-                if (Farming.equals("Yes")){
-                    list.add("Farming");
-                }
-                if (Community.equals("Yes")){
-                    list.add("Community");
-                }
-                if (Labors.equals("Yes")){
-                    list.add("Labors");
-                }
-                if (Health.equals("Yes")){
-                    list.add("Health");
-                }
-                if (Communications.equals("Yes")){
-                    list.add("Communication");
-                }
-                if (Arts.equals("Yes")){
-                    list.add("Arts");
-                }
-                if (Education.equals("Yes")){
-                    list.add("Education");
-                }
-                if (Installation.equals("Yes")){
-                    list.add("Installation");
-                }
-        govAdapter = new gov_adapter(Government.this, details);
-        gov_jobs.setAdapter(govAdapter);
-                String choice = list.get(2);
-                Toast.makeText(this, choice, Toast.LENGTH_LONG).show();
-                govAdapter.getFilter().filter(choice);
-    }
-
-
-
 
     public void showAd(){
         MobileAds.initialize(this, new OnInitializationCompleteListener() {

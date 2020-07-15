@@ -19,6 +19,8 @@
         <activity android:name=".topJobsFragment"
             android:parentActivityName=".MainActivity"
             />
+        <activity android:name=".domainGovernment" />
+        <activity android:name=".Job_Details1" />
         <activity android:name=".Favorite_Sectors" />
         <activity android:name=".Dream_jobs" />
         <activity android:name=".Job_Details" />

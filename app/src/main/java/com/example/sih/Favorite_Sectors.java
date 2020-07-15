@@ -114,11 +114,11 @@ public class Favorite_Sectors extends AppCompatActivity {
                         count++;
                     }
 
-                    if(count > 3){
+                    if(count > 1){
                         if (check.equals("Hin")) {
                             Toast.makeText(Favorite_Sectors.this, R.string.atmost_three_sectors, Toast.LENGTH_SHORT).show();
                         } else{
-                            Toast.makeText(Favorite_Sectors.this, "You can select atmost three sector", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Favorite_Sectors.this, "You can select atmost one sector", Toast.LENGTH_SHORT).show();
                         }
                         SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
                         editor.putString("Science", "No");

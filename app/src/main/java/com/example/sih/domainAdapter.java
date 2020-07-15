@@ -24,14 +24,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> implements Filterable {
+public class domainAdapter extends RecyclerView.Adapter<domainAdapter.MyViewHolder> implements Filterable {
     Context context;
     ArrayList<data_in_cardview> details;
     ArrayList<data_in_cardview> fullDetails;
     Translate translate;
     String check;
 
-    public gov_adapter(Context c, ArrayList<data_in_cardview> d){
+    public domainAdapter(Context c, ArrayList<data_in_cardview> d){
 
         context = c;
         details = d;
@@ -39,7 +39,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
     }
 
-    public gov_adapter(Government c, ArrayList<String> content) {
+    public domainAdapter(Government c, ArrayList<String> content) {
     }
 
     @NonNull
@@ -62,7 +62,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(context, Job_Details.class);
+                    Intent intent = new Intent(context, Job_Details1.class);
                     String pos = Integer.toString(position);
                     intent.putExtra("jobReference", pos);
                     view.getContext().startActivity(intent);
@@ -183,3 +183,4 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     }
 
 }
+

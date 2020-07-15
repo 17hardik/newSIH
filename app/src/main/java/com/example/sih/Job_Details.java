@@ -52,6 +52,7 @@ public class Job_Details extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone = preferences.getString("Phone","");
+
         SharedPreferences preferences1 = getSharedPreferences(M, k);
         check = preferences1.getString("Lang","Eng");
 

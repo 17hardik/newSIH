@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -189,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
                 editor.putString("Activity", "Government");
                 editor.apply();
-                Intent govIntent = new Intent(MainActivity.this, Government.class);
+                Intent govIntent = new Intent(MainActivity.this, domainGovernment.class);
                 startActivity(govIntent);
             }
         });
