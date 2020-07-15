@@ -11,6 +11,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,11 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +57,19 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
+        final String J = null, activity, S = null, Science;
+        final int x = 0;
+        final int i = 0;
+        final int[] size = new int[1];
+        final DatabaseReference[] reff = new DatabaseReference[1];
+        final DatabaseReference[] reff1 = new DatabaseReference[1];
+        SharedPreferences preferences2 = context.getSharedPreferences(J,x);
+        activity = preferences2.getString("Activity","");
+
+        SharedPreferences preferences = context.getSharedPreferences(S, i);
+        Science = preferences.getString("Science", "");
+
+
         try {
             holder.Job_Post.setText(details.get(position).getJob_Post());
             holder.Company_Name.setText(details.get(position).getCompany_Name());
@@ -60,12 +79,59 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 //            Picasso.get().load(details.get(position).getCompany_logo()).into(holder.company_logo);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(final View view) {
 
-                    Intent intent = new Intent(context, Job_Details.class);
-                    String pos = Integer.toString(position);
-                    intent.putExtra("jobReference", pos);
-                    view.getContext().startActivity(intent);
+                    if (activity.equals("Government")){
+
+                            reff[0] = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
+                            reff[0].addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                    size[0] = (int) snapshot.getChildrenCount();
+
+                                    for (int k = 0; k < size[0]; k++){
+
+                                        String l = Integer.toString(k);
+
+                                        reff1[0] = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child(l);
+                                        reff1[0].addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                String ID = snapshot.child("ID").getValue().toString();
+                                                Intent intent = new Intent(context, Job_Details.class);
+                                                intent.putExtra("jobReference", ID);
+                                                view.getContext().startActivity(intent);
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                Toast.makeText(context, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(context, "Please check you Internet Connection", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        Toast.makeText(context, "" + activity, Toast.LENGTH_SHORT).show();
+
+                    }
+
+//                    Intent intent = new Intent(context, Job_Details.class);
+//                    String pos = Integer.toString(position);
+//                    intent.putExtra("jobReference", pos);
+//                    view.getContext().startActivity(intent);
 
                 }
             });
@@ -91,8 +157,8 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
         TextView Job_Post, Company_Name, Location, Job_Type;
         ImageView company_logo;
-        String M;
-        int j;
+        String M, J;
+        int j, x;
         SharedPreferences preferences = context.getSharedPreferences(M,j);
 
         public MyViewHolder(@NonNull View itemView) {
