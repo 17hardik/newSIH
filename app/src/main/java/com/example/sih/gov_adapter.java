@@ -57,19 +57,6 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        final String J = null, activity, S = null, Science;
-        final int x = 0;
-        final int i = 0;
-        final int[] size = new int[1];
-        final DatabaseReference[] reff = new DatabaseReference[1];
-        final DatabaseReference[] reff1 = new DatabaseReference[1];
-        SharedPreferences preferences2 = context.getSharedPreferences(J,x);
-        activity = preferences2.getString("Activity","");
-
-        SharedPreferences preferences = context.getSharedPreferences(S, i);
-        Science = preferences.getString("Science", "");
-
-
         try {
             holder.Job_Post.setText(details.get(position).getJob_Post());
             holder.Company_Name.setText(details.get(position).getCompany_Name());
@@ -81,57 +68,10 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
                 @Override
                 public void onClick(final View view) {
 
-                    if (activity.equals("Government")){
-
-                            reff[0] = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
-                            reff[0].addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                    size[0] = (int) snapshot.getChildrenCount();
-
-                                    for (int k = 0; k < size[0]; k++){
-
-                                        String l = Integer.toString(k);
-
-                                        reff1[0] = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government").child(l);
-                                        reff1[0].addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                                String ID = snapshot.child("ID").getValue().toString();
-                                                Intent intent = new Intent(context, Job_Details.class);
-                                                intent.putExtra("jobReference", ID);
-                                                view.getContext().startActivity(intent);
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                Toast.makeText(context, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        });
-
-                                    }
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(context, "Please check you Internet Connection", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                        Toast.makeText(context, "" + activity, Toast.LENGTH_SHORT).show();
-
-                    }
-
-//                    Intent intent = new Intent(context, Job_Details.class);
-//                    String pos = Integer.toString(position);
-//                    intent.putExtra("jobReference", pos);
-//                    view.getContext().startActivity(intent);
+                    Intent intent = new Intent(context, Job_Details.class);
+                    String ID = details.get(position).getID();
+                    intent.putExtra("jobReference", ID);
+                    view.getContext().startActivity(intent);
 
                 }
             });
@@ -158,7 +98,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
         TextView Job_Post, Company_Name, Location, Job_Type;
         ImageView company_logo;
         String M, J;
-        int j, x;
+        int j;
         SharedPreferences preferences = context.getSharedPreferences(M,j);
 
         public MyViewHolder(@NonNull View itemView) {

@@ -63,8 +63,8 @@ public class domainAdapter extends RecyclerView.Adapter<domainAdapter.MyViewHold
                 public void onClick(View view) {
 
                     Intent intent = new Intent(context, Job_Details1.class);
-                    String pos = Integer.toString(position);
-                    intent.putExtra("jobReference", pos);
+                    String ID = details.get(position).getID();
+                    intent.putExtra("jobReference", ID);
                     view.getContext().startActivity(intent);
 
                 }
