@@ -84,27 +84,18 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
 
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                            @Override
-                            public boolean onQueryTextSubmit(String query) {
-                                return false;
-                            }
+        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                            @Override
-                            public boolean onQueryTextChange(String newText) {
-                                govAdapter.getFilter().filter(newText);
-                                return false;
-                            }
-                        });
-                    }
-                },
-                3000
-        );
-
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                govAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
         pd = new ProgressDialog(Government.this);

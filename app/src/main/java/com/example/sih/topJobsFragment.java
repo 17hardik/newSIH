@@ -1,23 +1,20 @@
 package com.example.sih;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Size;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -112,10 +109,11 @@ public class topJobsFragment extends AppCompatActivity {
         domainsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long i) {
+                String cat = domainsList.getItemAtPosition(position).toString();
+                String[] ID = cat.split(". ");
                 Intent intent1 = new Intent(topJobsFragment.this, topJobs.class);
                 String id = details.get(position).getId();
-                intent1.putExtra("CategoryNumber", id);
-                Toast.makeText(topJobsFragment.this, "" + id, Toast.LENGTH_SHORT).show();
+                intent1.putExtra("CategoryNumber", ID[0]);
                 startActivity(intent1);
             }
         });

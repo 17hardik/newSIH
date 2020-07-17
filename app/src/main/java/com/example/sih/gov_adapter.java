@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,11 +19,6 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,11 +32,9 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     String check;
 
     public gov_adapter(Context c, ArrayList<data_in_cardview> d){
-
         context = c;
         details = d;
         fullDetails = new ArrayList<>(d);
-
     }
 
     public gov_adapter(Government c, ArrayList<String> content) {
