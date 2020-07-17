@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -96,6 +97,9 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 return false;
             }
         });
+
+//        View v = mySearchView.findViewById(androidx.appcompat.R.id.search_plate);
+//        v.setBackgroundColor(Color.parseColor("#ffffff"));
 
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
         pd = new ProgressDialog(Government.this);
