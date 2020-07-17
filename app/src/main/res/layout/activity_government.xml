@@ -21,6 +21,7 @@
             android:background="@drawable/searchview_rounded"
             android:iconifiedByDefault="false"
             android:queryHint="Search for Jobs here..."
+            app:queryBackground="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

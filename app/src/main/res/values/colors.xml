@@ -6,4 +6,6 @@
     <color name="colorActive">#d4d4d4</color>
     <color name="colorStand">#2f0739</color>
     <color name="colorRed">#ff0000</color>
+    <color name="colorWhite">#ffffff</color>
+
 </resources>

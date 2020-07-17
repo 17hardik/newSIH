@@ -101,18 +101,26 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
         details = new ArrayList<>();
         fullDetails = new ArrayList<>();
 
-        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                            @Override
+                            public boolean onQueryTextSubmit(String query) {
+                                return false;
+                            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                domainAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
+                            @Override
+                            public boolean onQueryTextChange(String newText) {
+                                domainAdapter.getFilter().filter(newText);
+                                return false;
+                            }
+                        });
+                    }
+                },
+                3000
+        );
 
         whole.setVisibility(View.VISIBLE);
         whole.setOnClickListener(new View.OnClickListener() {

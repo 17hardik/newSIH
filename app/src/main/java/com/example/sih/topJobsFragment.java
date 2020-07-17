@@ -112,7 +112,6 @@ public class topJobsFragment extends AppCompatActivity {
                 String cat = domainsList.getItemAtPosition(position).toString();
                 String[] ID = cat.split(". ");
                 Intent intent1 = new Intent(topJobsFragment.this, topJobs.class);
-                String id = details.get(position).getId();
                 intent1.putExtra("CategoryNumber", ID[0]);
                 startActivity(intent1);
             }
