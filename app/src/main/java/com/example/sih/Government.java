@@ -50,7 +50,7 @@ import java.util.ArrayList;
 public class Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView uphone, uname, Premium, Days;
     Boolean English = true;
-    String lang, M, J, check, S, phone, u_name, path, days, isPremium;
+    String lang, M, J, check, S, phone, u_name, path, days, isPremium,activity;
     int j, i, x;
     DrawerLayout drawer;
     ImageView profile, crown;
@@ -79,12 +79,46 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         days = preferences.getString("remainingDays", "0");
         SharedPreferences preferences1 = getSharedPreferences(M, j);
         check = preferences1.getString("Lang", "Eng");
+        SharedPreferences preferences2 = getSharedPreferences(J,x);
+        activity = preferences2.getString("Activity","");
         setContentView(R.layout.activity_government);
-        mySearchView = findViewById(R.id.SearchView);
+//        mySearchView = findViewById(R.id.SearchView);
         gov_jobs = findViewById(R.id.gov_jobs);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar_2);
+        View view =getSupportActionBar().getCustomView();
+
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
 
+        TextView jobType = view.findViewById(R.id.jobsType);
+        if (activity.equals("Government")){
+
+            jobType.setText("Government Jobs");
+
+        }
+
+        else if (activity.equals("Private")){
+
+            jobType.setText("Non Government Jobs");
+
+        }
+
+        else if (activity.equals("Freelancing")){
+
+            jobType.setText("Freelancing");
+
+        }
+
+        else {
+
+            jobType.setText("Tenders");
+
+        }
+
+        SearchView mySearchView = view.findViewById(R.id.mySearchView);
         mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -156,8 +190,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 pd.dismiss();
             }
         }, 3000);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Government Jobs");
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setTitle("Government Jobs");
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
