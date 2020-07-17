@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -34,7 +35,8 @@ public class topJobsFragment extends AppCompatActivity {
     int size;
     SearchView mySearchView;
     ArrayAdapter<String> arradapter;
-    DatabaseReference reff;
+    ArrayList<forID> details;
+    DatabaseReference reff, reff1;
     int j;
     ProgressDialog pd;
 
@@ -46,6 +48,7 @@ public class topJobsFragment extends AppCompatActivity {
         mySearchView =  findViewById(R.id.SearchView);
         domainsList =  findViewById(R.id.domainsList);
         arrlist = new ArrayList<>();
+        details = new ArrayList<>();
         Firebase.setAndroidContext(this);
         pd = new ProgressDialog(topJobsFragment.this);
         pd.setMessage("Loading...");
@@ -85,6 +88,14 @@ public class topJobsFragment extends AppCompatActivity {
 
                 domainsList.setAdapter(arradapter);
                 size = (int) dataSnapshot.getChildrenCount();
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+
+                    forID id = dataSnapshot1.getValue(forID.class);
+                    details.add(id);
+
+                }
+
                 for(j=1;j<=size;j++) {
                     String i = Integer.toString(j);
                     arrlist.add(dataSnapshot.child("Category"+i).child("Category").getValue().toString());
@@ -100,13 +111,35 @@ public class topJobsFragment extends AppCompatActivity {
 
         domainsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long i) {
                 Intent intent1 = new Intent(topJobsFragment.this, topJobs.class);
-                String pos = Integer.toString(position+1);
-                intent1.putExtra("CategoryNumber", pos);
+                String id = details.get(position).getId();
+                intent1.putExtra("CategoryNumber", id);
+                Toast.makeText(topJobsFragment.this, "" + id, Toast.LENGTH_SHORT).show();
                 startActivity(intent1);
             }
         });
 
     }
 }
+
+class forID {
+
+    private String id;
+
+    public forID() {
+    }
+
+    public forID(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+}
+

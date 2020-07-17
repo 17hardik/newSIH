@@ -14,6 +14,8 @@ public class progressTracker extends AppCompatActivity {
     private EditText etPercent;
     private ClipDrawable mImageDrawable;
 
+    private int n = 7;
+
     private int mlevel = 0;
     private int fromLevel = 0;
     private int toLevel = 0;
@@ -74,7 +76,7 @@ public class progressTracker extends AppCompatActivity {
 
     public void onClickOk(View v){
 
-        int temp_level = ((Integer.parseInt(etPercent.getText().toString()))*MAX_LEVEL)/5;
+        int temp_level = ((Integer.parseInt(etPercent.getText().toString()))*MAX_LEVEL)/n;
         if (toLevel == temp_level || temp_level > MAX_LEVEL){
             return;
         }

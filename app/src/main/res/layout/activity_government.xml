@@ -16,27 +16,29 @@
 
         <SearchView
             android:id="@+id/SearchView"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:background="#FFFFFF"
+            android:background="@drawable/searchview_rounded"
             android:iconifiedByDefault="false"
             android:queryHint="Search for Jobs here..."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.001" />
+            android:layout_marginTop="10dp"
+            app:layout_constraintVertical_bias="0.005"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gov_jobs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/whole"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SearchView"
-            app:layout_constraintVertical_bias="0.02"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintVertical_bias="0.08"/>
 
         <Button
             android:id="@+id/whole"
