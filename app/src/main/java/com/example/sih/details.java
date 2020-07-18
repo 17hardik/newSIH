@@ -3,9 +3,9 @@ package com.example.sih;
 public class details {
     private String Title;
     private String Description;
-    private String Experience;
+    private String Skills;
     private String City;
-    private String Email;
+    private String Sector;
 
     public details() {
     }
@@ -26,12 +26,12 @@ public class details {
         Description = description;
     }
 
-    public String getExperience() {
-        return Experience;
+    public String getSkills() {
+        return Skills;
     }
 
-    public void setExperience(String experience) {
-        Experience = experience;
+    public void setSkills(String skills) {
+        Skills = skills;
     }
 
     public String getCity() {
@@ -42,11 +42,11 @@ public class details {
         City = city;
     }
 
-    public String getEmail() {
-        return Email;
+    public String getSector() {
+        return Sector;
     }
 
-    public void setEmail(String email) {
-        Email = email;
+    public void setSector(String sector) {
+        Sector = sector;
     }
 }

@@ -141,5 +141,18 @@
     <string name="career_roadmap1">कैरियर रोडमैप</string>
     <string name="benefits">&#8226; Find your Dream Jobs\n\n&#8226; Get a Roadmap to begin the journey to your Dream Job\n\n&#8226; Get Premium Profile badge\n\n&#8226; No ads</string>
     <string name="benefits1">&#8226; अपने ड्रीम जॉब खोजें\n\n&#8226; अपनी ड्रीम जॉब की यात्रा शुरू करने के लिए एक रोडमैप प्राप्त करें\n\n&#8226; प्रीमियम प्रोफ़ाइल बैज प्राप्त करें\n\n&#8226; विज्ञापन नहीं</string>
-
+    <string-array name="jobtype">
+        <item>Select Job Type</item>
+        <item>Government</item>
+        <item>Private</item>
+        <item>Tender</item>
+        <item>Freelancing</item>
+    </string-array>
+    <string-array name="jobtype1">
+        <item>नौकरी के प्रकार का चयन करें</item>
+        <item>सरकारी नौकरियां</item>
+        <item>गैर सरकारी नौकरियां</item>
+        <item>निविदाएं</item>
+        <item>फ़्रीलांसिंग</item>
+    </string-array>
 </resources>
