@@ -66,7 +66,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     ProgressDialog pd;
     AdView mAdView;
     int size, k;
-    SearchView mySearchView;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -132,9 +131,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
             }
         });
 
-//        View v = mySearchView.findViewById(androidx.appcompat.R.id.search_plate);
-//        v.setBackgroundColor(Color.parseColor("#ffffff"));
-
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
         pd = new ProgressDialog(Government.this);
 
@@ -190,8 +186,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 pd.dismiss();
             }
         }, 3000);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setTitle("Government Jobs");
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);

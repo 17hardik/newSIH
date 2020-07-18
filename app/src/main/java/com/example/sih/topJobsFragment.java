@@ -32,7 +32,6 @@ public class topJobsFragment extends AppCompatActivity {
     int size;
     SearchView mySearchView;
     ArrayAdapter<String> arradapter;
-    ArrayList<forID> details;
     DatabaseReference reff, reff1;
     int j;
     ProgressDialog pd;
@@ -45,7 +44,6 @@ public class topJobsFragment extends AppCompatActivity {
         mySearchView =  findViewById(R.id.SearchView);
         domainsList =  findViewById(R.id.domainsList);
         arrlist = new ArrayList<>();
-        details = new ArrayList<>();
         Firebase.setAndroidContext(this);
         pd = new ProgressDialog(topJobsFragment.this);
         pd.setMessage("Loading...");
@@ -86,13 +84,6 @@ public class topJobsFragment extends AppCompatActivity {
                 domainsList.setAdapter(arradapter);
                 size = (int) dataSnapshot.getChildrenCount();
 
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-
-                    forID id = dataSnapshot1.getValue(forID.class);
-                    details.add(id);
-
-                }
-
                 for(j=1;j<=size;j++) {
                     String i = Integer.toString(j);
                     arrlist.add(dataSnapshot.child("Category"+i).child("Category").getValue().toString());
@@ -119,24 +110,3 @@ public class topJobsFragment extends AppCompatActivity {
 
     }
 }
-
-class forID {
-
-    private String id;
-
-    public forID() {
-    }
-
-    public forID(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-}
-

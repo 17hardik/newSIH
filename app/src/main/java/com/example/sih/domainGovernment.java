@@ -68,7 +68,6 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
     ProgressDialog pd;
     AdView mAdView;
     int size;
-    SearchView mySearchView;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -583,8 +582,6 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
                 pd.dismiss();
             }
         }, 3000);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Government Jobs");
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);

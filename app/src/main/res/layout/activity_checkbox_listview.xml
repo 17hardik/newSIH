@@ -4,34 +4,32 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <CheckBox
+        android:id="@+id/list_view_item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintVertical_bias="0.1"
+        android:layout_marginBottom="16dp"/>
+
     <TextView
-        android:id="@+id/jobsType"
+        android:id="@+id/list_view_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:textSize="22sp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20dp"
+        android:paddingRight="32dp"
+        app:layout_constraintStart_toEndOf="@id/list_view_item_checkbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        app:layout_constraintHorizontal_bias="0.01"/>
-
-
-    <SearchView
-        android:id="@+id/mySearchView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:queryHint="Search for Jobs..."
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        app:layout_constraintHorizontal_bias="0.99"
-        app:queryBackground="@color/colorWhite" />
-
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.01"
+        android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
