@@ -136,6 +136,21 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
+                        mySearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                            @Override
+                            public boolean onClose() {
+                                mySearchView.setBackgroundColor(getColor(R.color.colorPrimary));
+                                return false;
+                            }
+                        });
+
+                        mySearchView.setOnSearchClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mySearchView.setBackground(getResources().getDrawable(R.drawable.searchview_rounded));
+                            }
+                        });
+
                         mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                             @Override
                             public boolean onQueryTextSubmit(String query) {

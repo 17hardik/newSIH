@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -118,7 +117,22 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
         }
 
-        SearchView mySearchView = view.findViewById(R.id.mySearchView);
+        final SearchView mySearchView = view.findViewById(R.id.mySearchView);
+        mySearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mySearchView.setBackgroundColor(getColor(R.color.colorPrimary));
+                return false;
+            }
+        });
+
+        mySearchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mySearchView.setBackground(getResources().getDrawable(R.drawable.searchview_rounded));
+            }
+        });
+
         mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
