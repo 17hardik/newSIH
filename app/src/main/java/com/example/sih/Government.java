@@ -117,22 +117,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
         }
 
-        final SearchView mySearchView = view.findViewById(R.id.mySearchView);
-        mySearchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                mySearchView.setBackgroundColor(getColor(R.color.colorPrimary));
-                return false;
-            }
-        });
-
-        mySearchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mySearchView.setBackground(getResources().getDrawable(R.drawable.searchview_rounded));
-            }
-        });
-
         mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -145,9 +129,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 return false;
             }
         });
-
-//        View v = mySearchView.findViewById(androidx.appcompat.R.id.search_plate);
-//        v.setBackgroundColor(Color.parseColor("#ffffff"));
 
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Government");
         pd = new ProgressDialog(Government.this);
