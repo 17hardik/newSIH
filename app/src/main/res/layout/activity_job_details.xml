@@ -10,77 +10,120 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:background="#FFFFFF"
         android:text="Enter Job Details"
         android:textColor="#080009"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/title"
         android:layout_width="323dp"
         android:layout_height="43dp"
-        android:layout_marginTop="76dp"
         android:ems="10"
         android:hint="Job Title "
         android:inputType="textPersonName"
         android:shadowColor="#9C27B0"
+        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/sector"
         android:layout_width="323dp"
         android:layout_height="43dp"
-        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Job Sector"
+        android:inputType="textPersonName"
+        android:shadowColor="#9C27B0"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/jobtype"
+        android:layout_width="323dp"
+        android:layout_height="43dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35"/>
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="323dp"
+        android:layout_height="43dp"
         android:ems="10"
         android:hint="Job Description >30 characters"
         android:inputType="textPersonName"
+        app:layout_constraintVertical_bias="0.45"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText1" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/skills"
         android:layout_width="323dp"
         android:layout_height="43dp"
-        android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Work Experience"
+        android:hint="Skills Required (Skill1, Skill2, ..)"
+        app:layout_constraintVertical_bias="0.55"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/qualification"
         android:layout_width="323dp"
         android:layout_height="43dp"
-        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Qualification Required"
+        android:inputType="textPersonName"
+        app:layout_constraintVertical_bias="0.65"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="323dp"
+        android:layout_height="43dp"
         android:ems="10"
         android:hint="Reporting City"
         android:inputType="textPersonName"
+        app:layout_constraintVertical_bias="0.75"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/salary"
         android:layout_width="323dp"
         android:layout_height="43dp"
-        android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Contact E-mail"
+        android:hint="Salary PA (Optional)"
         android:inputType="textPersonName"
+        android:shadowColor="#9C27B0"
+        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button4"
@@ -90,8 +133,10 @@
         android:background="@drawable/ic_sih_button_bg"
         android:text="Upload and Post"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.97"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

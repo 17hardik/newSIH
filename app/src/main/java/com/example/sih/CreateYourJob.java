@@ -1,7 +1,5 @@
 package com.example.sih;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -75,6 +75,7 @@ public class CreateYourJob extends AppCompatActivity {
                     }
 
                     else{
+                        reff.child(phone).child("Company").setValue(Cname.getText().toString().trim());
                         reff.child("Company Representative Details").child(phone).setValue(users1);
                         Toast.makeText(CreateYourJob.this, "data inserted successfully",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(CreateYourJob.this, companyProof.class);

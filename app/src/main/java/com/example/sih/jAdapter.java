@@ -47,11 +47,11 @@ public class jAdapter extends RecyclerView.Adapter<jAdapter.MyViewHolder> {
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.desc);
-            experience = (TextView) itemView.findViewById(R.id.exp);
-            city = (TextView) itemView.findViewById(R.id.city);
-            email = (TextView) itemView.findViewById(R.id.email);
+            title = itemView.findViewById(R.id.title);
+            description = itemView.findViewById(R.id.desc);
+            experience = itemView.findViewById(R.id.exp);
+            city = itemView.findViewById(R.id.city);
+            email = itemView.findViewById(R.id.email);
         }
     }
 

@@ -131,8 +131,7 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
 
         final SearchView mySearchView = view.findViewById(R.id.mySearchView);
 
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
+        new java.util.Timer().schedule(new java.util.TimerTask() {
                     @Override
                     public void run() {
                         mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
