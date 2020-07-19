@@ -1,24 +1,22 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +30,7 @@ import java.util.List;
 public class progressTracker extends AppCompatActivity {
 
     TextView keySkills;
+    List<dataListView> initItemList;
 
     ArrayList<String> data = new ArrayList<>();
     ArrayList<dataListView> list = new ArrayList<>();
@@ -81,12 +80,14 @@ public class progressTracker extends AppCompatActivity {
         final ListView listViewWithCheckbox= (ListView) findViewById(R.id.steps);
 
         // Initiate listview data.
-        final List<dataListView> initItemList = this.getInitViewItemDtoList();
+
 
         // Create a custom list view adapter with checkbox control.
         final adapterListView listViewDataAdapter = new adapterListView(getApplicationContext(), initItemList);
 
         listViewDataAdapter.notifyDataSetChanged();
+
+        getInitViewItemDtoList();
 
         // Set data adapter to list view.
         listViewWithCheckbox.setAdapter((ListAdapter) listViewDataAdapter);
@@ -312,7 +313,7 @@ public class progressTracker extends AppCompatActivity {
         }
     }
 
-    private  ArrayList<dataListView> getInitViewItemDtoList()
+    private  void getInitViewItemDtoList()
     {
 //        String[] itemTextArr = {"Step1: - Attain specialization in the key skills mentioned above", "Step2: - Fulfill all the requirements specicified by the organization", "Step3: - Register for the Job on the organization's website", "Step4: - Try to know the whole interview process and start preparing for it", "Step5 : - Work on your communication skills in order to excell in interview"};
 
@@ -337,13 +338,13 @@ public class progressTracker extends AppCompatActivity {
 
                     arr[l] = data.get(l);
                     String itemText = arr[l];
-                    Toast.makeText(progressTracker.this, itemText , Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(progressTracker.this, itemText , Toast.LENGTH_SHORT).show();
                     dataListView item = new dataListView();
                     item.setChecked(false);
                     item.setItemText(itemText);
                     list.add(item);
-
-//                    Toast.makeText(progressTracker.this, "" + list, Toast.LENGTH_SHORT).show();
+                    initItemList = list;
+                  Toast.makeText(progressTracker.this, "" + list, Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -381,7 +382,7 @@ public class progressTracker extends AppCompatActivity {
 //
 //        }
 
-        return list ;
+      //  return list ;
     }
 
 }
