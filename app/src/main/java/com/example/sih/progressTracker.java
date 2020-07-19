@@ -1,24 +1,30 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +39,7 @@ public class progressTracker extends AppCompatActivity {
 
     TextView keySkills;
 
+    List<dataListView> initItemList;
     ArrayList<String> data = new ArrayList<>();
     ArrayList<dataListView> list = new ArrayList<>();
 
@@ -71,17 +78,24 @@ public class progressTracker extends AppCompatActivity {
 
         keySkills = findViewById(R.id.keySkills);
 
+        data = new ArrayList<>();
+
         ImageView img = (ImageView) findViewById(R.id.imageView1);
         mImageDrawable = (ClipDrawable) img.getDrawable();
         mImageDrawable.setLevel(0);
 
         setTitle("Roadmap");
 
-        // Get listview checkbox.
+        // Initialized elements of activity_checkbox_listview
+        LayoutInflater inflater = getLayoutInflater();
+        View myView = inflater.inflate(R.layout.activity_checkbox_listview, null);
+        final CheckBox listItemCheckbox = (CheckBox) myView.findViewById(R.id.list_view_item_checkbox);
+        final TextView listItemText = (TextView) myView.findViewById(R.id.list_view_item_text);
+
         final ListView listViewWithCheckbox= (ListView) findViewById(R.id.steps);
 
         // Initiate listview data.
-        final List<dataListView> initItemList = this.getInitViewItemDtoList();
+        getInitViewItemDtoList();
 
         // Create a custom list view adapter with checkbox control.
         final adapterListView listViewDataAdapter = new adapterListView(getApplicationContext(), initItemList);
@@ -312,11 +326,32 @@ public class progressTracker extends AppCompatActivity {
         }
     }
 
-    private  ArrayList<dataListView> getInitViewItemDtoList()
+    private void getInitViewItemDtoList()
     {
-//        String[] itemTextArr = {"Step1: - Attain specialization in the key skills mentioned above", "Step2: - Fulfill all the requirements specicified by the organization", "Step3: - Register for the Job on the organization's website", "Step4: - Try to know the whole interview process and start preparing for it", "Step5 : - Work on your communication skills in order to excell in interview"};
+
+        final ListView listViewWithCheckbox= (ListView) findViewById(R.id.steps);
+
+        String check, M = null;
+
+        int j = 0;
+
+        final ProgressDialog pd;
 
         DatabaseReference reff;
+
+        SharedPreferences preferences1 = getSharedPreferences(M, j);
+        check = preferences1.getString("Lang", "Eng");
+
+
+        pd = new ProgressDialog(progressTracker.this);
+
+        if (check.equals("Eng")) {
+            pd.setMessage("Fetching data");
+        } else {
+            pd.setMessage("डेटा लाया जा रहा है");
+        }
+
+        pd.show();
 
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Government").child("0").child("ROADMAP");
         reff.addValueEventListener(new ValueEventListener() {
@@ -337,15 +372,18 @@ public class progressTracker extends AppCompatActivity {
 
                     arr[l] = data.get(l);
                     String itemText = arr[l];
-//                    Toast.makeText(progressTracker.this, itemText , Toast.LENGTH_SHORT).show();
                     dataListView item = new dataListView();
                     item.setChecked(false);
                     item.setItemText(itemText);
                     list.add(item);
 
-//                    Toast.makeText(progressTracker.this, "" + list, Toast.LENGTH_SHORT).show();
-
                 }
+
+                initItemList = list;
+                final adapterListView listViewDataAdapter = new adapterListView(getApplicationContext(), initItemList);
+                listViewDataAdapter.notifyDataSetChanged();
+                listViewWithCheckbox.setAdapter((ListAdapter) listViewDataAdapter);
+                pd.dismiss();
 
             }
 
@@ -355,33 +393,6 @@ public class progressTracker extends AppCompatActivity {
             }
         });
 
-
-//        List<dataListView> ret = new ArrayList<dataListView>();
-
-
-
-
-//        int length = itemTextArr.length;
-//
-//        for(int i=0;i<length;i++)
-//        {
-//            String itemText = itemTextArr[i];
-//
-//            dataListView dto = new dataListView();
-//            dto.setChecked(false);
-//            dto.setItemText(itemText);
-//
-//            list.add(dto);
-//
-//            Object[] s  = list.toArray();
-//
-//            for(int x = 0; x < s.length ; x++){
-//                keySkills.setText(s[i].toString());
-//            }
-//
-//        }
-        Toast.makeText(progressTracker.this, "" + list, Toast.LENGTH_SHORT).show();
-        return list ;
     }
 
 }
