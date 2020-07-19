@@ -337,7 +337,7 @@ public class progressTracker extends AppCompatActivity {
 
                     arr[l] = data.get(l);
                     String itemText = arr[l];
-                    Toast.makeText(progressTracker.this, itemText , Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(progressTracker.this, itemText , Toast.LENGTH_SHORT).show();
                     dataListView item = new dataListView();
                     item.setChecked(false);
                     item.setItemText(itemText);
@@ -380,7 +380,7 @@ public class progressTracker extends AppCompatActivity {
 //            }
 //
 //        }
-
+        Toast.makeText(progressTracker.this, "" + list, Toast.LENGTH_SHORT).show();
         return list ;
     }
 
