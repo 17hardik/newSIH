@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,10 @@ import java.util.List;
 
 public class progressTracker extends AppCompatActivity {
 
+    TextView keySkills;
+
     ArrayList<String> data = new ArrayList<>();
+    ArrayList<dataListView> list = new ArrayList<>();
 
     private ClipDrawable mImageDrawable;
 
@@ -64,6 +68,8 @@ public class progressTracker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress_tracker);
+
+        keySkills = findViewById(R.id.keySkills);
 
         ImageView img = (ImageView) findViewById(R.id.imageView1);
         mImageDrawable = (ClipDrawable) img.getDrawable();
@@ -306,21 +312,39 @@ public class progressTracker extends AppCompatActivity {
         }
     }
 
-    private ArrayList<dataListView> getInitViewItemDtoList()
+    private  ArrayList<dataListView> getInitViewItemDtoList()
     {
 //        String[] itemTextArr = {"Step1: - Attain specialization in the key skills mentioned above", "Step2: - Fulfill all the requirements specicified by the organization", "Step3: - Register for the Job on the organization's website", "Step4: - Try to know the whole interview process and start preparing for it", "Step5 : - Work on your communication skills in order to excell in interview"};
 
         DatabaseReference reff;
 
-        reff = FirebaseDatabase.getInstance().getReference();
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Government").child("0").child("ROADMAP");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                int size = (int) snapshot.getChildrenCount();
 
                 for(int j=1;j<=size;j++) {
+
                     String k = Integer.toString(j);
                     data.add(snapshot.child("Step"+k).child("Step").getValue().toString());
+
+                }
+
+                String[] arr = new String[data.size()];
+
+                for (int l = 0; l < data.size(); l++){
+
+                    arr[l] = data.get(l);
+                    String itemText = arr[l];
+                    Toast.makeText(progressTracker.this, itemText , Toast.LENGTH_SHORT).show();
+                    dataListView item = new dataListView();
+                    item.setChecked(false);
+                    item.setItemText(itemText);
+                    list.add(item);
+
+//                    Toast.makeText(progressTracker.this, "" + list, Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -331,22 +355,33 @@ public class progressTracker extends AppCompatActivity {
             }
         });
 
-        ArrayList<dataListView> list = new ArrayList<>();
 
-        int length = data.size();
+//        List<dataListView> ret = new ArrayList<dataListView>();
 
-        for(int i=0;i < length; i++)
-        {
-            String itemText = (String) data.get(i);
 
-            dataListView item = new dataListView();
-            item.setChecked(false);
-            item.setItemText(itemText);
 
-            list.add(item);
-        }
 
-        return list;
+//        int length = itemTextArr.length;
+//
+//        for(int i=0;i<length;i++)
+//        {
+//            String itemText = itemTextArr[i];
+//
+//            dataListView dto = new dataListView();
+//            dto.setChecked(false);
+//            dto.setItemText(itemText);
+//
+//            list.add(dto);
+//
+//            Object[] s  = list.toArray();
+//
+//            for(int x = 0; x < s.length ; x++){
+//                keySkills.setText(s[i].toString());
+//            }
+//
+//        }
+
+        return list ;
     }
 
 }
