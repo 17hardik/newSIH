@@ -48,7 +48,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class domainGovernment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    TextView uphone, uname, Premium, Days, jobType;
+    TextView uphone, uname, Premium, Days;
     Button whole;
     Boolean English = true;
     String lang, M, J, check, S, phone, u_name, path, days, isPremium, activity, Science, Business, Farming, Community, Labors, Health, Communications, Arts, Education, Installation;
@@ -104,37 +104,29 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_2);
         final View view =getSupportActionBar().getCustomView();
 
-        jobType = view.findViewById(R.id.jobsType);
+        TextView jobType = view.findViewById(R.id.jobsType);
         if (activity.equals("Government")){
-            if(check.equals("Eng")) {
-                jobType.setText("Government Jobs");
-            } else{
-                jobType.setText(R.string.government_jobs1);
-            }
+
+            jobType.setText("Government Jobs");
+
         }
 
         else if (activity.equals("Private")){
-            if(check.equals("Eng")) {
-                jobType.setText("Private Jobs");
-            } else{
-                jobType.setText(R.string.non_government_jobs1);
-            }
+
+            jobType.setText("Non Government Jobs");
+
         }
 
         else if (activity.equals("Freelancing")){
-            if(check.equals("Eng")) {
-                jobType.setText("Freelancing");
-            } else{
-                jobType.setText(R.string.freelancing1);
-            }
+
+            jobType.setText("Freelancing");
+
         }
 
         else {
-            if(check.equals("Eng")) {
-                jobType.setText("Tenders");
-            } else{
-                jobType.setText(R.string.tenders1);
-            }
+
+            jobType.setText("Tenders");
+
         }
 
         final SearchView mySearchView = view.findViewById(R.id.mySearchView);
@@ -172,7 +164,7 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
         pd = new ProgressDialog(domainGovernment.this);
 
         if (check.equals("Eng")) {
-            pd.setMessage("Fetching data");
+            pd.setMessage("Loading");
         } else {
             pd.setMessage("डेटा लाया जा रहा है");
         }
@@ -589,6 +581,7 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
                 pd.dismiss();
             }
         }, 3000);
+
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
@@ -794,10 +787,6 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
                 startActivity(intent4);
                 return true;
 
-            case R.id.go_to_profile:
-                Intent profileIntent = new Intent(domainGovernment.this, Profile.class);
-                startActivity(profileIntent);
-                return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -805,46 +794,18 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
     }
 
     public void toEng(){
-        switch (activity){
-            case "Government":
-                jobType.setText("Government Jobs");
-                break;
-            case "Private":
-                jobType.setText("Private Jobs");
-                break;
-            case "Freelancing":
-                jobType.setText("Freelancing");
-                break;
-            case "Tenders":
-                jobType.setText("Tenders");
-                break;
-        }
+        getSupportActionBar().setTitle("Government Jobs");
         English = true;
         lang = "Eng";
-        whole.setText("Display All Jobs");
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
         editor1.putString("Lang",lang);
         editor1.apply();
     }
 
     public void toHin(){
-        switch (activity){
-            case "Government":
-                jobType.setText(R.string.government_jobs1);
-                break;
-            case "Private":
-                jobType.setText(R.string.non_government_jobs1);
-                break;
-            case "Freelancing":
-                jobType.setText(R.string.freelancing1);
-                break;
-            case "Tenders":
-                jobType.setText(R.string.tenders1);
-                break;
-        }
+        getSupportActionBar().setTitle(R.string.government_jobs1);
         English = false;
         lang = "Hin";
-        whole.setText(R.string.display_jobs1);
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
         editor1.putString("Lang",lang);
         editor1.apply();
@@ -854,20 +815,14 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
         setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
-        setOptionTitle(R.id.roadmap, getResources().getString(R.string.career_roadmap1));
-        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.go_to_profile, "Go To Profile");
         setOptionTitle(R.id.create_your_job, "Publish Your Job");
-        setOptionTitle(R.id.roadmap, "Career Roadmap");
-        setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     private void setOptionTitle(int id, String title)
     {
