@@ -47,7 +47,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    TextView uphone, uname, Premium, Days;
+    TextView uphone, uname, Premium, Days, jobType;
     Boolean English = true;
     String lang, M, J, check, S, phone, u_name, path, days, isPremium,activity;
     int j, i, x;
@@ -91,29 +91,37 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         gov_jobs.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
 
-        TextView jobType = view.findViewById(R.id.jobsType);
+        jobType = view.findViewById(R.id.jobsType);
         if (activity.equals("Government")){
-
-            jobType.setText("Government Jobs");
-
+            if(check.equals("Eng")) {
+                jobType.setText("Government Jobs");
+            } else{
+                jobType.setText(R.string.government_jobs1);
+            }
         }
 
         else if (activity.equals("Private")){
-
-            jobType.setText("Non Government Jobs");
-
+            if(check.equals("Eng")) {
+                jobType.setText("Private Jobs");
+            } else{
+                jobType.setText(R.string.non_government_jobs1);
+            }
         }
 
         else if (activity.equals("Freelancing")){
-
-            jobType.setText("Freelancing");
-
+            if(check.equals("Eng")) {
+                jobType.setText("Freelancing");
+            } else{
+                jobType.setText(R.string.freelancing1);
+            }
         }
 
         else {
-
-            jobType.setText("Tenders");
-
+            if(check.equals("Eng")) {
+                jobType.setText("Tenders");
+            } else{
+                jobType.setText(R.string.tenders1);
+            }
         }
         final SearchView mySearchView = view.findViewById(R.id.mySearchView);
         new java.util.Timer().schedule(
@@ -170,9 +178,11 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
-                            Toast.makeText(Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
+                            if(check.equals("Eng")) {
+                                Toast.makeText(Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Government.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
@@ -180,8 +190,11 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-            }
+                if(check.equals("Eng")) {
+                    Toast.makeText(Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Government.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }            }
         });
 
         final Handler handler = new Handler();
@@ -407,7 +420,20 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     }
 
     public void toEng(){
-        getSupportActionBar().setTitle("Government Jobs");
+        switch (activity){
+            case "Government":
+                jobType.setText("Government Jobs");
+                break;
+            case "Private":
+                jobType.setText("Private Jobs");
+                break;
+            case "Freelancing":
+                jobType.setText("Freelancing");
+                break;
+            case "Tenders":
+                jobType.setText("Tenders");
+                break;
+        }
         English = true;
         lang = "Eng";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -416,7 +442,20 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
     }
 
     public void toHin(){
-        getSupportActionBar().setTitle(R.string.government_jobs1);
+        switch (activity){
+            case "Government":
+                jobType.setText(R.string.government_jobs1);
+                break;
+            case "Private":
+                jobType.setText(R.string.non_government_jobs1);
+                break;
+            case "Freelancing":
+                jobType.setText(R.string.freelancing1);
+                break;
+            case "Tenders":
+                jobType.setText(R.string.tenders1);
+                break;
+        }
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -431,6 +470,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
         setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
         setOptionTitle(R.id.roadmap, getResources().getString(R.string.career_roadmap1));
+        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
@@ -440,6 +480,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         setOptionTitle(R.id.go_to_profile, "Go To Profile");
         setOptionTitle(R.id.create_your_job, "Publish Your Job");
         setOptionTitle(R.id.roadmap, "Career Roadmap");
+        setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     private void setOptionTitle(int id, String title)
     {

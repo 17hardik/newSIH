@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,11 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 public class jobDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     EditText title, description, skills, city, sector, salary, qualification;
     Button post;
+    TextView Title;
     DatabaseReference reff, reff2;
     details details;
     Spinner jobType;
-    int i;
-    String JobType, Salary, Company;
+    int i, j;
+    String JobType, Salary, Company, check, M;
     String phone, S;
     Boolean isAdded = false;
 
@@ -36,6 +38,8 @@ public class jobDetails extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         SharedPreferences preferences1 = getSharedPreferences(S,i);
         phone = preferences1.getString("Phone","");
+        SharedPreferences preferences2 = getSharedPreferences(M,j);
+        check = preferences2.getString("Lang","Eng");
         setContentView(R.layout.activity_job_details);
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
@@ -43,16 +47,26 @@ public class jobDetails extends AppCompatActivity implements AdapterView.OnItemS
         city = findViewById(R.id.city);
         sector = findViewById(R.id.sector);
         salary = findViewById(R.id.salary);
+        Title = findViewById(R.id.textView1);
         qualification = findViewById(R.id.qualification);
         post = findViewById(R.id.button4);
         jobType = findViewById(R.id.jobtype);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.jobtype, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        jobType.setAdapter(adapter);
+        if(check.equals("Eng")) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.jobtype, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            jobType.setAdapter(adapter);
+        } else {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.jobtype1, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            jobType.setAdapter(adapter);
+        }
         jobType.setOnItemSelectedListener(this);
         details = new details();
         reff = FirebaseDatabase.getInstance().getReference();
         reff2 = FirebaseDatabase.getInstance().getReference();
+        if(check.equals("Hin")){
+            toHin();
+        }
 
         reff2.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,7 +76,11 @@ public class jobDetails extends AppCompatActivity implements AdapterView.OnItemS
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(jobDetails.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals("Eng")) {
+                    Toast.makeText(jobDetails.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(jobDetails.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -78,51 +96,90 @@ public class jobDetails extends AppCompatActivity implements AdapterView.OnItemS
                 try{
 
                     if (title.getText().toString().trim().equals("")) {
-                        title.setError("Must be Filled");
+                        if(check.equals("Eng")) {
+                            title.setError("Must be Filled");
+                        } else {
+                            title.setError(getResources().getString(R.string.must_be_filled1));
+                        }
                         title.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else if (description.getText().toString().trim().equals("")) {
-                        description.setError("Must be Filled");
+                        if(check.equals("Eng")) {
+                            description.setError("Must be Filled");
+                        } else {
+                            description.setError(getResources().getString(R.string.must_be_filled1));
+                        }
                         description.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else if (description.getText().toString().trim().length() < 30){
-                        description.setError("At least 30 characters must be there");
+                        if(check.equals("Eng")){
+                            description.setError("At least 30 characters must be there");
+                        } else {
+                            description.setError("कम से कम 30 अक्षर होने चाहिए");
+                        }
                         description.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else if (Company.equals("")){
-                        Toast.makeText(jobDetails.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-                    }
+                        if(check.equals("Eng")) {
+                            Toast.makeText(jobDetails.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(jobDetails.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                        }                    }
 
                     else if (skills.getText().toString().trim().equals("")) {
-                        skills.setError("Must be Filled");
+                        if(check.equals("Eng")) {
+                            skills.setError("Must be Filled");
+                        } else {
+                            skills.setError(getResources().getString(R.string.must_be_filled1));
+                        }
                         skills.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else if (qualification.getText().toString().trim().equals("")) {
-                        skills.setError("Must be Filled");
+                        if(check.equals("Eng")) {
+                            qualification.setError("Must be Filled");
+                        } else {
+                            qualification.setError(getResources().getString(R.string.must_be_filled1));
+                        }
                         skills.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else if ((skills.getText().toString().contains(" ")) && !(skills.getText().toString().contains(","))) {
-                        skills.setError("Please write in proper format");
+                        if(check.equals("Eng")) {
+                            skills.setError("Please write in proper format");
+                        } else {
+                            skills.setError("कृपया उचित प्रारूप में लिखें");
+                        }
                         skills.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else if (city.getText().toString().trim().equals("")) {
-                        city.setError("Must be Filled");
+                        if(check.equals("Eng")) {
+                            city.setError("Must be Filled");
+                        } else {
+                            city.setError(getResources().getString(R.string.must_be_filled1));
+                        }
                         city.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else  if (sector.getText().toString().trim().equals("")) {
-                        sector.setError("Must be Filled");
+                        if(check.equals("Eng")) {
+                            sector.setError("Must be Filled");
+                        } else {
+                            sector.setError(getResources().getString(R.string.must_be_filled1));
+                        }
                         sector.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
 
                     else if((JobType.equals("Select Job Type") || JobType.equals("नौकरी के प्रकार का चयन करें"))){
-                        Toast.makeText(jobDetails.this, "Please select Job Type", Toast.LENGTH_SHORT).show();
+                        if(check.equals("Eng")){
+                            Toast.makeText(jobDetails.this, "Please select Job Type", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(jobDetails.this, "नौकरी के प्रकार का चयन करें", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     else {
@@ -181,5 +238,16 @@ public class jobDetails extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+    public void toHin(){
+        title.setHint("नौकरी का नाम");
+        sector.setHint("नौकरी का क्षेत्र");
+        description.setHint("नौकरी का विवरण> 30 अक्षर");
+        skills.setHint("स्किल की आवश्यकता (स्किल 1, स्किल 2)");
+        qualification.setHint("आवश्यक योग्यता");
+        city.setHint("रिपोर्टिंग शहर");
+        salary.setHint("प्रति वर्ष वेतन (वैकल्पिक)");
+        post.setText("अपलोड और पोस्ट करें");
+        Title.setText("नौकरी का विवरण दर्ज करें");
     }
 }

@@ -30,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class Job_Details extends AppCompatActivity {
 
@@ -79,6 +78,10 @@ public class Job_Details extends AppCompatActivity {
         pd = new ProgressDialog(Job_Details.this);
         pd.setMessage("Getting Job Details");
         pd.show();
+        Toast.makeText(this, check, Toast.LENGTH_SHORT).show();
+        if(!check.equals("Eng")){
+            FavButton.setText("ड्रीमजॉब में जोड़ें");
+        }
 
         FavButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +95,11 @@ public class Job_Details extends AppCompatActivity {
                             long childCount = snapshot.getChildrenCount();
                                 firebase.child(phone).child("Dream Jobs").child(activity + jobReference).setValue(activity + "-" + jobReference);
                                 isStored = true;
-                                Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                                if(check.equals("Eng")) {
+                                    Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Job_Details.this, "ड्रीमजॉब में जोड़ा गया", Toast.LENGTH_SHORT).show();
+                                }
                         }
 
                         @Override
@@ -104,7 +111,11 @@ public class Job_Details extends AppCompatActivity {
 
                     firebase.child(phone).child("Dream Jobs").child("Government").child(jobReference).setValue("Government" + jobReference);
                     isStored = true;
-                    Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                    if(check.equals("Eng")) {
+                        Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Job_Details.this, "ड्रीमजॉब में जोड़ा गया", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -167,8 +178,11 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals("Eng")) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -199,8 +213,11 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals("Eng")) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -231,10 +248,14 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Job_Details.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals("Eng")) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        }
+    }
 
     public void getSalary(final String jobReference) {
 
@@ -260,8 +281,11 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals("Eng")) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -290,8 +314,11 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals("Eng")) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -320,8 +347,11 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals("Eng")) {
+                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

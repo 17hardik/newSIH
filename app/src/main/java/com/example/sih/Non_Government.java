@@ -107,9 +107,11 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
-                            Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
+                            if(check.equals("Eng")) {
+                                Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Non_Government.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
@@ -117,8 +119,11 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-            }
+                if(check.equals("Eng")) {
+                    Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Non_Government.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }            }
         });
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -369,6 +374,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
         setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
         setOptionTitle(R.id.roadmap, getResources().getString(R.string.career_roadmap1));
+        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
@@ -378,6 +384,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         setOptionTitle(R.id.go_to_profile, "Go To Profile");
         setOptionTitle(R.id.create_your_job, "Publish Your Job");
         setOptionTitle(R.id.roadmap, "Career Roadmap");
+        setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     private void setOptionTitle(int id, String title)
     {

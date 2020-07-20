@@ -34,9 +34,14 @@ import java.util.ArrayList;
 
 public class Job_Details1 extends AppCompatActivity {
 
-    private TextView job_post, company_name, company_location, job_details, salaryLabel, salary, sectorLabel, sector, jobDescriptionLabel, jobDescription;
+    private TextView job_post;
+    private TextView company_name;
+    private TextView company_location;
+    private TextView salary;
+    private TextView sector;
+    private TextView jobDescription;
     DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6, reff7, reff8, reff9, reff10;
-    int j, k, i, x, y, size;
+    int j, i, x, y;
     String M, J, check, phone, activity, S, jobReference, post, name, location, Salary, Sector, jobDesc, Science, Business, Farming, Community, Labors, Health, Communications, Arts, Education, Installation;
     Translate translate;
     Firebase firebase;
@@ -76,12 +81,12 @@ public class Job_Details1 extends AppCompatActivity {
         FavButton = findViewById(R.id.favButton);
         company_name = findViewById(R.id.company_name);
         company_location = findViewById(R.id.company_location);
-        job_details = findViewById(R.id.job_details);
-        salaryLabel = findViewById(R.id.salaryLabel);
+        TextView job_details = findViewById(R.id.job_details);
+        TextView salaryLabel = findViewById(R.id.salaryLabel);
         salary = findViewById(R.id.salary);
-        sectorLabel = findViewById(R.id.sectorLabel);
+        TextView sectorLabel = findViewById(R.id.sectorLabel);
         sector = findViewById(R.id.sector);
-        jobDescriptionLabel = findViewById(R.id.jobDescriptionLabel);
+        TextView jobDescriptionLabel = findViewById(R.id.jobDescriptionLabel);
         jobDescription = findViewById(R.id.jobDescription);
 
         firebase = new Firebase("https://smart-e60d6.firebaseio.com/Users");
@@ -98,7 +103,7 @@ public class Job_Details1 extends AppCompatActivity {
                     reff1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            long childCount = snapshot.getChildrenCount();
+                            snapshot.getChildrenCount();
                             firebase.child(phone).child("Dream Jobs").child(activity + jobReference).setValue(activity + "-" + jobReference);
                             isStored = true;
                             Toast.makeText(Job_Details1.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();

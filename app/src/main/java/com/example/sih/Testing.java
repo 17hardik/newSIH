@@ -32,7 +32,7 @@ public class Testing extends AppCompatActivity {
     final int UPI_PAYMENT = 0;
     String check, M, phone, S, formattedDate, isPremium;
     int i, j;
-    TextView Title, Title2, Description;
+    TextView Title, Title2, Description, Benefits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class Testing extends AppCompatActivity {
         Title = findViewById(R.id.title);
         Title2 = findViewById(R.id.title2);
         Description = findViewById(R.id.description);
+        Benefits = findViewById(R.id.benefits);
         PremiumButton = findViewById(R.id.premiumButton);
 
         if(check.equals("Hin")){
@@ -58,10 +59,21 @@ public class Testing extends AppCompatActivity {
                 Title.setText("Congratulations!");
                 Title2.setText("You are already a premium member");
                 PremiumButton.setText("Go to dashboard");
+                Benefits.setText("Benefits of Rojgar Premium");
             } else{
                 Title.setText(R.string.congrats);
                 Title2.setText(R.string.premium_member);
                 PremiumButton.setText("डैशबोर्ड पर जाएं");
+                Benefits.setText(R.string.benefits_of_premium1);
+            }
+        } else {
+            if(check.equals("Hin")){
+                Title.setText("Rojgar Premium प्राप्त करें");
+                Title2.setText("₹96 / महीने पर");
+                PremiumButton.setText("Premium प्राप्त करें");
+                Benefits.setText(R.string.benefits_of_premium1);
+            } else{
+
             }
         }
         Date c = Calendar.getInstance().getTime();
@@ -155,7 +167,11 @@ public class Testing extends AppCompatActivity {
                     }
                 }
                 else {
-                    paymentCancel = "Payment cancelled by user.";
+                    if(check.equals("Eng")) {
+                        paymentCancel = "Payment cancelled by user.";
+                    } else {
+                        paymentCancel = "उपयोगकर्ता द्वारा भुगतान रद्द किया गया।";
+                    }
                 }
             }
 
@@ -185,11 +201,18 @@ public class Testing extends AppCompatActivity {
 
             }
             else {
-                Toast.makeText(Testing.this, "Transaction failed.Please try again", Toast.LENGTH_SHORT).show();
-
+                if(check.equals("Eng")) {
+                    Toast.makeText(Testing.this, "Transaction failed, please try again", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "प्रयास विफल रहा, कृपया पुन: प्रयास करें", Toast.LENGTH_SHORT).show();
+                }
             }
         } else {
-            Toast.makeText(Testing.this, "Internet connection is not available. Please check and try again", Toast.LENGTH_SHORT).show();
+            if(check.equals("Eng")) {
+                Toast.makeText(Testing.this, "Internet connection is not available. Please check and try again", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "इंटरनेट कनेक्शन उपलब्ध नहीं है। कृपया जाँच करें और पुनः प्रयास करें", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

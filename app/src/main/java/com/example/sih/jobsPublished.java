@@ -1,10 +1,5 @@
 package com.example.sih;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,15 +8,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class jobsPublished extends AppCompatActivity {
 
@@ -32,8 +30,8 @@ public class jobsPublished extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<jobPost> list;
     jAdapter adapter;
-    int i;
-    String phone, S;
+    int i, j;
+    String phone, S, M, check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +39,8 @@ public class jobsPublished extends AppCompatActivity {
         setContentView(R.layout.activity_jobs_published);
         SharedPreferences preferences1 = getSharedPreferences(S,i);
         phone = preferences1.getString("Phone","");
+        SharedPreferences preferences2 = getSharedPreferences(M,j);
+        check = preferences2.getString("Lang","Eng");
         companyName = findViewById(R.id.companyName);
         companyLocation = findViewById(R.id.companyLocation);
         createJob = findViewById(R.id.createJob);
@@ -49,20 +49,36 @@ public class jobsPublished extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<jobPost>();
 
+        if(check.equals("Hin")){
+            createJob.setText("अपनी नोकरी बनाओ");
+        }
+
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Job Post");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try{
-                    String num = dataSnapshot.child(phone).getValue().toString();
-                    status.setText("You created the following jobs:");
+                    dataSnapshot.child(phone).getValue().toString();
+                    if(check.equals("Eng")) {
+                        status.setText("You have created the following jobs:");
+                    } else {
+                        status.setText("आपने निम्नलिखित नौकारिया बनाई है:");
+                    }
                 } catch (Exception e){
-                    status.setText("You have not created any job yet");
+                    if(check.equals("Eng")) {
+                        status.setText("You have not created any job yet");
+                    } else {
+                        status.setText("आपने अभी तक कोई नौकरी नहीं बनाई है");
+                    }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(jobsPublished.this, "Something went wrong",Toast.LENGTH_LONG).show();
+                if(check.equals("Eng")) {
+                    Toast.makeText(jobsPublished.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(jobsPublished.this, "कुछ त्रुटि है", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -86,8 +102,11 @@ public class jobsPublished extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(jobsPublished.this, "Something went wrong",Toast.LENGTH_LONG).show();
-            }
+                if(check.equals("Eng")) {
+                    Toast.makeText(jobsPublished.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(jobsPublished.this, "कुछ त्रुटि है", Toast.LENGTH_SHORT).show();
+                }            }
         });
 
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Job Post").child(phone);
@@ -105,8 +124,11 @@ public class jobsPublished extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(jobsPublished.this, "Something went wrong",Toast.LENGTH_LONG).show();
-            }
+                if(check.equals("Eng")) {
+                    Toast.makeText(jobsPublished.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(jobsPublished.this, "कुछ त्रुटि है", Toast.LENGTH_SHORT).show();
+                }            }
         });
 
         createJob.setOnClickListener(new View.OnClickListener() {

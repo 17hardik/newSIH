@@ -1,18 +1,16 @@
 package com.example.sih;
 
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,14 +26,15 @@ public class Dream_jobs extends AppCompatActivity {
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
     ProgressDialog pd;
-    String S, category, position;
+    String S, category, position, check, M;
     String phone;
-    int  i;
+    int  i, j;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        SharedPreferences preferences1 = getSharedPreferences(M, j);
+        check = preferences1.getString("Lang", "Eng");
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone= preferences.getString("Phone","");
 
@@ -47,7 +46,11 @@ public class Dream_jobs extends AppCompatActivity {
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone).child("Dream Jobs");
 
         pd = new ProgressDialog(Dream_jobs.this);
-        pd.setMessage("Getting your Dream Jobs");
+        if(check.equals("Eng")) {
+            pd.setMessage("Getting your Dream Jobs");
+        } else {
+            pd.setMessage("नौकरियां एकत्रित की जा रही हैं");
+        }
         pd.show();
 
         reff.addValueEventListener(new ValueEventListener() {
@@ -79,15 +82,22 @@ public class Dream_jobs extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(Dream_jobs.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                        }
+                            if(check.equals("Eng")) {
+                                Toast.makeText(Dream_jobs.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Dream_jobs.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                            }                        }
                     });
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Dream_jobs.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals("Eng")) {
+                    Toast.makeText(Dream_jobs.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Dream_jobs.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -99,7 +109,10 @@ public class Dream_jobs extends AppCompatActivity {
             }
         }, 3000);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Your Dream Jobs");
-
+        if(check.equals("Eng")) {
+            actionBar.setTitle("Dream Jobs");
+        } else {
+            actionBar.setTitle("ड्रीम जॉब्स");
+        }
     }
 }

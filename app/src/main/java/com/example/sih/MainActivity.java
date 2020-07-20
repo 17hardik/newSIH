@@ -405,6 +405,7 @@ public class MainActivity extends AppCompatActivity {
         setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
         setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
         setOptionTitle(R.id.roadmap, getResources().getString(R.string.career_roadmap1));
+        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
@@ -414,6 +415,7 @@ public class MainActivity extends AppCompatActivity {
         setOptionTitle(R.id.go_to_profile, "Go To Profile");
         setOptionTitle(R.id.create_your_job, "Publish Your Job");
         setOptionTitle(R.id.roadmap, "Career Roadmap");
+        setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     @Override
     protected void onResume() {
