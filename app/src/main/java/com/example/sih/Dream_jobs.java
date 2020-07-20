@@ -47,7 +47,7 @@ public class Dream_jobs extends AppCompatActivity {
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone).child("Dream Jobs");
 
         pd = new ProgressDialog(Dream_jobs.this);
-        pd.setMessage("Getting your Dream Jobs");
+        pd.setMessage("Loading");
         pd.show();
 
         reff.addValueEventListener(new ValueEventListener() {
@@ -72,6 +72,7 @@ public class Dream_jobs extends AppCompatActivity {
                                 details.add(d);
                                 govAdapter = new gov_adapter(Dream_jobs.this, details);
                                 dream_jobs.setAdapter(govAdapter);
+                                pd.dismiss();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -91,13 +92,6 @@ public class Dream_jobs extends AppCompatActivity {
             }
         });
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pd.dismiss();
-            }
-        }, 3000);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Your Dream Jobs");
 

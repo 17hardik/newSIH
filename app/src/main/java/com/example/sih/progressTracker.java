@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -38,6 +40,14 @@ import java.util.List;
 public class progressTracker extends AppCompatActivity {
 
     TextView keySkills;
+
+    Button reset;
+
+    String S, jobCategory, jobReference, skills, phone, J, status;
+
+    int i,x;
+
+    DatabaseReference reff1, reff2;
 
     List<dataListView> initItemList;
     ArrayList<String> data = new ArrayList<>();
@@ -74,9 +84,22 @@ public class progressTracker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getSharedPreferences(S,i);
+        phone= preferences.getString("Phone","");
+
+        SharedPreferences preferences2 = getSharedPreferences(J,x);
+        status = preferences2.getString("progress","");
+
+        SharedPreferences preferences1 = getSharedPreferences(J,x);
+        jobCategory = preferences1.getString("jobCategory", "");
+        jobReference = preferences1.getString("jobReference", "");
+
         setContentView(R.layout.activity_progress_tracker);
 
         keySkills = findViewById(R.id.keySkills);
+
+        reset = findViewById(R.id.reset);
 
         data = new ArrayList<>();
 
@@ -85,6 +108,39 @@ public class progressTracker extends AppCompatActivity {
         mImageDrawable.setLevel(0);
 
         setTitle("Roadmap");
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(progressTracker.this, progressTracker.class);
+                startActivity(intent);
+                finish();
+                SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                editor.putString("progress", "0");
+                editor.apply();
+
+            }
+        });
+
+        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child(jobCategory).child(jobReference);
+        reff1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    skills = dataSnapshot.child("Key_Skills").getValue().toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                keySkills.setText(skills);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(progressTracker.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         // Initialized elements of activity_checkbox_listview
         LayoutInflater inflater = getLayoutInflater();
@@ -104,6 +160,134 @@ public class progressTracker extends AppCompatActivity {
 
         // Set data adapter to list view.
         listViewWithCheckbox.setAdapter((ListAdapter) listViewDataAdapter);
+
+//        if (status.equals("1")){
+//
+//            int temp_level = (1 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
+//
+//        if (status.equals("2")){
+//
+//            int temp_level = (2 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
+//
+//        if (status.equals("3")){
+//
+//            int temp_level = (3 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
+//
+//        if (status.equals("4")){
+//
+//            int temp_level = (4 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
+//
+//        if (status.equals("5")){
+//
+//            int temp_level = (5 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
+//
+//        if (status.equals("6")){
+//
+//            int temp_level = (6 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
+//
+//        if (status.equals("7")){
+//
+//            int temp_level = (7 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
+//
+//        if (status.equals("8")){
+//
+//            int temp_level = (8 * MAX_LEVEL) / n;
+//            if (toLevel == temp_level || temp_level > MAX_LEVEL) {
+//                return;
+//            }
+//            toLevel = (temp_level <= MAX_LEVEL) ? temp_level : toLevel;
+//            if (toLevel > fromLevel) {
+//                mDownHandler.removeCallbacks(animateDownImage);
+//                progressTracker.this.fromLevel = toLevel;
+//
+//                mUpHandler.post(animateUpImage);
+//
+//            }
+//        }
 
         // When list view item is clicked.
         listViewWithCheckbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -150,7 +334,7 @@ public class progressTracker extends AppCompatActivity {
 
                     alertDialog1.show();
 
-                    if (text.contains("1")){
+                    if (text.contains("1") || status.equals("1")){
 
                         int temp_level = (1 * MAX_LEVEL) / n;
                         if (toLevel == temp_level || temp_level > MAX_LEVEL) {
@@ -166,6 +350,9 @@ public class progressTracker extends AppCompatActivity {
                         }
 
                         alertDialog1.setMessage("That's GOOD, you've taken your first step into a LARGER world");
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "1");
+                        editor.apply();
 
                     }
 
@@ -183,6 +370,9 @@ public class progressTracker extends AppCompatActivity {
                             mUpHandler.post(animateUpImage);
                         }
 
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "2");
+                        editor.apply();
                         alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 2");
 
                     }
@@ -201,6 +391,9 @@ public class progressTracker extends AppCompatActivity {
                             mUpHandler.post(animateUpImage);
                         }
 
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "3");
+                        editor.apply();
                         alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 3");
 
                     }
@@ -219,6 +412,9 @@ public class progressTracker extends AppCompatActivity {
                             mUpHandler.post(animateUpImage);
                         }
 
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "4");
+                        editor.apply();
                         alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 4");
 
                     }
@@ -237,6 +433,9 @@ public class progressTracker extends AppCompatActivity {
                             mUpHandler.post(animateUpImage);
                         }
 
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "5");
+                        editor.apply();
                         alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 5");
 
                     }
@@ -255,6 +454,9 @@ public class progressTracker extends AppCompatActivity {
                             mUpHandler.post(animateUpImage);
                         }
 
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "6");
+                        editor.apply();
                         alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 6");
 
                     }
@@ -273,6 +475,9 @@ public class progressTracker extends AppCompatActivity {
                             mUpHandler.post(animateUpImage);
                         }
 
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "7");
+                        editor.apply();
                         alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 7");
 
                     }
@@ -291,6 +496,9 @@ public class progressTracker extends AppCompatActivity {
                             mUpHandler.post(animateUpImage);
                         }
 
+                        SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                        editor.putString("progress", "8");
+                        editor.apply();
                         alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 8");
 
                     }

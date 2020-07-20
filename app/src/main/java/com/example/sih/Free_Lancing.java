@@ -82,7 +82,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         pd = new ProgressDialog(Free_Lancing.this);
 
         if(check.equals("Eng")){
-            pd.setMessage("Fetching data");
+            pd.setMessage("Loading");
         } else{
             pd.setMessage("डेटा लाया जा रहा है");
         }
@@ -121,6 +121,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -335,10 +336,6 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 startActivity(intent4);
                 return true;
 
-            case R.id.go_to_profile:
-                Intent profileIntent = new Intent(Free_Lancing.this, Profile.class);
-                startActivity(profileIntent);
-                return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -367,18 +364,14 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
         setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
-        setOptionTitle(R.id.roadmap, getResources().getString(R.string.career_roadmap1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.go_to_profile, "Go To Profile");
         setOptionTitle(R.id.create_your_job, "Publish Your Job");
-        setOptionTitle(R.id.roadmap, "Career Roadmap");
     }
     private void setOptionTitle(int id, String title)
     {

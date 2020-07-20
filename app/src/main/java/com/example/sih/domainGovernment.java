@@ -164,7 +164,7 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
         pd = new ProgressDialog(domainGovernment.this);
 
         if (check.equals("Eng")) {
-            pd.setMessage("Fetching data");
+            pd.setMessage("Loading");
         } else {
             pd.setMessage("डेटा लाया जा रहा है");
         }
@@ -581,6 +581,7 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
                 pd.dismiss();
             }
         }, 3000);
+
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
@@ -786,10 +787,6 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
                 startActivity(intent4);
                 return true;
 
-            case R.id.go_to_profile:
-                Intent profileIntent = new Intent(domainGovernment.this, Profile.class);
-                startActivity(profileIntent);
-                return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -818,18 +815,14 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
         setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
-        setOptionTitle(R.id.roadmap, getResources().getString(R.string.career_roadmap1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.go_to_profile, "Go To Profile");
         setOptionTitle(R.id.create_your_job, "Publish Your Job");
-        setOptionTitle(R.id.roadmap, "Career Roadmap");
     }
     private void setOptionTitle(int id, String title)
     {

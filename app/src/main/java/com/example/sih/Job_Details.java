@@ -40,7 +40,7 @@ public class Job_Details extends AppCompatActivity {
     String M, J, check, phone, activity, S, jobReference, jobCategory, post, name, location, Salary, Sector, jobDesc;
     Translate translate;
     Firebase firebase;
-    Button FavButton;
+    Button FavButton, roadmap;
     Intent intent;
     ProgressDialog pd;
     Boolean isStored = false;
@@ -65,6 +65,7 @@ public class Job_Details extends AppCompatActivity {
         jobCategory = intent.getStringExtra("jobCategory");
         job_post = findViewById(R.id.job_post);
         FavButton = findViewById(R.id.favButton);
+        roadmap = findViewById(R.id.roadmapButton);
         company_name = findViewById(R.id.company_name);
         company_location = findViewById(R.id.company_location);
         job_details = findViewById(R.id.job_details);
@@ -75,10 +76,7 @@ public class Job_Details extends AppCompatActivity {
         jobDescriptionLabel = findViewById(R.id.jobDescriptionLabel);
         jobDescription = findViewById(R.id.jobDescription);
 
-        firebase = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-        pd = new ProgressDialog(Job_Details.this);
-        pd.setMessage("Getting Job Details");
-        pd.show();
+//        firebase = new Firebase("https://smart-e60d6.firebaseio.com/Users");
 
         FavButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +107,32 @@ public class Job_Details extends AppCompatActivity {
             }
         });
 
+        roadmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent roadmapIntent = new Intent(Job_Details.this, progressTracker.class);
+                startActivity(roadmapIntent);
+                SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                editor.putString("jobCategory", jobCategory);
+                editor.putString("jobReference", jobReference);
+                editor.apply();
+
+            }
+        });
+
+        if (activity.equals("Main")){
+
+            roadmap.setVisibility(View.VISIBLE);
+
+        }
+
+        else{
+
+            FavButton.setVisibility(View.VISIBLE);
+
+        }
+
         if (check.equals("Hin")){
             getTranslateService();
             try {
@@ -132,13 +156,6 @@ public class Job_Details extends AppCompatActivity {
         getSector(jobReference);
         getJobDescription(jobReference);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pd.dismiss();
-            }
-        }, 3000);
 
     }
 
@@ -298,6 +315,10 @@ public class Job_Details extends AppCompatActivity {
 
     public void getJobDescription(final String jobReference){
 
+        pd = new ProgressDialog(Job_Details.this);
+        pd.setMessage("Loading");
+        pd.show();
+
         reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -308,6 +329,8 @@ public class Job_Details extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 jobDescription.setText(jobDesc);
+                pd.dismiss();
+
                 if (check.equals("Hin")) {
                     getTranslateService();
                     try {

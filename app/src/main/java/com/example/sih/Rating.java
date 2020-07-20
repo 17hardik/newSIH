@@ -228,11 +228,6 @@ public class Rating extends AppCompatActivity {
                 startActivity(intent4);
                 return true;
 
-            case R.id.go_to_profile:
-                Intent profileIntent = new Intent(Rating.this, Profile.class);
-                startActivity(profileIntent);
-                return true;
-
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -243,14 +238,12 @@ public class Rating extends AppCompatActivity {
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.go_to_profile, getResources().getString(R.string.go_to_profile1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.go_to_profile, "Go To Profile");
     }
     private void setOptionTitle(int id, String title)
     {

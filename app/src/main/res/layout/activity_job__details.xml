@@ -109,7 +109,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="14sp"
-                android:text="Add to Dream Job" />
+                android:text="Add to Dream Job"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/roadmapButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="14sp"
+                android:text= "create roadmap"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>
