@@ -39,7 +39,7 @@ public class Job_Details extends AppCompatActivity {
     String M, J, check, phone, activity, S, jobReference, jobCategory, post, name, location, Salary, Sector, jobDesc;
     Translate translate;
     Firebase firebase;
-    Button FavButton;
+    Button FavButton, roadmap;
     Intent intent;
     ProgressDialog pd;
     Boolean isStored = false;
@@ -64,6 +64,7 @@ public class Job_Details extends AppCompatActivity {
         jobCategory = intent.getStringExtra("jobCategory");
         job_post = findViewById(R.id.job_post);
         FavButton = findViewById(R.id.favButton);
+        roadmap = findViewById(R.id.roadmapButton);
         company_name = findViewById(R.id.company_name);
         company_location = findViewById(R.id.company_location);
         job_details = findViewById(R.id.job_details);
@@ -130,6 +131,32 @@ public class Job_Details extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(Job_Details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+        }
+
+        roadmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent roadmapIntent = new Intent(Job_Details.this, progressTracker.class);
+                startActivity(roadmapIntent);
+                SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                editor.putString("jobCategory", jobCategory);
+                editor.putString("jobReference", jobReference);
+                editor.apply();
+
+            }
+        });
+
+        if (activity.equals("Main")){
+
+            roadmap.setVisibility(View.VISIBLE);
+
+        }
+
+        else{
+
+            FavButton.setVisibility(View.VISIBLE);
+
         }
 
         ActionBar actionBar = getSupportActionBar();
