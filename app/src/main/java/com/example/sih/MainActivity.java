@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //An animation for 2 seconds
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
-        bgapp.animate().translationY(-2000).setDuration(800).setStartDelay(900);
+        bgapp.animate().translationY(-3000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
         Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
         try {
