@@ -1,2 +1,2 @@
-# newSIH
-All files related to Rojgar application.
+# ROJGAR
+This application is made for Smart India Hackathon 2020 workspace.
