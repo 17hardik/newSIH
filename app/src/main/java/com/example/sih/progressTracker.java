@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class progressTracker extends AppCompatActivity {
@@ -52,6 +53,8 @@ public class progressTracker extends AppCompatActivity {
     List<dataListView> initItemList;
     ArrayList<String> data = new ArrayList<>();
     ArrayList<dataListView> list = new ArrayList<>();
+
+    List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
 
     private ClipDrawable mImageDrawable;
 
@@ -88,8 +91,8 @@ public class progressTracker extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone= preferences.getString("Phone","");
 
-        SharedPreferences preferences2 = getSharedPreferences(J,x);
-        status = preferences2.getString("progress","");
+//        SharedPreferences preferences2 = getSharedPreferences(J,x);
+//        status = preferences2.getString("progress","");
 
         SharedPreferences preferences1 = getSharedPreferences(J,x);
         jobCategory = preferences1.getString("jobCategory", "");
@@ -289,6 +292,7 @@ public class progressTracker extends AppCompatActivity {
 //            }
 //        }
 
+
         // When list view item is clicked.
         listViewWithCheckbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -302,6 +306,7 @@ public class progressTracker extends AppCompatActivity {
 
                 // Get the checkbox.
                 CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.list_view_item_checkbox);
+
 
                 // Reverse the checkbox and clicked item check state.
 
@@ -334,7 +339,7 @@ public class progressTracker extends AppCompatActivity {
 
                     alertDialog1.show();
 
-                    if (text.contains("1") || status.equals("1")){
+                    if (text.contains("1")){
 
                         int temp_level = (1 * MAX_LEVEL) / n;
                         if (toLevel == temp_level || temp_level > MAX_LEVEL) {

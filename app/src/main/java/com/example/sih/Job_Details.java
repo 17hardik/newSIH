@@ -75,6 +75,7 @@ public class Job_Details extends AppCompatActivity {
         jobDescriptionLabel = findViewById(R.id.jobDescriptionLabel);
         jobDescription = findViewById(R.id.jobDescription);
 
+        Firebase.setAndroidContext(getApplicationContext());
         firebase = new Firebase("https://smart-e60d6.firebaseio.com/Users");
         pd = new ProgressDialog(Job_Details.this);
         pd.setMessage("Getting Job Details");

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,7 @@ public class Intro extends AppCompatActivity {
             SharedPreferences.Editor editor = getSharedPreferences(E, m).edit();
             editor.putString("isVerified", "Yes");
             editor.apply();
+            Toast.makeText(this, "Your email id has been successfully verified", Toast.LENGTH_SHORT).show();
         } catch(Exception e) {
 
         }

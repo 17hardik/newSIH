@@ -388,11 +388,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
 
-            case R.id.testing:
-                Intent testingIntent = new Intent(MainActivity.this, Favorite_Sectors.class);
-                startActivity(testingIntent);
-                return true;
-
             case R.id.topJobs:
                 Intent topJobsIntent = new Intent(MainActivity.this, topJobsFragment.class);
                 startActivity(topJobsIntent);

@@ -31,8 +31,8 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     DatabaseReference reff;
     ImageView Eye;
-    String phone, pass, S, Cipher, M, check, new_phone, realPhone = "Null",premium_date;
-    int i, j, count = 1;
+    String phone, pass, S, Cipher, M, A, check, new_phone, realPhone = "Null",premium_date, isFirst;
+    int i, j, count = 1, b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,9 @@ public class Login extends AppCompatActivity {
         // Checking the current selected language inside app
         check = preferences1.getString("Lang","Eng");
         SharedPreferences preferences = getSharedPreferences(S,i);
+
+        SharedPreferences preferences2 = getSharedPreferences(A,b);
+        isFirst = preferences2.getString("isFirst","notFirst");
 
         //retrieving original and changed phone number from SharedPreferences
         realPhone = preferences.getString("Phone","Null");
@@ -166,14 +169,23 @@ public class Login extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 try {
                                     String storedPass = dataSnapshot.child("Password").getValue().toString();
-                                    if (storedPass.equals(Cipher)) {
+
+                                    if (isFirst.equals("notFirst")){
+
+                                        startActivity(new Intent(Login.this, Favorite_Sectors.class));
+
+                                    }
+
+                                    else if (storedPass.equals(Cipher)) {
                                         SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
                                         editor.putString("Status", "Yes");
                                         editor.putString("Phone", phone);
                                         editor.apply();
                                         startActivity(new Intent(Login.this, MainActivity.class));
                                         finishAffinity();
-                                    } else {
+                                    }
+
+                                    else{
                                         if(check.equals("Hin")){
                                             Toast.makeText(Login.this, R.string.incorrect_password1, Toast.LENGTH_LONG).show();
                                         }else {

@@ -98,11 +98,11 @@ public class CreateYourJob extends AppCompatActivity {
                     }
                     else if(CRemail.getText().toString().contains("gmail") || CRemail.getText().toString().contains("outlook") || CRemail.getText().toString().contains("yahoo") || CRemail.getText().toString().contains("protonmail")){
                         if (check.equals("Hin")) {
-                            CRnum.setError("कृपया अपना कार्य ईमेल दर्ज करें (जीमेल, आउटलुक आदि की अनुमति नहीं है)");
+                            CRemail.setError("कृपया अपना कार्य ईमेल दर्ज करें (जीमेल, आउटलुक आदि की अनुमति नहीं है)");
                         } else {
-                            CRnum.setError("Please enter your work email (Gmail, Outlook etc are not allowed)");
+                            CRemail.setError("Please enter your work email (Gmail, Outlook etc are not allowed)");
                         }
-                        CRnum.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                        CRemail.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                     else if (Cloc.getText().toString().trim().equals("")){
                         if(check.equals("Hin")){

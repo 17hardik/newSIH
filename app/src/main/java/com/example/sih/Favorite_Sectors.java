@@ -2,6 +2,7 @@ package com.example.sih;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +16,8 @@ public class Favorite_Sectors extends AppCompatActivity {
 
     CheckBox cbScience, cbBusiness, cbFarming, cbCommunity, cbLabors, cbHealth, cbCommunications, cbArts, cbEducation, cbInstallation, cbOthers;
     Button submitButton;
-    String check, M, S;
-    int i, j;
+    String check, M, S, A;
+    int i, j, b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,63 +56,107 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor.putString("Science", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbBusiness.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Business", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbFarming.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Farming", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbCommunity.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Community", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbLabors.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Labors", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbHealth.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Health", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbCommunications.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Communications", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbArts.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Arts", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbEducation.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Education", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbInstallation.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                         editor.putString("Installation", "Yes");
                         editor.apply();
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
                     if (cbOthers.isChecked()) {
                         count++;
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst","First");
+                        editor1.apply();
+                        startActivity(new Intent(Favorite_Sectors.this, Login.class));
                     }
 
                     if(count > 1){
@@ -132,6 +177,10 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor.putString("Education", "No");
                         editor.putString("Installation", "No");
                         editor.apply();
+                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
+                        editor1.putString("isFirst", "notFirst");
+                        editor1.apply();
+
                     }
                 }
             }

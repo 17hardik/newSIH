@@ -11,8 +11,6 @@
         android:title="Contact Us"/>
     <item android:id="@+id/create_your_job"
         android:title="Publish Your Job"/>
-    <item android:id="@+id/testing"
-        android:title="Testing"/>
     <item android:id="@+id/topJobs"
         android:title="Top Jobs"/>
 </menu>
