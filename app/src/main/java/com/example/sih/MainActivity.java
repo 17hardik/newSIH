@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     int i, j, y, x;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false;
+    ViewFlipper viewFlipper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         Non_Gov = findViewById(R.id.non);
         Tenders = findViewById(R.id.tenders);
         Free_Lancing = findViewById(R.id.free);
+        viewFlipper = findViewById(R.id.viewFlipper);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -121,6 +126,49 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent profileIntent = new Intent(MainActivity.this, Profile.class);
                 startActivity(profileIntent);
+
+            }
+        });
+
+        viewFlipper.setOnTouchListener(new onFlingListener(this) {
+            @Override
+            public void onRightToLeft() {
+
+                viewFlipper.setInAnimation(getApplicationContext(), R.anim.right_to_left);
+
+                viewFlipper.showPrevious();
+
+            }
+
+            @Override
+            public void onLeftToRight() {
+
+                viewFlipper.setInAnimation(getApplicationContext(), R.anim.left_to_right);
+
+                viewFlipper.showNext();
+
+            }
+
+            @Override
+            public void onBottomToTop() {
+
+            }
+
+            @Override
+            public void onTopToBottom() {
+
+            }
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return super.onTouch(v, event);
+            }
+
+        });
+
+        viewFlipper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });
@@ -224,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //An animation for 2 seconds
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
-        bgapp.animate().translationY(-2000).setDuration(800).setStartDelay(900);
+        bgapp.animate().translationY(-3000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
         Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
         try {
