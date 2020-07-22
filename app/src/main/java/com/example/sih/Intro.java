@@ -21,8 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Intro extends AppCompatActivity {
 
-    int time = 3000, i, g, y;
-    String S, isLogged, L, status, accountInfo, X, premium_date, phone;
+    int time = 3000, i, g, y, m;
+    String S, isLogged, L, status, accountInfo, X, premium_date, phone, E;
     DatabaseReference reff;
 
     @Override
@@ -41,6 +41,15 @@ public class Intro extends AppCompatActivity {
         accountInfo = preferences2.getString("isDeleted","No");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
+        Intent intent = getIntent();
+        try {
+            String emailLink = intent.getData().toString();
+            SharedPreferences.Editor editor = getSharedPreferences(E, m).edit();
+            editor.putString("isVerified", "Yes");
+            editor.apply();
+        } catch(Exception e) {
+
+        }
         try {
             reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
             reff.addValueEventListener(new ValueEventListener() {

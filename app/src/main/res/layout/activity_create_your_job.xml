@@ -65,7 +65,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/editText4"/>
 
     <TextView
         android:id="@+id/textView"
@@ -78,13 +78,13 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload and Proceed"
+        android:text="Verify Email"
         android:background="@drawable/feedback_bg"
         android:textColor="#ffffff"
         android:padding="10dp"

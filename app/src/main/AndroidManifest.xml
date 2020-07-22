@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".topJobs"
-            android:parentActivityName=".topJobsFragment"></activity>
+            android:parentActivityName=".topJobsFragment"/>
         <activity
             android:name=".topJobsFragment"
             android:parentActivityName=".MainActivity" />
@@ -26,13 +26,6 @@
         <activity android:name=".Job_Details" />
         <activity android:name=".Testing" />
         <activity android:name=".progressTracker" />
-        <activity android:name=".Agriculture" />
-        <activity android:name=".Marketing" />
-        <activity android:name=".EduSector" />
-        <activity android:name=".BankSector" />
-        <activity android:name=".ItSector" />
-        <activity android:name=".careerFields" />
-        <activity android:name=".introRoadmap" />
         <activity android:name=".jobsPublished" />
         <activity android:name=".jobDetails" />
         <activity android:name=".companyProof" />
@@ -40,7 +33,7 @@
         <service
             android:name=".MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -71,7 +64,16 @@
         <activity android:name=".Register2" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".CreateYourJob" />
+        <activity android:name=".CreateYourJob">
+            <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data
+                android:host="com.example.sih"
+                android:scheme="https"/>
+        </intent-filter>
+        </activity>
         <activity android:name=".Forgot_Second" />
         <activity android:name=".Intro">
             <intent-filter>
