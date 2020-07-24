@@ -33,21 +33,17 @@ public class topJobs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_jobs);
-
         intent = getIntent();
         CategoryNumber = intent.getStringExtra("CategoryNumber");
         CategoryTV = findViewById(R.id.category);
         descriptionTV = findViewById(R.id.description);
         rankingButton = findViewById(R.id.viewRank);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Top Jobs");
-
         getCategory(CategoryNumber);
         getDescription(CategoryNumber);
         getURL(CategoryNumber);
-
     }
 
     public void getCategory(final String CategoryNumber){

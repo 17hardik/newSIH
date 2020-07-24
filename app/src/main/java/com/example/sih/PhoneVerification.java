@@ -117,82 +117,82 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.bt_resend_otp:
-                    initFireBaseCallbacks();
-                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                            "+91" + phone,
-                            1,
-                            TimeUnit.MINUTES,
-                            this,
-                            mCallbacks,
-                            mResendToken);
-                    if(check.equals("Hin"))
-                    {
-                        Toast.makeText(PhoneVerification.this, getResources().getString(R.string.otp_sent1), Toast.LENGTH_SHORT).show();
+        switch (view.getId()) {
+            case R.id.bt_resend_otp:
+                initFireBaseCallbacks();
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        "+91" + phone,
+                        1,
+                        TimeUnit.MINUTES,
+                        this,
+                        mCallbacks,
+                        mResendToken);
+                if(check.equals("Hin"))
+                {
+                    Toast.makeText(PhoneVerification.this, getResources().getString(R.string.otp_sent1), Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(PhoneVerification.this, "OTP Sent", Toast.LENGTH_SHORT).show();
+                }
+                btResendOtp.setEnabled(false);
+                buttonEnable();
+                break;
+            case R.id.bt_verify_otp:
+                if (etOtp.getText().toString().equals("")) {
+                    if(check.equals("Hin")){
+                        etOtp.setError(getResources().getString(R.string.must_be_filled1));
                     }else {
-                        Toast.makeText(PhoneVerification.this, "OTP Sent", Toast.LENGTH_SHORT).show();
+                        etOtp.setError("Must be filled");
                     }
-                    btResendOtp.setEnabled(false);
-                    buttonEnable();
-                    break;
-                case R.id.bt_verify_otp:
-                    if (etOtp.getText().toString().equals("")) {
-                        if(check.equals("Hin")){
-                            etOtp.setError(getResources().getString(R.string.must_be_filled1));
-                        }else {
-                            etOtp.setError("Must be filled");
-                        }
+                }else {
+                    final ProgressDialog pd = new ProgressDialog(PhoneVerification.this);
+                    if(check.equals("Hin")){
+                        pd.setMessage(getResources().getString(R.string.verifying1));
                     }else {
-                        final ProgressDialog pd = new ProgressDialog(PhoneVerification.this);
-                        if(check.equals("Hin")){
-                            pd.setMessage(getResources().getString(R.string.verifying1));
-                        }else {
-                            pd.setMessage("Verifying...");
-                        }
-                        pd.show();
-                        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, etOtp.getText().toString());
-                        mAuth.signInWithCredential(credential)
-                                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                                SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
-                                                editor1.putString("Phone", phone);
-                                                editor1.putString("NewPhone", phone);
-                                                editor1.apply();
-                                                Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-                                                reference.child(phone).child("Username").setValue(encryptedUsername);
-                                                reference.child(phone).child("Password").setValue(Cipher);
-                                                reference.child(phone).child("Name").setValue(name);
-                                                reference.child(phone).child("DOB").setValue(dob);
-                                                reference.child(phone).child("Phone").setValue(phone);
+                        pd.setMessage("Verifying...");
+                    }
+                    pd.show();
+                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, etOtp.getText().toString());
+                    mAuth.signInWithCredential(credential)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
+                                        editor1.putString("Phone", phone);
+                                        editor1.putString("NewPhone", phone);
+                                        editor1.apply();
+                                        Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
+                                        reference.child(phone).child("Username").setValue(encryptedUsername);
+                                        reference.child(phone).child("Password").setValue(Cipher);
+                                        reference.child(phone).child("Name").setValue(name);
+                                        reference.child(phone).child("DOB").setValue(dob);
+                                        reference.child(phone).child("Phone").setValue(phone);
 
-                                                if(check.equals("Hin")){
-                                                    sendNotification(getResources().getString(R.string.registration_successful1), getResources().getString(R.string.welcome1));
-                                                    Toast.makeText(PhoneVerification.this, getResources().getString(R.string.registration_successful1), Toast.LENGTH_LONG).show();
-                                                }else {
-                                                    sendNotification("Registration Successful", "Welcome to Rojgar");
-                                                    Toast.makeText(PhoneVerification.this, "Registration Successful", Toast.LENGTH_LONG).show();
-                                                }
-                                                Intent verificationIntent = new Intent(PhoneVerification.this, Register2.class);
-                                                verificationIntent.putExtra("userphone", phone);
-                                                startActivity(verificationIntent);
-                                                finishAffinity();
-                                        } else {
-                                            if(check.equals("Hin")){
-                                                Toast.makeText(PhoneVerification.this, getResources().getString(R.string.verification_failed1), Toast.LENGTH_SHORT).show();
-                                            }else {
-                                                Toast.makeText(PhoneVerification.this, "Verification Failed, Invalid OTP", Toast.LENGTH_SHORT).show();
-                                            }
+                                        if(check.equals("Hin")){
+                                            sendNotification(getResources().getString(R.string.registration_successful1), getResources().getString(R.string.welcome1));
+                                            Toast.makeText(PhoneVerification.this, getResources().getString(R.string.registration_successful1), Toast.LENGTH_LONG).show();
+                                        }else {
+                                            sendNotification("Registration Successful", "Welcome to Rojgar");
+                                            Toast.makeText(PhoneVerification.this, "Registration Successful", Toast.LENGTH_LONG).show();
                                         }
-                                        pd.dismiss();
+                                        Intent verificationIntent = new Intent(PhoneVerification.this, Register2.class);
+                                        verificationIntent.putExtra("userphone", phone);
+                                        startActivity(verificationIntent);
+                                        finishAffinity();
+                                    } else {
+                                        if(check.equals("Hin")){
+                                            Toast.makeText(PhoneVerification.this, getResources().getString(R.string.verification_failed1), Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(PhoneVerification.this, "Verification Failed, Invalid OTP", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                });
-                    }
-                    break;
-               }
-         }
+                                    pd.dismiss();
+                                }
+                            });
+                }
+                break;
+        }
+    }
     void initFireBaseCallbacks() {
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -238,16 +238,16 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
     public StringBuilder encryptUsername(String uname) {
         StringBuilder stringBuilder = new StringBuilder();
         Random r = new Random();
-            int len = uname.length();
-            for (int i = 0; i < len; i++) {
-                char a = uname.charAt(i);
-                char c = (char) (r.nextInt(26) + 'a');
-                stringBuilder.append((a - len) - (2 * i));
-                stringBuilder.append(c);
-            }
-            String strlen = Integer.toString(len + 2);
-            stringBuilder.append(strlen);
-            return stringBuilder;
+        int len = uname.length();
+        for (int i = 0; i < len; i++) {
+            char a = uname.charAt(i);
+            char c = (char) (r.nextInt(26) + 'a');
+            stringBuilder.append((a - len) - (2 * i));
+            stringBuilder.append(c);
+        }
+        String strlen = Integer.toString(len + 2);
+        stringBuilder.append(strlen);
+        return stringBuilder;
     }
     public void sendNotification(String title, String message) {
         Intent intent = new Intent(this, Testing.class);
