@@ -62,7 +62,6 @@ public class Delete_Acc extends Dialog implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.yes_button:
                 currentuser.delete();
-                activity.deleteFile("profile_picture");
                 reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
                 StorageReference sRef1 = mStorageReference.child(phone).child("12th marksheet.pdf");
                 StorageReference sRef2 = mStorageReference.child(phone).child("10th marksheet.pdf");

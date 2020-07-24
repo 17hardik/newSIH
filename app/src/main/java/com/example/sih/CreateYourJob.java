@@ -57,7 +57,7 @@ public class CreateYourJob extends AppCompatActivity {
         if(check.equals("Hin")){
             toHin();
         }
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
+        reff = FirebaseDatabase.getInstance().getReference();
         Cregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +120,7 @@ public class CreateYourJob extends AppCompatActivity {
                               } else {
                                   Cregister.setText(R.string.register1);
                               }
-                          reff.child(phone).child("Company").setValue(Cname.getText().toString().trim());
+                          reff.child("Users").child(phone).child("Company").setValue(Cname.getText().toString().trim());
                           reff.child("Company Representative Details").child(phone).setValue(users1);
                           if(check.equals("Eng")) {
                               Toast.makeText(CreateYourJob.this, "Data inserted successfully", Toast.LENGTH_LONG).show();

@@ -119,16 +119,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView profile = view.findViewById(R.id.profile);
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent profileIntent = new Intent(MainActivity.this, Profile.class);
-                startActivity(profileIntent);
-
-            }
-        });
+//        ImageView profile = view.findViewById(R.id.image_of_user);
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent profileIntent = new Intent(MainActivity.this, Profile.class);
+//                startActivity(profileIntent);
+//
+//            }
+//        });
 
         viewFlipper.setOnTouchListener(new onFlingListener(this) {
             @Override
@@ -174,15 +174,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-        reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
+        reff1 = FirebaseDatabase.getInstance().getReference().child("Company Representative Details").child(phone);
         reff1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try{
-
-                    String post = dataSnapshot.child("Post").getValue().toString();
+                    dataSnapshot.child("Post").getValue().toString();
                     isRegistered = true;
-
                 } catch (Exception e){
                     isRegistered = false;
                 }
@@ -393,6 +391,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(topJobsIntent);
                 return true;
 
+            case R.id.chat:
+                Intent chatIntent = new Intent(MainActivity.this, User_List.class);
+                startActivity(chatIntent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -432,6 +435,7 @@ public class MainActivity extends AppCompatActivity {
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
         setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
         setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
+        setOptionTitle(R.id.chat, "बातचीत");
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
@@ -440,6 +444,7 @@ public class MainActivity extends AppCompatActivity {
         setOptionTitle(R.id.contact_us, "Contact Us");
         setOptionTitle(R.id.create_your_job, "Publish Your Job");
         setOptionTitle(R.id.topJobs, "Top Jobs");
+        setOptionTitle(R.id.chat, "Chat");
     }
     @Override
     protected void onResume() {

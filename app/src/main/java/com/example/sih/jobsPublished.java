@@ -53,7 +53,7 @@ public class jobsPublished extends AppCompatActivity {
             createJob.setText("अपनी नोकरी बनाओ");
         }
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Job Post");
+        reff = FirebaseDatabase.getInstance().getReference().child("Job Post");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -82,7 +82,7 @@ public class jobsPublished extends AppCompatActivity {
             }
         });
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Company Representative Details").child(phone);
+        reff = FirebaseDatabase.getInstance().getReference().child("Company Representative Details").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -109,7 +109,7 @@ public class jobsPublished extends AppCompatActivity {
                 }            }
         });
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Users").child("Job Post").child(phone);
+        reff = FirebaseDatabase.getInstance().getReference().child("Job Post").child(phone);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -13,4 +13,6 @@
         android:title="Publish Your Job"/>
     <item android:id="@+id/topJobs"
         android:title="Top Jobs"/>
+    <item android:id="@+id/chat"
+        android:title="Chat"/>
 </menu>

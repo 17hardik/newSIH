@@ -73,7 +73,7 @@ public class companyProof extends AppCompatActivity {
         register = findViewById(R.id.button3);
         intent = getIntent();
         company = intent.getStringExtra("companyName");
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
+        reff = FirebaseDatabase.getInstance().getReference();
         users1 = new Users1();
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +100,7 @@ public class companyProof extends AppCompatActivity {
                     }
 
                     else {
-                        reff.child(phone).child("Company").setValue(company);
+                        reff.child("Users").child(phone).child("Company").setValue(company);
                         reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
                         if(check.equals("Eng")) {
                             Toast.makeText(companyProof.this, "Company Registered successfully", Toast.LENGTH_LONG).show();
