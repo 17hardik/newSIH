@@ -62,9 +62,13 @@ public class domainAdapter extends RecyclerView.Adapter<domainAdapter.MyViewHold
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(context, Job_Details1.class);
+                    Intent intent = new Intent(context, Job_Details.class);
                     String ID = details.get(position).getID();
                     intent.putExtra("jobReference", ID);
+                    String category = details.get(position).getJob_Type();
+                    intent.putExtra("jobCategory", category);
+                    String domainType = details.get(position).getDomain_type();
+                    intent.putExtra("domainType", domainType);
                     view.getContext().startActivity(intent);
 
                 }

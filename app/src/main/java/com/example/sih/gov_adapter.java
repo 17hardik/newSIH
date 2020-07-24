@@ -65,6 +65,8 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
                     intent.putExtra("jobReference", ID);
                     String category = details.get(position).getJob_Type();
                     intent.putExtra("jobCategory", category);
+                    String domainType = details.get(position).getDomain_type();
+                    intent.putExtra("domainType", domainType);
                     view.getContext().startActivity(intent);
 
                 }

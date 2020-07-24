@@ -8,17 +8,19 @@ public class data_in_cardview {
     private String Location;
     private String Job_Type;
     private String ID;
+    private String domain_type;
 
     public data_in_cardview() {
     }
 
-    public data_in_cardview(String company_logo, String job_Post, String company_Name, String location, String job_Type, String iD) {
+    public data_in_cardview(String company_logo, String job_Post, String company_Name, String location, String job_Type, String ID, String domain_type) {
         this.company_logo = company_logo;
         Job_Post = job_Post;
         Company_Name = company_Name;
         Location = location;
         Job_Type = job_Type;
-        ID = iD;
+        this.ID = ID;
+        this.domain_type = domain_type;
     }
 
     public String getCompany_logo() {
@@ -65,9 +67,16 @@ public class data_in_cardview {
         return ID;
     }
 
-    public void setID(String id) {
-        Job_Type = id;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
+    public String getDomain_type() {
+        return domain_type;
+    }
+
+    public void setDomain_type(String domain_type) {
+        this.domain_type = domain_type;
+    }
 }
 

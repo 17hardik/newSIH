@@ -60,7 +60,7 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium;
-    DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6, reff7, reff8, reff9, reff10;
+    DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6, reff7, reff8, reff9, reff10, reff11, reff12;
     RecyclerView gov_jobs;
     ArrayList<data_in_cardview> details;
     ArrayList<data_in_cardview> fullDetails;
@@ -173,6 +173,7 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
 
         if (Science.equals("Yes")) {
             reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Government");
+
             reff.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -573,6 +574,51 @@ public class domainGovernment extends AppCompatActivity implements NavigationVie
             });
 
         }
+
+        reff11 = FirebaseDatabase.getInstance().getReference().child("Jobs Rrevolution").child("All Jobs");
+
+        reff11.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                size = (int) dataSnapshot.getChildrenCount();
+
+                for (int k = 0; k < size; k++) {
+
+                    String i = Integer.toString(k);
+                    reff12 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Government").child(i);
+                    reff12.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                            details.add(d);
+                            Toast.makeText(domainGovernment.this, "" + details, Toast.LENGTH_SHORT).show();
+                            domainAdapter = new domainAdapter(domainGovernment.this, details);
+                            gov_jobs.setAdapter(domainAdapter);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            if(check.equals("Eng")) {
+                                Toast.makeText(domainGovernment.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(domainGovernment.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                if(check.equals("Eng")) {
+                    Toast.makeText(domainGovernment.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(domainGovernment.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                }            }
+        });
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
