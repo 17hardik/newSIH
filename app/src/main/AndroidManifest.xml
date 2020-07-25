@@ -15,9 +15,10 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".jobApply"></activity>
         <activity
             android:name=".topJobs"
-            android:parentActivityName=".topJobsFragment"/>
+            android:parentActivityName=".topJobsFragment" />
         <activity
             android:name=".topJobsFragment"
             android:parentActivityName=".MainActivity" />
@@ -65,17 +66,20 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
         <activity android:name=".User_List" />
-        <activity android:name=".Chat"
-            android:parentActivityName=".User_List"/>
+        <activity
+            android:name=".Chat"
+            android:parentActivityName=".User_List" />
         <activity android:name=".CreateYourJob">
             <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-            <category android:name="android.intent.category.BROWSABLE"/>
-            <data
-                android:host="com.example.sih"
-                android:scheme="https"/>
-        </intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.example.sih"
+                    android:scheme="https" />
+            </intent-filter>
         </activity>
         <activity android:name=".Forgot_Second" />
         <activity android:name=".Intro">
