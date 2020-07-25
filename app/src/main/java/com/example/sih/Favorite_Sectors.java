@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Favorite_Sectors extends AppCompatActivity {
 
-    CheckBox cbScience, cbBusiness, cbFarming, cbCommunity, cbLabors, cbHealth, cbCommunications, cbArts, cbEducation, cbInstallation, cbOthers;
+    RadioButton cbScience, cbBusiness, cbFarming, cbCommunity, cbLabors, cbHealth, cbCommunications, cbArts, cbEducation, cbInstallation, cbOthers;
     Button submitButton;
     String check, M, S, A;
     int i, j, b;
@@ -27,6 +28,8 @@ public class Favorite_Sectors extends AppCompatActivity {
         check = preferences1.getString("Lang","Eng");
 
         setContentView(R.layout.activity_favorite__sectors);
+
+        setTitle("Job Sector");
 
         cbScience = findViewById(R.id.cbscience);
         cbBusiness = findViewById(R.id.cbbusiness);
@@ -60,7 +63,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbBusiness.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -71,7 +74,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbFarming.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -82,7 +85,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbCommunity.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -93,7 +96,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbLabors.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -104,7 +107,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbHealth.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -115,7 +118,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbCommunications.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -126,7 +129,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbArts.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -137,7 +140,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbEducation.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -148,7 +151,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbInstallation.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -159,7 +162,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
+                        finish();
                     }
                     if (cbOthers.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -170,22 +173,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                         editor1.putString("isFirst","First");
                         editor1.apply();
                         startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finishAffinity();
-                    }
-
-                    if(count > 1){
-                        if (check.equals("Hin")) {
-                            Toast.makeText(Favorite_Sectors.this, R.string.atmost_three_sectors, Toast.LENGTH_SHORT).show();
-                        } else{
-                            Toast.makeText(Favorite_Sectors.this, "You can select atmost one sector", Toast.LENGTH_SHORT).show();
-                        }
-                        SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
-                        editor.putString("Domain", "No");
-                        editor.apply();
-                        SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
-                        editor1.putString("isFirst", "notFirst");
-                        editor1.apply();
-
+                        finish();
                     }
                 }
             }
