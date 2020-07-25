@@ -176,7 +176,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
             public void run() {
                 pd.dismiss();
             }
-        }, 5000);
+        }, 3000);
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);

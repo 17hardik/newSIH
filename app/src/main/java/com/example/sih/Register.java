@@ -315,9 +315,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
                 break;
             case R.id.login2:
-              Intent loginIntent = new Intent(Register.this, Login.class);
-              startActivity(loginIntent);
-              break;
+                Intent loginIntent = new Intent(Register.this, Login.class);
+                startActivity(loginIntent);
+                break;
         }
     }
     public void send_data(){
@@ -346,4 +346,3 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         TDate.setText(sdf.format(myCalendar.getTime()));
     }
 }
-
