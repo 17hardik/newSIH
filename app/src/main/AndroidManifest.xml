@@ -21,8 +21,6 @@
         <activity
             android:name=".topJobsFragment"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".domainGovernment" />
-        <activity android:name=".Job_Details1" />
         <activity android:name=".Favorite_Sectors" />
         <activity android:name=".Dream_jobs" />
         <activity android:name=".Job_Details" />
@@ -67,7 +65,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
         <activity android:name=".User_List" />
-        <activity android:name=".Chat" />
+        <activity android:name=".Chat"
+            android:parentActivityName=".User_List"/>
         <activity android:name=".CreateYourJob">
             <intent-filter>
             <action android:name="android.intent.action.VIEW"/>

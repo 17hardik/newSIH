@@ -170,19 +170,27 @@ public class Login extends AppCompatActivity {
                                 try {
                                     String storedPass = dataSnapshot.child("Password").getValue().toString();
 
-                                    if (isFirst.equals("notFirst")){
+                                     if (storedPass.equals(Cipher)) {
 
-                                        startActivity(new Intent(Login.this, Favorite_Sectors.class));
+                                        if (isFirst.equals("notFirst")){
 
-                                    }
+                                            SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                                            editor.putString("Status", "Yes");
+                                            editor.putString("Phone", phone);
+                                            editor.apply();
+                                            startActivity(new Intent(Login.this, Favorite_Sectors.class));
+                                            finishAffinity();
 
-                                    else if (storedPass.equals(Cipher)) {
-                                        SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
-                                        editor.putString("Status", "Yes");
-                                        editor.putString("Phone", phone);
-                                        editor.apply();
-                                        startActivity(new Intent(Login.this, MainActivity.class));
-                                        finishAffinity();
+                                        }
+
+                                        else {
+                                            SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                                            editor.putString("Status", "Yes");
+                                            editor.putString("Phone", phone);
+                                            editor.apply();
+                                            startActivity(new Intent(Login.this, MainActivity.class));
+                                            finishAffinity();
+                                        }
                                     }
 
                                     else{

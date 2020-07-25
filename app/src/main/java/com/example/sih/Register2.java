@@ -68,7 +68,7 @@ public class Register2 extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent skipIntent = new Intent(Register2.this, Favorite_Sectors.class);
+                Intent skipIntent = new Intent(Register2.this, Login.class);
                 startActivity(skipIntent);
             }
         });

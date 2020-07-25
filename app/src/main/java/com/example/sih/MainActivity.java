@@ -20,7 +20,6 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -234,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
                 editor.putString("Activity", "Government");
                 editor.apply();
-                Intent govIntent = new Intent(MainActivity.this, domainGovernment.class);
+                Intent govIntent = new Intent(MainActivity.this, Government.class);
                 startActivity(govIntent);
             }
         });

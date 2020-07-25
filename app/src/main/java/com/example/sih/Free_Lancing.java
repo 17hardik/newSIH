@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -13,10 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,9 +48,9 @@ import java.util.ArrayList;
 
 public class Free_Lancing extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView uphone, uname, Premium, Days;
+    TextView uphone, uname, Premium, Days, jobType;
     Boolean English = true;
-    String lang, M, J, check, S, phone, u_name, path, isPremium, days;
+    String lang, M, J, check, S, phone, u_name, path, days, isPremium,activity, domain;
     int j, i, x;
     DrawerLayout drawer;
     ImageView profile, crown;
@@ -56,59 +59,535 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium;
-    DatabaseReference reff, reff1;
+    DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6, reff7, reff8, reff9, reff10, reff11, reff12;
     RecyclerView freelance;
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
     ProgressDialog pd;
-    int size, k;
     AdView mAdView;
+    int size, k;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences preferences = getSharedPreferences(S,i);
-        phone= preferences.getString("Phone","");
+        SharedPreferences preferences = getSharedPreferences(S, i);
+        phone = preferences.getString("Phone", "");
+        path = preferences.getString("path", "");
         isPremium = preferences.getString("isPremium", "No");
         days = preferences.getString("remainingDays", "0");
-        path = preferences.getString("path", "");
-        SharedPreferences preferences1 = getSharedPreferences(M,j);
-        check = preferences1.getString("Lang","Eng");
+        SharedPreferences preferences1 = getSharedPreferences(M, j);
+        check = preferences1.getString("Lang", "Eng");
+        SharedPreferences preferences2 = getSharedPreferences(J,x);
+        activity = preferences2.getString("Activity","");
+        domain = preferences.getString("Domain", "");
         setContentView(R.layout.activity_free__lancing);
         freelance = findViewById(R.id.freelance);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar_2);
+        View view =getSupportActionBar().getCustomView();
+
         freelance.setLayoutManager(new LinearLayoutManager(this));
         details = new ArrayList<>();
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing");
+
+        jobType = view.findViewById(R.id.jobsType);
+        if (activity.equals("Government")){
+            if(check.equals("Eng")) {
+                jobType.setText("Government Jobs");
+            } else{
+                jobType.setText(R.string.government_jobs1);
+            }
+        }
+
+        else if (activity.equals("Private")){
+            if(check.equals("Eng")) {
+                jobType.setText("Private Jobs");
+            } else{
+                jobType.setText(R.string.non_government_jobs1);
+            }
+        }
+
+        else if (activity.equals("Freelancing")){
+            if(check.equals("Eng")) {
+                jobType.setText("Freelancing");
+            } else{
+                jobType.setText(R.string.freelancing1);
+            }
+        }
+
+        else {
+            if(check.equals("Eng")) {
+                jobType.setText("Tenders");
+            } else{
+                jobType.setText(R.string.tenders1);
+            }
+        }
+        final SearchView mySearchView = view.findViewById(R.id.mySearchView);
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                            @Override
+                            public boolean onQueryTextSubmit(String query) {
+                                return false;
+                            }
+                            @Override
+                            public boolean onQueryTextChange(String newText) {
+                                govAdapter.getFilter().filter(newText);
+                                return false;
+                            }
+                        });
+                    }
+                },
+                3000
+        );
+
         pd = new ProgressDialog(Free_Lancing.this);
 
-        if(check.equals("Eng")){
+        if (check.equals("Eng")) {
             pd.setMessage("Fetching data");
-        } else{
+        } else {
             pd.setMessage("डेटा लाया जा रहा है");
         }
 
         pd.show();
-        reff.addValueEventListener(new ValueEventListener() {
+
+        if (domain.equals("Science")) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Freelancing");
+
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        if (domain.equals("Business")) {
+
+            reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Business, Management and Administration").child("Freelancing");
+            reff2.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Business, Management and Administration").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        if (domain.equals("Farming")) {
+            reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Farming, Fishing and Forestry").child("Freelancing");
+            reff3.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Farming, Fishing and Forestry").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        if (domain.equals("Community")) {
+            reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Community and Social Services").child("Freelancing");
+            reff4.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Community and Social Services").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        if (domain.equals("Labors")) {
+            reff5 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Labour").child("Freelancing");
+            reff5.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Labour").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        if (domain.equals("Health")) {
+
+            reff6 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Healthcare and Medical").child("Freelancing");
+            reff6.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Healthcare and Medical").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        if (domain.equals("Communications")) {
+
+            reff7 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Communication").child("Freelancing");
+            reff7.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Communication").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        if (domain.equals("Arts")) {
+
+            reff8 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Arts, Culture and Entertainment").child("Freelancing");
+            reff8.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Arts, Culture and Entertainment").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        if (domain.equals("Education")) {
+
+            reff9 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Education").child("Freelancing");
+            reff9.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Education").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        if (domain.equals("Installation")) {
+
+            reff10 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Installation, Repair and Maintenance").child("Freelancing");
+            reff10.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Installation, Repair and Maintenance").child("Freelancing").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+        reff11 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Freelancing");
+
+        reff11.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 size = (int) dataSnapshot.getChildrenCount();
-                for (k = 0; k < size; k++) {
+
+                for (int k = 0; k < size; k++) {
 
                     String i = Integer.toString(k);
-                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child("Freelancing").child(i);
-                    reff1.addValueEventListener(new ValueEventListener() {
+                    reff12 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Freelancing").child(i);
+                    reff12.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                            String subDomain = snapshot.child("sub_domain").getValue().toString();
+
                             data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                            details.add(d);
-                            govAdapter = new gov_adapter(Free_Lancing.this, details);
-                            freelance.setAdapter(govAdapter);
+                            if (!(subDomain.equals(domain))) {
+                                details.add(d);
+                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                freelance.setAdapter(govAdapter);
+                            }
+
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                             if(check.equals("Eng")) {
                                 Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
                             } else {
@@ -125,8 +604,10 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Free_Lancing.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                }            }
+                }
+            }
         });
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -134,8 +615,6 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 pd.dismiss();
             }
         }, 3000);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Freelancing");
         drawer = findViewById(R.id.draw_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nv);
@@ -156,8 +635,8 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         Days = navigationView.getHeaderView(0).findViewById(R.id.days);
         crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
 
-        if(isPremium.equals("No")){
-           showAd();
+        if (isPremium.equals("No")) {
+            showAd();
         }
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,13 +665,13 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
-                if(isPremium.equals("Yes")){
-                    if(check.equals("Hin")){
+                if (isPremium.equals("Yes")) {
+                    if (check.equals("Hin")) {
                         Premium.setText("प्रीमियम");
                     }
                     Premium.setVisibility(View.VISIBLE);
                     crown.setVisibility(View.VISIBLE);
-                    if(days.equals("1")){
+                    if (days.equals("1")) {
                         if (check.equals("Hin")) {
                             Days.setText(days + " दिन शेष");
                         } else {
@@ -222,7 +701,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
                                     // path = saveToInternalStorage(bm);
-                                    SharedPreferences.Editor editor1 = getSharedPreferences(S,i).edit();
+                                    SharedPreferences.Editor editor1 = getSharedPreferences(S, i).edit();
                                     editor1.putString("path", path);
                                     editor1.apply();
                                 }
@@ -232,7 +711,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
                         }
                     });
-                } catch(Exception e){
+                } catch (Exception e) {
 
                 }
                 uphone.setText(phone);
@@ -241,18 +720,18 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Hin")) {
+                if (check.equals("Hin")) {
                     Toast.makeText(Free_Lancing.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     Toast.makeText(Free_Lancing.this, "There is some error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        if(check.equals("Hin")){
+        if (check.equals("Hin")) {
             NavHin();
             toHin();
-        } else{
+        } else {
             NavEng();
             toEng();
         }
@@ -261,18 +740,18 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.government:
+            case R.id.non_government:
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Government");
+                editor.putString("Activity", "Private");
                 editor.apply();
-                Intent intent1 = new Intent(Free_Lancing.this, Government.class);
+                Intent intent1 = new Intent(Free_Lancing.this, Non_Government.class);
                 startActivity(intent1);
                 break;
-            case R.id.non_government:
+            case R.id.government:
                 SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
-                editor1.putString("Activity", "Private");
+                editor1.putString("Activity", "Government");
                 editor1.apply();
-                Intent intent = new Intent(Free_Lancing.this, Non_Government.class);
+                Intent intent = new Intent(Free_Lancing.this, Government.class);
                 startActivity(intent);
                 break;
             case R.id.tenders:
@@ -314,7 +793,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                     editor1.putString("Lang", "Hin");
                     editor1.apply();
                 } else{
-                    pd.setMessage("Fetching Data");
+                    pd.setMessage("Fetching data");
                     SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
                     editor1.putString("Lang", "Eng");
                     editor1.apply();
@@ -348,7 +827,20 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     }
 
     public void toEng(){
-        getSupportActionBar().setTitle("Freelancing");
+        switch (activity){
+            case "Government":
+                jobType.setText("Government Jobs");
+                break;
+            case "Private":
+                jobType.setText("Private Jobs");
+                break;
+            case "Freelancing":
+                jobType.setText("Freelancing");
+                break;
+            case "Tenders":
+                jobType.setText("Tenders");
+                break;
+        }
         English = true;
         lang = "Eng";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -357,7 +849,20 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     }
 
     public void toHin(){
-        getSupportActionBar().setTitle(R.string.freelancing1);
+        switch (activity){
+            case "Government":
+                jobType.setText(R.string.government_jobs1);
+                break;
+            case "Private":
+                jobType.setText(R.string.non_government_jobs1);
+                break;
+            case "Freelancing":
+                jobType.setText(R.string.freelancing1);
+                break;
+            case "Tenders":
+                jobType.setText(R.string.tenders1);
+                break;
+        }
         English = false;
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
@@ -465,7 +970,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         return sb;
     }
 
-    public  void showAd(){
+    public void showAd(){
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
