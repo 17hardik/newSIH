@@ -39,7 +39,7 @@ public class Job_Details extends AppCompatActivity {
     String M, J, check, phone, activity, S, jobReference, jobCategory, domainType, post, name, location, Salary, Sector, jobDesc;
     Translate translate;
     Firebase firebase;
-    Button FavButton, roadmap;
+    Button FavButton, roadmap, apply;
     Intent intent;
     ProgressDialog pd;
     Boolean isStored = false;
@@ -66,6 +66,7 @@ public class Job_Details extends AppCompatActivity {
         job_post = findViewById(R.id.job_post);
         FavButton = findViewById(R.id.favButton);
         roadmap = findViewById(R.id.roadmapButton);
+        apply = findViewById(R.id.apply);
         company_name = findViewById(R.id.company_name);
         company_location = findViewById(R.id.company_location);
         job_details = findViewById(R.id.job_details);
@@ -144,6 +145,21 @@ public class Job_Details extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                 editor.putString("jobCategory", jobCategory);
                 editor.putString("jobReference", jobReference);
+                editor.apply();
+
+            }
+        });
+
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent applyIntent = new Intent(Job_Details.this, jobApply.class);
+                startActivity(applyIntent);
+                SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                editor.putString("jobCategory", jobCategory);
+                editor.putString("jobReference", jobReference);
+                editor.putString("domainType", domainType);
                 editor.apply();
 
             }
