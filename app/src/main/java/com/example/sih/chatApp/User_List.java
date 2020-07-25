@@ -1,14 +1,16 @@
-package com.example.sih;
+package com.example.sih.chatApp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Rating;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,11 +30,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.example.sih.Login;
+import com.example.sih.Non_Government;
+import com.example.sih.R;
+import com.example.sih.Tenders;
+import com.example.sih.usercardview;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -45,8 +47,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 public class User_List extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView uphone, uname, Premium, Days, Title;
@@ -200,21 +200,21 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(User_List.this, Profile.class);
+                Intent profileIntent = new Intent(User_List.this, ContactsContract.Profile.class);
                 startActivity(profileIntent);
             }
         });
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(User_List.this, Profile.class);
+                Intent profileIntent = new Intent(User_List.this, ContactsContract.Profile.class);
                 startActivity(profileIntent);
             }
         });
         uname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(User_List.this, Profile.class);
+                Intent profileIntent = new Intent(User_List.this, ContactsContract.Profile.class);
                 startActivity(profileIntent);
             }
         });
@@ -310,7 +310,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
                 SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
                 editor1.putString("Activity", "Freelancing");
                 editor1.apply();
-                Intent intent = new Intent(User_List.this, Free_Lancing.class);
+                Intent intent = new Intent(User_List.this, com.example.sih.Free_Lancing.class);
                 startActivity(intent);
                 break;
             case R.id.tenders:
@@ -321,7 +321,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent5);
                 break;
             case R.id.premium:
-                Intent intent2 = new Intent(User_List.this, Testing.class);
+                Intent intent2 = new Intent(User_List.this, Test);
                 startActivity(intent2);
                 break;
         }

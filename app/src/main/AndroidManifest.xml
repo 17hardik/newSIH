@@ -65,10 +65,10 @@
         <activity android:name=".Register2" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".User_List" />
+        <activity android:name=".chatApp.User_List" />
         <activity
             android:name=".Chat"
-            android:parentActivityName=".User_List" />
+            android:parentActivityName=".chatApp.User_List" />
         <activity android:name=".CreateYourJob">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
