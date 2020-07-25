@@ -52,7 +52,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
     TextView uphone, uname, Premium, Days, Title;
     Boolean English = true;
     String lang, M, J, check, S, phone, u_name, path, days, isPremium, activity;
-    int j, i, x;
+    int j, i, x, count = 0;
     DrawerLayout drawer;
     ImageView profile, crown;
     NavigationView navigationView;
@@ -127,33 +127,34 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                size = (int) dataSnapshot.getChildrenCount();
-
-                for (final DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-
-                    reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child(childDataSnapshot.getKey());
-                    reff1.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            usercardview d = snapshot.getValue(usercardview.class);
-                            if(!(phone.equals(childDataSnapshot.getKey()))) {
-                                details.add(d);
-                                userAdapter = new User_Adapter(details, User_List.this);
-                                users.setAdapter(userAdapter);
+                if(count == 0) {
+                    size = (int) dataSnapshot.getChildrenCount();
+                    for (final DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child(childDataSnapshot.getKey());
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                usercardview d = snapshot.getValue(usercardview.class);
+                                if (!(phone.equals(childDataSnapshot.getKey()))) {
+                                    details.add(d);
+                                    userAdapter = new User_Adapter(details, User_List.this);
+                                    users.setAdapter(userAdapter);
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            if(check.equals("Eng")) {
-                                Toast.makeText(User_List.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(User_List.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                if (check.equals("Eng")) {
+                                    Toast.makeText(User_List.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(User_List.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                    count++;
+                } else {
+                    recreate();
                 }
             }
 
@@ -163,7 +164,10 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
                     Toast.makeText(User_List.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(User_List.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                }            }
+                }
+
+            }
+
         });
 
         final Handler handler = new Handler();

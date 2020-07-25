@@ -65,15 +65,15 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.MyViewHolder
             Thread thread = new Thread() {
                 @Override
                 public void run() {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                    }
-
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            getImage(details.get(position).getPhone(), holder);
+                            try {
+                                getImage(details.get(position).getPhone(), holder);
+                            } catch(Exception e){
+
+                            }
+
                         }
                     });
                 }
@@ -173,25 +173,6 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.MyViewHolder
             notifyDataSetChanged();
         }
     };
-
-    public void getTranslateService() {
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        try (InputStream is = context.getResources().openRawResource(R.raw.translate)) {
-
-            final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
-
-            TranslateOptions translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
-            translate = translateOptions.getService();
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-
-        }
-
-    }
 
     public void getImage(String user, final MyViewHolder holder){
         final Bitmap[] bm = new Bitmap[1];
