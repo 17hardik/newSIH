@@ -15,24 +15,24 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".jobApply"></activity>
+        <activity android:name=".Jobs.jobApply"></activity>
         <activity
-            android:name=".topJobs"
-            android:parentActivityName=".topJobsFragment" />
+            android:name=".Jobs.topJobs"
+            android:parentActivityName=".Jobs.topJobsFragment" />
         <activity
-            android:name=".topJobsFragment"
+            android:name=".Jobs.topJobsFragment"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Favorite_Sectors" />
-        <activity android:name=".Dream_jobs" />
-        <activity android:name=".Job_Details" />
+        <activity android:name=".Registration.Favorite_Sectors" />
+        <activity android:name=".Jobs.Dream_jobs" />
+        <activity android:name=".Jobs.Job_Details" />
         <activity android:name=".Testing" />
-        <activity android:name=".progressTracker" />
-        <activity android:name=".jobsPublished" />
-        <activity android:name=".jobDetails" />
-        <activity android:name=".companyProof" />
+        <activity android:name=".Jobs.progressTracker" />
+        <activity android:name=".PublishJob.jobsPublished" />
+        <activity android:name=".PublishJob.jobDetails" />
+        <activity android:name=".PublishJob.companyProof" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".Registration.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -50,26 +50,26 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".Update_Certificates" />
-        <activity android:name=".Change_Password" />
-        <activity android:name=".Profile" />
-        <activity android:name=".Language" />
-        <activity android:name=".Forgot_Password" />
-        <activity android:name=".Login" />
-        <activity android:name=".Rating" />
-        <activity android:name=".PhoneVerification" />
-        <activity android:name=".Tenders" />
-        <activity android:name=".Free_Lancing" />
-        <activity android:name=".Government" />
-        <activity android:name=".Non_Government" />
-        <activity android:name=".Register2" />
+        <activity android:name=".Profile.Update_Certificates" />
+        <activity android:name=".Profile.Change_Password" />
+        <activity android:name=".Profile.Profile" />
+        <activity android:name=".Registration.Language" />
+        <activity android:name=".Profile.Forgot_Password" />
+        <activity android:name=".Registration.Login" />
+        <activity android:name=".Profile.Rating" />
+        <activity android:name=".Registration.PhoneVerification" />
+        <activity android:name=".Jobs.Tenders" />
+        <activity android:name=".Jobs.Free_Lancing" />
+        <activity android:name=".Jobs.Government" />
+        <activity android:name=".Jobs.Non_Government" />
+        <activity android:name=".Registration.Register2" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Register" />
+        <activity android:name=".Registration.Register" />
         <activity android:name=".chatApp.User_List" />
         <activity
             android:name=".Chat"
             android:parentActivityName=".chatApp.User_List" />
-        <activity android:name=".CreateYourJob">
+        <activity android:name=".PublishJob.CreateYourJob">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -81,8 +81,8 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".Forgot_Second" />
-        <activity android:name=".Intro">
+        <activity android:name=".Registration.Forgot_Second" />
+        <activity android:name=".Registration.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

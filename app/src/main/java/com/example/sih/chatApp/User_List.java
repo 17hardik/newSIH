@@ -30,11 +30,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sih.Login;
-import com.example.sih.Non_Government;
+import com.example.sih.Registration.Login;
+import com.example.sih.Jobs.Non_Government;
 import com.example.sih.R;
-import com.example.sih.Tenders;
-import com.example.sih.usercardview;
+import com.example.sih.Jobs.Tenders;
+import com.example.sih.Testing;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -310,7 +310,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
                 SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
                 editor1.putString("Activity", "Freelancing");
                 editor1.apply();
-                Intent intent = new Intent(User_List.this, com.example.sih.Free_Lancing.class);
+                Intent intent = new Intent(User_List.this, com.example.sih.Jobs.Free_Lancing.class);
                 startActivity(intent);
                 break;
             case R.id.tenders:
@@ -321,7 +321,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent5);
                 break;
             case R.id.premium:
-                Intent intent2 = new Intent(User_List.this, Test);
+                Intent intent2 = new Intent(User_List.this, Testing.class);
                 startActivity(intent2);
                 break;
         }

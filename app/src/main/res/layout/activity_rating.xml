@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.sih.Rating">
+    tools:context="com.example.sih.Profile.Rating">
 
 
     <ImageView
@@ -19,46 +19,46 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-            android:id="@+id/titlerate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rate this App"
-            android:textAlignment="center"
-            android:textColor="#5c0e70"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            android:textSize="20sp" />
+        android:id="@+id/titlerate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rate this App"
+        android:textAlignment="center"
+        android:textColor="#5c0e70"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        android:textSize="20sp" />
 
-        <RatingBar
-            android:id="@+id/ratingstar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="0"
-            android:stepSize="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.59"
-            android:theme="@style/RatingBar" />
+    <RatingBar
+        android:id="@+id/ratingstar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59"
+        android:theme="@style/RatingBar" />
 
-        <TextView
-            android:id="@+id/titleresult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.7"
-            android:textAlignment="center"
-            android:textColor="#5c0e70"
-            android:textSize="32sp" />
+    <TextView
+        android:id="@+id/titleresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        android:textAlignment="center"
+        android:textColor="#5c0e70"
+        android:textSize="32sp" />
 
     <Button
         android:id="@+id/ratingButton"

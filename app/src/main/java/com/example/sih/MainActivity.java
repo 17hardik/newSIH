@@ -21,6 +21,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sih.Jobs.Dream_jobs;
+import com.example.sih.Jobs.Government;
+import com.example.sih.Jobs.Non_Government;
+import com.example.sih.Jobs.topJobsFragment;
+import com.example.sih.Profile.Rating;
+import com.example.sih.PublishJob.CreateYourJob;
+import com.example.sih.PublishJob.jobsPublished;
+import com.example.sih.Registration.Login;
 import com.example.sih.chatApp.User_List;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -254,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
                 editor.putString("Activity", "Tender");
                 editor.apply();
-                Intent tenderIntent = new Intent(MainActivity.this, Tenders.class);
+                Intent tenderIntent = new Intent(MainActivity.this, com.example.sih.Jobs.Tenders.class);
                 startActivity(tenderIntent);
             }
         });
@@ -264,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
                 editor.putString("Activity", "Freelancing");
                 editor.apply();
-                Intent freeIntent = new Intent(MainActivity.this, Free_Lancing.class);
+                Intent freeIntent = new Intent(MainActivity.this, com.example.sih.Jobs.Free_Lancing.class);
                 startActivity(freeIntent);
             }
         });
