@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/layout"
-        tools:context=".Profile">
+        tools:context=".Profile.Profile">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
@@ -57,97 +57,97 @@
             app:layout_constraintVertical_bias="0.27"
             app:layout_constraintHorizontal_bias="0.62"/>
 
-    <EditText
-        android:layout_width="160dp"
-        android:id="@+id/usernameET"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45"
-        app:layout_constraintHorizontal_bias="0.10"/>
+        <EditText
+            android:layout_width="160dp"
+            android:id="@+id/usernameET"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45"
+            app:layout_constraintHorizontal_bias="0.10"/>
 
-    <Button
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_sih_button_bg"
-        android:textColor="#ffffff"
-        android:id="@+id/usernameBT"
-        android:text="Change Username"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45"
-        app:layout_constraintHorizontal_bias="0.97"/>
+        <Button
+            android:layout_width="165dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_sih_button_bg"
+            android:textColor="#ffffff"
+            android:id="@+id/usernameBT"
+            android:text="Change Username"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45"
+            app:layout_constraintHorizontal_bias="0.97"/>
 
-    <EditText
-        android:layout_width="160dp"
-        android:id="@+id/nameET"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55"
-        app:layout_constraintHorizontal_bias="0.10"/>
+        <EditText
+            android:layout_width="160dp"
+            android:id="@+id/nameET"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.55"
+            app:layout_constraintHorizontal_bias="0.10"/>
 
-    <Button
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_sih_button_bg"
-        android:textColor="#ffffff"
-        android:id="@+id/nameBT"
-        android:text="Change Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55"
-        app:layout_constraintHorizontal_bias="0.97"/>
+        <Button
+            android:layout_width="165dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_sih_button_bg"
+            android:textColor="#ffffff"
+            android:id="@+id/nameBT"
+            android:text="Change Name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.55"
+            app:layout_constraintHorizontal_bias="0.97"/>
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_sih_button_bg"
-        android:id="@+id/password"
-        android:textColor="#ffffff"
-        android:text="Change Password"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_sih_button_bg"
+            android:id="@+id/password"
+            android:textColor="#ffffff"
+            android:text="Change Password"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7"/>
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_sih_button_bg"
-        android:id="@+id/certificate"
-        android:textColor="#ffffff"
-        android:text="Update Qualification Certificates"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_sih_button_bg"
+            android:id="@+id/certificate"
+            android:textColor="#ffffff"
+            android:text="Update Qualification Certificates"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.83"/>
 
-    <Button
-       android:layout_width="200dp"
-       android:layout_height="wrap_content"
-       android:id="@+id/delete"
-       android:background="@color/colorRed"
-       android:textColor="#ffffff"
-       android:text="Delete Your Account"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintVertical_bias="0.95"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete"
+            android:background="@color/colorRed"
+            android:textColor="#ffffff"
+            android:text="Delete Your Account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.95"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nv"

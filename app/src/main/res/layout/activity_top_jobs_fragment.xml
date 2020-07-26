@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".topJobsFragment">
+    tools:context=".Jobs.topJobsFragment">
 
     <SearchView
         android:id="@+id/SearchView"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_sih_login1"
-    tools:context="com.example.sih.Login">
+    tools:context="com.example.sih.Registration.Login">
 
 
     <EditText

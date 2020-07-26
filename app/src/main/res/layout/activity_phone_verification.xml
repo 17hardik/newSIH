@@ -6,44 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_sih_login1"
-    tools:context=".PhoneVerification">
+    tools:context=".Registration.PhoneVerification">
 
-    <EditText
-        android:id="@+id/et_otp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter verification OTP"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.50"/>
+  <EditText
+      android:id="@+id/et_otp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Enter verification OTP"
+      android:inputType="number"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.50"/>
 
-    <Button
-        android:id="@+id/bt_verify_otp"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:textColor="#FFFFFF"
-        android:text="Verify OTP"
-        android:background="@drawable/ic_sih_button_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62"/>
+  <Button
+      android:id="@+id/bt_verify_otp"
+      android:layout_width="170dp"
+      android:layout_height="60dp"
+      android:textColor="#FFFFFF"
+      android:text="Verify OTP"
+      android:background="@drawable/ic_sih_button_bg"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.62"/>
 
-    <Button
-        android:id="@+id/bt_resend_otp"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:background="@drawable/ic_sih_button_bg"
-        android:textColor="#FFFFFF"
-        android:text="Resend OTP"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76"/>
+  <Button
+      android:id="@+id/bt_resend_otp"
+      android:layout_width="170dp"
+      android:layout_height="60dp"
+      android:background="@drawable/ic_sih_button_bg"
+      android:textColor="#FFFFFF"
+      android:text="Resend OTP"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.76"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

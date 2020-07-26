@@ -6,84 +6,84 @@
     android:background="@drawable/ic_sih_login1"
     tools:context="com.example.sih.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/skip"
-        android:textSize="25dp"
-        android:layout_marginStart="240dp"
-        android:textColor="#ffffff"
-        android:text="Skip ->" />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/skip"
+      android:textSize="25dp"
+      android:layout_marginStart="240dp"
+      android:textColor="#ffffff"
+      android:text="Skip ->" />
+
+  <TextView
+      android:id="@+id/editTextFileName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:hint="Class 10th Result (Marksheet)"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+  <Button
+      android:id="@+id/buttonUploadFile"
+      android:layout_width="170dp"
+      android:layout_height="50dp"
+      android:background="@drawable/ic_sih_button_bg"
+      android:textColor="#FFFFFF"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/editTextFileName"
+      android:text="Upload PDF" />
+  <TextView
+      android:id="@+id/editTextFileName1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_below="@+id/buttonUploadFile"
+      android:hint="Class 12th Result (Marksheet)"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+  <Button
+      android:id="@+id/buttonUploadFile1"
+      android:layout_width="170dp"
+      android:layout_height="50dp"
+      android:background="@drawable/ic_sih_button_bg"
+      android:textColor="#FFFFFF"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/editTextFileName1"
+      android:text="Upload PDF" />
+  <TextView
+      android:id="@+id/editTextFileName2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_below="@+id/buttonUploadFile1"
+      android:hint="Graduation Result (Marksheet)"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+  <Button
+      android:id="@+id/buttonUploadFile2"
+      android:layout_width="170dp"
+      android:layout_height="50dp"
+      android:layout_centerHorizontal="true"
+      android:background="@drawable/ic_sih_button_bg"
+      android:textColor="#FFFFFF"
+      android:layout_below="@id/editTextFileName2"
+      android:text="Upload PDF" />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:orientation="vertical">
+
 
     <TextView
-        android:id="@+id/editTextFileName"
+        android:id="@+id/textViewStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:hint="Class 10th Result (Marksheet)"
+        android:text="No file selected"
+        android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
-    <Button
-        android:id="@+id/buttonUploadFile"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_sih_button_bg"
-        android:textColor="#FFFFFF"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editTextFileName"
-        android:text="Upload PDF" />
-    <TextView
-        android:id="@+id/editTextFileName1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/buttonUploadFile"
-        android:hint="Class 12th Result (Marksheet)"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
-    <Button
-        android:id="@+id/buttonUploadFile1"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_sih_button_bg"
-        android:textColor="#FFFFFF"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editTextFileName1"
-        android:text="Upload PDF" />
-    <TextView
-        android:id="@+id/editTextFileName2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/buttonUploadFile1"
-        android:hint="Graduation Result (Marksheet)"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
-    <Button
-        android:id="@+id/buttonUploadFile2"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_sih_button_bg"
-        android:textColor="#FFFFFF"
-        android:layout_below="@id/editTextFileName2"
-        android:text="Upload PDF" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/textViewStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No file selected"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
-    </LinearLayout>
+  </LinearLayout>
 
 </RelativeLayout>
