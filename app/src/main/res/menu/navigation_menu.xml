@@ -5,39 +5,59 @@
     <group android:checkableBehavior="single"
         android:id="@+id/group1">
         <item
-            android:id="@+id/government"
-            android:title="                  Government Jobs"
-            android:textColor="#2f0739"/>
+            android:id="@+id/title1"
+            android:title="           Job Sectors"
+            android:textColor="#000000">
+
+            <menu>
+
+                <item
+                    android:id="@+id/government"
+                    android:title="                  Government Jobs"
+                    android:textColor="#2f0739"/>
+                <item
+                    android:id="@+id/non_government"
+                    android:title="                  Non-Government Jobs"
+                    android:textColor="#2f0739"/>
+                <item
+                    android:id="@+id/free_lancing"
+                    android:title="                  Freelancing"
+                    android:textColor="#2f0739"/>
+                <item
+                    android:id="@+id/tenders"
+                    android:title="                  Tenders"
+                    android:textColor="#2f0739" />
+
+            </menu>
+        </item>
     </group>
+
     <group android:checkableBehavior="single"
         android:id="@+id/group2">
         <item
-            android:id="@+id/non_government"
-            android:title="                  Non-Government Jobs"
-            android:textColor="#2f0739"/>
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/group3">
-        <item
-            android:id="@+id/free_lancing"
-            android:title="                  Freelancing"
-            android:textColor="#2f0739"/>
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/group4">
-        <item
-            android:id="@+id/tenders"
-            android:title="                  Tenders"
-            android:textColor="#2f0739"/>
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/group5">
-        <item
-            android:id="@+id/premium"
-            android:title="                  Get Premium"
-            android:textColor="#2f0739"/>
-    </group>
+            android:id="@+id/title2"
+            android:title="           More Features"
+            android:textColor="#000000">
 
-
+            <menu>
+                <item
+                    android:id="@+id/premium"
+                    android:title="                  Get Premium"
+                    android:textColor="#2f0739"/>
+                <item
+                    android:id="@+id/chat"
+                    android:title="                  Build your Connection"
+                    android:textColor="#2f0739"/>
+                <item
+                    android:id="@+id/publish"
+                    android:title="                  Publish your Job"
+                    android:textColor="#2f0739"/>
+                <item
+                    android:id="@+id/topJobs"
+                    android:title="                  Top Jobs"
+                    android:textColor="#2f0739"/>
+            </menu>
+        </item>
+    </group>
 
 </menu>

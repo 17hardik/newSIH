@@ -58,13 +58,14 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob;
     DatabaseReference reff, reff1;
     RecyclerView users;
     ArrayList<usercardview> details;
     User_Adapter userAdapter;
     ProgressDialog pd;
     int size;
+    Boolean isRegistered = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -193,6 +194,9 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
         Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
+        chat = menu2.findItem(R.id.chat);
+        topJobs = menu2.findItem(R.id.topJobs);
+        publishJob = menu2.findItem(R.id.publish);
         Days = navigationView.getHeaderView(0).findViewById(R.id.days);
         crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
 
@@ -323,6 +327,24 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
                 Intent intent2 = new Intent(User_List.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
                 break;
+            case R.id.chat:
+                Intent intent6 = new Intent(User_List.this, com.example.sih.chatApp.User_List.class);
+                startActivity(intent6);
+                break;
+            case R.id.publish:
+                if (!isRegistered) {
+                    Intent intent7 = new Intent(User_List.this, com.example.sih.PublishJob.CreateYourJob.class);
+                    startActivity(intent7);
+                }
+                else{
+                    Intent intent7 = new Intent(User_List.this, com.example.sih.PublishJob.jobsPublished.class);
+                    startActivity(intent7);
+                }
+                break;
+            case R.id.topJobs:
+                Intent intent8 = new Intent(User_List.this, com.example.sih.Jobs.topJobsFragment.class);
+                startActivity(intent8);
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -405,7 +427,6 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
         setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
@@ -413,7 +434,6 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.create_your_job, "Publish Your Job");
         setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     private void setOptionTitle(int id, String title)

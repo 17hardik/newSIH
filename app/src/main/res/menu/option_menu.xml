@@ -5,14 +5,8 @@
         android:title="Change Language"/>
     <item android:id="@+id/rate_us"
         android:title="Rate Us"/>
-    <item android:id="@+id/logout"
-        android:title="Logout"/>
     <item android:id="@+id/contact_us"
         android:title="Contact Us"/>
-    <item android:id="@+id/create_your_job"
-        android:title="Publish Your Job"/>
-    <item android:id="@+id/topJobs"
-        android:title="Top Jobs"/>
-    <item android:id="@+id/chat"
-        android:title="Chat"/>
+    <item android:id="@+id/logout"
+        android:title="Logout"/>
 </menu>

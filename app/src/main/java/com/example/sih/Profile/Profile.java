@@ -60,21 +60,21 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     EditText ETUsername, ETName;
     Button BTUsername, BTName, BTPassword, BTCertificates, BTDelete;
     DatabaseReference reff;
-    TextView uname, uphone;
+    TextView uname, uphone, Premium, Days;
     ConstraintLayout Layout;
-    ImageView camera, profile, drawerProfile, fullProfile, premiumProfile;
+    ImageView camera, profile, drawerProfile, fullProfile, premiumProfile, crown;
     Boolean English = true, isFull = false;
     Firebase firebase;
     StorageReference mStorageReference;
-    String user_name, name, phone, S, M, check, lang, user_phone, isPremium;
-    int i, j;
+    String user_name, name, phone, S, M, J, check, lang, user_phone, isPremium, days;
+    int i, j, x;
     final static int PICK_IMAGE_REQUEST = 2342;
     DrawerLayout drawer;
     NavigationView navigationView;
     ActionBarDrawerToggle t;
     Boolean isRegistered = false;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob;
     ProgressDialog pd;
     String username;
     String path;
@@ -88,6 +88,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         phone = preferences.getString("Phone","");
         path = preferences.getString("path","");
         isPremium = preferences.getString("isPremium", "No");
+        days = preferences.getString("remainingDays", "0");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_profile);
@@ -117,9 +118,16 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         Non_Gov = menu2.findItem(R.id.non_government);
         Tender = menu2.findItem(R.id.tenders);
         Free_Lancing = menu2.findItem(R.id.free_lancing);
+        GetPremium = menu2.findItem(R.id.premium);
+        chat = menu2.findItem(R.id.chat);
+        topJobs = menu2.findItem(R.id.topJobs);
+        publishJob = menu2.findItem(R.id.publish);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         drawerProfile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
+        Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
+        Days = navigationView.getHeaderView(0).findViewById(R.id.days);
+        crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
 
         if(check.equals("Hin")){
             NavHin();
@@ -152,6 +160,27 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     mStorageReference = FirebaseStorage.getInstance().getReference().child(user_phone).child("Profile Picture");
                     ETUsername.setText(username);
                     ETName.setText(name);
+                    if (isPremium.equals("Yes")) {
+                        if (check.equals("Hin")) {
+                            Premium.setText("प्रीमियम");
+                        }
+                        Premium.setVisibility(View.VISIBLE);
+                        crown.setVisibility(View.VISIBLE);
+                        if (days.equals("1")) {
+                            if (check.equals("Hin")) {
+                                Days.setText(days + " दिन शेष");
+                            } else {
+                                Days.setText(days + " day remaining");
+                            }
+                        } else {
+                            if (check.equals("Hin")) {
+                                Days.setText(days + " दिन शेष");
+                            } else {
+                                Days.setText(days + " days remaining");
+                            }
+                        }
+                        Days.setVisibility(View.VISIBLE);
+                    }
                 } catch(Exception e){
 
                 }
@@ -302,31 +331,48 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.government:
-                Intent intent1 = new Intent(Profile.this, Government.class);
+            case R.id.non_government:
+                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                editor.putString("Activity", "Private");
+                editor.apply();
+                Intent intent1 = new Intent(Profile.this, Non_Government.class);
                 startActivity(intent1);
                 break;
             case R.id.free_lancing:
+                SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
+                editor1.putString("Activity", "Freelancing");
+                editor1.apply();
                 Intent intent = new Intent(Profile.this, com.example.sih.Jobs.Free_Lancing.class);
                 startActivity(intent);
                 break;
-            case R.id.tenders:
-                Intent intent5 = new Intent(Profile.this, Tenders.class);
+            case R.id.government:
+                SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
+                editor2.putString("Activity", "Government");
+                editor2.apply();
+                Intent intent5 = new Intent(Profile.this, Government.class);
                 startActivity(intent5);
                 break;
-            case R.id.create_your_job:
+            case R.id.premium:
+                Intent intent2 = new Intent(Profile.this, com.example.sih.Profile.Premium.class);
+                startActivity(intent2);
+                break;
+            case R.id.chat:
+                Intent intent6 = new Intent(Profile.this, com.example.sih.chatApp.User_List.class);
+                startActivity(intent6);
+                break;
+            case R.id.publish:
                 if (!isRegistered) {
-                    Intent jCreateIntent = new Intent(Profile.this, CreateYourJob.class);
-                    startActivity(jCreateIntent);
+                    Intent intent7 = new Intent(Profile.this, com.example.sih.PublishJob.CreateYourJob.class);
+                    startActivity(intent7);
                 }
                 else{
-                    Intent viewIntent = new Intent(Profile.this, jobsPublished.class);
-                    startActivity(viewIntent);
+                    Intent intent7 = new Intent(Profile.this, com.example.sih.PublishJob.jobsPublished.class);
+                    startActivity(intent7);
                 }
-                return true;
-            case R.id.non_government:
-                Intent intent6 = new Intent(Profile.this, Non_Government.class);
-                startActivity(intent6);
+                break;
+            case R.id.topJobs:
+                Intent intent8 = new Intent(Profile.this, com.example.sih.Jobs.topJobsFragment.class);
+                startActivity(intent8);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -419,16 +465,12 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
-        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.create_your_job, "Publish Your Job");
-        setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     public void NavHin(){
         Gov.setTitle("                  सरकारी नौकरियों");

@@ -60,7 +60,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob;
     DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6, reff7, reff8, reff9, reff10, reff11, reff12;
     RecyclerView tenders;
     ArrayList<data_in_cardview> details;
@@ -68,6 +68,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
     ProgressDialog pd;
     AdView mAdView;
     int size, k;
+    Boolean isRegistered = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -629,6 +630,9 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         Tender = menu2.findItem(R.id.tenders);
         Free_Lancing = menu2.findItem(R.id.free_lancing);
         GetPremium = menu2.findItem(R.id.premium);
+        chat = menu2.findItem(R.id.chat);
+        topJobs = menu2.findItem(R.id.topJobs);
+        publishJob = menu2.findItem(R.id.publish);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
@@ -766,6 +770,24 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
                 Intent intent2 = new Intent(Tenders.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
                 break;
+            case R.id.chat:
+                Intent intent6 = new Intent(Tenders.this, com.example.sih.chatApp.User_List.class);
+                startActivity(intent6);
+                break;
+            case R.id.publish:
+                if (!isRegistered) {
+                    Intent intent7 = new Intent(Tenders.this, com.example.sih.PublishJob.CreateYourJob.class);
+                    startActivity(intent7);
+                }
+                else{
+                    Intent intent7 = new Intent(Tenders.this, com.example.sih.PublishJob.jobsPublished.class);
+                    startActivity(intent7);
+                }
+                break;
+            case R.id.topJobs:
+                Intent intent8 = new Intent(Tenders.this, com.example.sih.Jobs.topJobsFragment.class);
+                startActivity(intent8);
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -875,16 +897,12 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
-        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.create_your_job, "Publish Your Job");
-        setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     private void setOptionTitle(int id, String title)
     {

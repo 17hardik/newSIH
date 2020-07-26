@@ -2,8 +2,12 @@ package com.example.sih;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -19,7 +23,10 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.sih.Jobs.Dream_jobs;
 import com.example.sih.Jobs.Government;
@@ -33,7 +40,10 @@ import com.example.sih.Registration.Login;
 import com.example.sih.chatApp.User_List;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,26 +55,35 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ImageView bgapp;
     Animation bganim;
-    TextView GovText, NonText, TenderText, FreeText;
+    TextView GovText, NonText, TenderText, FreeText, uphone, uname, Premium, Days;
     Animation frombotton;
     ImageButton Gov, Non_Gov, Tenders, Free_Lancing;
+    ImageView Profile, Crown;
+    NavigationView navigationView;
+    StorageReference mStorageReference;
+    ActionBarDrawerToggle t;
     RelativeLayout menus;
-    DatabaseReference reff, reff1, reff2;
-    String phone, S, M, J, user_name, check, lang, X, premium_date, currentDate, remainingDays = "0", isPremium;
-    Menu menu1;
+    DatabaseReference reff, reff1, reff2, reff3;
+    String phone, S, M, J, user_name, check, lang, X, premium_date, currentDate, remainingDays = "0", isPremium, u_name, path, days;
+    Menu menu1, menu2;
+    MenuItem Government, Non_Government, Tender, FreeLancing, GetPremium, chat, topJobs, publishJob;
     Boolean English = true;
     int i, j, y, x;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false;
     ViewFlipper viewFlipper;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         check = preferences1.getString("Lang","Eng");
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone = preferences.getString("Phone","");
+        days = preferences.getString("remainingDays", "0");
         isPremium = preferences.getString("isPremium", "No");
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
@@ -122,22 +142,22 @@ public class MainActivity extends AppCompatActivity {
                     Intent dreamIntent = new Intent(MainActivity.this, Dream_jobs.class);
                     startActivity(dreamIntent);
                 } else{
-                    Intent dreamIntent = new Intent(MainActivity.this, Premium.class);
+                    Intent dreamIntent = new Intent(MainActivity.this, com.example.sih.Profile.Premium.class);
                     startActivity(dreamIntent);
                 }
             }
         });
 
-//        ImageView profile = view.findViewById(R.id.image_of_user);
-//        profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent profileIntent = new Intent(MainActivity.this, Profile.class);
-//                startActivity(profileIntent);
-//
-//            }
-//        });
+        ImageView profile = view.findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent profileIntent = new Intent(MainActivity.this, com.example.sih.Profile.Profile.class);
+                startActivity(profileIntent);
+
+            }
+        });
 
         viewFlipper.setOnTouchListener(new onFlingListener(this) {
             @Override
@@ -340,7 +360,190 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        drawer = findViewById(R.id.draw_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = findViewById(R.id.nv);
+        navigationView.setNavigationItemSelectedListener(this);
+        t = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(t);
+        t.syncState();
+        menu2 = navigationView.getMenu();
+        Government = menu2.findItem(R.id.government);
+        Non_Government = menu2.findItem(R.id.non_government);
+        Tender = menu2.findItem(R.id.tenders);
+        FreeLancing = menu2.findItem(R.id.free_lancing);
+        GetPremium = menu2.findItem(R.id.premium);
+        chat = menu2.findItem(R.id.chat);
+        topJobs = menu2.findItem(R.id.topJobs);
+        publishJob = menu2.findItem(R.id.publish);
+        uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
+        uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
+        Profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
+        Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
+        Days = navigationView.getHeaderView(0).findViewById(R.id.days);
+        Crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
+        Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(MainActivity.this, com.example.sih.Profile.Profile.class);
+                startActivity(profileIntent);
+            }
+        });
+        uphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(MainActivity.this, com.example.sih.Profile.Profile.class);
+                startActivity(profileIntent);
+            }
+        });
+        uname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(MainActivity.this, com.example.sih.Profile.Profile.class);
+                startActivity(profileIntent);
+            }
+        });
+        reff3 = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+        reff3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                u_name = dataSnapshot.child("Username").getValue().toString();
+                phone = dataSnapshot.child("Phone").getValue().toString();
+                if (isPremium.equals("Yes")) {
+                    if (check.equals("Hin")) {
+                        Premium.setText("प्रीमियम");
+                    }
+                    Premium.setVisibility(View.VISIBLE);
+                    Crown.setVisibility(View.VISIBLE);
+                    if (days.equals("1")) {
+                        if (check.equals("Hin")) {
+                            Days.setText(days + " दिन शेष");
+                        } else {
+                            Days.setText(days + " day remaining");
+                        }
+                    } else {
+                        if (check.equals("Hin")) {
+                            Days.setText(days + " दिन शेष");
+                        } else {
+                            Days.setText(days + " days remaining");
+                        }
+                    }
+                    Days.setVisibility(View.VISIBLE);
+                }
+                String username = decryptUsername(u_name).toString();
+                mStorageReference = FirebaseStorage.getInstance().getReference().child(phone).child("Profile Picture");
+                try {
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    mStorageReference.getBytes(ONE_MEGABYTE)
+                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    DisplayMetrics dm = new DisplayMetrics();
+                                    getWindowManager().getDefaultDisplay().getMetrics(dm);
+                                    Profile.setMinimumHeight(dm.heightPixels);
+                                    Profile.setMinimumWidth(dm.widthPixels);
+                                    Profile.setImageBitmap(bm);
+                                    // path = saveToInternalStorage(bm);
+                                    SharedPreferences.Editor editor1 = getSharedPreferences(S, i).edit();
+                                    editor1.putString("path", path);
+                                    editor1.apply();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+
+                        }
+                    });
+                } catch (Exception e) {
+
+                }
+                uphone.setText(phone);
+                uname.setText(username);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                if (check.equals("Hin")) {
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "There is some error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        if (check.equals("Hin")) {
+            NavHin();
+            toHin();
+        } else {
+            NavEng();
+            toEng();
+        }
+
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+
+            case R.id.government:
+                SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
+                editor1.putString("Activity", "Government");
+                editor1.apply();
+                Intent intent1 = new Intent(MainActivity.this, com.example.sih.Jobs.Government.class);
+                startActivity(intent1);
+                break;
+
+            case R.id.non_government:
+                SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
+                editor2.putString("Activity", "Private");
+                editor2.apply();
+                Intent intent2 = new Intent(MainActivity.this, com.example.sih.Jobs.Non_Government.class);
+                startActivity(intent2);
+                break;
+            case R.id.free_lancing:
+                SharedPreferences.Editor editor3 = getSharedPreferences(J,x).edit();
+                editor3.putString("Activity", "Freelancing");
+                editor3.apply();
+                Intent intent3 = new Intent(MainActivity.this, com.example.sih.Jobs.Free_Lancing.class);
+                startActivity(intent3);
+                break;
+            case R.id.tenders:
+                SharedPreferences.Editor editor4 = getSharedPreferences(J,x).edit();
+                editor4.putString("Activity", "Tender");
+                editor4.apply();
+                Intent intent4 = new Intent(MainActivity.this, com.example.sih.Jobs.Tenders.class);
+                startActivity(intent4);
+                break;
+            case R.id.premium:
+                Intent intent5 = new Intent(MainActivity.this, com.example.sih.Profile.Premium.class);
+                startActivity(intent5);
+                break;
+            case R.id.chat:
+                Intent intent6 = new Intent(MainActivity.this, com.example.sih.chatApp.User_List.class);
+                startActivity(intent6);
+                break;
+            case R.id.publish:
+                if (!isRegistered) {
+                    Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.CreateYourJob.class);
+                    startActivity(intent7);
+                }
+                else{
+                    Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.jobsPublished.class);
+                    startActivity(intent7);
+                }
+                break;
+            case R.id.topJobs:
+                Intent intent8 = new Intent(MainActivity.this, com.example.sih.Jobs.topJobsFragment.class);
+                startActivity(intent8);
+                break;
+
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
@@ -383,28 +586,6 @@ public class MainActivity extends AppCompatActivity {
                 intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
                 startActivity(intent4);
                 return true;
-
-            case R.id.create_your_job:
-                if (!isRegistered) {
-                    Intent jCreateIntent = new Intent(MainActivity.this, CreateYourJob.class);
-                    startActivity(jCreateIntent);
-                }
-                else{
-                    Intent viewIntent = new Intent(MainActivity.this, jobsPublished.class);
-                    startActivity(viewIntent);
-                }
-                return true;
-
-            case R.id.topJobs:
-                Intent topJobsIntent = new Intent(MainActivity.this, topJobsFragment.class);
-                startActivity(topJobsIntent);
-                return true;
-
-            case R.id.chat:
-                Intent chatIntent = new Intent(MainActivity.this, User_List.class);
-                startActivity(chatIntent);
-                return true;
-
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -415,6 +596,7 @@ public class MainActivity extends AppCompatActivity {
         NonText.setText(R.string.non_government_jobs1);
         TenderText.setText(R.string.tenders1);
         FreeText.setText(R.string.freelancing1);
+
         lang = "Hin";
         SharedPreferences.Editor editor1 = getSharedPreferences(M,j).edit();
         editor1.putString("Lang",lang);
@@ -442,18 +624,12 @@ public class MainActivity extends AppCompatActivity {
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.create_your_job, getResources().getString(R.string.publish_your_job1));
-        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
-        setOptionTitle(R.id.chat, "बातचीत");
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.create_your_job, "Publish Your Job");
-        setOptionTitle(R.id.topJobs, "Top Jobs");
-        setOptionTitle(R.id.chat, "Chat");
     }
     @Override
     protected void onResume() {
@@ -570,4 +746,28 @@ public class MainActivity extends AppCompatActivity {
         }
         return remaining;
     }
+
+    public void NavHin(){
+        Government.setTitle("                  सरकारी नौकरियों");
+        Non_Government.setTitle("                  गैर सरकारी नौकरी");
+        Tender.setTitle("                  निविदाएं");
+        FreeLancing.setTitle("                  फ़्रीलांसिंग");
+        GetPremium.setTitle("                  प्रीमियम प्राप्त करें");
+        Premium.setText("प्रीमियम");
+        Days.setText(days + " दिन शेष");
+    }
+    public void NavEng(){
+        Government.setTitle("                  Government Jobs");
+        Non_Government.setTitle("                  Non-Government Jobs");
+        Tender.setTitle("                  Tenders");
+        FreeLancing.setTitle("                  Freelancing");
+        GetPremium.setTitle("                  Get Premium");
+        Premium.setText("Premium");
+        if(days.equals("1")){
+            Days.setText(days + " day remaining");
+        } else {
+            Days.setText(days + "days remaining");
+        }
+    }
+
 }
