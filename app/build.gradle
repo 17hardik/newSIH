@@ -7,6 +7,7 @@ repositories {
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
+
     defaultConfig {
         applicationId "com.example.sih"
         minSdkVersion 21
@@ -15,13 +16,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-            minifyEnabled false
-            multiDexEnabled true
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -34,9 +37,15 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'project.properties'
     }
+
     configurations {
         implementation.exclude module:'protobuf-lite'
     }
+
+    aaptOptions {
+        noCompress "tflite"
+    }
+
 }
 
 dependencies {
@@ -59,6 +68,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-analytics:17.4.4'
+    implementation 'com.google.mlkit:smart-reply:16.1.0'
     implementation 'com.google.android.gms:play-services-ads:19.2.0'
     implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
     implementation('com.google.cloud:google-cloud-translate:1.12.0') {
