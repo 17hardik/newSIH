@@ -76,7 +76,7 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.MyViewHolder
                 @Override
                 public void onClick(final View view) {
 
-                    Intent intent = new Intent(context, Chat.class);
+                    Intent intent = new Intent(context, com.example.sih.chatApp.Chat.class);
                     String phone = details.get(position).getPhone();
                     String username = details.get(position).getUsername();
                     intent.putExtra("Phone", phone);

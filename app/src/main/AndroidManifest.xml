@@ -66,9 +66,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Registration.Register" />
         <activity android:name=".chatApp.User_List" />
-        <activity android:name=".Testing"/>
         <activity
-            android:name=".Chat"
+            android:name=".chatApp.Chat"
             android:parentActivityName=".chatApp.User_List" />
         <activity android:name=".PublishJob.CreateYourJob">
             <intent-filter>

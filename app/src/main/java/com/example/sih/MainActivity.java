@@ -281,12 +281,7 @@ public class MainActivity extends AppCompatActivity {
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
         bgapp.animate().translationY(-3000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
-        Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-        try {
-            reference.child(phone).child("UID").setValue(currentFirebaseUser.getUid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
