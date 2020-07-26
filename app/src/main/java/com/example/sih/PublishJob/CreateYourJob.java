@@ -47,13 +47,13 @@ public class CreateYourJob extends AppCompatActivity {
         isVerified = preference.getString("isVerified","");
         setContentView(R.layout.activity_create_your_job);
 
-        Cname = findViewById(R.id.editText);
-        title = findViewById(R.id.textView);
+        title = findViewById(R.id.title);
         warning = findViewById(R.id.warning);
-        CRemail = findViewById(R.id.editText3);
-        CRnum = findViewById(R.id.editText4);
-        Cloc = findViewById(R.id.editText5);
-        Cregister = findViewById(R.id.button);
+        Cname = findViewById(R.id.company_name);
+        CRemail = findViewById(R.id.work_email);
+        CRnum = findViewById(R.id.contact);
+        Cloc = findViewById(R.id.location);
+        Cregister = findViewById(R.id.verify);
         users1 = new Users1();
         if(check.equals("Hin")){
             toHin();

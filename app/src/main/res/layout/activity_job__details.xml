@@ -103,34 +103,56 @@
                 android:textSize="14sp"
                 android:padding="4dp" />
 
-            <Button
-                android:id="@+id/favButton"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="14sp"
-                android:text="Add to Dream Job"
-                android:visibility="gone"/>
-
-            <Button
-                android:id="@+id/roadmapButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="14sp"
-                android:text= "create roadmap"
-                android:visibility="gone"/>
-
-            <Button
-                android:id="@+id/apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="14sp"
-                android:text= "apply"/>
-
+                android:layout_height="50dp"
+                android:layout_marginBottom="8dp" />
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/favButton"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:text="Add to Dream Job"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintHorizontal_bias="0.05"/>
+
+    <Button
+        android:id="@+id/roadmapButton"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:text= "create roadmap"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintHorizontal_bias="0.05"/>
+
+    <Button
+        android:id="@+id/apply"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:text= "apply"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintHorizontal_bias="0.9"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
