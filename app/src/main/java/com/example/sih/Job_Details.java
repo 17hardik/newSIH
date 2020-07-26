@@ -82,7 +82,6 @@ public class Job_Details extends AppCompatActivity {
         pd = new ProgressDialog(Job_Details.this);
         pd.setMessage("Getting Job Details");
         pd.show();
-        Toast.makeText(this, check, Toast.LENGTH_SHORT).show();
         if(!check.equals("Eng")){
             FavButton.setText("ड्रीमजॉब में जोड़ें");
         }
