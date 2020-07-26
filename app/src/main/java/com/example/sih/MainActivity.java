@@ -1,9 +1,11 @@
 package com.example.sih;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -12,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     Menu menu1;
     Boolean English = true;
     int i, j, y, x;
+    ProgressDialog pd;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false;
     ViewFlipper viewFlipper;
@@ -90,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
         Free_Lancing = findViewById(R.id.free);
         viewFlipper = findViewById(R.id.viewFlipper);
 
+        pd = new ProgressDialog(MainActivity.this);
+        if(check.equals("Hin")){
+            pd.setMessage("लोड हो रहा है...");
+        } else {
+            pd.setMessage("Loading...");
+        }
+        pd.show();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
@@ -281,22 +292,29 @@ public class MainActivity extends AppCompatActivity {
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
         bgapp.animate().translationY(-3000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    //currently I am writing nothing here, you can write whatever you want but just inform me.
-                    return;
-                } else {
-                    //token will be saved in database
-                    String token = task.getResult().getToken();
-                    String user_token = getString(R.string.msg_token_fmt, token);
-                    Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-                    reference.child(phone).child("Message Token").setValue(user_token);
-                }
+            public void run() {
+                FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            //currently I am writing nothing here, you can write whatever you want but just inform me.
+                            return;
+                        } else {
+                            //token will be saved in database
+                            String token = task.getResult().getToken();
+                            String user_token = getString(R.string.msg_token_fmt, token);
+                            Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
+                            reference.child(phone).child("Message Token").setValue(user_token);
+                        }
+                    }
+                });
+                pd.dismiss();
             }
-        });
+        }, 3000);
+
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
         reff.addValueEventListener(new ValueEventListener() {

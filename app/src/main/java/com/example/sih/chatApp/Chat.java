@@ -65,7 +65,7 @@ public class Chat extends AppCompatActivity {
         name = phone;
         Firebase.setAndroidContext(this);
         conversation = new ArrayList<>();
-        reference1 = new Firebase("https://smart-e60d6.firebaseio.com/messages/" +name+ "_" +chatwith);
+        reference1 = new Firebase("https://smart-e60d6.firebaseio.com/messages/" + name + "_" + chatwith);
         reference2 = new Firebase("https://smart-e60d6.firebaseio.com/messages/" + chatwith + "_" + name);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
