@@ -7,6 +7,7 @@ repositories {
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
+
     defaultConfig {
         applicationId "com.example.sih"
         minSdkVersion 21
@@ -15,13 +16,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-            minifyEnabled false
-            multiDexEnabled true
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -34,12 +37,15 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'project.properties'
     }
+
     configurations {
         implementation.exclude module:'protobuf-lite'
     }
+
     aaptOptions {
         noCompress "tflite"
     }
+
 }
 
 dependencies {
