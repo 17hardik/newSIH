@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import com.example.sih.R;
-import com.example.sih.Testing;
+import com.example.sih.Profile.Premium;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -252,7 +252,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
         return stringBuilder;
     }
     public void sendNotification(String title, String message) {
-        Intent intent = new Intent(this, Testing.class);
+        Intent intent = new Intent(this, Premium.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String CHANNEL_ID = "Account";
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)

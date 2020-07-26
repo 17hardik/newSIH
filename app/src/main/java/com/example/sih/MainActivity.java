@@ -25,6 +25,7 @@ import com.example.sih.Jobs.Dream_jobs;
 import com.example.sih.Jobs.Government;
 import com.example.sih.Jobs.Non_Government;
 import com.example.sih.Jobs.topJobsFragment;
+import com.example.sih.Profile.Premium;
 import com.example.sih.Profile.Rating;
 import com.example.sih.PublishJob.CreateYourJob;
 import com.example.sih.PublishJob.jobsPublished;
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    Intent premiumIntent = new Intent(MainActivity.this, Testing.class);
+                    Intent premiumIntent = new Intent(MainActivity.this, Premium.class);
                     startActivity(premiumIntent);
 
             }
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent dreamIntent = new Intent(MainActivity.this, Dream_jobs.class);
                     startActivity(dreamIntent);
                 } else{
-                    Intent dreamIntent = new Intent(MainActivity.this, Testing.class);
+                    Intent dreamIntent = new Intent(MainActivity.this, Premium.class);
                     startActivity(dreamIntent);
                 }
             }
@@ -539,7 +540,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else{
-            if(Integer.parseInt(year)%4 != 0){
+            if(Integer.parseInt(year)%4 != 0 && Integer.parseInt(year)%400 != 0){
                 if(Integer.parseInt(current[0]) > Integer.parseInt(day)){
                     remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
                 } else if(Integer.parseInt(current[0]) < Integer.parseInt(day)){

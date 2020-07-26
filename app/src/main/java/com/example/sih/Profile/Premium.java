@@ -1,4 +1,4 @@
-package com.example.sih;
+package com.example.sih.Profile;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -19,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
+import com.example.sih.MainActivity;
+import com.example.sih.R;
 import com.firebase.client.Firebase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Testing extends AppCompatActivity {
+public class Premium extends AppCompatActivity {
 
     Button PremiumButton;
     final int UPI_PAYMENT = 0;
@@ -84,7 +87,7 @@ public class Testing extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isPremium.equals("Yes")){
-                    Intent intent = new Intent(Testing.this, MainActivity.class);
+                    Intent intent = new Intent(Premium.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -150,7 +153,7 @@ public class Testing extends AppCompatActivity {
     }
 
     private void upiPaymentDataOperation(ArrayList<String> data) {
-        if (isConnectionAvailable(Testing.this)) {
+        if (isConnectionAvailable(Premium.this)) {
             String str = data.get(0);
             Log.e("UPIPAY", "upiPaymentDataOperation: "+str);
             String paymentCancel = "";
@@ -182,19 +185,19 @@ public class Testing extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
                 editor.putString("isPremium", "Yes");
                 editor.apply();
-                Intent intent = new Intent(Testing.this, MainActivity.class);
+                Intent intent = new Intent(Premium.this, MainActivity.class);
                 startActivity(intent);
                 if(check.equals("Hin")){
                     sendNotification(getResources().getString(R.string.congrats), getResources().getString(R.string.premium_member));
-                    Toast.makeText(Testing.this, getResources().getString(R.string.congrats_premium), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Premium.this, getResources().getString(R.string.congrats_premium), Toast.LENGTH_LONG).show();
                 }else {
                     sendNotification("Congratulations!", "You are now a premium member");
-                    Toast.makeText(Testing.this, "Congratulations!, You are now a premium member", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Premium.this, "Congratulations!, You are now a premium member", Toast.LENGTH_LONG).show();
                 }
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
                 if(check.equals("Eng")) {
-                    Toast.makeText(Testing.this, "Payment canceled by user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Premium.this, "Payment canceled by user", Toast.LENGTH_SHORT).show();
                 } else{
                     Toast.makeText(this, "उपयोगकर्ता द्वारा भुगतान रद्द किया गया", Toast.LENGTH_SHORT).show();
                 }
@@ -202,14 +205,14 @@ public class Testing extends AppCompatActivity {
             }
             else {
                 if(check.equals("Eng")) {
-                    Toast.makeText(Testing.this, "Transaction failed, please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Premium.this, "Transaction failed, please try again", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "प्रयास विफल रहा, कृपया पुन: प्रयास करें", Toast.LENGTH_SHORT).show();
                 }
             }
         } else {
             if(check.equals("Eng")) {
-                Toast.makeText(Testing.this, "Internet connection is not available. Please check and try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Premium.this, "Internet connection is not available. Please check and try again", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "इंटरनेट कनेक्शन उपलब्ध नहीं है। कृपया जाँच करें और पुनः प्रयास करें", Toast.LENGTH_SHORT).show();
             }
@@ -230,7 +233,7 @@ public class Testing extends AppCompatActivity {
     }
 
     public void sendNotification(String title, String message) {
-        Intent intent = new Intent(this, Testing.class);
+        Intent intent = new Intent(this, Premium.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String CHANNEL_ID = "Account";
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)

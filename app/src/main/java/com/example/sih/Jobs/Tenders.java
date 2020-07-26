@@ -31,7 +31,6 @@ import com.example.sih.Profile.Profile;
 import com.example.sih.R;
 import com.example.sih.Profile.Rating;
 import com.example.sih.Registration.Login;
-import com.example.sih.Testing;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -764,7 +763,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent5);
                 break;
             case R.id.premium:
-                Intent intent2 = new Intent(Tenders.this, Testing.class);
+                Intent intent2 = new Intent(Tenders.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
                 break;
         }

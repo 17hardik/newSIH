@@ -34,7 +34,6 @@ import com.example.sih.Registration.Login;
 import com.example.sih.Jobs.Non_Government;
 import com.example.sih.R;
 import com.example.sih.Jobs.Tenders;
-import com.example.sih.Testing;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -321,7 +320,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent5);
                 break;
             case R.id.premium:
-                Intent intent2 = new Intent(User_List.this, Testing.class);
+                Intent intent2 = new Intent(User_List.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
                 break;
         }

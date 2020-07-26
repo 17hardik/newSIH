@@ -25,7 +25,7 @@
         <activity android:name=".Registration.Favorite_Sectors" />
         <activity android:name=".Jobs.Dream_jobs" />
         <activity android:name=".Jobs.Job_Details" />
-        <activity android:name=".Testing" />
+        <activity android:name=".Profile.Premium" />
         <activity android:name=".Jobs.progressTracker" />
         <activity android:name=".PublishJob.jobsPublished" />
         <activity android:name=".PublishJob.jobDetails" />
