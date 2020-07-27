@@ -427,14 +427,12 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
         setOptionTitle(R.id.rate_us, getResources().getString(R.string.rate1));
         setOptionTitle(R.id.logout, getResources().getString(R.string.logout1));
         setOptionTitle(R.id.contact_us, getResources().getString(R.string.contact_us1));
-        setOptionTitle(R.id.topJobs, getResources().getString(R.string.top_jobs1));
     }
     public void optionEng(){
         setOptionTitle(R.id.switch1, "Change Language");
         setOptionTitle(R.id.rate_us, "Rate Us");
         setOptionTitle(R.id.logout, "Logout");
         setOptionTitle(R.id.contact_us, "Contact Us");
-        setOptionTitle(R.id.topJobs, "Top Jobs");
     }
     private void setOptionTitle(int id, String title)
     {
