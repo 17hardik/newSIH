@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View view =getSupportActionBar().getCustomView();
 
         Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         currentDate = df.format(c);
 
@@ -268,7 +267,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             English = true;
             toEng();
         }
-
+        drawer = findViewById(R.id.draw_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = findViewById(R.id.nv);
+        navigationView.setNavigationItemSelectedListener(this);
+        t = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(t);
+        t.syncState();
+        menu2 = navigationView.getMenu();
+        Government = menu2.findItem(R.id.government);
+        Non_Government = menu2.findItem(R.id.non_government);
+        Tender = menu2.findItem(R.id.tenders);
+        FreeLancing = menu2.findItem(R.id.free_lancing);
+        GetPremium = menu2.findItem(R.id.premium);
+        chat = menu2.findItem(R.id.chat);
+        topJobs = menu2.findItem(R.id.topJobs);
+        publishJob = menu2.findItem(R.id.publish);
+        uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
+        uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
+        Profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
+        Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
+        Days = navigationView.getHeaderView(0).findViewById(R.id.days);
+        Crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
         Gov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -562,6 +582,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if(t.onOptionsItemSelected(menuItem))
+            return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
                 if(English){

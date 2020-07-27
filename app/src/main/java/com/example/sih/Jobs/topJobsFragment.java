@@ -81,10 +81,8 @@ public class topJobsFragment extends AppCompatActivity {
                         return view;
                     }
                 };
-
                 domainsList.setAdapter(arradapter);
                 size = (int) dataSnapshot.getChildrenCount();
-
                 for(j=1;j<=size;j++) {
                     String i = Integer.toString(j);
                     arrlist.add(dataSnapshot.child("Category"+i).child("Category").getValue().toString());
