@@ -67,7 +67,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.example.sih.model.*;
+import  com.example.sih.model.*;
+
+import static com.example.sih.model.EnglishConstants.HINDI_OPTION;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ImageView bgapp;
@@ -262,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        if(check.equals(EnglishConstants.HINDI_OPTION)){
+        if(check.equals(HINDI_OPTION)){
             English = false;
             toHin();
         } else{
