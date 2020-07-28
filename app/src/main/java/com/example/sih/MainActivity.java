@@ -67,6 +67,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.example.sih.model.*;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ImageView bgapp;
     Animation bganim;
@@ -93,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences1 = getSharedPreferences(M,j);
-        check = preferences1.getString("Lang","Eng");
+        check = preferences1.getString(EnglishConstants.LANGUAGE , EnglishConstants.LANG_ENG);
         SharedPreferences preferences = getSharedPreferences(S,i);
-        phone = preferences.getString("Phone","");
-        isPremium = preferences.getString("isPremium", "No");
-        days = preferences.getString("remainingDays", "0");
-        path = preferences.getString("path", "");
+        phone = preferences.getString(EnglishConstants.PHONE, EnglishConstants.EMPTY_STRING);
+        isPremium = preferences.getString(EnglishConstants.IS_PREMIUM_OPTION, EnglishConstants.NO);
+        days = preferences.getString(EnglishConstants.REMAINING_DAYS, EnglishConstants.STRING_ZERO);
+        path = preferences.getString(EnglishConstants.PATH, EnglishConstants.EMPTY_STRING);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
         Firebase.setAndroidContext(this);
@@ -116,10 +118,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewFlipper = findViewById(R.id.viewFlipper);
 
         pd = new ProgressDialog(MainActivity.this);
-        if(check.equals("Hin")){
-            pd.setMessage("लोड हो रहा है...");
+        if(check.equals(HINDI_OPTION)){
+            pd.setMessage(HindiConstants.LOADING);
         } else {
-            pd.setMessage("Loading...");
+            pd.setMessage(EnglishConstants.LOADING);
         }
         pd.show();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View view =getSupportActionBar().getCustomView();
 
         Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat(EnglishConstants.DATE_FORMAT, Locale.getDefault());
         currentDate = df.format(c);
 
         ImageView crown = view.findViewById(R.id.premium);
@@ -260,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        if(check.equals("Hin")){
+        if(check.equals(EnglishConstants.HINDI_OPTION)){
             English = false;
             toHin();
         } else{
