@@ -46,11 +46,11 @@
                     android:textColor="#2f0739"/>
                 <item
                     android:id="@+id/chat"
-                    android:title="                  Build your Connection"
+                    android:title="                  Build Your Connections"
                     android:textColor="#2f0739"/>
                 <item
                     android:id="@+id/publish"
-                    android:title="                  Publish your Job"
+                    android:title="                  Publish Your Job"
                     android:textColor="#2f0739"/>
                 <item
                     android:id="@+id/topJobs"

@@ -74,7 +74,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     ActionBarDrawerToggle t;
     Boolean isRegistered = false;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
     ProgressDialog pd;
     String username;
     String path;
@@ -122,6 +122,11 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         chat = menu2.findItem(R.id.chat);
         topJobs = menu2.findItem(R.id.topJobs);
         publishJob = menu2.findItem(R.id.publish);
+        Jobs = menu2.findItem(R.id.title1);
+        Features = menu2.findItem(R.id.title2);
+        Top_Jobs = menu2.findItem(R.id.topJobs);
+        Connection = menu2.findItem(R.id.chat);
+        Publish = menu2.findItem(R.id.publish);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         drawerProfile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
@@ -477,12 +482,32 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         Non_Gov.setTitle("                  गैर सरकारी नौकरी");
         Tender.setTitle("                  निविदाएं");
         Free_Lancing.setTitle("                  फ़्रीलांसिंग");
+        GetPremium.setTitle("                  प्रीमियम प्राप्त करें");
+        Publish.setTitle("                  अपनी नौकरी प्रकाशित करें");
+        Top_Jobs.setTitle("                  शीर्ष नौकरियां");
+        Connection.setTitle("                  अपने कनेक्शन बनाएँ");
+        Premium.setText("प्रीमियम");
+        Days.setText(days + " दिन शेष");
+        Jobs.setTitle("           नौकरी क्षेत्र");
+        Features.setTitle("           अधिक सुविधाएं");
     }
     public void NavEng(){
         Gov.setTitle("                  Government Jobs");
         Non_Gov.setTitle("                  Non-Government Jobs");
         Tender.setTitle("                  Tenders");
         Free_Lancing.setTitle("                  Freelancing");
+        GetPremium.setTitle("                  Get Premium");
+        Publish.setTitle("                  Publish Your Job");
+        Top_Jobs.setTitle("                  Top Jobs");
+        Connection.setTitle("                  Build Your Connections");
+        Premium.setText("Premium");
+        if(days.equals("1")){
+            Days.setText(days + " day remaining");
+        } else {
+            Days.setText(days + "days remaining");
+        }
+        Jobs.setTitle("           Job Sectors");
+        Features.setTitle("           More Features");
     }
     private void setOptionTitle(int id, String title)
     {

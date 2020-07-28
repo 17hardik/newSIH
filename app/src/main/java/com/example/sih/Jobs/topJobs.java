@@ -2,8 +2,10 @@ package com.example.sih.Jobs;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,24 +17,35 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sih.R;
 import com.firebase.client.Firebase;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class topJobs extends AppCompatActivity {
 
     Intent intent;
-    String CategoryNumber, Category, description, URL;
+    int j;
+    String CategoryNumber, Category, description, URL, check, M;
     TextView CategoryTV, descriptionTV;
     Button rankingButton;
     DatabaseReference reff;
+    Translate translate;
     ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences1 = getSharedPreferences(M, j);
+        check = preferences1.getString("Lang", "Eng");
         setContentView(R.layout.activity_top_jobs);
         intent = getIntent();
         CategoryNumber = intent.getStringExtra("CategoryNumber");
@@ -41,7 +54,12 @@ public class topJobs extends AppCompatActivity {
         rankingButton = findViewById(R.id.viewRank);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Top Jobs");
+        if(check.equals("Eng")) {
+            actionBar.setTitle("Top Jobs");
+        } else {
+            actionBar.setTitle("शीर्ष नौकरियां");
+            rankingButton.setText("रैंकिंग दिखाएँ");
+        }
         getCategory(CategoryNumber);
         getDescription(CategoryNumber);
         getURL(CategoryNumber);
@@ -54,6 +72,10 @@ public class topJobs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Category = dataSnapshot.child("Category"+CategoryNumber).child("Category").getValue().toString();
                 CategoryTV.setText(Category);
+                if(check.equals("Hin")){
+                    getTranslateService();
+                    translateToHin(CategoryTV.getText().toString(), CategoryTV);
+                }
             }
 
             @Override
@@ -75,6 +97,10 @@ public class topJobs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 description = dataSnapshot.child("Category"+CategoryNumber).child("Description").getValue().toString();
                 descriptionTV.setText(description);
+                if(check.equals("Hin")){
+                    getTranslateService();
+                    translateToHin(descriptionTV.getText().toString(), descriptionTV);
+                }
                 pd.dismiss();
             }
 
@@ -112,6 +138,23 @@ public class topJobs extends AppCompatActivity {
 
             }
         });
+    }
+    public void getTranslateService() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try (InputStream is = getResources().openRawResource(R.raw.translate)) {
+            final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
+            TranslateOptions translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
+            translate = translateOptions.getService();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void translateToHin (String originalText, TextView target) {
+        Translation translation = translate.translate(originalText, Translate.TranslateOption.targetLanguage("hin"), Translate.TranslateOption.model("base"));
+        target.setText(translation.getTranslatedText());
     }
 }
 

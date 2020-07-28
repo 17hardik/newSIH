@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
-    MenuItem Government, Non_Government, Tender, FreeLancing, GetPremium, chat, topJobs, publishJob;
+    MenuItem Government, Non_Government, Tender, FreeLancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
     int i, j, y, x;
     ProgressDialog pd;
     FirebaseUser currentFirebaseUser;
@@ -283,6 +283,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chat = menu2.findItem(R.id.chat);
         topJobs = menu2.findItem(R.id.topJobs);
         publishJob = menu2.findItem(R.id.publish);
+        Jobs = menu2.findItem(R.id.title1);
+        Features = menu2.findItem(R.id.title2);
+        Top_Jobs = menu2.findItem(R.id.topJobs);
+        Connection = menu2.findItem(R.id.chat);
+        Publish = menu2.findItem(R.id.publish);
+
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         Profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
@@ -394,29 +400,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
-
-        drawer = findViewById(R.id.draw_layout);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        navigationView = findViewById(R.id.nv);
-        navigationView.setNavigationItemSelectedListener(this);
-        t = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(t);
-        t.syncState();
-        menu2 = navigationView.getMenu();
-        Government = menu2.findItem(R.id.government);
-        Non_Government = menu2.findItem(R.id.non_government);
-        Tender = menu2.findItem(R.id.tenders);
-        FreeLancing = menu2.findItem(R.id.free_lancing);
-        GetPremium = menu2.findItem(R.id.premium);
-        chat = menu2.findItem(R.id.chat);
-        topJobs = menu2.findItem(R.id.topJobs);
-        publishJob = menu2.findItem(R.id.publish);
-        uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
-        uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
-        Profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
-        Premium = navigationView.getHeaderView(0).findViewById(R.id.premium);
-        Days = navigationView.getHeaderView(0).findViewById(R.id.days);
-        Crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
 
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -589,9 +572,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(English){
                     toHin();
                     optionHin();
+                    NavHin();
                     English = false;
                 }else{
                     toEng();
+                    NavEng();
                     optionEng();
                     English = true;
                 }
@@ -648,8 +633,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Tender.setTitle("                  निविदाएं");
         FreeLancing.setTitle("                  फ़्रीलांसिंग");
         GetPremium.setTitle("                  प्रीमियम प्राप्त करें");
+        Publish.setTitle("                  अपनी नौकरी प्रकाशित करें");
+        Top_Jobs.setTitle("                  शीर्ष नौकरियां");
+        Connection.setTitle("                  अपने कनेक्शन बनाएँ");
         Premium.setText("प्रीमियम");
         Days.setText(days + " दिन शेष");
+        Jobs.setTitle("           नौकरी क्षेत्र");
+        Features.setTitle("           अधिक सुविधाएं");
     }
     public void NavEng(){
         Government.setTitle("                  Government Jobs");
@@ -657,12 +647,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Tender.setTitle("                  Tenders");
         FreeLancing.setTitle("                  Freelancing");
         GetPremium.setTitle("                  Get Premium");
+        Publish.setTitle("                  Publish Your Job");
+        Top_Jobs.setTitle("                  Top Jobs");
+        Connection.setTitle("                  Build Your Connections");
         Premium.setText("Premium");
         if(days.equals("1")){
             Days.setText(days + " day remaining");
         } else {
-            Days.setText(days + "days remaining");
+            Days.setText(days + " days remaining");
         }
+        Jobs.setTitle("           Job Sectors");
+        Features.setTitle("           More Features");
     }
 
     private void setOptionTitle(int id, String title)
