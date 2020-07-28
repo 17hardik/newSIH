@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +21,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sih.Profile.Forgot_Password;
 import com.example.sih.MainActivity;
 import com.example.sih.R;
+import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.math.BigInteger;
 
@@ -61,31 +67,6 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.password);
         Eye = findViewById(R.id.eye);
         loginButton = findViewById(R.id.loginButton);
-        try {
-            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
-            reff.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    try {
-                        premium_date = snapshot.child("Premium Date").getValue().toString();
-                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("isPremium", "Yes");
-                        editor.apply();
-                    } catch (Exception e) {
-                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("isPremium", "No");
-                        editor.apply();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        } catch(Exception e) {
-
-        }
 
         if(check.equals("Hin"))
         {
@@ -212,12 +193,18 @@ public class Login extends AppCompatActivity {
                                         }
 
                                         else {
-                                            SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                                            editor.putString("Status", "Yes");
-                                            editor.putString("Phone", phone);
-                                            editor.apply();
-                                            startActivity(new Intent(Login.this, MainActivity.class));
-                                            finishAffinity();
+                                            final Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                                                    editor.putString("Status", "Yes");
+                                                    editor.putString("Phone", phone);
+                                                    editor.apply();
+                                                    startActivity(new Intent(Login.this, MainActivity.class));
+                                                    finishAffinity();
+                                                }
+                                            }, 3000);
                                         }
                                     }
 
