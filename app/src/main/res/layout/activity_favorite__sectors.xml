@@ -21,139 +21,150 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
-    <RadioButton
-        android:id="@+id/cbscience"
+    <RadioGroup
+        android:id="@+id/sectors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Science and Technology"
-        android:textSize="18sp"
-        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.06" />
+        app:layout_constraintVertical_bias="0.15">
+
+        <RadioButton
+            android:id="@+id/cbscience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Science and Technology"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/cbbusiness"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sectors" />
 
 
-    <RadioButton
-        android:id="@+id/cbbusiness"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Business, Management and Administration"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/cbfarming"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbscience"/>
+        <RadioButton
+            android:id="@+id/cbbusiness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Business, Management and Administration"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/cbfarming"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbscience"/>
 
-    <RadioButton
-        android:id="@+id/cbfarming"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Healthcare and Medical"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cbcommunity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbbusiness"/>
+        <RadioButton
+            android:id="@+id/cbfarming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Healthcare and Medical"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cbcommunity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbbusiness"/>
 
-    <RadioButton
-        android:id="@+id/cbcommunity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Community and Social Services"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cblabors"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbfarming"/>
+        <RadioButton
+            android:id="@+id/cbcommunity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Community and Social Services"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cblabors"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbfarming"/>
 
-    <RadioButton
-        android:id="@+id/cblabors"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Labors"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cbhealth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbcommunity"/>
+        <RadioButton
+            android:id="@+id/cblabors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Labors"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cbhealth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbcommunity"/>
 
-    <RadioButton
-        android:id="@+id/cbhealth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Farming, Fishing and Forestry"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cbcommunications"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cblabors"/>
+        <RadioButton
+            android:id="@+id/cbhealth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Farming, Fishing and Forestry"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cbcommunications"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cblabors"/>
 
-    <RadioButton
-        android:id="@+id/cbcommunications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Communication"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cbarts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbhealth"/>
+        <RadioButton
+            android:id="@+id/cbcommunications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Communication"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cbarts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbhealth"/>
 
-    <RadioButton
-        android:id="@+id/cbarts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Arts, Culture and Entertainment"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cbeducation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbcommunications"/>
+        <RadioButton
+            android:id="@+id/cbarts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arts, Culture and Entertainment"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cbeducation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbcommunications"/>
 
-    <RadioButton
-        android:id="@+id/cbeducation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Education"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cbinstallation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbarts"/>
+        <RadioButton
+            android:id="@+id/cbeducation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Education"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cbinstallation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbarts"/>
 
-    <RadioButton
-        android:id="@+id/cbinstallation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Installation, Repair and Maintenance"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/cbothers"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbeducation"/>
+        <RadioButton
+            android:id="@+id/cbinstallation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Installation, Repair and Maintenance"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/cbothers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbeducation"/>
 
-    <RadioButton
-        android:id="@+id/cbothers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Others"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@id/buttonsubmit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbinstallation"/>
+        <RadioButton
+            android:id="@+id/cbothers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Others"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/buttonsubmit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbinstallation"/>
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/buttonsubmit"
@@ -165,8 +176,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbothers"
-        app:layout_constraintHorizontal_bias="0.5"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.9"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

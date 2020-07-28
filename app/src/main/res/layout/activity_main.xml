@@ -54,22 +54,14 @@
                             android:autoStart="true"
                             android:flipInterval="5000">
 
-
-
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/ic_sih_premium_asset" />
-
+                                android:background="@drawable/ic_topjobs_banner3" />
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/ic_sih_banner_asset111_hindi" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/ic_sih_banner_asset111" />
+                                android:background="@drawable/ic_dreamjob_banner2" />
                         </ViewFlipper>
 
                     </androidx.cardview.widget.CardView>

@@ -56,7 +56,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                 } else {
                     if (cbScience.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Science");
+                        editor.putString("Domain", "Science and Technology");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -67,7 +67,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbBusiness.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Business");
+                        editor.putString("Domain", "Business, Management and Administration");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -78,7 +78,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbFarming.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Farming");
+                        editor.putString("Domain", "Farming, Fishing and Forestry");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -89,7 +89,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbCommunity.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Community");
+                        editor.putString("Domain", "Community and Social Services");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -100,7 +100,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbLabors.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Labors");
+                        editor.putString("Domain", "Labour");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -111,7 +111,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbHealth.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Health");
+                        editor.putString("Domain", "Healthcare and Medical");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -122,7 +122,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbCommunications.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Communications");
+                        editor.putString("Domain", "Communication");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -133,7 +133,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbArts.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Arts");
+                        editor.putString("Domain", "Arts, Culture and Entertainment");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
@@ -155,7 +155,7 @@ public class Favorite_Sectors extends AppCompatActivity {
                     }
                     if (cbInstallation.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("Domain", "Installation");
+                        editor.putString("Domain", "Installation, Repair and Maintenance");
                         editor.apply();
                         count++;
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
