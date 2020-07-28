@@ -76,7 +76,7 @@ public class Intro extends AppCompatActivity {
 
                 }
             });
-        } catch(Exception e){
+        } catch(Exception e) {
 
         }
         new Handler().postDelayed((new Runnable() {
@@ -92,7 +92,7 @@ public class Intro extends AppCompatActivity {
                     Intent intro = new Intent(Intro.this, Login.class);
                     startActivity(intro);
                 }
-                else{
+                else {
                     Intent intent = new Intent(Intro.this, MainActivity.class);
                     startActivity(intent);
                 }

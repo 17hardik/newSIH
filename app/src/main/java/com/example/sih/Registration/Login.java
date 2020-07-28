@@ -61,6 +61,31 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.password);
         Eye = findViewById(R.id.eye);
         loginButton = findViewById(R.id.loginButton);
+        try {
+            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        premium_date = snapshot.child("Premium Date").getValue().toString();
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "Yes");
+                        editor.apply();
+                    } catch (Exception e) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "No");
+                        editor.apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch(Exception e) {
+
+        }
 
         if(check.equals("Hin"))
         {
