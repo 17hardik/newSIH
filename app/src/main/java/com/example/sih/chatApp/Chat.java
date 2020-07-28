@@ -68,6 +68,13 @@ public class Chat extends AppCompatActivity {
         reference1 = new Firebase("https://smart-e60d6.firebaseio.com/messages/" + name + "_" + chatwith);
         reference2 = new Firebase("https://smart-e60d6.firebaseio.com/messages/" + chatwith + "_" + name);
 
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +88,12 @@ public class Chat extends AppCompatActivity {
                     map.put("user", name);
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
                 }
             }
         });
@@ -130,6 +143,12 @@ public class Chat extends AppCompatActivity {
                 else{
                     addMessageBox(username + "\n" + message, 2);
                 }
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                    }
+                });
             }
 
             @Override
