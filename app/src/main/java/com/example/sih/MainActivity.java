@@ -655,6 +655,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Days.setText(days + " day remaining");
         } else {
             Days.setText(days + " days remaining");
+
         }
         Jobs.setTitle("           Job Sectors");
         Features.setTitle("           More Features");
