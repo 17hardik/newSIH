@@ -30,7 +30,8 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
     ArrayList<data_in_cardview> details;
     ArrayList<data_in_cardview> fullDetails;
     Translate translate;
-    String check;
+    String check, C;
+    int d;
 
     public gov_adapter(Context c, ArrayList<data_in_cardview> d){
         context = c;
@@ -69,6 +70,11 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
                     String domainType = details.get(position).getDomain_type();
                     intent.putExtra("domainType", domainType);
                     view.getContext().startActivity(intent);
+                    String TAG = details.get(position).getTAG();
+                    SharedPreferences.Editor editor = context.getSharedPreferences(C,d).edit();
+                    editor.putString("TAG", TAG);
+                    editor.apply();
+
 
                 }
             });
@@ -94,7 +100,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
         TextView Job_Post, Company_Name, Location, Job_Type;
         ImageView company_logo;
-        String M, J;
+        String M;
         int j;
         SharedPreferences preferences = context.getSharedPreferences(M,j);
 
