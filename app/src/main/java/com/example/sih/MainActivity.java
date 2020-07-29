@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Menu menu1, menu2;
     MenuItem Government, Non_Government, Tender, FreeLancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
     int i, j, y, x;
-    ProgressDialog pd;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false, English = true;
     ViewFlipper viewFlipper;
@@ -119,13 +118,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Free_Lancing = findViewById(R.id.free);
         viewFlipper = findViewById(R.id.viewFlipper);
 
-        pd = new ProgressDialog(MainActivity.this);
-        if(check.equals(HINDI_OPTION)){
-            pd.setMessage(HindiConstants.LOADING);
-        } else {
-            pd.setMessage(EnglishConstants.LOADING);
-        }
-        pd.show();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);

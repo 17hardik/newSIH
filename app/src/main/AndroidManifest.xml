@@ -20,13 +20,7 @@
         <activity
             android:name=".Jobs.topJobsFragment"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Registration.Favorite_Sectors">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Registration.Favorite_Sectors"/>
         <activity android:name=".Jobs.Dream_jobs" />
         <activity android:name=".Jobs.Job_Details" />
         <activity android:name=".Profile.Premium" />
@@ -87,7 +81,11 @@
         </activity>
         <activity android:name=".Registration.Forgot_Second" />
         <activity android:name=".Registration.Intro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
