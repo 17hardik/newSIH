@@ -138,6 +138,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+        try {
+            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        premium_date = snapshot.child("Premium Date").getValue().toString();
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "Yes");
+                        editor.apply();
+                    } catch (Exception e) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "No");
+                        editor.apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch(Exception e){
+
+        }
 
         ImageView dream= view.findViewById(R.id.dream_jobs);
         dream.setOnClickListener(new View.OnClickListener() {
