@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone = preferences.getString("Phone", "");
         isPremium = preferences.getString("isPremium", "No");
-        days = preferences.getString(remainingDays, "0");
+        days = preferences.getString("remainingDays", "0");
         path = preferences.getString("path", "");
         SharedPreferences preferences2 = getSharedPreferences(A,b);
         isFirst = preferences2.getString("isFirst","notFirst");
