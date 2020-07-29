@@ -769,6 +769,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         SharedPreferences preferences2 = getSharedPreferences(A,b);
         isFirst = preferences2.getString("isFirst","notFirst");
+        SharedPreferences preferences = getSharedPreferences(S,i);
+        isPremium = preferences.getString("isPremium", "No");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         if(check.equals("Hin")){
