@@ -68,7 +68,7 @@ public class Update_Certificates extends AppCompatActivity {
         ButtonGr.setBackgroundResource(R.drawable.button);
         Button10.setBackgroundResource(R.drawable.button);
         Button12.setBackgroundResource(R.drawable.button);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             toHin();
         }
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
@@ -80,7 +80,7 @@ public class Update_Certificates extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Hin")) {
+                if(!check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(Update_Certificates.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else{
                     Toast.makeText(Update_Certificates.this, "There is some error", Toast.LENGTH_SHORT).show();
@@ -131,7 +131,7 @@ public class Update_Certificates extends AppCompatActivity {
             if (data.getData() != null) {
                 uploadFile(data.getData());
             }else{
-                if(check.equals("Hin")){
+                if(!check.equals(R.string.english)){
                     Toast.makeText(this, R.string.textViewStatus1, Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
@@ -149,14 +149,14 @@ public class Update_Certificates extends AppCompatActivity {
                         @SuppressWarnings("VisibleForTests")
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 textViewStatus.setText(R.string.textViewStatus2);
                             }else {
                                 textViewStatus.setText("File Uploaded Successfully");
                             }
                             counter++;
                             Button12.setEnabled(false);
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 Button12.setText(R.string.uploaded1);
                             }else {
                                 Button12.setText("Uploaded");
@@ -174,7 +174,7 @@ public class Update_Certificates extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 textViewStatus.setText((int) progress + "% अपलोडिंग...");
                             }else {
                                 textViewStatus.setText((int) progress + "% Uploading...");
@@ -190,14 +190,14 @@ public class Update_Certificates extends AppCompatActivity {
                         @SuppressWarnings("VisibleForTests")
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 textViewStatus.setText(R.string.textViewStatus2);
                             }else {
                                 textViewStatus.setText("File Uploaded Successfully");
                             }
                             counter++;
                             ButtonGr.setEnabled(false);
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 ButtonGr.setText(R.string.uploaded1);
                             }else {
                                 ButtonGr.setText("Uploaded");
@@ -215,7 +215,7 @@ public class Update_Certificates extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 textViewStatus.setText((int) progress + "% अपलोडिंग...");
                             }else {
                                 textViewStatus.setText((int) progress + "% Uploading...");
@@ -230,14 +230,14 @@ public class Update_Certificates extends AppCompatActivity {
                         @SuppressWarnings("VisibleForTests")
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 textViewStatus.setText(R.string.textViewStatus2);
                             }else {
                                 textViewStatus.setText("File Uploaded Successfully");
                             }
                             counter++;
                             Button10.setEnabled(false);
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 Button10.setText(R.string.uploaded1);
                             }else {
                                 Button10.setText("Uploaded");
@@ -255,7 +255,7 @@ public class Update_Certificates extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            if(check.equals("Hin")){
+                            if(!check.equals(getResources().getString(R.string.english))){
                                 textViewStatus.setText((int) progress + "% अपलोडिंग...");
                             }else {
                                 textViewStatus.setText((int) progress + "% Uploading...");

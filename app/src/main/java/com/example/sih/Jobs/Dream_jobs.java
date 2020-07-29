@@ -45,9 +45,8 @@ public class Dream_jobs extends AppCompatActivity {
         details = new ArrayList<>();
 
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone).child("Dream Jobs");
-
         pd = new ProgressDialog(Dream_jobs.this);
-        if(check.equals("Eng")) {
+        if(check.equals(getResources().getString(R.string.english))) {
             pd.setMessage("Getting your Dream Jobs");
         } else {
             pd.setMessage("नौकरियां एकत्रित की जा रही हैं");
@@ -84,21 +83,22 @@ public class Dream_jobs extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            if(check.equals("Eng")) {
-                                Toast.makeText(Dream_jobs.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            if(check.equals(getResources().getString(R.string.english))) {
+                                Toast.makeText(Dream_jobs.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(Dream_jobs.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                            }                        }
+                                Toast.makeText(Dream_jobs.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     });
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Dream_jobs.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Dream_jobs.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Dream_jobs.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Dream_jobs.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -111,7 +111,7 @@ public class Dream_jobs extends AppCompatActivity {
             }
         }, 3000);
         ActionBar actionBar = getSupportActionBar();
-        if(check.equals("Eng")) {
+        if(check.equals(getResources().getString(R.string.english))) {
             actionBar.setTitle("Dream Jobs");
         } else {
             actionBar.setTitle("ड्रीम जॉब्स");

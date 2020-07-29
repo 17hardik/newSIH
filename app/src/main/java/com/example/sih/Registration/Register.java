@@ -93,7 +93,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             toHin();
         }
 
@@ -134,7 +134,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                if(check.equals("Hin")){
+                if(check.equals(getResources().getString(R.string.english))){
                     TPhone.setError(getResources().getString(R.string.error1));
                 } else {
                     TPhone.setError("Error: "+e.getMessage());
@@ -145,7 +145,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
                 pd.dismiss();
-                if(check.equals("Hin"))
+                if(!check.equals(getResources().getString(R.string.english)))
                 {
                     Toast.makeText(Register.this, getResources().getString(R.string.otp_sent1), Toast.LENGTH_SHORT).show();
                 }else {
@@ -175,7 +175,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 user_name = TName.getText().toString().trim();
                 confirm = TConfirm.getText().toString().trim();
                 date = TDate.getText().toString();
-                if(check.equals("Hin")){
+                if(!check.equals(getResources().getString(R.string.english))){
                     pd.setMessage(getResources().getString(R.string.registering1));
                 }else {
                     pd.setMessage("Registering...");
@@ -188,105 +188,95 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             JSONObject obj = new JSONObject(s);
                             if (obj.has(user_phone)) {
                                 pd.dismiss();
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     Toast.makeText(Register.this, getResources().getString(R.string.user_exists1), Toast.LENGTH_SHORT).show();
                                 }else {
                                     Toast.makeText(Register.this, "User already exists", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else if (user_name.equals("")) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     TName.setError(getResources().getString(R.string.must_be_filled1));
-                                    TName.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     TName.setError("Must be filled");
-                                    TName.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                TName.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             }
                             else if (user.equals("")) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     username.setError(getResources().getString(R.string.must_be_filled1));
-                                    username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     username.setError("Must be filled");
-                                    username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             } else if (pass.equals("")) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     password.setError(getResources().getString(R.string.must_be_filled1));
-                                    password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     password.setError("Must be filled");
-                                    password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             } else if (user.contains(" ")) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     username.setError(getResources().getString(R.string.space1));
-                                    username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 } else {
                                     username.setError("Space is not allowed");
-                                    username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             } else if (user.length() < 5) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     username.setError(getResources().getString(R.string.too_short1));
-                                    username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     username.setError("At least 5 characters must be there");
-                                    username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             } else if (user_phone.equals("")) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     TPhone.setError(getResources().getString(R.string.must_be_filled1));
-                                    TPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     TPhone.setError("Must be filled");
-                                    TPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                TPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             } else if (user_phone.length() != 10) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     TPhone.setError(getResources().getString(R.string.valid1));
-                                    TPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     TPhone.setError("Please enter a valid number");
-                                    TPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                TPhone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             }else if (pass.length() < 5) {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     password.setError(getResources().getString(R.string.too_short1));
-                                    password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     password.setError("At least 5 characters must be there");
-                                    password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 pd.dismiss();
                             } else if (date.length() != 10 || (!date.contains("/"))) {
                                 pd.dismiss();
-                                if(check.equals("Hin")){
+                                if(check.equals(getResources().getString(R.string.english))){
                                     TDate.setError(getResources().getString(R.string.incorrect_dob1));
-                                    TDate.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     TDate.setError("Incorrect DOB Format");
-                                    TDate.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                TDate.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                             } else if (!(pass.equals(confirm))) {
                                 pd.dismiss();
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     TConfirm.setError(getResources().getString(R.string.passwords_matching1));
-                                    TConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }else {
                                     TConfirm.setError("Passwords are not matching");
-                                    TConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                                 }
+                                TConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                             } else {
-                                if(check.equals("Hin")){
+                                if(!check.equals(getResources().getString(R.string.english))){
                                     pd.setMessage(getResources().getString(R.string.sending_otp1));
                                 }else {
                                     pd.setMessage("Sending OTP...");
@@ -307,7 +297,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("" + volleyError);
                         pd.dismiss();
                     }
                 });

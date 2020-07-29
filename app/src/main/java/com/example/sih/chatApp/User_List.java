@@ -290,7 +290,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
             }
         });
 
-        if (check.equals("Hin")) {
+        if (!check.equals(getResources().getString(R.string.english))) {
             NavHin();
             toHin();
         } else {
@@ -353,7 +353,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             optionHin();
         }
         else{
@@ -367,7 +367,7 @@ public class User_List extends AppCompatActivity implements NavigationView.OnNav
             return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
-                if(check.equals("Eng")) {
+                if(check.equals(getResources().getString(R.string.english))) {
                     pd.setMessage("डेटा लाया जा रहा है");
                     SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
                     editor1.putString("Lang", "Hin");

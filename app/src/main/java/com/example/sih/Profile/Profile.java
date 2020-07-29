@@ -134,7 +134,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         Days = navigationView.getHeaderView(0).findViewById(R.id.days);
         crown = navigationView.getHeaderView(0).findViewById(R.id.crownimage);
 
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             NavHin();
             toHin();
         } else{
@@ -147,7 +147,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             premiumProfile.setVisibility(View.VISIBLE);
         }
         pd = new ProgressDialog(Profile.this);
-        if(check.equals("Hin") || !English){
+        if(!check.equals(getResources().getString(R.string.english)) || !English){
             pd.setMessage("छवि अपडेट हो रही है...");
         } else {
             pd.setMessage("Updating Image...");
@@ -166,19 +166,19 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     ETUsername.setText(username);
                     ETName.setText(name);
                     if (isPremium.equals("Yes")) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             Premium.setText("प्रीमियम");
                         }
                         Premium.setVisibility(View.VISIBLE);
                         crown.setVisibility(View.VISIBLE);
                         if (days.equals("1")) {
-                            if (check.equals("Hin")) {
+                            if (!check.equals(getResources().getString(R.string.english))) {
                                 Days.setText(days + " दिन शेष");
                             } else {
                                 Days.setText(days + " day remaining");
                             }
                         } else {
-                            if (check.equals("Hin")) {
+                            if (!check.equals(getResources().getString(R.string.english))) {
                                 Days.setText(days + " दिन शेष");
                             } else {
                                 Days.setText(days + " days remaining");
@@ -228,10 +228,10 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Hin") || !English) {
+                if(!check.equals(getResources().getString(R.string.english)) || !English) {
                     Toast.makeText(Profile.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else{
-                    Toast.makeText(Profile.this, "There is some error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Profile.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -284,7 +284,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             public void onClick(View v) {
                 String encryptedUsername = encryptUsername(ETUsername.getText().toString().trim()).toString();
                     firebase.child(phone).child("Username").setValue(encryptedUsername);
-                    if(check.equals("Hin") || !English){
+                    if(!check.equals(getResources().getString(R.string.english)) || !English){
                         Toast.makeText(Profile.this, getResources().getString(R.string.username_updated1), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(Profile.this, "Username Updated Successfully", Toast.LENGTH_SHORT).show();
@@ -295,7 +295,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
             @Override
             public void onClick(View v) {
                     firebase.child(phone).child("Name").setValue(ETName.getText().toString().trim());
-                    if(check.equals("Hin") || !English){
+                    if(!check.equals(getResources().getString(R.string.english)) || !English){
                         Toast.makeText(Profile.this, getResources().getString(R.string.name_updated1), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(Profile.this, "Name Updated Successfully", Toast.LENGTH_SHORT).show();
@@ -387,7 +387,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             optionHin();
         }else {
             optionEng();
@@ -533,7 +533,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         super.onResume();
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             English = false;
             NavHin();
             toHin();
@@ -564,7 +564,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        if(check.equals("Hin") || !English){
+        if(!check.equals(getResources().getString(R.string.english)) || !English){
             startActivityForResult(Intent.createChooser(intent, "छवि का चयन करें"), PICK_IMAGE_REQUEST);
         } else {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
@@ -591,7 +591,11 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 
                 }
             } catch (Exception e) {
-                Toast.makeText(this, "This format is not supported", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(this, "This format is not supported", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "यह प्रारूप समर्थित नहीं है", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -602,7 +606,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                    pd.dismiss();
-                   if(check.equals("Hin")) {
+                   if(!check.equals(getResources().getString(R.string.english))) {
                        Toast.makeText(Profile.this, "अद्यतन सफलतापूर्ण हो गया", Toast.LENGTH_SHORT).show();
                    } else{
                        Toast.makeText(Profile.this, "Updated Successfully", Toast.LENGTH_SHORT).show();

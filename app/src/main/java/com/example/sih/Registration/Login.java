@@ -14,24 +14,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.sih.Profile.Forgot_Password;
 import com.example.sih.MainActivity;
 import com.example.sih.R;
-import com.firebase.client.Firebase;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-
 import java.math.BigInteger;
 
 public class Login extends AppCompatActivity {
@@ -40,7 +32,7 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     DatabaseReference reff;
     ImageView Eye;
-    String phone, pass, S, Cipher, M, A, check, new_phone, realPhone = "Null",premium_date, isFirst;
+    String phone, pass, S, Cipher, M, A, check, new_phone, realPhone = "Null", premium_date, isFirst;
     int i, j, count = 1, b;
 
     @Override
@@ -68,7 +60,7 @@ public class Login extends AppCompatActivity {
         Eye = findViewById(R.id.eye);
         loginButton = findViewById(R.id.loginButton);
 
-        if(check.equals("Hin"))
+        if(!check.equals(getResources().getString(R.string.english)))
         {
             toHin();
         }
@@ -194,10 +186,10 @@ public class Login extends AppCompatActivity {
                                             }, 3000);
                                     }
 
-                                    else{
+                                    else {
                                         if(check.equals("Hin")){
                                             Toast.makeText(Login.this, R.string.incorrect_password1, Toast.LENGTH_LONG).show();
-                                        }else {
+                                        } else {
                                             Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_LONG).show();
                                         }
                                     }

@@ -51,7 +51,7 @@ public class jobsPublished extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<jobPost>();
 
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             createJob.setText("अपनी नोकरी बनाओ");
         }
 
@@ -61,13 +61,13 @@ public class jobsPublished extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try{
                     dataSnapshot.child(phone).getValue().toString();
-                    if(check.equals("Eng")) {
+                    if(check.equals(getResources().getString(R.string.english))) {
                         status.setText("You have created the following jobs:");
                     } else {
                         status.setText("आपने निम्नलिखित नौकारिया बनाई है:");
                     }
                 } catch (Exception e){
-                    if(check.equals("Eng")) {
+                    if(check.equals(getResources().getString(R.string.english))) {
                         status.setText("You have not created any job yet");
                     } else {
                         status.setText("आपने अभी तक कोई नौकरी नहीं बनाई है");
@@ -76,10 +76,10 @@ public class jobsPublished extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
+                if(check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(jobsPublished.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(jobsPublished.this, "कुछ त्रुटि है", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(jobsPublished.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,11 +104,12 @@ public class jobsPublished extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(jobsPublished.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(jobsPublished.this, getResources().getString(R.string.error), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(jobsPublished.this, "कुछ त्रुटि है", Toast.LENGTH_SHORT).show();
-                }            }
+                    Toast.makeText(jobsPublished.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         reff = FirebaseDatabase.getInstance().getReference().child("Job Post").child(phone);
@@ -126,11 +127,12 @@ public class jobsPublished extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(jobsPublished.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(jobsPublished.this, getResources().getString(R.string.error), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(jobsPublished.this, "कुछ त्रुटि है", Toast.LENGTH_SHORT).show();
-                }            }
+                    Toast.makeText(jobsPublished.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         createJob.setOnClickListener(new View.OnClickListener() {

@@ -53,12 +53,12 @@ public class Premium extends AppCompatActivity {
         Benefits = findViewById(R.id.benefits);
         PremiumButton = findViewById(R.id.premiumButton);
 
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             Description.setText(R.string.benefits1);
         }
 
         if(isPremium.equals("Yes")){
-            if(check.equals("Eng")){
+            if(check.equals(getResources().getString(R.string.english))){
                 Title.setText("Congratulations!");
                 Title2.setText("You are already a premium member");
                 PremiumButton.setText("Go to dashboard");
@@ -70,7 +70,7 @@ public class Premium extends AppCompatActivity {
                 Benefits.setText(R.string.benefits_of_premium1);
             }
         } else {
-            if(check.equals("Hin")){
+            if(!check.equals(getResources().getString(R.string.english))){
                 Title.setText("Rojgar Premium प्राप्त करें");
                 Title2.setText("₹96 / महीने पर");
                 PremiumButton.setText("Premium प्राप्त करें");
@@ -113,10 +113,10 @@ public class Premium extends AppCompatActivity {
         if(null != chooser.resolveActivity(getPackageManager())) {
             startActivityForResult(chooser, UPI_PAYMENT);
         } else {
-            if(check.equals("Eng")) {
-                Toast.makeText(this, "No UPI app found, please download an UPI app to continue", Toast.LENGTH_LONG).show();
+            if(check.equals(getResources().getString(R.string.english))) {
+                Toast.makeText(this, "Please download an UPI app to continue", Toast.LENGTH_LONG).show();
             } else{
-                Toast.makeText(this, "कोई UPI ऐप नहीं मिला, जारी रखने के लिए कृपया UPI ऐप डाउनलोड करें", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "जारी रखने के लिए एक UPI एप्लिकेशन डाउनलोड करें", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -170,7 +170,7 @@ public class Premium extends AppCompatActivity {
                     }
                 }
                 else {
-                    if(check.equals("Eng")) {
+                    if(check.equals(getResources().getString(R.string.english))) {
                         paymentCancel = "Payment cancelled by user.";
                     } else {
                         paymentCancel = "उपयोगकर्ता द्वारा भुगतान रद्द किया गया।";
@@ -187,7 +187,7 @@ public class Premium extends AppCompatActivity {
                 editor.apply();
                 Intent intent = new Intent(Premium.this, MainActivity.class);
                 startActivity(intent);
-                if(check.equals("Hin")){
+                if(!check.equals(getResources().getString(R.string.english))){
                     sendNotification(getResources().getString(R.string.congrats), getResources().getString(R.string.premium_member));
                     Toast.makeText(Premium.this, getResources().getString(R.string.congrats_premium), Toast.LENGTH_LONG).show();
                 }else {
@@ -204,17 +204,17 @@ public class Premium extends AppCompatActivity {
 
             }
             else {
-                if(check.equals("Eng")) {
+                if(check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(Premium.this, "Transaction failed, please try again", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "प्रयास विफल रहा, कृपया पुन: प्रयास करें", Toast.LENGTH_SHORT).show();
                 }
             }
         } else {
-            if(check.equals("Eng")) {
-                Toast.makeText(Premium.this, "Internet connection is not available. Please check and try again", Toast.LENGTH_SHORT).show();
+            if(check.equals(getResources().getString(R.string.english))) {
+                Toast.makeText(Premium.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "इंटरनेट कनेक्शन उपलब्ध नहीं है। कृपया जाँच करें और पुनः प्रयास करें", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
             }
         }
     }

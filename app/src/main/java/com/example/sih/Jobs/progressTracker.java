@@ -38,34 +38,23 @@ import java.util.List;
 public class progressTracker extends AppCompatActivity {
 
     TextView keySkills;
-
     Button reset;
-
-    String S, jobCategory, jobReference, skills, phone, J, status;
-
-    int i,x;
-
-    DatabaseReference reff1, reff2;
-
+    String S, jobCategory, jobReference, skills, phone, J, check, M;
+    int i, x, j;
+    DatabaseReference reff1;
     List<dataListView> initItemList;
     ArrayList<String> data = new ArrayList<>();
     ArrayList<dataListView> list = new ArrayList<>();
-
-    List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
-
     private ClipDrawable mImageDrawable;
-
     private int n = 5;
-
     private int mlevel = 0;
     private int fromLevel = 0;
     private int toLevel = 0;
-
     public static final int MAX_LEVEL = 10000;
     public static final int LEVEL_DIFF = 100;
     public static final int DELAY = 30;
-
     private Handler mUpHandler = new Handler();
+
     private Runnable animateUpImage = new Runnable() {
         @Override
         public void run() {
@@ -87,12 +76,13 @@ public class progressTracker extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone= preferences.getString("Phone","");
-
+        SharedPreferences preferences1 = getSharedPreferences(M, j);
+        check = preferences1.getString("Lang", "Eng");
 //        SharedPreferences preferences2 = getSharedPreferences(J,x);
 //        status = preferences2.getString("progress","");
 
-        SharedPreferences preferences1 = getSharedPreferences(J,x);
-        jobCategory = preferences1.getString("jobCategory", "");
+        SharedPreferences preferences2 = getSharedPreferences(J,x);
+        jobCategory = preferences2.getString("jobCategory", "");
         jobReference = preferences1.getString("jobReference", "");
 
         setContentView(R.layout.activity_progress_tracker);
@@ -137,8 +127,11 @@ public class progressTracker extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(progressTracker.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(progressTracker.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(progressTracker.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -318,13 +311,14 @@ public class progressTracker extends AppCompatActivity {
                     final AlertDialog alertDialog1 = new AlertDialog.Builder(
 
                             progressTracker.this).create();
-
-                    alertDialog1.setTitle("CONGRATULATIONS!!!");
-
-                    alertDialog1.setMessage("That's GOOD, you've taken your first step into a LARGER world");
-
+                if(check.equals(getResources().getString(R.string.english))) {
+                    alertDialog1.setTitle("CONGRATULATIONS !");
+                    alertDialog1.setMessage("That's Good, you've taken your first step into a larger world");
+                } else {
+                    alertDialog1.setTitle(getResources().getString(R.string.congrats));
+                    alertDialog1.setMessage("यह अच्छा है, आपने एक बड़ी दुनिया में अपना पहला कदम रखा है");
+                }
                     alertDialog1.setIcon(R.drawable.ic_completed_24);
-
 
                     alertDialog1.setButton(Dialog.BUTTON_POSITIVE,"Proceed",new DialogInterface.OnClickListener(){
 
@@ -351,7 +345,11 @@ public class progressTracker extends AppCompatActivity {
 
                         }
 
-                        alertDialog1.setMessage("That's GOOD, you've taken your first step into a LARGER world");
+                        if(check.equals(getResources().getString(R.string.english))) {
+                            alertDialog1.setMessage("That's Good, you've taken your first step into a larger world");
+                        } else {
+                            alertDialog1.setMessage("यह अच्छा है, आपने एक बड़ी दुनिया में अपना पहला कदम रखा है");
+                        }
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "1");
                         editor.apply();
@@ -375,7 +373,11 @@ public class progressTracker extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "2");
                         editor.apply();
-                        alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 2");
+                        if(check.equals(getResources().getString(R.string.english))){
+                            alertDialog1.setMessage("You have successfully completed STEP 2");
+                        } else {
+                            alertDialog1.setMessage("आपने चरण 2 को सफलतापूर्वक पूरा कर लिया है");
+                        }
 
                     }
 
@@ -396,8 +398,11 @@ public class progressTracker extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "3");
                         editor.apply();
-                        alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 3");
-
+                        if(check.equals(getResources().getString(R.string.english))){
+                            alertDialog1.setMessage("You have successfully completed STEP 3");
+                        } else {
+                            alertDialog1.setMessage("आपने चरण 3 को सफलतापूर्वक पूरा कर लिया है");
+                        }
                     }
 
                     else if (text.contains("4")){
@@ -417,8 +422,11 @@ public class progressTracker extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "4");
                         editor.apply();
-                        alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 4");
-
+                        if(check.equals(getResources().getString(R.string.english))){
+                            alertDialog1.setMessage("You have successfully completed STEP 4");
+                        } else {
+                            alertDialog1.setMessage("आपने चरण 4 को सफलतापूर्वक पूरा कर लिया है");
+                        }
                     }
 
                     else if (text.contains("5")){
@@ -438,8 +446,11 @@ public class progressTracker extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "5");
                         editor.apply();
-                        alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 5");
-
+                        if(check.equals(getResources().getString(R.string.english))){
+                            alertDialog1.setMessage("You have successfully completed STEP 5");
+                        } else {
+                            alertDialog1.setMessage("आपने चरण 5 को सफलतापूर्वक पूरा कर लिया है");
+                        }
                     }
 
                     else if (text.contains("6")){
@@ -459,8 +470,11 @@ public class progressTracker extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "6");
                         editor.apply();
-                        alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 6");
-
+                        if(check.equals(getResources().getString(R.string.english))){
+                            alertDialog1.setMessage("You have successfully completed STEP 6");
+                        } else {
+                            alertDialog1.setMessage("आपने चरण 6 को सफलतापूर्वक पूरा कर लिया है");
+                        }
                     }
 
                     else if (text.contains("7")){
@@ -480,8 +494,11 @@ public class progressTracker extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "7");
                         editor.apply();
-                        alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 7");
-
+                        if(check.equals(getResources().getString(R.string.english))){
+                            alertDialog1.setMessage("You have successfully completed STEP 7");
+                        } else {
+                            alertDialog1.setMessage("आपने चरण 7 को सफलतापूर्वक पूरा कर लिया है");
+                        }
                     }
 
                     else if (text.contains("8")){
@@ -501,8 +518,11 @@ public class progressTracker extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
                         editor.putString("progress", "8");
                         editor.apply();
-                        alertDialog1.setMessage("You have SUCCESSFULLY completed STEP 8");
-
+                        if(check.equals(getResources().getString(R.string.english))){
+                            alertDialog1.setMessage("You have successfully completed STEP 8");
+                        } else {
+                            alertDialog1.setMessage("आपने चरण 8 को सफलतापूर्वक पूरा कर लिया है");
+                        }
                     }
 
                     itemCheckbox.setChecked(true);
@@ -541,7 +561,7 @@ public class progressTracker extends AppCompatActivity {
 
         final ListView listViewWithCheckbox= (ListView) findViewById(R.id.steps);
 
-        String check, M = null;
+        final String check, M = null;
 
         int j = 0;
 
@@ -555,7 +575,7 @@ public class progressTracker extends AppCompatActivity {
 
         pd = new ProgressDialog(progressTracker.this);
 
-        if (check.equals("Eng")) {
+        if (check.equals(getResources().getString(R.string.english))) {
             pd.setMessage("Fetching data");
         } else {
             pd.setMessage("डेटा लाया जा रहा है");
@@ -599,7 +619,11 @@ public class progressTracker extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(progressTracker.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(progressTracker.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(progressTracker.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
