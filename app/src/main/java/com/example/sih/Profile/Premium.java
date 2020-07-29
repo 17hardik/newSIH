@@ -118,6 +118,7 @@ public class Premium extends AppCompatActivity {
             } else{
                 Toast.makeText(this, "जारी रखने के लिए एक UPI एप्लिकेशन डाउनलोड करें", Toast.LENGTH_SHORT).show();
             }
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user")));
         }
 
     }
@@ -196,7 +197,7 @@ public class Premium extends AppCompatActivity {
                 }
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
-                if(check.equals("Eng")) {
+                if(check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(Premium.this, "Payment canceled by user", Toast.LENGTH_SHORT).show();
                 } else{
                     Toast.makeText(this, "उपयोगकर्ता द्वारा भुगतान रद्द किया गया", Toast.LENGTH_SHORT).show();

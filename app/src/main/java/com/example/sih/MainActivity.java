@@ -69,9 +69,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import  com.example.sih.model.*;
-
-import static com.example.sih.model.EnglishConstants.HINDI_OPTION;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ImageView bgapp;
@@ -98,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences1 = getSharedPreferences(M,j);
-        check = preferences1.getString(EnglishConstants.LANGUAGE , EnglishConstants.LANG_ENG);
+        check = preferences1.getString("Lang" , "Eng");
         SharedPreferences preferences = getSharedPreferences(S,i);
-        phone = preferences.getString(EnglishConstants.PHONE, EnglishConstants.EMPTY_STRING);
-        isPremium = preferences.getString(EnglishConstants.IS_PREMIUM_OPTION, EnglishConstants.NO);
-        days = preferences.getString(EnglishConstants.REMAINING_DAYS, EnglishConstants.STRING_ZERO);
-        path = preferences.getString(EnglishConstants.PATH, EnglishConstants.EMPTY_STRING);
+        phone = preferences.getString("Phone", "");
+        isPremium = preferences.getString("isPremium", "No");
+        days = preferences.getString(remainingDays, "0");
+        path = preferences.getString("path", "");
         SharedPreferences preferences2 = getSharedPreferences(A,b);
         isFirst = preferences2.getString("isFirst","notFirst");
         setContentView(R.layout.activity_main);
@@ -136,8 +133,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-                    Intent premiumIntent = new Intent(MainActivity.this, Premium.class);
-                    startActivity(premiumIntent);
+                Intent premiumIntent = new Intent(MainActivity.this, Premium.class);
+                startActivity(premiumIntent);
 
             }
         });
@@ -260,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        if(check.equals(HINDI_OPTION)){
+        if(!check.equals(getResources().getString(R.string.english))){
             English = false;
             toHin();
         } else{
@@ -440,10 +437,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Hin")) {
+                if(!check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else{
-                    Toast.makeText(MainActivity.this, "There is some error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -476,19 +473,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
                 if (isPremium.equals("Yes")) {
-                    if (check.equals("Hin")) {
+                    if (!check.equals(getResources().getString(R.string.english))) {
                         Premium.setText("प्रीमियम");
                     }
                     Premium.setVisibility(View.VISIBLE);
                     Crown.setVisibility(View.VISIBLE);
                     if (days.equals("1")) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             Days.setText(days + " दिन शेष");
                         } else {
                             Days.setText(days + " day remaining");
                         }
                     } else {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             Days.setText(days + " दिन शेष");
                         } else {
                             Days.setText(days + " days remaining");
@@ -530,15 +527,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "There is some error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        if (check.equals("Hin")) {
+        if (!check.equals(getResources().getString(R.string.english))) {
             NavHin();
             toHin();
         } else {
@@ -620,7 +617,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             optionHin();
         }else {
             optionEng();
@@ -745,6 +742,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+        SharedPreferences preferences2 = getSharedPreferences(A,b);
+        isFirst = preferences2.getString("isFirst","notFirst");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         if(check.equals("Hin")){

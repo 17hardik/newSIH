@@ -281,7 +281,7 @@ public class Register2 extends AppCompatActivity {
 
     }
 
-    public void toHin(){
+    public void toHin() {
         skip.setText(R.string.skip1);
         tenth.setText(R.string.tenth1);
         twelfth.setText(R.string.twelfth1);
