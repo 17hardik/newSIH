@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View view =getSupportActionBar().getCustomView();
 
         Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat(EnglishConstants.DATE_FORMAT, Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         currentDate = df.format(c);
 
         ImageView crown = view.findViewById(R.id.premium);
@@ -343,28 +343,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bganim = AnimationUtils.loadAnimation(this, R.anim.anim);
         bgapp.animate().translationY(-3000).setDuration(800).setStartDelay(900);
         menus.startAnimation(frombotton);
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
-            public void run() {
-                FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            //currently I am writing nothing here, you can write whatever you want but just inform me.
-                            return;
-                        } else {
-                            //token will be saved in database
-                            String token = task.getResult().getToken();
-                            String user_token = getString(R.string.msg_token_fmt, token);
-                            Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
-                            reference.child(phone).child("Message Token").setValue(user_token);
-                        }
-                    }
-                });
-                pd.dismiss();
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    //currently I am writing nothing here, you can write whatever you want but just inform me.
+                    return;
+                } else {
+                    //token will be saved in database
+                    String token = task.getResult().getToken();
+                    String user_token = getString(R.string.msg_token_fmt, token);
+                    Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Users");
+                    reference.child(phone).child("Message Token").setValue(user_token);
+                }
             }
-        }, 3000);
+        });
 
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
@@ -798,4 +792,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return remaining;
     }
+
 }

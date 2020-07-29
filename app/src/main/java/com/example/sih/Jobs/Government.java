@@ -601,7 +601,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                     Toast.makeText(Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Government.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                }            }
+                }
+            }
         });
 
         final Handler handler = new Handler();
