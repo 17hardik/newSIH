@@ -160,413 +160,47 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
         pd.show();
 
-        if (domain.equals("Science")) {
-            reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Freelancing");
+        reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("Freelancing");
 
-            reff.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        reff2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    size = (int) dataSnapshot.getChildrenCount();
+                size = (int) dataSnapshot.getChildrenCount();
 
-                    for (int l = 0; l < size; l++) {
+                for (int l = 0; l < size; l++) {
 
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String i = Integer.toString(l);
+                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("Freelancing").child(i);
+                    reff1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
+                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                            details.add(d);
+                            govAdapter = new gov_adapter(Free_Lancing.this, details);
+                            freelance.setAdapter(govAdapter);
 
-                            }
+                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
 
-                            }
-                        });
-                    }
+                        }
+                    });
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        if (domain.equals("Business")) {
-
-            reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Business, Management and Administration").child("Freelancing");
-            reff2.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Business, Management and Administration").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-        if (domain.equals("Farming")) {
-            reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Farming, Fishing and Forestry").child("Freelancing");
-            reff3.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Farming, Fishing and Forestry").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        if (domain.equals("Community")) {
-            reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Community and Social Services").child("Freelancing");
-            reff4.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Community and Social Services").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        if (domain.equals("Labors")) {
-            reff5 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Labour").child("Freelancing");
-            reff5.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Labour").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        if (domain.equals("Health")) {
-
-            reff6 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Healthcare and Medical").child("Freelancing");
-            reff6.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Healthcare and Medical").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-        if (domain.equals("Communications")) {
-
-            reff7 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Communication").child("Freelancing");
-            reff7.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Communication").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-        if (domain.equals("Arts")) {
-
-            reff8 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Arts, Culture and Entertainment").child("Freelancing");
-            reff8.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Arts, Culture and Entertainment").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-        if (domain.equals("Education")) {
-
-            reff9 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Education").child("Freelancing");
-            reff9.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Education").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-        if (domain.equals("Installation")) {
-
-            reff10 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Installation, Repair and Maintenance").child("Freelancing");
-            reff10.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    size = (int) dataSnapshot.getChildrenCount();
-
-                    for (int l = 0; l < size; l++) {
-
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Installation, Repair and Maintenance").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-
-        reff11 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Freelancing");
-
-        reff11.addValueEventListener(new ValueEventListener() {
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Freelancing");
+        reff3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -575,8 +209,8 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 for (int k = 0; k < size; k++) {
 
                     String i = Integer.toString(k);
-                    reff12 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Freelancing").child(i);
-                    reff12.addValueEventListener(new ValueEventListener() {
+                    reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Freelancing").child(i);
+                    reff4.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -609,8 +243,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Free_Lancing.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                }
-            }
+                }            }
         });
 
         final Handler handler = new Handler();
