@@ -31,7 +31,7 @@ public class Language extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(L,g).edit();
                 editor.putString("isOpened","Opened");
                 editor.apply();
-                Intent intent = new Intent(Language.this, Login.class);
+                Intent intent = new Intent(Language.this, Welcome.class);
                 startActivity(intent);
                 finish();
             }
@@ -46,7 +46,7 @@ public class Language extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(L,g).edit();
                 editor.putString("isOpened","Opened");
                 editor.apply();
-                Intent intent = new Intent(Language.this, Login.class);
+                Intent intent = new Intent(Language.this, Welcome.class);
                 startActivity(intent);
                 finish();
             }

@@ -31,11 +31,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.sih.Jobs.Government;
 import com.example.sih.Jobs.Non_Government;
-import com.example.sih.Jobs.Tenders;
-import com.example.sih.PublishJob.CreateYourJob;
 import com.example.sih.R;
 import com.example.sih.Registration.Login;
-import com.example.sih.PublishJob.jobsPublished;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

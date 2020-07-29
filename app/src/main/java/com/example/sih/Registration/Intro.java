@@ -33,7 +33,6 @@ public class Intro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone = preferences.getString("Phone","");
-        getSupportActionBar().hide();
         //checking whether the user has logged in already by using SharedPreferences
         isLogged = preferences.getString("Status","Null");
         SharedPreferences preferences1 = getSharedPreferences(L,g);
@@ -42,6 +41,7 @@ public class Intro extends AppCompatActivity {
         SharedPreferences preferences2 = getSharedPreferences(X,y);
         //checking whether the app is running first time on a particular device
         accountInfo = preferences2.getString("isDeleted","No");
+        getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
         Intent intent = getIntent();

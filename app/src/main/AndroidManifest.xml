@@ -13,14 +13,15 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Jobs.jobApply"></activity>
+        <activity android:name=".Registration.Welcome"></activity>
+        <activity android:name=".Jobs.jobApply" />
         <activity
             android:name=".Jobs.topJobs"
             android:parentActivityName=".Jobs.topJobsFragment" />
         <activity
             android:name=".Jobs.topJobsFragment"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Registration.Favorite_Sectors"/>
+        <activity android:name=".Registration.Favorite_Sectors" />
         <activity android:name=".Jobs.Dream_jobs" />
         <activity android:name=".Jobs.Job_Details" />
         <activity android:name=".Profile.Premium" />

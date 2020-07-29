@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sih.R;
-import com.example.sih.details;
+import com.example.sih.Jobs.details;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +28,7 @@ public class jobDetails extends AppCompatActivity implements AdapterView.OnItemS
     Button post;
     TextView Title;
     DatabaseReference reff, reff2;
-    com.example.sih.details details;
+    com.example.sih.Jobs.details details;
     Spinner jobType;
     int i, j;
     String JobType, Salary, Company, check, M;

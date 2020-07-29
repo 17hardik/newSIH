@@ -1,13 +1,11 @@
 package com.example.sih;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,30 +15,24 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.example.sih.Jobs.Dream_jobs;
 import com.example.sih.Jobs.Free_Lancing;
 import com.example.sih.Jobs.Government;
 import com.example.sih.Jobs.Non_Government;
 import com.example.sih.Jobs.Tenders;
-import com.example.sih.Jobs.topJobsFragment;
 import com.example.sih.Profile.Premium;
 import com.example.sih.Profile.Profile;
 import com.example.sih.Profile.Rating;
-import com.example.sih.PublishJob.CreateYourJob;
-import com.example.sih.PublishJob.jobsPublished;
 import com.example.sih.Registration.Favorite_Sectors;
 import com.example.sih.Registration.Login;
 import com.example.sih.chatApp.User_List;
@@ -63,7 +55,6 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -99,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences preferences = getSharedPreferences(S,i);
         phone = preferences.getString("Phone", "");
         isPremium = preferences.getString("isPremium", "No");
-        days = preferences.getString(remainingDays, "0");
+        days = preferences.getString("remainingDays", "0");
         path = preferences.getString("path", "");
         SharedPreferences preferences2 = getSharedPreferences(A,b);
         isFirst = preferences2.getString("isFirst","notFirst");
@@ -138,31 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        try {
-            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
-            reff.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    try {
-                        premium_date = snapshot.child("Premium Date").getValue().toString();
-                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("isPremium", "Yes");
-                        editor.apply();
-                    } catch (Exception e) {
-                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                        editor.putString("isPremium", "No");
-                        editor.apply();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        } catch(Exception e){
-
-        }
 
         ImageView dream= view.findViewById(R.id.dream_jobs);
         dream.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onLeftToRight() {
 
                 viewFlipper.setInAnimation(getApplicationContext(), R.anim.left_to_right);
-
                 viewFlipper.showNext();
 
             }
@@ -771,11 +736,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+        try {
+            reff = FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        snapshot.child("Premium Date").getValue().toString();
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "Yes");
+                        editor.apply();
+                    } catch (Exception e) {
+                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                        editor.putString("isPremium", "No");
+                        editor.apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch(Exception e){
+
+        }
+
         SharedPreferences preferences2 = getSharedPreferences(A,b);
         isFirst = preferences2.getString("isFirst","notFirst");
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             English = false;
             NavHin();
             toHin();

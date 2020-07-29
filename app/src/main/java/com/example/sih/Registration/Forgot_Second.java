@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.sih.PublishJob.jobsPublished;
 import com.example.sih.R;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;

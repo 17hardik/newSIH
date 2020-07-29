@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -120,7 +119,7 @@ public class Login extends AppCompatActivity {
                 else{
                     final ProgressDialog pd = new ProgressDialog(Login.this);
 
-                        if(check.equals("Hin")){
+                        if(!check.equals(getResources().getString(R.string.english))){
                             pd.setMessage(getResources().getString(R.string.logging_in1));
                         }else {
                             pd.setMessage("Logging in...");

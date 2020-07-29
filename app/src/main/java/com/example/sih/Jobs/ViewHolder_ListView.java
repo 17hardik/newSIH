@@ -3,7 +3,6 @@ package com.example.sih.Jobs;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewHolder_ListView extends RecyclerView.ViewHolder {

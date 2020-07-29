@@ -1,4 +1,4 @@
-package com.example.sih;
+package com.example.sih.Jobs;
 
 public class details {
     private String Title;
