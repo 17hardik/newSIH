@@ -87,8 +87,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         SharedPreferences preferences2 = getSharedPreferences(J,x);
         activity = preferences2.getString("Activity","");
         domain = preferences.getString("Domain", "");
-        SharedPreferences preferences3 = getSharedPreferences(C,d);
-        TAG = preferences3.getString("TAG", "");
         setContentView(R.layout.activity_government);
         gov_jobs = findViewById(R.id.gov_jobs);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -514,6 +512,8 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         super.onResume();
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
+        SharedPreferences preferences3 = getSharedPreferences(C,d);
+        TAG = preferences3.getString("TAG", "");
         if(check.equals("Hin")){
             English = false;
             NavHin();

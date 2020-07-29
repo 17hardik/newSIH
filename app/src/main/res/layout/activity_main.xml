@@ -66,6 +66,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/ic_roadmap_banner" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_publish_banner2" />
                         </ViewFlipper>
 
                     </androidx.cardview.widget.CardView>
