@@ -15,8 +15,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sih.Jobs.Free_Lancing;
+import com.example.sih.Jobs.Government;
+import com.example.sih.Jobs.Non_Government;
+import com.example.sih.Jobs.Tenders;
 import com.example.sih.MainActivity;
 import com.example.sih.R;
+import com.example.sih.chatApp.User_List;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,9 +40,9 @@ public class Favorite_Sectors extends AppCompatActivity {
 
     RadioButton cbScience, cbBusiness, cbFarming, cbCommunity, cbLabors, cbHealth, cbCommunications, cbArts, cbEducation, cbInstallation, cbOthers;
     Button submitButton;
-    String check, M, S, A;
+    String check, activity, M, S, A, J;
     TextView Title;
-    int i, j, b;
+    int i, j, b, x;
     Translate translate;
     ProgressDialog pd;
 
@@ -47,6 +52,9 @@ public class Favorite_Sectors extends AppCompatActivity {
 
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
+
+        SharedPreferences preferences2 = getSharedPreferences(J,x);
+        activity = preferences2.getString("Activity","");
 
         setContentView(R.layout.activity_favorite__sectors);
 
@@ -115,8 +123,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbBusiness.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -126,8 +152,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbFarming.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -137,8 +181,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbCommunity.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -148,8 +210,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbLabors.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -159,8 +239,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbHealth.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -170,8 +268,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbCommunications.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -181,8 +297,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbArts.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -192,8 +326,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbEducation.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -203,8 +355,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbInstallation.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -214,8 +384,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                     if (cbOthers.isChecked()) {
                         SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
@@ -225,8 +413,26 @@ public class Favorite_Sectors extends AppCompatActivity {
                         SharedPreferences.Editor editor1 = getSharedPreferences(A,b).edit();
                         editor1.putString("isFirst","First");
                         editor1.apply();
-                        startActivity(new Intent(Favorite_Sectors.this, MainActivity.class));
-                        finish();
+                        if (activity.equals("Government")) {
+                            startActivity(new Intent(Favorite_Sectors.this, Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Private")){
+                            startActivity(new Intent(Favorite_Sectors.this, Non_Government.class));
+                            finish();
+                        }
+                        else if (activity.equals("Freelancing")){
+                            startActivity(new Intent(Favorite_Sectors.this, Free_Lancing.class));
+                            finish();
+                        }
+                        else if (activity.equals("Tender")){
+                            startActivity(new Intent(Favorite_Sectors.this, Tenders.class));
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(Favorite_Sectors.this, User_List.class));
+                            finish();
+                        }
                     }
                 }
             }

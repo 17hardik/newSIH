@@ -180,19 +180,6 @@ public class Login extends AppCompatActivity {
                                     String storedPass = dataSnapshot.child("Password").getValue().toString();
 
                                      if (storedPass.equals(Cipher)) {
-
-                                        if (isFirst.equals("notFirst")){
-
-                                            SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                                            editor.putString("Status", "Yes");
-                                            editor.putString("Phone", phone);
-                                            editor.apply();
-                                            startActivity(new Intent(Login.this, Favorite_Sectors.class));
-                                            finishAffinity();
-
-                                        }
-
-                                        else {
                                             final Handler handler = new Handler();
                                             handler.postDelayed(new Runnable() {
                                                 @Override
@@ -205,7 +192,6 @@ public class Login extends AppCompatActivity {
                                                     finishAffinity();
                                                 }
                                             }, 3000);
-                                        }
                                     }
 
                                     else{

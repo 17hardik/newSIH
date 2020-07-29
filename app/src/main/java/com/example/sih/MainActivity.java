@@ -31,6 +31,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.sih.Jobs.Dream_jobs;
+import com.example.sih.Jobs.Free_Lancing;
 import com.example.sih.Jobs.Government;
 import com.example.sih.Jobs.Non_Government;
 import com.example.sih.Jobs.Tenders;
@@ -40,6 +41,7 @@ import com.example.sih.Profile.Profile;
 import com.example.sih.Profile.Rating;
 import com.example.sih.PublishJob.CreateYourJob;
 import com.example.sih.PublishJob.jobsPublished;
+import com.example.sih.Registration.Favorite_Sectors;
 import com.example.sih.Registration.Login;
 import com.example.sih.chatApp.User_List;
 import com.firebase.client.Firebase;
@@ -81,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton Gov, Non_Gov, Tenders, Free_Lancing;
     RelativeLayout menus;
     DatabaseReference reff, reff1, reff2, reff3;
-    String phone, S, M, J, user_name, check, lang, X, premium_date, currentDate, remainingDays = "0", isPremium, u_name, days, path;
+    String phone, S, M, J, A, user_name, check, lang, X, premium_date, currentDate, remainingDays = "0", isPremium, u_name, days, path, isFirst;
     NavigationView navigationView;
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
     MenuItem Government, Non_Government, Tender, FreeLancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
-    int i, j, y, x;
+    int i, j, y, x, b;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false, English = true;
     ViewFlipper viewFlipper;
@@ -102,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         isPremium = preferences.getString(EnglishConstants.IS_PREMIUM_OPTION, EnglishConstants.NO);
         days = preferences.getString(EnglishConstants.REMAINING_DAYS, EnglishConstants.STRING_ZERO);
         path = preferences.getString(EnglishConstants.PATH, EnglishConstants.EMPTY_STRING);
+        SharedPreferences preferences2 = getSharedPreferences(A,b);
+        isFirst = preferences2.getString("isFirst","notFirst");
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
         Firebase.setAndroidContext(this);
@@ -294,41 +298,94 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Gov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Government");
-                editor.apply();
-                Intent govIntent = new Intent(MainActivity.this, Government.class);
-                startActivity(govIntent);
+                if (isFirst.equals("notFirst")){
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Government");
+                    editor.apply();
+                    Intent govIntent = new Intent(MainActivity.this, Favorite_Sectors.class);
+                    startActivity(govIntent);
+
+                }
+                else {
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Government");
+                    editor.apply();
+                    Intent govIntent = new Intent(MainActivity.this, Government.class);
+                    startActivity(govIntent);
+
+                }
+
             }
         });
         Non_Gov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Private");
-                editor.apply();
-                Intent nonIntent = new Intent(MainActivity.this, Non_Government.class);
-                startActivity(nonIntent);
+                if (isFirst.equals("notFirst")){
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Private");
+                    editor.apply();
+                    Intent nonIntent = new Intent(MainActivity.this, Favorite_Sectors.class);
+                    startActivity(nonIntent);
+
+                }
+                else {
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Private");
+                    editor.apply();
+                    Intent nonIntent = new Intent(MainActivity.this, Non_Government.class);
+                    startActivity(nonIntent);
+
+                }
             }
         });
         Tenders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Tender");
-                editor.apply();
-                Intent tenderIntent = new Intent(MainActivity.this, com.example.sih.Jobs.Tenders.class);
-                startActivity(tenderIntent);
+                if (isFirst.equals("notFirst")){
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Tender");
+                    editor.apply();
+                    Intent tenderIntent = new Intent(MainActivity.this, Favorite_Sectors.class);
+                    startActivity(tenderIntent);
+
+                }
+                else {
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Tender");
+                    editor.apply();
+                    Intent tenderIntent = new Intent(MainActivity.this, Tenders.class);
+                    startActivity(tenderIntent);
+
+                }
             }
         });
         Free_Lancing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
-                editor.putString("Activity", "Freelancing");
-                editor.apply();
-                Intent freeIntent = new Intent(MainActivity.this, com.example.sih.Jobs.Free_Lancing.class);
-                startActivity(freeIntent);
+                if (isFirst.equals("notFirst")){
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Freelancing");
+                    editor.apply();
+                    Intent freeIntent = new Intent(MainActivity.this, Favorite_Sectors.class);
+                    startActivity(freeIntent);
+
+                }
+                else {
+
+                    SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
+                    editor.putString("Activity", "Freelancing");
+                    editor.apply();
+                    Intent freeIntent = new Intent(MainActivity.this, Free_Lancing.class);
+                    startActivity(freeIntent);
+
+                }
             }
         });
         //An animation for 2 seconds
@@ -521,8 +578,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent2);
                 break;
             case R.id.chat:
-                Intent intent6 = new Intent(MainActivity.this, com.example.sih.chatApp.User_List.class);
-                startActivity(intent6);
+                if (isFirst.equals("notFirst")){
+
+                    SharedPreferences.Editor editor4 = getSharedPreferences(J,x).edit();
+                    editor4.putString("Activity", "Chat");
+                    editor4.apply();
+                    Intent chatIntent = new Intent(MainActivity.this, Favorite_Sectors.class);
+                    startActivity(chatIntent);
+
+                }
+                else {
+
+                    SharedPreferences.Editor editor4 = getSharedPreferences(J,x).edit();
+                    editor4.putString("Activity", "Chat");
+                    editor4.apply();
+                    Intent chatIntent = new Intent(MainActivity.this, User_List.class);
+                    startActivity(chatIntent);
+
+                }
                 break;
             case R.id.publish:
                 if (!isRegistered) {
