@@ -21,7 +21,7 @@ public class jobApply extends AppCompatActivity {
 
     private WebView webView;
     DatabaseReference reff1;
-    String J, jobCategory, jobReference, domainType, applyLink;
+    String J, jobCategory, jobReference, domainType, applyLink, check;
     int x;
 
     @Override
@@ -32,7 +32,7 @@ public class jobApply extends AppCompatActivity {
         jobCategory = preferences1.getString("jobCategory", "");
         jobReference = preferences1.getString("jobReference", "");
         domainType = preferences1.getString("domainType", "");
-
+        check = preferences1.getString("Lang", "Eng");
         setContentView(R.layout.activity_job_apply);
 
         webView = findViewById(R.id.webView);
@@ -54,8 +54,11 @@ public class jobApply extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(jobApply.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(jobApply.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(jobApply.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

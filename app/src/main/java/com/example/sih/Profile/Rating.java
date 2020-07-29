@@ -55,7 +55,7 @@ public class Rating extends AppCompatActivity {
         rateStars = findViewById(R.id.ratingstar);
         charanim = AnimationUtils.loadAnimation(this, R.anim.charanim);
         charPlace.startAnimation(charanim);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             toHin();
             English = false;
         }
@@ -68,90 +68,50 @@ public class Rating extends AppCompatActivity {
                 if (answerValue.equals("1")) {
                     charPlace.setImageResource(R.drawable.cryemo);
                     charPlace.startAnimation(charanim);
-                    if(check.equals("Hin")){
-                        if(!English) {
-                            ResultRate.setText(R.string.poor1);
-                        } else{
-                            ResultRate.setText("Poor!");
-                        }
-                    } else {
-                        if(!English){
-                            ResultRate.setText(R.string.poor1);
-                        } else {
-                            ResultRate.setText("Poor!");
-                        }
+                    if(!English) {
+                        ResultRate.setText(R.string.poor1);
+                    } else{
+                        ResultRate.setText("Poor!");
                     }
                     Rating = "Poor (1 Star)";
                 } else if (answerValue.equals("2")) {
                     charPlace.setImageResource(R.drawable.sademo);
                     charPlace.startAnimation(charanim);
-                    if(check.equals("Hin")){
-                        if(!English) {
-                            ResultRate.setText(R.string.just_so_so1);
-                        } else{
-                            ResultRate.setText("Just So So!");
-                        }
-                    } else {
-                        if(!English){
-                            ResultRate.setText(R.string.just_so_so1);
-                        } else {
-                            ResultRate.setText("Just So So!");
-                        }
+                    if(!English) {
+                        ResultRate.setText(R.string.just_so_so1);
+                    } else{
+                        ResultRate.setText("Just So So!");
                     }
                     Rating = "Just So So (2 Stars)";
                 } else if (answerValue.equals("3")) {
                     charPlace.setImageResource(R.drawable.okemo);
                     charPlace.startAnimation(charanim);
-                    if(check.equals("Hin")){
-                        if(!English) {
-                            ResultRate.setText(R.string.not_bad1);
-                        } else{
-                            ResultRate.setText("Not Bad!");
-                        }
-                    } else {
-                        if(!English){
-                            ResultRate.setText(R.string.not_bad1);
-                        } else {
-                            ResultRate.setText("Not Bad!");
-                        }
+                    if(!English) {
+                        ResultRate.setText(R.string.not_bad1);
+                    } else{
+                        ResultRate.setText("Not Bad!");
                     }
                     Rating = "Not Bad (3 Stars)";
                 } else if (answerValue.equals("4")) {
                     charPlace.setImageResource(R.drawable.happyemo);
                     charPlace.startAnimation(charanim);
-                    if(check.equals("Hin")){
-                        if(!English) {
-                            ResultRate.setText(R.string.good_job1);
-                        } else{
-                            ResultRate.setText("Good Job!");
-                        }
-                    } else {
-                        if(!English){
-                            ResultRate.setText(R.string.good_job1);
-                        } else {
-                            ResultRate.setText("Good Job!");
-                        }
+                    if(!English) {
+                        ResultRate.setText(R.string.good_job1);
+                    } else{
+                        ResultRate.setText("Good Job!");
                     }
                     Rating = "Good Job (4 Stars)";
                 } else if (answerValue.equals("5")) {
                     charPlace.setImageResource(R.drawable.ic_awsomeemo);
                     charPlace.startAnimation(charanim);
-                    if(check.equals("Hin")){
-                        if(!English) {
-                            ResultRate.setText(R.string.amazing1);
-                        } else{
-                            ResultRate.setText("Amazing!");
-                        }
-                    } else {
-                        if(!English){
-                            ResultRate.setText(R.string.amazing1);
-                        } else {
-                            ResultRate.setText("Amazing!");
-                        }
+                    if(!English) {
+                        ResultRate.setText(R.string.amazing1);
+                    } else{
+                        ResultRate.setText("Amazing!");
                     }
                     Rating = "Amazing (5 Stars)";
                 } else {
-                    if(check.equals("Hin") || !English){
+                    if(!check.equals(getResources().getString(R.string.english)) || !English){
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_points1) , Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "No Point", Toast.LENGTH_SHORT).show();
@@ -165,7 +125,7 @@ public class Rating extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(Rating.equals("Null")){
-                    if(check.equals("Hin")){
+                    if(!check.equals(getResources().getString(R.string.english))){
                         Toast.makeText(Rating.this, getResources().getString(R.string.not_rated1), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(Rating.this, "You have not rated yet", Toast.LENGTH_SHORT).show();
@@ -174,7 +134,7 @@ public class Rating extends AppCompatActivity {
                 else{
                     Firebase reference = new Firebase("https://smart-e60d6.firebaseio.com/Ratings");
                     reference.child(phone).child("Rating").setValue(Rating);
-                    if(check.equals("Hin")){
+                    if(!check.equals(getResources().getString(R.string.english))){
                         Toast.makeText(Rating.this, getResources().getString(R.string.thanks_for_feedback1) , Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(Rating.this, "Thanks for your feedback", Toast.LENGTH_SHORT).show();
@@ -189,7 +149,7 @@ public class Rating extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             optionHin();
         }else {
             optionEng();

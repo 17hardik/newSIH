@@ -97,7 +97,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
         jobType = view.findViewById(R.id.jobsType);
         if (activity.equals("Government")){
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Government Jobs");
             } else{
                 jobType.setText(R.string.government_jobs1);
@@ -105,7 +105,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         }
 
         else if (activity.equals("Private")){
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Private Jobs");
             } else{
                 jobType.setText(R.string.non_government_jobs1);
@@ -113,7 +113,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         }
 
         else if (activity.equals("Freelancing")){
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Freelancing");
             } else{
                 jobType.setText(R.string.freelancing1);
@@ -121,7 +121,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
         }
 
         else {
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Tenders");
             } else{
                 jobType.setText(R.string.tenders1);
@@ -150,7 +150,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
         pd = new ProgressDialog(Non_Government.this);
 
-        if (check.equals("Eng")) {
+        if (check.equals(getResources().getString(R.string.english))) {
             pd.setMessage("Fetching data");
         } else {
             pd.setMessage("डेटा लाया जा रहा है");
@@ -183,9 +183,11 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
-                            Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-
+                            if(check.equals(getResources().getString(R.string.english))){
+                                Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
@@ -193,7 +195,11 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -225,10 +231,10 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            if(check.equals("Eng")) {
-                                Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            if(check.equals(getResources().getString(R.string.english))){
+                                Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(Non_Government.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -237,11 +243,12 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Non_Government.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Non_Government.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                }            }
+                    Toast.makeText(Non_Government.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         final Handler handler = new Handler();
@@ -367,7 +374,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
                 if (check.equals("Hin")) {
                     Toast.makeText(Non_Government.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Non_Government.this, "There is some error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Non_Government.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -436,7 +443,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             optionHin();
         }
         else{
@@ -450,7 +457,7 @@ public class Non_Government extends AppCompatActivity implements NavigationView.
             return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
-                if(check.equals("Eng")) {
+                if(check.equals(getResources().getString(R.string.english))) {
                     pd.setMessage("डेटा लाया जा रहा है");
                     SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
                     editor1.putString("Lang", "Hin");

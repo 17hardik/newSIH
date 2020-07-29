@@ -59,7 +59,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
         check = preferences1.getString("Lang","Eng");
         setContentView(R.layout.activity_phone_verification);
         initFields();
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             toHin();
         }
         intent = getIntent();
@@ -89,7 +89,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
         new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                if(check.equals("Hin")){
+                if(!check.equals(getResources().getString(R.string.english))){
                     btResendOtp.setText(millisUntilFinished / 1000+" सेकंड "+ getResources().getString(R.string.resend_message1));
                 } else {
                     btResendOtp.setText("You can resend OTP after " + millisUntilFinished / 1000+" seconds");
@@ -97,7 +97,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
             }
 
             public void onFinish() {
-                if(check.equals("Hin")){
+                if(!check.equals(getResources().getString(R.string.english))){
                     btResendOtp.setText(R.string.resend_otp1);
                 } else {
                     btResendOtp.setText("Resend OTP");
@@ -129,7 +129,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                         this,
                         mCallbacks,
                         mResendToken);
-                if(check.equals("Hin"))
+                if(!check.equals(getResources().getString(R.string.english)))
                 {
                     Toast.makeText(PhoneVerification.this, getResources().getString(R.string.otp_sent1), Toast.LENGTH_SHORT).show();
                 }else {
@@ -140,14 +140,14 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.bt_verify_otp:
                 if (etOtp.getText().toString().equals("")) {
-                    if(check.equals("Hin")){
+                    if(!check.equals(getResources().getString(R.string.english))){
                         etOtp.setError(getResources().getString(R.string.must_be_filled1));
                     }else {
                         etOtp.setError("Must be filled");
                     }
                 }else {
                     final ProgressDialog pd = new ProgressDialog(PhoneVerification.this);
-                    if(check.equals("Hin")){
+                    if(!check.equals(getResources().getString(R.string.english))){
                         pd.setMessage(getResources().getString(R.string.verifying1));
                     }else {
                         pd.setMessage("Verifying...");
@@ -170,7 +170,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                                         reference.child(phone).child("DOB").setValue(dob);
                                         reference.child(phone).child("Phone").setValue(phone);
 
-                                        if(check.equals("Hin")){
+                                        if(!check.equals(getResources().getString(R.string.english))){
                                             sendNotification(getResources().getString(R.string.registration_successful1), getResources().getString(R.string.welcome1));
                                             Toast.makeText(PhoneVerification.this, getResources().getString(R.string.registration_successful1), Toast.LENGTH_LONG).show();
                                         }else {
@@ -182,7 +182,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                                         startActivity(verificationIntent);
                                         finishAffinity();
                                     } else {
-                                        if(check.equals("Hin")){
+                                        if(!check.equals(getResources().getString(R.string.english))){
                                             Toast.makeText(PhoneVerification.this, getResources().getString(R.string.verification_failed1), Toast.LENGTH_SHORT).show();
                                         }else {
                                             Toast.makeText(PhoneVerification.this, "Verification Failed, Invalid OTP", Toast.LENGTH_SHORT).show();

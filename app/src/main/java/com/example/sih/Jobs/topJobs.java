@@ -54,7 +54,7 @@ public class topJobs extends AppCompatActivity {
         rankingButton = findViewById(R.id.viewRank);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        if(check.equals("Eng")) {
+        if(check.equals(getResources().getString(R.string.english))) {
             actionBar.setTitle("Top Jobs");
         } else {
             actionBar.setTitle("शीर्ष नौकरियां");
@@ -72,7 +72,7 @@ public class topJobs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Category = dataSnapshot.child("Category"+CategoryNumber).child("Category").getValue().toString();
                 CategoryTV.setText(Category);
-                if(check.equals("Hin")){
+                if(!check.equals(getResources().getString(R.string.english))){
                     getTranslateService();
                     translateToHin(CategoryTV.getText().toString(), CategoryTV);
                 }
@@ -80,8 +80,11 @@ public class topJobs extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(topJobs.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(topJobs.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(topJobs.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -89,7 +92,11 @@ public class topJobs extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
         pd = new ProgressDialog(topJobs.this);
-        pd.setMessage("Loading...");
+        if(check.equals(getResources().getString(R.string.english))){
+            pd.setMessage(getResources().getString(R.string.loading));
+        } else {
+            pd.setMessage(getResources().getString(R.string.loading1));
+        }
         pd.show();
 
         reff.addValueEventListener(new ValueEventListener() {
@@ -97,7 +104,7 @@ public class topJobs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 description = dataSnapshot.child("Category"+CategoryNumber).child("Description").getValue().toString();
                 descriptionTV.setText(description);
-                if(check.equals("Hin")){
+                if(!check.equals(getResources().getString(R.string.english))){
                     getTranslateService();
                     translateToHin(descriptionTV.getText().toString(), descriptionTV);
                 }
@@ -106,7 +113,11 @@ public class topJobs extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(topJobs.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(topJobs.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(topJobs.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -134,8 +145,11 @@ public class topJobs extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(topJobs.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(topJobs.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(topJobs.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

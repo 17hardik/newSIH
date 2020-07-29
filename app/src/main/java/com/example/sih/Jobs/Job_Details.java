@@ -83,7 +83,7 @@ public class Job_Details extends AppCompatActivity {
         pd = new ProgressDialog(Job_Details.this);
         pd.setMessage("Getting Job Details");
         pd.show();
-        if(!check.equals("Eng")){
+        if(!check.equals(getResources().getString(R.string.english))){
             FavButton.setText("ड्रीमजॉब में जोड़ें");
         }
 
@@ -99,7 +99,7 @@ public class Job_Details extends AppCompatActivity {
                             long childCount = snapshot.getChildrenCount();
                                 firebase.child(phone).child("Dream Jobs").child(domainType + " " + jobCategory + jobReference).setValue(domainType + "-" +jobCategory + "-" + jobReference);
                                 isStored = true;
-                                if(check.equals("Eng")) {
+                                if(check.equals(getResources().getString(R.string.english))) {
                                     Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(Job_Details.this, "ड्रीमजॉब में जोड़ा गया", Toast.LENGTH_SHORT).show();
@@ -115,7 +115,7 @@ public class Job_Details extends AppCompatActivity {
 
                     firebase.child(phone).child("Dream Jobs").child("Government").child(jobReference).setValue("Government" + jobReference);
                     isStored = true;
-                    if(check.equals("Eng")) {
+                    if(check.equals(getResources().getString(R.string.english))) {
                         Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(Job_Details.this, "ड्रीमजॉब में जोड़ा गया", Toast.LENGTH_SHORT).show();
@@ -124,7 +124,7 @@ public class Job_Details extends AppCompatActivity {
             }
         });
 
-        if (check.equals("Hin")){
+        if (!check.equals(getResources().getString(R.string.english))){
             getTranslateService();
             try {
                 translateToHin(job_details.getText().toString(), job_details);
@@ -211,7 +211,7 @@ public class Job_Details extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 job_post.setText(post);
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     getTranslateService();
                     try {
                         translateToHin(job_post.getText().toString(), job_post);
@@ -223,10 +223,10 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -245,7 +245,7 @@ public class Job_Details extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 company_name.setText(name);
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     getTranslateService();
                     try {
                         translateToHin(company_name.getText().toString(), company_name);
@@ -258,10 +258,10 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -281,7 +281,7 @@ public class Job_Details extends AppCompatActivity {
 
                 company_location.setText(location);
 
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     getTranslateService();
                     try {
                         translateToHin(company_location.getText().toString(), company_location);
@@ -293,10 +293,10 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -314,7 +314,7 @@ public class Job_Details extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 salary.setText(Salary);
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     try {
                         getTranslateService();
                         translateToHin(salary.getText().toString(), salary);
@@ -326,10 +326,10 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -347,7 +347,7 @@ public class Job_Details extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 sector.setText(Sector);
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     getTranslateService();
                     try {
                         translateToHin(sector.getText().toString(), sector);
@@ -359,10 +359,10 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -380,7 +380,7 @@ public class Job_Details extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 jobDescription.setText(jobDesc);
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     getTranslateService();
                     try {
                         translateToHin(jobDescription.getText().toString(), jobDescription);
@@ -392,10 +392,10 @@ public class Job_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Job_Details.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Job_Details.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Job_Details.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
             }
         });

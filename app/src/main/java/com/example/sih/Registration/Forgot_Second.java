@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.sih.PublishJob.jobsPublished;
 import com.example.sih.R;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -56,7 +57,7 @@ public class Forgot_Second extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         intent = getIntent();
         phone = intent.getStringExtra("phone");
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             toHin();
         } else{
             toEng();
@@ -74,10 +75,10 @@ public class Forgot_Second extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Hin")) {
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(Forgot_Second.this, getResources().getString(R.string.error), Toast.LENGTH_LONG).show();
+                } else {
                     Toast.makeText(Forgot_Second.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
-                } else{
-                    Toast.makeText(Forgot_Second.this, "There is some error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -88,15 +89,14 @@ public class Forgot_Second extends AppCompatActivity {
                     new_pass = ETNew.getText().toString().trim();
                     conf_pass = ETConfirm.getText().toString().trim();
                     if (!(new_pass.equals(conf_pass))) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             ETConfirm.setError(getResources().getString(R.string.passwords_matching1));
-                            ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         } else {
                             ETConfirm.setError("Passwords are not matching");
-                            ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         }
+                        ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     } else if (new_pass.length() < 5) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             ETNew.setError(getResources().getString(R.string.too_short1));
                             ETNew.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         } else {
@@ -118,7 +118,7 @@ public class Forgot_Second extends AppCompatActivity {
                         hash = i.multiply(hash);
                         New_Cipher = String.valueOf(hash);
                         firebase.child(phone).child("Password").setValue(New_Cipher);
-                        if(check.equals("Hin") || !English) {
+                        if(!check.equals(getResources().getString(R.string.english)) || !English) {
                             Toast.makeText(Forgot_Second.this,  getResources().getString(R.string.password_updated1), Toast.LENGTH_SHORT).show();
                         } else{
                             Toast.makeText(Forgot_Second.this, "Password updated successfully" , Toast.LENGTH_SHORT).show();

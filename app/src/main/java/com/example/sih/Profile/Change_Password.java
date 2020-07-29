@@ -66,7 +66,7 @@ public class Change_Password extends AppCompatActivity {
         ETNew.setEnabled(false);
         ETConfirm.setEnabled(false);
         Firebase.setAndroidContext(this);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             toHin();
         } else{
             toEng();
@@ -123,10 +123,10 @@ public class Change_Password extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Hin")) {
+                if(!check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(Change_Password.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else{
-                    Toast.makeText(Change_Password.this, "There is some error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Change_Password.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -136,7 +136,7 @@ public class Change_Password extends AppCompatActivity {
                 if (!isVerified) {
                     pass = ETOld.getText().toString().trim();
                     if (pass.equals("")) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             ETOld.setError(getResources().getString(R.string.must_be_filled1));
                         } else {
                             ETOld.setError("Must be filled");
@@ -155,14 +155,14 @@ public class Change_Password extends AppCompatActivity {
                         if (Cipher.equals(password)) {
                             ETNew.setEnabled(true);
                             ETConfirm.setEnabled(true);
-                            if(check.equals("Hin") || !English){
+                            if(!check.equals(getResources().getString(R.string.english)) || !English){
                                 BTPassword.setText(R.string.change_password1);
                             } else {
                                 BTPassword.setText("Change Password");
                             }
                             isVerified = true;
                         } else {
-                            if(check.equals("Hin") || !English){
+                            if(!check.equals(getResources().getString(R.string.english)) || !English){
                                 Toast.makeText(Change_Password.this, getResources().getString(R.string.incorrect_password1), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(Change_Password.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
@@ -174,21 +174,19 @@ public class Change_Password extends AppCompatActivity {
                     new_pass = ETNew.getText().toString().trim();
                     conf_pass = ETConfirm.getText().toString().trim();
                     if (!(new_pass.equals(conf_pass))) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             ETConfirm.setError(getResources().getString(R.string.passwords_matching1));
-                            ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         } else {
                             ETConfirm.setError("Passwords are not matching");
-                            ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         }
+                        ETConfirm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     } else if (new_pass.length() < 5) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             ETNew.setError(getResources().getString(R.string.too_short1));
-                            ETNew.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         } else {
                             ETNew.setError("At least 5 characters must be there");
-                            ETNew.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         }
+                        ETNew.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     } else{
                         BigInteger hash = BigInteger.valueOf((phone.charAt(0) - '0') + (phone.charAt(2) - '0') + (phone.charAt(4) - '0') + (phone.charAt(6) - '0') + (phone.charAt(8) - '0'));
                         StringBuilder sb = new StringBuilder();
@@ -217,7 +215,7 @@ public class Change_Password extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             optionHin();
         }else {
             optionEng();

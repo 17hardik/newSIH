@@ -66,15 +66,15 @@ public class topJobsFragment extends AppCompatActivity {
         pd = new ProgressDialog(topJobsFragment.this);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        if(check.equals("Eng")) {
-            pd.setMessage("Loading...");
+        if(check.equals(getResources().getString(R.string.english))) {
+            pd.setMessage(getResources().getString(R.string.loading));
             actionBar.setTitle("Top Jobs");
             pd.show();
         } else {
             mySearchView.setQueryHint("अपना क्षेत्र खोजें");
             domainsList.setVisibility(View.GONE);
-            pd.setMessage("लोड हो रहा है...");
-            actionBar.setTitle("शीर्ष नौकरियां");
+            pd.setMessage(getResources().getString(R.string.loading1));
+            actionBar.setTitle(getResources().getString(R.string.top_jobs1));
             pd.show();
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -127,7 +127,7 @@ public class topJobsFragment extends AppCompatActivity {
                 for(k=1;k<=size;k++) {
                     String i = Integer.toString(k);
                     arrlist.add(dataSnapshot.child("Category"+i).child("Category").getValue().toString());
-                    if(check.equals("Eng")){
+                    if(check.equals(getResources().getString(R.string.english))){
                         pd.dismiss();
                     }
                 }
@@ -135,7 +135,11 @@ public class topJobsFragment extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 pd.dismiss();
-                Toast.makeText(topJobsFragment.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(topJobsFragment.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(topJobsFragment.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

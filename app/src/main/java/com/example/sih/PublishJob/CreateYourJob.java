@@ -55,7 +55,7 @@ public class CreateYourJob extends AppCompatActivity {
         Cloc = findViewById(R.id.location);
         Cregister = findViewById(R.id.verify);
         users1 = new Users1();
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             toHin();
         }
         reff = FirebaseDatabase.getInstance().getReference();
@@ -72,7 +72,7 @@ public class CreateYourJob extends AppCompatActivity {
                 try{
 
                     if (Cname.getText().toString().trim().equals("")){
-                        if(check.equals("Hin")){
+                        if(!check.equals(getResources().getString(R.string.english))){
                             Cname.setError(getResources().getString(R.string.must_be_filled1));
                         } else {
                             Cname.setError("Must be Filled");
@@ -81,7 +81,7 @@ public class CreateYourJob extends AppCompatActivity {
                     }
 
                     else if (CRemail.getText().toString().trim().equals("")){
-                        if(check.equals("Hin")){
+                        if(!check.equals(getResources().getString(R.string.english))){
                             CRemail.setError(getResources().getString(R.string.must_be_filled1));
                         } else {
                             CRemail.setError("Must be Filled");
@@ -90,7 +90,7 @@ public class CreateYourJob extends AppCompatActivity {
                     }
 
                     else if (CRnumb.equals("")){
-                        if(check.equals("Hin")){
+                        if(!check.equals(getResources().getString(R.string.english))){
                             CRnum.setError(getResources().getString(R.string.must_be_filled1));
                         } else {
                             CRnum.setError("Must be Filled");
@@ -98,7 +98,7 @@ public class CreateYourJob extends AppCompatActivity {
                         CRnum.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                     else if(CRemail.getText().toString().contains("gmail") || CRemail.getText().toString().contains("outlook") || CRemail.getText().toString().contains("yahoo") || CRemail.getText().toString().contains("protonmail")){
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             CRemail.setError("कृपया अपना कार्य ईमेल दर्ज करें (जीमेल, आउटलुक आदि की अनुमति नहीं है)");
                         } else {
                             CRemail.setError("Please enter your work email (Gmail, Outlook etc are not allowed)");
@@ -106,7 +106,7 @@ public class CreateYourJob extends AppCompatActivity {
                         CRemail.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
                     else if (Cloc.getText().toString().trim().equals("")){
-                        if(check.equals("Hin")){
+                        if(!check.equals(getResources().getString(R.string.english))){
                             Cloc.setError(getResources().getString(R.string.must_be_filled1));
                         } else {
                             Cloc.setError("Must be Filled");
@@ -116,7 +116,7 @@ public class CreateYourJob extends AppCompatActivity {
 
                     else {
                           if(isVerified.equals("Yes")) {
-                              if(check.equals("Eng")) {
+                              if(check.equals(getResources().getString(R.string.english))) {
                                   Cregister.setText("Register");
                               } else {
                                   Cregister.setText(R.string.register1);
@@ -197,7 +197,7 @@ public class CreateYourJob extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            if(check.equals("Eng")) {
+                            if(check.equals(getResources().getString(R.string.english))) {
                                 Toast.makeText(CreateYourJob.this, "Email sent", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(CreateYourJob.this, "मेल भेजा जा चुका है", Toast.LENGTH_SHORT).show();

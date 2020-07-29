@@ -59,7 +59,7 @@ public class companyProof extends AppCompatActivity {
         setContentView(R.layout.activity_company_proof);
         companyName = findViewById(R.id.textView3);
         String Jname = getIntent().getStringExtra("companyName");
-        if(check.equals("Eng")) {
+        if(check.equals(getResources().getString(R.string.english))) {
             companyName.setText("Your Company/Start-up Name: " + Jname);
         } else {
             companyName.setText("आपकी कंपनी / स्टार्ट-अप नाम:");
@@ -84,7 +84,7 @@ public class companyProof extends AppCompatActivity {
                 try{
 
                     if (CRpost.getText().toString().trim().equals("")) {
-                        if(check.equals("Eng")) {
+                        if(check.equals(getResources().getString(R.string.english))) {
                             CRpost.setError("Must be Filled");
                         } else {
                             CRpost.setError(getResources().getString(R.string.must_be_filled1));
@@ -93,7 +93,7 @@ public class companyProof extends AppCompatActivity {
                     }
 
                     else if (!isUploaded){
-                        if(check.equals("Eng")) {
+                        if(check.equals(getResources().getString(R.string.english))) {
                             Toast.makeText(companyProof.this, "Upload Company ID", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(companyProof.this, "कंपनी आईडी अपलोड करें", Toast.LENGTH_SHORT).show();
@@ -103,7 +103,7 @@ public class companyProof extends AppCompatActivity {
                     else {
                         reff.child("Users").child(phone).child("Company").setValue(company);
                         reff.child("Company Representative Details").child(phone).child("Post").setValue(CRpost.getText().toString().trim());
-                        if(check.equals("Eng")) {
+                        if(check.equals(getResources().getString(R.string.english))) {
                             Toast.makeText(companyProof.this, "Company Registered successfully", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(companyProof.this, "कंपनी सफलतापूर्वक पंजीकृत हुई", Toast.LENGTH_LONG).show();
@@ -126,8 +126,8 @@ public class companyProof extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(companyProof.this, "There is some error", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))) {
+                    Toast.makeText(companyProof.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(companyProof.this, "कुछ त्रुटि है", Toast.LENGTH_SHORT).show();
                 }
@@ -153,7 +153,7 @@ public class companyProof extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setType("application/pdf");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 startActivityForResult(Intent.createChooser(intent, "Select File"), PICK_PDF_CODE);
             } else {
                 startActivityForResult(Intent.createChooser(intent, "फ़ाइल का चयन करें"), PICK_PDF_CODE);
@@ -169,7 +169,7 @@ public class companyProof extends AppCompatActivity {
                 uploadFile(data.getData());
             }
             else{
-                if(check.equals("Eng")){
+                if(check.equals(getResources().getString(R.string.english))){
                     Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
                 } else{
                     Toast.makeText(this, "कोई फ़ाइल नहीं चुनी गई", Toast.LENGTH_SHORT).show();
@@ -185,14 +185,14 @@ public class companyProof extends AppCompatActivity {
                         @SuppressWarnings("VisibleForTests")
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            if(check.equals("Eng")) {
+                            if(check.equals(getResources().getString(R.string.english))) {
                                 textViewStatus.setText("File Uploaded Successfully");
                             } else {
                                 textViewStatus.setText("फाइल अपलोड हो गई है");
                             }
                             counter++;
                             upButton.setEnabled(false);
-                            if(check.equals("Eng")) {
+                            if(check.equals(getResources().getString(R.string.english))) {
                                 upButton.setText("Uploaded");
                             } else {
                                 upButton.setText("अपलोड की गई");
@@ -211,7 +211,7 @@ public class companyProof extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            if(check.equals("Eng")) {
+                            if(check.equals(getResources().getString(R.string.english))) {
                                 textViewStatus.setText((int) progress + "% Uploading...");
                             } else {
                                 textViewStatus.setText((int) progress + "%अपलोडिंग...");

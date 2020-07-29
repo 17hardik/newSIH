@@ -99,7 +99,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
         jobType = view.findViewById(R.id.jobsType);
         if (activity.equals("Government")){
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Government Jobs");
             } else{
                 jobType.setText(R.string.government_jobs1);
@@ -107,7 +107,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         }
 
         else if (activity.equals("Private")){
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Private Jobs");
             } else{
                 jobType.setText(R.string.non_government_jobs1);
@@ -115,7 +115,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         }
 
         else if (activity.equals("Freelancing")){
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Freelancing");
             } else{
                 jobType.setText(R.string.freelancing1);
@@ -123,7 +123,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         }
 
         else {
-            if(check.equals("Eng")) {
+            if(check.equals(getResources().getString(R.string.english))) {
                 jobType.setText("Tenders");
             } else{
                 jobType.setText(R.string.tenders1);
@@ -152,7 +152,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
         pd = new ProgressDialog(Free_Lancing.this);
 
-        if (check.equals("Eng")) {
+        if (check.equals(getResources().getString(R.string.english))) {
             pd.setMessage("Fetching data");
         } else {
             pd.setMessage("डेटा लाया जा रहा है");
@@ -227,10 +227,10 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            if(check.equals("Eng")) {
-                                Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                            if(check.equals(getResources().getString(R.string.english))){
+                                Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(Free_Lancing.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -239,11 +239,12 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(Free_Lancing.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Free_Lancing.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                }            }
+                    Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         final Handler handler = new Handler();
@@ -312,19 +313,19 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 u_name = dataSnapshot.child("Username").getValue().toString();
                 phone = dataSnapshot.child("Phone").getValue().toString();
                 if (isPremium.equals("Yes")) {
-                    if (check.equals("Hin")) {
+                    if (!check.equals(getResources().getString(R.string.english))) {
                         Premium.setText("प्रीमियम");
                     }
                     Premium.setVisibility(View.VISIBLE);
                     crown.setVisibility(View.VISIBLE);
                     if (days.equals("1")) {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             Days.setText(days + " दिन शेष");
                         } else {
                             Days.setText(days + " day remaining");
                         }
                     } else {
-                        if (check.equals("Hin")) {
+                        if (!check.equals(getResources().getString(R.string.english))) {
                             Days.setText(days + " दिन शेष");
                         } else {
                             Days.setText(days + " days remaining");
@@ -366,15 +367,15 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if (check.equals("Hin")) {
+                if (!check.equals(getResources().getString(R.string.english))) {
                     Toast.makeText(Free_Lancing.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Free_Lancing.this, "There is some error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Free_Lancing.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        if (check.equals("Hin")) {
+        if (!check.equals(getResources().getString(R.string.english))) {
             NavHin();
             toHin();
         } else {
@@ -438,7 +439,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu1 = menu;
         getMenuInflater().inflate(R.menu.option_menu,menu);
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             optionHin();
         }
         else{
@@ -452,7 +453,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
             return true;
         switch (menuItem.getItemId()) {
             case R.id.switch1:
-                if(check.equals("Eng")) {
+                if(check.equals(getResources().getString(R.string.english))) {
                     pd.setMessage("डेटा लाया जा रहा है");
                     SharedPreferences.Editor editor1 = getSharedPreferences(M, j).edit();
                     editor1.putString("Lang", "Hin");
@@ -596,7 +597,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         super.onResume();
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
-        if(check.equals("Hin")){
+        if(!check.equals(getResources().getString(R.string.english))){
             English = false;
             NavHin();
             toHin();

@@ -54,7 +54,7 @@ public class Forgot_Password extends AppCompatActivity {
         Verify = findViewById(R.id.verifyButton);
         Verify.setBackgroundResource(R.drawable.button);
 
-        if(check.equals("Hin"))
+        if(!check.equals(getResources().getString(R.string.english)))
         {
             toHin();
         }
@@ -91,7 +91,7 @@ public class Forgot_Password extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final ProgressDialog pd = new ProgressDialog(Forgot_Password.this);
-                if(check.equals("Hin")){
+                if(!check.equals(getResources().getString(R.string.english))){
                     pd.setMessage(getResources().getString(R.string.verifying1));
                 }else {
                     pd.setMessage("Verifying...");
@@ -101,38 +101,32 @@ public class Forgot_Password extends AppCompatActivity {
                 dob = DOB.getText().toString();
                 username = Username.getText().toString().trim();
                 if(phone.equals("")){
-                    if(check.equals("Hin")){
+                    if(!check.equals(getResources().getString(R.string.english))){
                         Phone.setError(getResources().getString(R.string.must_be_filled1));
-                        Phone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                        pd.dismiss();
                     }else {
                         Phone.setError("Must be filled");
-                        Phone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                        pd.dismiss();
                     }
+                    Phone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    pd.dismiss();
                 }
                  else if(username.equals("")){
-                    if(check.equals("Hin")){
+                    if(!check.equals(getResources().getString(R.string.english))){
                         Username.setError(getResources().getString(R.string.must_be_filled1));
-                        Username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                        pd.dismiss();
                     }else {
                         Username.setError("Must be filled");
-                        Username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                        pd.dismiss();
                     }
+                    Username.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    pd.dismiss();
                 }
                  else if(dob.equals("")){
-                     if(check.equals("Hin")){
+                     if(!check.equals(getResources().getString(R.string.english))){
                          DOB.setError(getResources().getString(R.string.must_be_filled1));
-                         DOB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                         pd.dismiss();
                      }else {
                          DOB.setError("Must be filled");
-                         DOB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                         pd.dismiss();
                      }
-                 }
+                    DOB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                    pd.dismiss();
+                }
 
                  else {
 
@@ -160,7 +154,7 @@ public class Forgot_Password extends AppCompatActivity {
 
                                  } else {
 
-                                     if (check.equals("Hin")) {
+                                     if (!check.equals(getResources().getString(R.string.english))) {
                                          pd.dismiss();
                                          Toast.makeText(Forgot_Password.this, getResources().getString(R.string.username_dob_incorrect), Toast.LENGTH_SHORT).show();
                                      } else {
@@ -169,7 +163,7 @@ public class Forgot_Password extends AppCompatActivity {
                                      }
                                  }
                              } catch (Exception e){
-                                 if (check.equals("Hin")) {
+                                 if (!check.equals(getResources().getString(R.string.english))) {
                                      pd.dismiss();
                                      Toast.makeText(Forgot_Password.this, getResources().getString(R.string.user_not_found1), Toast.LENGTH_SHORT).show();
                                  } else {
@@ -182,12 +176,12 @@ public class Forgot_Password extends AppCompatActivity {
 
                          @Override
                          public void onCancelled(@NonNull DatabaseError databaseError) {
-                             if (check.equals("Hin")) {
+                             if (!check.equals(getResources().getString(R.string.english))) {
                                  pd.dismiss();
                                  Toast.makeText(Forgot_Password.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                              } else {
                                  pd.dismiss();
-                                 Toast.makeText(Forgot_Password.this, "There is some error", Toast.LENGTH_SHORT).show();
+                                 Toast.makeText(Forgot_Password.this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                              }
                          }
                      });
