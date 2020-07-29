@@ -690,6 +690,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         check = preferences1.getString("Lang","Eng");
         if(check.equals("Hin")){
             English = false;
+            NavHin();
             toHin();
             try{
                 optionHin();
@@ -697,6 +698,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         } else{
             English = true;
+            NavEng();
             toEng();
             try{
                 optionEng();
