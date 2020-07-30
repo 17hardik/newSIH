@@ -3,8 +3,10 @@ package com.example.sih.Jobs;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,8 +23,9 @@ public class jobApply extends AppCompatActivity {
 
     private WebView webView;
     DatabaseReference reff1;
-    String J, jobCategory, jobReference, domainType, applyLink, check;
+    String J, jobCategory, jobReference, domainType, TAG, applyLink, check;
     int x;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +35,22 @@ public class jobApply extends AppCompatActivity {
         jobCategory = preferences1.getString("jobCategory", "");
         jobReference = preferences1.getString("jobReference", "");
         domainType = preferences1.getString("domainType", "");
+        TAG = preferences1.getString("TAG", "");
         check = preferences1.getString("Lang", "Eng");
         setContentView(R.layout.activity_job_apply);
 
         webView = findViewById(R.id.webView);
 
-        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(jobCategory).child(jobReference);
+        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
+        pd = new ProgressDialog(jobApply.this);
+
+        if (check.equals("Eng")) {
+            pd.setMessage("Fetching data");
+        } else {
+            pd.setMessage("डेटा लाया जा रहा है");
+        }
+
+        pd.show();
         reff1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,6 +77,14 @@ public class jobApply extends AppCompatActivity {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pd.dismiss();
+            }
+        }, 5000);
 
     }
 

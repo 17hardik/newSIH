@@ -55,7 +55,7 @@ import java.util.ArrayList;
 public class Government extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView uphone, uname, Premium, Days, jobType;
     Boolean English = true;
-    String lang, M, J, S, C, check, phone, u_name, path, days, isPremium, activity, domain, TAG;
+    String lang, M, J, S, C, check, phone, u_name, path, days, isPremium, activity, domain, Relation;
     int j, i, x, d;
     DrawerLayout drawer;
     ImageView profile, crown;
@@ -512,7 +512,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
         SharedPreferences preferences3 = getSharedPreferences(C,d);
-        TAG = preferences3.getString("TAG", "");
+        Relation = preferences3.getString("Relation", "");
         if(check.equals("Hin")){
             English = false;
             NavHin();
@@ -533,7 +533,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
         }
 
         try {
-            reff5 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child(TAG).child("Government");
+            reff5 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child(Relation).child("Government");
 
             reff5.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -544,7 +544,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                     for (int l = 0; l < size; l++) {
 
                         String i = Integer.toString(l);
-                        reff6 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child(TAG).child("Government").child(i);
+                        reff6 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child(Relation).child("Government").child(i);
                         reff6.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -623,7 +623,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                 }
             });
 
-            reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Government");
+            reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Government");
             reff3.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -633,7 +633,7 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                     for (int k = 0; k < size; k++) {
 
                         String i = Integer.toString(k);
-                        reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Government").child(i);
+                        reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Government").child(i);
                         reff4.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {

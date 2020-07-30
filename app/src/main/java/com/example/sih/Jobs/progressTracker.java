@@ -24,7 +24,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sih.R;
-import com.example.sih.Registration.dataListView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +37,7 @@ public class progressTracker extends AppCompatActivity {
 
     TextView keySkills;
     Button reset;
-    String S, jobCategory, jobReference, skills, phone, J, check, M;
+    String S, domainType, jobCategory, jobReference, TAG, skills, phone, J, check, M;
     int i, x, j;
     DatabaseReference reff1;
     List<dataListView> initItemList;
@@ -82,7 +81,9 @@ public class progressTracker extends AppCompatActivity {
 
         SharedPreferences preferences2 = getSharedPreferences(J,x);
         jobCategory = preferences2.getString("jobCategory", "");
-        jobReference = preferences1.getString("jobReference", "");
+        jobReference = preferences2.getString("jobReference", "");
+        TAG = preferences2.getString("TAG", "");
+        domainType = preferences2.getString("domainType", "");
 
         setContentView(R.layout.activity_progress_tracker);
 
@@ -112,7 +113,7 @@ public class progressTracker extends AppCompatActivity {
             }
         });
 
-        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs").child(jobCategory).child(jobReference);
+        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -582,7 +583,7 @@ public class progressTracker extends AppCompatActivity {
 
         pd.show();
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Science and Technology").child("Government").child("0").child("ROADMAP");
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

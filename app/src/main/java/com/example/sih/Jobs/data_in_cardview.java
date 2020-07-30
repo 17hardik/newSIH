@@ -9,12 +9,14 @@ public class data_in_cardview {
     private String Job_Type;
     private String ID;
     private String domain_type;
+    private String Relation;
     private String TAG;
+
 
     public data_in_cardview() {
     }
 
-    public data_in_cardview(String company_logo, String job_Post, String company_Name, String location, String job_Type, String ID, String domain_type, String TAG) {
+    public data_in_cardview(String company_logo, String job_Post, String company_Name, String location, String job_Type, String ID, String domain_type, String relation, String TAG) {
         this.company_logo = company_logo;
         Job_Post = job_Post;
         Company_Name = company_Name;
@@ -22,6 +24,7 @@ public class data_in_cardview {
         Job_Type = job_Type;
         this.ID = ID;
         this.domain_type = domain_type;
+        Relation = relation;
         this.TAG = TAG;
     }
 
@@ -79,6 +82,14 @@ public class data_in_cardview {
 
     public void setDomain_type(String domain_type) {
         this.domain_type = domain_type;
+    }
+
+    public String getRelation() {
+        return Relation;
+    }
+
+    public void setRelation(String relation) {
+        Relation = relation;
     }
 
     public String getTAG() {

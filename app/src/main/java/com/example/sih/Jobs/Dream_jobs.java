@@ -27,7 +27,7 @@ public class Dream_jobs extends AppCompatActivity {
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
     ProgressDialog pd;
-    String S, domainType, category, position, check, M;
+    String S, domainType, TAG, category, position, check, M;
     String phone;
     int  i, j;
 
@@ -60,14 +60,15 @@ public class Dream_jobs extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                     try {
                         String dreamJob = dataSnapshot.getValue().toString();
-                        String[] arrOfStr = dreamJob.split("-", 3);
+                        String[] arrOfStr = dreamJob.split("-", 4);
                         domainType = arrOfStr[0];
-                        category = arrOfStr[1];
-                        position = arrOfStr[2];
+                        TAG = arrOfStr[1];
+                        category = arrOfStr[2];
+                        position = arrOfStr[3];
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(category).child(position);
+                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(category).child(position);
                     reff1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

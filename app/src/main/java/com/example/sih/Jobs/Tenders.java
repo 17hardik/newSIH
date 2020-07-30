@@ -52,8 +52,8 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
 
     TextView uphone, uname, Premium, Days, jobType;
     Boolean English = true;
-    String lang, M, J, check, S, phone, u_name, path, days, isPremium, activity, domain;
-    int j, i, x;
+    String lang, M, J, C, check, S, phone, u_name, path, days, isPremium, activity, domain, Relation;
+    int j, i, x, d;
     DrawerLayout drawer;
     ImageView profile, crown;
     NavigationView navigationView;
@@ -61,7 +61,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob, Jobs, Top_Jobs, Features, Connection, Publish;
-    DatabaseReference reff, reff1, reff2, reff3, reff4;
+    DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6;
     RecyclerView tenders;
     ArrayList<data_in_cardview> details;
     gov_adapter govAdapter;
@@ -157,99 +157,6 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         }
 
         pd.show();
-
-        reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("Tender");
-
-        reff2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                size = (int) dataSnapshot.getChildrenCount();
-
-                for (int l = 0; l < size; l++) {
-
-                    String i = Integer.toString(l);
-                    reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("Tender").child(i);
-                    reff1.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                            details.add(d);
-                            govAdapter = new gov_adapter(Tenders.this, details);
-                            tenders.setAdapter(govAdapter);
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            if(check.equals(getResources().getString(R.string.english))){
-                                Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals(getResources().getString(R.string.english))){
-                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Tender");
-        reff3.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                size = (int) dataSnapshot.getChildrenCount();
-
-                for (int k = 0; k < size; k++) {
-
-                    String i = Integer.toString(k);
-                    reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("Tender").child(i);
-                    reff4.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            String subDomain = snapshot.child("sub_domain").getValue().toString();
-
-                            data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                            if (!(subDomain.equals(domain))) {
-                                details.add(d);
-                                govAdapter = new gov_adapter(Tenders.this, details);
-                                tenders.setAdapter(govAdapter);
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            if(check.equals(getResources().getString(R.string.english))){
-                                Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals(getResources().getString(R.string.english))){
-                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -600,6 +507,8 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         super.onResume();
         SharedPreferences preferences1 = getSharedPreferences(M,j);
         check = preferences1.getString("Lang","Eng");
+        SharedPreferences preferences3 = getSharedPreferences(C,d);
+        Relation = preferences3.getString("Relation", "");
         if(!check.equals(getResources().getString(R.string.english))){
             English = false;
             NavHin();
@@ -618,6 +527,149 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
 
             }
         }
+
+        try {
+            reff5 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child(Relation).child("Tender");
+
+            reff5.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff6 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child(Relation).child("Tender").child(i);
+                        reff6.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Tenders.this, details);
+                                tenders.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                if(check.equals(getResources().getString(R.string.english))){
+                                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    if(check.equals(getResources().getString(R.string.english))){
+                        Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("All Jobs").child("Tender");
+
+            reff2.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int l = 0; l < size; l++) {
+
+                        String i = Integer.toString(l);
+                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("All Jobs").child("Tender").child(i);
+                        reff1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                details.add(d);
+                                govAdapter = new gov_adapter(Tenders.this, details);
+                                tenders.setAdapter(govAdapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                if(check.equals(getResources().getString(R.string.english))){
+                                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    if(check.equals(getResources().getString(R.string.english))){
+                        Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Tender");
+            reff3.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    size = (int) dataSnapshot.getChildrenCount();
+
+                    for (int k = 0; k < size; k++) {
+
+                        String i = Integer.toString(k);
+                        reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Tender").child(i);
+                        reff4.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                String subDomain = snapshot.child("sub_domain").getValue().toString();
+
+                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                if (!(subDomain.equals(domain))) {
+                                    details.add(d);
+                                    govAdapter = new gov_adapter(Tenders.this, details);
+                                    tenders.setAdapter(govAdapter);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                if(check.equals(getResources().getString(R.string.english))){
+                                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    if(check.equals(getResources().getString(R.string.english))){
+                        Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Tenders.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public StringBuilder decryptUsername(String uname) {

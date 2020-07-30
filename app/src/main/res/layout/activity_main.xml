@@ -57,7 +57,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/ic_topjobs_banner3" />
+                                android:background="@drawable/ic_topjobs_banner4" />
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
