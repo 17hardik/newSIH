@@ -24,6 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Login extends AppCompatActivity {
     TextView register, forget;
@@ -31,7 +35,7 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     DatabaseReference reff;
     ImageView Eye;
-    String phone, pass, S, Cipher, M, A, check, new_phone, realPhone = "Null", premium_date, isFirst;
+    String phone, pass, S, Cipher, M, A, check, new_phone, realPhone = "Null", premium_date, isFirst, currentDate;
     int i, j, count = 1, b;
 
     @Override
@@ -58,6 +62,10 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.password);
         Eye = findViewById(R.id.eye);
         loginButton = findViewById(R.id.loginButton);
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        currentDate = df.format(c);
 
         if(!check.equals(getResources().getString(R.string.english)))
         {
@@ -145,9 +153,14 @@ public class Login extends AppCompatActivity {
                                     String storedPass = dataSnapshot.child("Password").getValue().toString();
                                     try {
                                         premium_date = dataSnapshot.child("Premium Date").getValue().toString();
-                                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                                        editor.putString("isPremium", "Yes");
+                                        String[] date = premium_date.split("-");
+                                        String remainingDays = calculateDays(date[0], date[1], date[2]);
+                                        SharedPreferences.Editor editor = getSharedPreferences(S,i).edit();
+                                        editor.putString("remainingDays", remainingDays);
                                         editor.apply();
+                                        SharedPreferences.Editor editor2 = getSharedPreferences(S, i).edit();
+                                        editor2.putString("isPremium", "Yes");
+                                        editor2.apply();
                                         if (storedPass.equals(Cipher)) {
                                             SharedPreferences.Editor editor1 = getSharedPreferences(S, i).edit();
                                             editor1.putString("Status", "Yes");
@@ -218,5 +231,72 @@ public class Login extends AppCompatActivity {
         forget.setText(R.string.forgot_password1);
         Password.setHint(R.string.password1);
     }
+    public String calculateDays(String day, String month, String year){
+        String current[] = currentDate.split("-");
+        String remaining;
+        if(!month.equals("Feb")){
+            if(month.equals("Apr") || month.equals("Jun") || month.equals("Sep") || month.equals("Nov")){
+                if(Integer.parseInt(current[0]) > Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if(Integer.parseInt(current[0]) < Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - ((30-Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if(current[1].equals(month) && current[0].equals(day)){
+                    remaining = "30";
+                } else{
+                    remaining = "0";
+                }
+            } else {
+                if (Integer.parseInt(current[0]) > Integer.parseInt(day) && month.equals(current[1])) {
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if (Integer.parseInt(current[0]) < Integer.parseInt(day) && !(current[1].equals("Mar"))) {
+                    remaining = Integer.toString(30 - ((31 - Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if (Integer.parseInt(current[0]) < Integer.parseInt(day) && !(Integer.parseInt(year) % 4 == 0) && (current[1].equals("Mar"))) {
+                    if (day.equals("30") && month.equals("Jan")) {
+                        remaining = "1";
+                    } else {
+                        remaining = "2";
+                    }
 
+                }
+                else if (Integer.parseInt(current[0]) < Integer.parseInt(day) && (Integer.parseInt(year) % 4 == 0) && (current[1].equals("Mar"))) {
+                    if (day.equals("30") && month.equals("Jan")) {
+                        remaining = "0";
+                    } else {
+                        remaining = "1";
+                    }
+                }else {
+                    remaining = "30";
+                }
+            }
+        } else{
+            if(Integer.parseInt(year)%4 != 0 && Integer.parseInt(year)%400 != 0){
+                if(Integer.parseInt(current[0]) > Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if(Integer.parseInt(current[0]) < Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - ((29-Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if(current[1].equals(month) && current[0].equals(day)){
+                    remaining = "30";
+                } else if(!(current[1].equals(month)) && current[0].equals(day)){
+                    remaining = "1";
+                } else {
+                    remaining = "0";
+                }
+            } else{
+                if(Integer.parseInt(current[0]) > Integer.parseInt(day) && month.equals(current[1])){
+                    remaining = Integer.toString(30 - (Integer.parseInt(current[0]) - Integer.parseInt(day)));
+                } else if(Integer.parseInt(current[0]) < Integer.parseInt(day)){
+                    remaining = Integer.toString(30 - ((28-Integer.parseInt(day)) + Integer.parseInt(current[0])));
+                } else if(current[1].equals(month) && current[0].equals(day)){
+                    remaining = "30";
+                } else if(!(current[1].equals(month)) && current[0].equals(day)){
+                    remaining = "2";
+                }else if(Integer.parseInt(current[0]) > Integer.parseInt(day) && month.equals(current[1])){
+                    remaining = "1";
+                }else {
+                    remaining = "0";
+                }
+            }
+        }
+        return remaining;
+    }
 }
