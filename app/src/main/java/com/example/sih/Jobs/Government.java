@@ -260,7 +260,6 @@ public class Government extends AppCompatActivity implements NavigationView.OnNa
                                     profile.setMinimumHeight(dm.heightPixels);
                                     profile.setMinimumWidth(dm.widthPixels);
                                     profile.setImageBitmap(bm);
-                                    // path = saveToInternalStorage(bm);
                                     SharedPreferences.Editor editor1 = getSharedPreferences(S, i).edit();
                                     editor1.putString("path", path);
                                     editor1.apply();

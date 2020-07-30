@@ -143,23 +143,49 @@ public class Login extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 try {
                                     String storedPass = dataSnapshot.child("Password").getValue().toString();
+                                    try {
+                                        premium_date = dataSnapshot.child("Premium Date").getValue().toString();
+                                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                                        editor.putString("isPremium", "Yes");
+                                        editor.apply();
+                                        if (storedPass.equals(Cipher)) {
+                                            SharedPreferences.Editor editor1 = getSharedPreferences(S, i).edit();
+                                            editor1.putString("Status", "Yes");
+                                            editor1.putString("Phone", phone);
+                                            editor1.apply();
+                                            startActivity(new Intent(Login.this, MainActivity.class));
+                                            finishAffinity();
+                                        }
 
-                                     if (storedPass.equals(Cipher)) {
-                                                    SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
-                                                    editor.putString("Status", "Yes");
-                                                    editor.putString("Phone", phone);
-                                                    editor.apply();
-                                                    startActivity(new Intent(Login.this, MainActivity.class));
-                                                    finishAffinity();
-                                    }
+                                        else {
+                                            if(check.equals("Hin")){
+                                                Toast.makeText(Login.this, R.string.incorrect_password1, Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
+                                        editor.putString("isPremium", "No");
+                                        editor.apply();
+                                        if (storedPass.equals(Cipher)) {
+                                            SharedPreferences.Editor editor1 = getSharedPreferences(S, i).edit();
+                                            editor1.putString("Status", "Yes");
+                                            editor1.putString("Phone", phone);
+                                            editor1.apply();
+                                            startActivity(new Intent(Login.this, MainActivity.class));
+                                            finishAffinity();
+                                        }
 
-                                    else {
-                                        if(check.equals("Hin")){
-                                            Toast.makeText(Login.this, R.string.incorrect_password1, Toast.LENGTH_LONG).show();
-                                        } else {
-                                            Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_LONG).show();
+                                        else {
+                                            if(check.equals("Hin")){
+                                                Toast.makeText(Login.this, R.string.incorrect_password1, Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_LONG).show();
+                                            }
                                         }
                                     }
+
                                 } catch (Exception e) {
                                     if(check.equals("Hin")){
                                         Toast.makeText(Login.this, R.string.user_not_found1, Toast.LENGTH_LONG).show();
