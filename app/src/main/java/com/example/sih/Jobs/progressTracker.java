@@ -572,6 +572,12 @@ public class progressTracker extends AppCompatActivity {
         SharedPreferences preferences1 = getSharedPreferences(M, j);
         check = preferences1.getString("Lang", "Eng");
 
+        SharedPreferences preferences2 = getSharedPreferences(J,x);
+        jobCategory = preferences2.getString("jobCategory", "");
+        jobReference = preferences2.getString("jobReference", "");
+        TAG = preferences2.getString("TAG", "");
+        domainType = preferences2.getString("domainType", "");
+
 
         pd = new ProgressDialog(progressTracker.this);
 
@@ -583,7 +589,7 @@ public class progressTracker extends AppCompatActivity {
 
         pd.show();
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference).child("ROADMAP");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

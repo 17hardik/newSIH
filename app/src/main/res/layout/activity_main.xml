@@ -53,23 +53,32 @@
                             android:layout_height="match_parent"
                             android:autoStart="true"
                             android:flipInterval="5000">
-
                             <ImageView
+                                android:id="@+id/publish"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_publish_banner2"
+                                android:onClick="publish"/>
+                            <ImageView
+                                android:id="@+id/topJobs"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/ic_topjobs_banner4" />
                             <ImageView
+                                android:id="@+id/premium"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_premium_banner" />
+                            <ImageView
+                                android:id="@+id/dreamJob"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/ic_dreamjob_banner2" />
                             <ImageView
+                                android:id="@+id/roadmap"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/ic_roadmap_banner" />
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/ic_publish_banner2" />
                         </ViewFlipper>
 
                     </androidx.cardview.widget.CardView>

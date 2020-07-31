@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView bgapp;
     Animation bganim;
     TextView GovText, NonText, TenderText, FreeText, uphone, uname, Premium, Days;
-    ImageView Profile, Crown;
+    ImageView Profile, Crown, topJob, dreamJob, roadmap, premium;
     DrawerLayout drawer;
     Animation frombotton;
     ImageButton Gov, Non_Gov, Tenders, Free_Lancing;
@@ -110,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Tenders = findViewById(R.id.tenders);
         Free_Lancing = findViewById(R.id.free);
         viewFlipper = findViewById(R.id.viewFlipper);
+        topJob = findViewById(R.id.topJobs);
+        dreamJob = findViewById(R.id.dreamJob);
+        roadmap = findViewById(R.id.roadmap);
+        premium = findViewById(R.id.premium);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -794,6 +798,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
+
+    public void publish(View view) {
+
+        if (!isRegistered) {
+            Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.CreateYourJob.class);
+            startActivity(intent7);
+        }
+        else{
+            Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.jobsPublished.class);
+            startActivity(intent7);
+        }
+
+    }
+
     public StringBuilder decryptUsername(String uname) {
         int pllen;
         StringBuilder sb = new StringBuilder();
