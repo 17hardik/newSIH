@@ -80,8 +80,6 @@ public class Chat extends AppCompatActivity {
                 String messageText = messageArea.getText().toString();
 
                 if(!messageText.equals("")){
-                    conversation.add(TextMessage.createForLocalUser(messageText, System.currentTimeMillis()));
-                    smartReply();
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("message", messageText);
                     map.put("user", name);
@@ -134,6 +132,8 @@ public class Chat extends AppCompatActivity {
                 Map map = dataSnapshot.getValue(Map.class);
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
+                conversation.add(TextMessage.createForLocalUser(message, System.currentTimeMillis()));
+                smartReply();
                 messageArea.setText("");
 
                 if(userName.equals(name)){
