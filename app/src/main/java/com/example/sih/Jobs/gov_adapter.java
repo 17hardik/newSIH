@@ -69,10 +69,12 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
                     intent.putExtra("jobCategory", category);
                     String domainType = details.get(position).getDomain_type();
                     intent.putExtra("domainType", domainType);
+                    String tag = details.get(position).getTAG();
+                    intent.putExtra("tag", tag);
                     view.getContext().startActivity(intent);
-                    String TAG = details.get(position).getTAG();
+                    String Relation = details.get(position).getRelation();
                     SharedPreferences.Editor editor = context.getSharedPreferences(C,d).edit();
-                    editor.putString("TAG", TAG);
+                    editor.putString("Relation", Relation);
                     editor.apply();
 
 

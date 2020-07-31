@@ -8,7 +8,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.sih.R;
-import com.example.sih.Registration.dataListView;
 
 import java.util.List;
 

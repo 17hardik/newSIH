@@ -36,8 +36,8 @@ public class Job_Details extends AppCompatActivity {
 
     private TextView job_post, company_name, company_location, job_details, salaryLabel, salary, sectorLabel, sector, jobDescriptionLabel, jobDescription;
     DatabaseReference reff, reff1;
-    int k, i, x, y, size;
-    String M, J, check, phone, activity, S, jobReference, jobCategory, domainType, post, name, location, Salary, Sector, jobDesc;
+    int k, i, x, y, d, size;
+    String M, J, C, check, phone, activity, S, jobReference, jobCategory, domainType, post, name, location, Salary, Sector, jobDesc, TAG;
     Translate translate;
     Firebase firebase;
     Button FavButton, roadmap, apply;
@@ -64,6 +64,7 @@ public class Job_Details extends AppCompatActivity {
         jobReference = intent.getStringExtra("jobReference");
         jobCategory = intent.getStringExtra("jobCategory");
         domainType = intent.getStringExtra("domainType");
+        TAG = intent.getStringExtra("tag");
         job_post = findViewById(R.id.job_post);
         FavButton = findViewById(R.id.favButton);
         roadmap = findViewById(R.id.roadmapButton);
@@ -97,7 +98,7 @@ public class Job_Details extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             long childCount = snapshot.getChildrenCount();
-                                firebase.child(phone).child("Dream Jobs").child(domainType + " " + jobCategory + jobReference).setValue(domainType + "-" +jobCategory + "-" + jobReference);
+                                firebase.child(phone).child("Dream Jobs").child(domainType + " " + TAG + " " + jobCategory + " "+ jobReference).setValue(domainType + "-" + TAG + "-" + jobCategory + "-" + jobReference);
                                 isStored = true;
                                 if(check.equals(getResources().getString(R.string.english))) {
                                     Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
@@ -113,7 +114,7 @@ public class Job_Details extends AppCompatActivity {
                     });
                 } catch (Exception e) {
 
-                    firebase.child(phone).child("Dream Jobs").child("Government").child(jobReference).setValue("Government" + jobReference);
+                    firebase.child(phone).child("Dream Jobs").child(domainType + " " + TAG + " " + jobCategory + " "+ jobReference).setValue(domainType + "-" + TAG + "-" + jobCategory + "-" + jobReference);
                     isStored = true;
                     if(check.equals(getResources().getString(R.string.english))) {
                         Toast.makeText(Job_Details.this, "Saved to Dream Jobs", Toast.LENGTH_SHORT).show();
@@ -143,8 +144,10 @@ public class Job_Details extends AppCompatActivity {
                 Intent roadmapIntent = new Intent(Job_Details.this, progressTracker.class);
                 startActivity(roadmapIntent);
                 SharedPreferences.Editor editor = getSharedPreferences(J, x).edit();
+                editor.putString("domainType", domainType);
                 editor.putString("jobCategory", jobCategory);
                 editor.putString("jobReference", jobReference);
+                editor.putString("TAG", TAG);
                 editor.apply();
 
             }
@@ -160,6 +163,8 @@ public class Job_Details extends AppCompatActivity {
                 editor.putString("jobCategory", jobCategory);
                 editor.putString("jobReference", jobReference);
                 editor.putString("domainType", domainType);
+                editor.putString("TAG", TAG);
+
                 editor.apply();
 
             }
@@ -201,7 +206,7 @@ public class Job_Details extends AppCompatActivity {
 
     public void getJobPost(final String jobReference) {
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(jobCategory).child(jobReference);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -235,7 +240,7 @@ public class Job_Details extends AppCompatActivity {
 
     public void getCompanyName(final String jobReference) {
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(jobCategory).child(jobReference);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -269,7 +274,7 @@ public class Job_Details extends AppCompatActivity {
 
     public void getLocation(final String jobReference) {
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(jobCategory).child(jobReference);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -304,7 +309,7 @@ public class Job_Details extends AppCompatActivity {
 
     public void getSalary(final String jobReference) {
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(jobCategory).child(jobReference);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -337,7 +342,7 @@ public class Job_Details extends AppCompatActivity {
 
     public void getSector(final String jobReference){
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(jobCategory).child(jobReference);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -370,7 +375,7 @@ public class Job_Details extends AppCompatActivity {
 
     public void getJobDescription(final String jobReference){
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(jobCategory).child(jobReference);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domainType).child(TAG).child(jobCategory).child(jobReference);
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
