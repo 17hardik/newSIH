@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Jobs.StudyResources"></activity>
+        <activity android:name=".Atmanirbhar.ClientProduct"></activity>
+        <activity android:name=".Atmanirbhar.ClientService" />
+        <activity android:name=".Atmanirbhar.VendorProduct" />
+        <activity android:name=".Atmanirbhar.VendorService" />
+        <activity android:name=".Atmanirbhar.ProductService" />
+        <activity android:name=".Atmanirbhar.Atmanirbhar" />
+        <activity android:name=".Jobs.StudyResources" />
         <activity android:name=".Registration.Welcome" />
         <activity android:name=".Jobs.jobApply" />
         <activity

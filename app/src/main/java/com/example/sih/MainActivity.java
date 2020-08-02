@@ -26,6 +26,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.sih.Atmanirbhar.Atmanirbhar;
 import com.example.sih.Jobs.Dream_jobs;
 import com.example.sih.Jobs.Free_Lancing;
 import com.example.sih.Jobs.Government;
@@ -581,6 +583,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent2 = new Intent(MainActivity.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
                 break;
+            case R.id.atmanirbhar:
+                Intent intent6 = new Intent(MainActivity.this, Atmanirbhar.class);
+                startActivity(intent6);
             case R.id.resources:
                 Intent intent3 = new Intent(MainActivity.this, com.example.sih.Jobs.StudyResources.class);
                 startActivity(intent3);
