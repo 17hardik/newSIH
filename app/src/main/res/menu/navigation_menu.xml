@@ -56,6 +56,10 @@
                     android:id="@+id/topJobs"
                     android:title="                  Top Jobs"
                     android:textColor="#2f0739"/>
+                <item
+                    android:id="@+id/resources"
+                    android:title="                  Study Resources"
+                    android:textColor="#2f0739"/>
             </menu>
         </item>
     </group>

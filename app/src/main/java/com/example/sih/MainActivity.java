@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
-    MenuItem Government, Non_Government, Tender, FreeLancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
+    MenuItem Government, Non_Government, Tender, Resources, FreeLancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
     int i, j, y, x, b;
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false, English = true;
@@ -274,6 +274,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FreeLancing = menu2.findItem(R.id.free_lancing);
         GetPremium = menu2.findItem(R.id.premium);
         chat = menu2.findItem(R.id.chat);
+        Resources = menu2.findItem(R.id.resources);
         topJobs = menu2.findItem(R.id.topJobs);
         publishJob = menu2.findItem(R.id.publish);
         Jobs = menu2.findItem(R.id.title1);
@@ -580,6 +581,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent2 = new Intent(MainActivity.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
                 break;
+            case R.id.resources:
+                Intent intent3 = new Intent(MainActivity.this, com.example.sih.Jobs.StudyResources.class);
+                startActivity(intent3);
+                break;
             case R.id.chat:
                 if (isFirst.equals("notFirst")){
 
@@ -701,6 +706,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Publish.setTitle("                  अपनी नौकरी प्रकाशित करें");
         Top_Jobs.setTitle("                  शीर्ष नौकरियां");
         Connection.setTitle("                  अपने कनेक्शन बनाएँ");
+        Resources.setTitle("                  अध्ययन के संसाधन");
         Premium.setText("प्रीमियम");
         Days.setText(days + " दिन शेष");
         Jobs.setTitle("           नौकरी क्षेत्र");
@@ -715,6 +721,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Publish.setTitle("                  Publish Your Job");
         Top_Jobs.setTitle("                  Top Jobs");
         Connection.setTitle("                  Build Your Connections");
+        Resources.setTitle("                  Study Resources");
         Premium.setText("Premium");
         if(days.equals("1")){
             Days.setText(days + " day remaining");
