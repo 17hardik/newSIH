@@ -27,10 +27,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sih.MainActivity;
 import com.example.sih.Profile.Profile;
 import com.example.sih.R;
 import com.example.sih.Profile.Rating;
 import com.example.sih.Registration.Login;
+import com.example.sih.chatApp.ContactUs;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -533,11 +535,10 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
                 Intent rateIntent = new Intent(Tenders.this, Rating.class);
                 startActivity(rateIntent);
                 return true;
+
             case R.id.contact_us:
-                String recipient = "firstloveyourself1999@gmail.com";
-                Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-                intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                startActivity(intent4);
+                Intent intent = new Intent(Tenders.this, ContactUs.class);
+                startActivity(intent);
                 return true;
 
             default:

@@ -31,8 +31,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.sih.Jobs.Government;
 import com.example.sih.Jobs.Non_Government;
+import com.example.sih.MainActivity;
 import com.example.sih.R;
 import com.example.sih.Registration.Login;
+import com.example.sih.chatApp.ContactUs;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -424,10 +426,8 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 return true;
 
             case R.id.contact_us:
-                String recipient = "firstloveyourself1999@gmail.com";
-                Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-                intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                startActivity(intent4);
+                Intent intent = new Intent(Profile.this, ContactUs.class);
+                startActivity(intent);
                 return true;
 
             default:

@@ -20,8 +20,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sih.MainActivity;
 import com.example.sih.R;
 import com.example.sih.Registration.Login;
+import com.example.sih.chatApp.ContactUs;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -256,12 +258,8 @@ public class Change_Password extends AppCompatActivity {
                 return true;
 
             case R.id.contact_us:
-                String recipient = "firstloveyourself1999@gmail.com";
-                String subject = "Related to Rojgar App";
-                Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-                intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                intent4.putExtra(Intent.EXTRA_SUBJECT, subject);
-                startActivity(intent4);
+                Intent intent = new Intent(Change_Password.this, ContactUs.class);
+                startActivity(intent);
                 return true;
 
                 default:
