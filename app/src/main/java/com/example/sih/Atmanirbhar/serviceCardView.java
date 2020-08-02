@@ -4,8 +4,8 @@ package com.example.sih.Atmanirbhar;
 public class serviceCardView {
     private String JobName;
     private String Description;
-    private String Days;
     private String Phone;
+    private String Days;
 
     public serviceCardView() {
     }
@@ -21,16 +21,31 @@ public class serviceCardView {
         return JobName;
     }
 
-    public String getDays() {
-        return Days;
+    public void setJobName(String jobName) {
+        JobName = jobName;
     }
 
     public String getDescription() {
         return Description;
     }
 
+    public void setDescription(String description) {
+        Description = description;
+    }
+
     public String getPhone() {
         return Phone;
     }
 
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
+
+    public String getDays() {
+        return Days;
+    }
+
+    public void setDays(String days) {
+        Days = days;
+    }
 }

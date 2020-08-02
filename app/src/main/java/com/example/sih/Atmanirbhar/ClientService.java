@@ -30,10 +30,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sih.Jobs.Free_Lancing;
+import com.example.sih.Jobs.data_in_cardview;
 import com.example.sih.Registration.Login;
 import com.example.sih.Jobs.Non_Government;
 import com.example.sih.R;
 import com.example.sih.Jobs.Tenders;
+import com.example.sih.chatApp.User_List;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -59,10 +62,10 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
     MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob;
-    DatabaseReference reff, reff1;
+    DatabaseReference reff, reff2;
     RecyclerView users;
-    ArrayList<usercardview> details;
-    User_Adapter userAdapter;
+    ArrayList<serviceCardView> details;
+    serviceAdapter userAdapter;
     ProgressDialog pd;
     int size;
     Boolean isRegistered = false;
@@ -113,8 +116,8 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
                 3000
         );
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
-        pd = new ProgressDialog(User_List.this);
+        reff = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Atmanirbhar");
+        pd = new ProgressDialog(ClientService.this);
 
         if (check.equals("Eng")) {
             pd.setMessage("Fetching data");
@@ -127,48 +130,46 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(count == 0) {
-                    size = (int) dataSnapshot.getChildrenCount();
-                    for (final DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Users").child(childDataSnapshot.getKey());
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                usercardview d = snapshot.getValue(usercardview.class);
-                                if (!(phone.equals(childDataSnapshot.getKey()))) {
-                                    details.add(d);
-                                    userAdapter = new User_Adapter(details, User_List.this);
-                                    users.setAdapter(userAdapter);
-                                }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                if (check.equals("Eng")) {
-                                    Toast.makeText(User_List.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(User_List.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
-                                }
+                size = (int) dataSnapshot.getChildrenCount();
+
+                for (int l = 1; l <= size; l++) {
+
+                    String i = Integer.toString(l);
+                    reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("Atmanirbhar").child(i);
+                    reff2.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            serviceCardView d = snapshot.getValue(serviceCardView.class);
+                            details.add(d);
+                            userAdapter = new serviceAdapter(details, ClientService.this);
+                            users.setAdapter(userAdapter);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            if(check.equals(getResources().getString(R.string.english))){
+                                Toast.makeText(ClientService.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ClientService.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                             }
-                        });
-                    }
-                    count++;
-                } else {
-                    recreate();
+                        }
+                    });
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                if(check.equals("Eng")) {
-                    Toast.makeText(User_List.this, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+                if(check.equals(getResources().getString(R.string.english))){
+                    Toast.makeText(ClientService.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(User_List.this, "कृपया अपने इंटरनेट कनेक्शन की जाँच करें", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientService.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                 }
-
             }
-
         });
+
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -203,21 +204,21 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(User_List.this, ContactsContract.Profile.class);
+                Intent profileIntent = new Intent(ClientService.this, ContactsContract.Profile.class);
                 startActivity(profileIntent);
             }
         });
         uphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(User_List.this, ContactsContract.Profile.class);
+                Intent profileIntent = new Intent(ClientService.this, ContactsContract.Profile.class);
                 startActivity(profileIntent);
             }
         });
         uname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(User_List.this, ContactsContract.Profile.class);
+                Intent profileIntent = new Intent(ClientService.this, ContactsContract.Profile.class);
                 startActivity(profileIntent);
             }
         });
@@ -283,9 +284,9 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 if (check.equals("Hin")) {
-                    Toast.makeText(User_List.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientService.this, getResources().getString(R.string.error1), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(User_List.this, "There is some error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientService.this, "There is some error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -306,43 +307,43 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
                 SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
                 editor.putString("Activity", "Private");
                 editor.apply();
-                Intent intent1 = new Intent(User_List.this, Non_Government.class);
+                Intent intent1 = new Intent(ClientService.this, Non_Government.class);
                 startActivity(intent1);
                 break;
             case R.id.free_lancing:
                 SharedPreferences.Editor editor1 = getSharedPreferences(J,x).edit();
                 editor1.putString("Activity", "Freelancing");
                 editor1.apply();
-                Intent intent = new Intent(User_List.this, com.example.sih.Jobs.Free_Lancing.class);
+                Intent intent = new Intent(ClientService.this, com.example.sih.Jobs.Free_Lancing.class);
                 startActivity(intent);
                 break;
             case R.id.tenders:
                 SharedPreferences.Editor editor2 = getSharedPreferences(J,x).edit();
                 editor2.putString("Activity", "Tender");
                 editor2.apply();
-                Intent intent5 = new Intent(User_List.this, Tenders.class);
+                Intent intent5 = new Intent(ClientService.this, Tenders.class);
                 startActivity(intent5);
                 break;
             case R.id.premium:
-                Intent intent2 = new Intent(User_List.this, com.example.sih.Profile.Premium.class);
+                Intent intent2 = new Intent(ClientService.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
                 break;
             case R.id.chat:
-                Intent intent6 = new Intent(User_List.this, com.example.sih.chatApp.User_List.class);
+                Intent intent6 = new Intent(ClientService.this, com.example.sih.chatApp.User_List.class);
                 startActivity(intent6);
                 break;
             case R.id.publish:
                 if (!isRegistered) {
-                    Intent intent7 = new Intent(User_List.this, com.example.sih.PublishJob.CreateYourJob.class);
+                    Intent intent7 = new Intent(ClientService.this, com.example.sih.PublishJob.CreateYourJob.class);
                     startActivity(intent7);
                 }
                 else{
-                    Intent intent7 = new Intent(User_List.this, com.example.sih.PublishJob.jobsPublished.class);
+                    Intent intent7 = new Intent(ClientService.this, com.example.sih.PublishJob.jobsPublished.class);
                     startActivity(intent7);
                 }
                 break;
             case R.id.topJobs:
-                Intent intent8 = new Intent(User_List.this, com.example.sih.Jobs.topJobsFragment.class);
+                Intent intent8 = new Intent(ClientService.this, com.example.sih.Jobs.topJobsFragment.class);
                 startActivity(intent8);
                 break;
         }
@@ -381,7 +382,7 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
                 recreate();
                 return true;
             case R.id.logout: {
-                Intent intent = new Intent(User_List.this, Login.class);
+                Intent intent = new Intent(ClientService.this, Login.class);
                 startActivity(intent);
                 SharedPreferences.Editor editor = getSharedPreferences(S, i).edit();
                 editor.putString("Status", "Null");
@@ -390,7 +391,7 @@ public class ClientService extends AppCompatActivity implements NavigationView.O
                 break;
             }
             case R.id.rate_us:
-                Intent rateIntent = new Intent(User_List.this, Rating.class);
+                Intent rateIntent = new Intent(ClientService.this, Rating.class);
                 startActivity(rateIntent);
                 return true;
             case R.id.contact_us:

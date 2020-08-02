@@ -38,5 +38,19 @@ public class ProductService extends AppCompatActivity {
                 }
             }
         });
+
+        Service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Type.equals("Client")){
+                    Intent intent = new Intent(ProductService.this, ClientService.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ProductService.this, VendorService.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 }
