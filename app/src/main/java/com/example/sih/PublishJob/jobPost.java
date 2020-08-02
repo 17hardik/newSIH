@@ -8,6 +8,7 @@ public class jobPost {
     private String email;
 
     public jobPost() {
+
     }
 
     public jobPost(String title, String description, String experience, String city, String email) {

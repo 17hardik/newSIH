@@ -27,10 +27,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sih.MainActivity;
 import com.example.sih.Profile.Profile;
 import com.example.sih.R;
 import com.example.sih.Profile.Rating;
 import com.example.sih.Registration.Login;
+import com.example.sih.chatApp.ContactUs;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -60,7 +62,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob, Jobs, Top_Jobs, Features, Connection, Publish;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, Resources, GetPremium, chat, topJobs, publishJob, Jobs, Top_Jobs, Features, Connection, Publish;
     DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6;
     RecyclerView tenders;
     ArrayList<data_in_cardview> details;
@@ -330,6 +332,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         Top_Jobs = menu2.findItem(R.id.topJobs);
         Connection = menu2.findItem(R.id.chat);
         Publish = menu2.findItem(R.id.publish);
+        Resources = menu2.findItem(R.id.resources);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         profile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
@@ -471,6 +474,9 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
                 Intent intent6 = new Intent(Tenders.this, com.example.sih.chatApp.User_List.class);
                 startActivity(intent6);
                 break;
+            case R.id.resources:
+                Intent intent3 = new Intent(Tenders.this, StudyResources.class);
+                startActivity(intent3);
             case R.id.publish:
                 if (!isRegistered) {
                     Intent intent7 = new Intent(Tenders.this, com.example.sih.PublishJob.CreateYourJob.class);
@@ -533,11 +539,10 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
                 Intent rateIntent = new Intent(Tenders.this, Rating.class);
                 startActivity(rateIntent);
                 return true;
+
             case R.id.contact_us:
-                String recipient = "firstloveyourself1999@gmail.com";
-                Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-                intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                startActivity(intent4);
+                Intent intent = new Intent(Tenders.this, ContactUs.class);
+                startActivity(intent);
                 return true;
 
             default:
@@ -615,6 +620,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         Publish.setTitle("                  अपनी नौकरी प्रकाशित करें");
         Top_Jobs.setTitle("                  शीर्ष नौकरियां");
         Connection.setTitle("                  अपने कनेक्शन बनाएँ");
+        Resources.setTitle("                  अध्ययन के संसाधन");
         Premium.setText("प्रीमियम");
         Days.setText(days + " दिन शेष");
         Jobs.setTitle("           नौकरी क्षेत्र");
@@ -629,6 +635,7 @@ public class Tenders extends AppCompatActivity implements NavigationView.OnNavig
         Publish.setTitle("                  Publish Your Job");
         Top_Jobs.setTitle("                  Top Jobs");
         Connection.setTitle("                  Build Your Connections");
+        Resources.setTitle("                  Study Resources");
         Premium.setText("Premium");
         if(days.equals("1")){
             Days.setText(days + " day remaining");

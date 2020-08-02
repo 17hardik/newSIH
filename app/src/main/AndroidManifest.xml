@@ -13,7 +13,14 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Registration.Welcome"></activity>
+        <activity android:name=".Atmanirbhar.ClientProduct"></activity>
+        <activity android:name=".Atmanirbhar.ClientService" />
+        <activity android:name=".Atmanirbhar.VendorProduct" />
+        <activity android:name=".Atmanirbhar.VendorService" />
+        <activity android:name=".Atmanirbhar.ProductService" />
+        <activity android:name=".Atmanirbhar.Atmanirbhar" />
+        <activity android:name=".Jobs.StudyResources" />
+        <activity android:name=".Registration.Welcome" />
         <activity android:name=".Jobs.jobApply" />
         <activity
             android:name=".Jobs.topJobs"
@@ -60,6 +67,7 @@
         <activity android:name=".Jobs.Tenders" />
         <activity android:name=".Jobs.Free_Lancing" />
         <activity android:name=".Jobs.Government" />
+        <activity android:name=".chatApp.ContactUs" />
         <activity android:name=".Jobs.Non_Government" />
         <activity android:name=".Registration.Register2" />
         <activity android:name=".MainActivity" />

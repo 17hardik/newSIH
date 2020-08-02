@@ -426,13 +426,11 @@ public class Job_Details extends AppCompatActivity {
         try (InputStream is = getResources().openRawResource(R.raw.translate)) {
 
             final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
-
             TranslateOptions translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
             translate = translateOptions.getService();
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
-
         }
     }
     public void translateToHin (String originalText, TextView target) {

@@ -24,4 +24,5 @@
         android:padding="4dp"
         android:src="@android:drawable/ic_menu_send"
         android:id="@+id/sendButton"/>
+
 </LinearLayout>

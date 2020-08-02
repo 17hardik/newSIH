@@ -70,6 +70,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-analytics:17.4.4'
     implementation 'com.google.mlkit:smart-reply:16.1.0'
+    implementation 'org.apache.logging.log4j:log4j-api:2.8.2'
+    implementation 'ai.api:libai:1.4.8'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'commons-io:commons-io:2.6'
+    implementation 'com.firebaseui:firebase-ui-database:2.3.0'
+    implementation 'ai.api:sdk:2.0.7@aar'
     implementation 'com.google.android.gms:play-services-ads:19.3.0'
     implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
     implementation('com.google.cloud:google-cloud-translate:1.12.0') {
@@ -85,8 +91,7 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'com.google.firebase.firebase-perf'
+//apply plugin: 'com.google.firebase.firebase-perf'

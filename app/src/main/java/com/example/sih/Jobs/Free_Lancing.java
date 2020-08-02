@@ -28,10 +28,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sih.MainActivity;
 import com.example.sih.Profile.Profile;
 import com.example.sih.R;
 import com.example.sih.Profile.Rating;
 import com.example.sih.Registration.Login;
+import com.example.sih.chatApp.ContactUs;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -62,7 +64,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, Resources, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
     DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6;
     RecyclerView freelance;
     ArrayList<data_in_cardview> details;
@@ -331,6 +333,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         Features = menu2.findItem(R.id.title2);
         Top_Jobs = menu2.findItem(R.id.topJobs);
         Connection = menu2.findItem(R.id.chat);
+        Resources = menu2.findItem(R.id.resources);
         Publish = menu2.findItem(R.id.publish);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
@@ -465,6 +468,10 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 Intent intent5 = new Intent(Free_Lancing.this, Tenders.class);
                 startActivity(intent5);
                 break;
+            case R.id.resources:
+                Intent intent3 = new Intent(Free_Lancing.this, StudyResources.class);
+                startActivity(intent3);
+                break;
             case R.id.premium:
                 Intent intent2 = new Intent(Free_Lancing.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
@@ -536,11 +543,10 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 Intent rateIntent = new Intent(Free_Lancing.this, Rating.class);
                 startActivity(rateIntent);
                 return true;
+
             case R.id.contact_us:
-                String recipient = "firstloveyourself1999@gmail.com";
-                Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-                intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                startActivity(intent4);
+                Intent intent = new Intent(Free_Lancing.this, ContactUs.class);
+                startActivity(intent);
                 return true;
 
             default:
@@ -618,6 +624,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         Publish.setTitle("                  अपनी नौकरी प्रकाशित करें");
         Top_Jobs.setTitle("                  शीर्ष नौकरियां");
         Connection.setTitle("                  अपने कनेक्शन बनाएँ");
+        Resources.setTitle("                  अध्ययन के संसाधन");
         Premium.setText("प्रीमियम");
         Days.setText(days + " दिन शेष");
         Jobs.setTitle("           नौकरी क्षेत्र");
@@ -632,6 +639,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         Publish.setTitle("                  Publish Your Job");
         Top_Jobs.setTitle("                  Top Jobs");
         Connection.setTitle("                  Build Your Connections");
+        Resources.setTitle("                  Study Resources");
         Premium.setText("Premium");
         if(days.equals("1")){
             Days.setText(days + " day remaining");
