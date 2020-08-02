@@ -57,8 +57,7 @@
                                 android:id="@+id/publish"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/ic_publish_banner2"
-                                android:onClick="publish"/>
+                                android:background="@drawable/ic_publish_banner2" />
                             <ImageView
                                 android:id="@+id/topJobs"
                                 android:layout_width="match_parent"

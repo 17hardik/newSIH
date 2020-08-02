@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -66,13 +67,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView bgapp;
     Animation bganim;
     TextView GovText, NonText, TenderText, FreeText, uphone, uname, Premium, Days;
-    ImageView Profile, Crown, topJob, dreamJob, roadmap, premium;
+    ImageView Profile, Crown, publish, topJob, dreamJob, roadmap, premium;
     DrawerLayout drawer;
     Animation frombotton;
     ImageButton Gov, Non_Gov, Tenders, Free_Lancing;
     RelativeLayout menus;
     DatabaseReference reff, reff1, reff2, reff3;
-    String phone, S, M, J, A, user_name, check, lang, X, premium_date, currentDate, remainingDays = "0", isPremium, u_name, days, path, isFirst;
+    String phone, S, M, J, A, user_name, check, lang, X, premium_date, currentDate, remainingDays = "0", isPremium, u_name, days, path, isFirst, govRelation;
     NavigationView navigationView;
     StorageReference mStorageReference;
     ActionBarDrawerToggle t;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseUser currentFirebaseUser;
     Boolean isRegistered = false, English = true;
     ViewFlipper viewFlipper;
+    GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         path = preferences.getString("path", "");
         SharedPreferences preferences2 = getSharedPreferences(A,b);
         isFirst = preferences2.getString("isFirst","notFirst");
+        SharedPreferences preferences3 = getSharedPreferences(J,x);
+        govRelation = preferences3.getString("govRelation","");
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
         Firebase.setAndroidContext(this);
@@ -114,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dreamJob = findViewById(R.id.dreamJob);
         roadmap = findViewById(R.id.roadmap);
         premium = findViewById(R.id.premium);
+        publish = findViewById(R.id.publish);
+        gestureDetector = new GestureDetector(this, new SingleTapConfirm());
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -202,6 +208,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        publish.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    if (!isRegistered) {
+                        Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.CreateYourJob.class);
+                        startActivity(intent7);
+                    }
+                    else{
+                        Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.jobsPublished.class);
+                        startActivity(intent7);
+                    }
+
+                    return true;
+                }
+
+                return false;
             }
         });
 
@@ -304,6 +331,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     SharedPreferences.Editor editor = getSharedPreferences(J,x).edit();
                     editor.putString("Activity", "Government");
                     editor.apply();
+
                     Intent govIntent = new Intent(MainActivity.this, Government.class);
                     startActivity(govIntent);
 
@@ -799,19 +827,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void publish(View view) {
-
-        if (!isRegistered) {
-            Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.CreateYourJob.class);
-            startActivity(intent7);
-        }
-        else{
-            Intent intent7 = new Intent(MainActivity.this, com.example.sih.PublishJob.jobsPublished.class);
-            startActivity(intent7);
-        }
-
-    }
-
     public StringBuilder decryptUsername(String uname) {
         int pllen;
         StringBuilder sb = new StringBuilder();
@@ -904,6 +919,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         return remaining;
+    }
+
+    private static class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent event) {
+            return true;
+        }
     }
 
 }

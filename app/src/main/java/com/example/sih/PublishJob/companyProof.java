@@ -117,11 +117,11 @@ public class companyProof extends AppCompatActivity {
                 }
             }
         });
-
+        Toast.makeText(this, phone, Toast.LENGTH_SHORT).show();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                newPhone = dataSnapshot.child(phone).child("Phone").getValue().toString();
+                newPhone = dataSnapshot.child("Users").child(phone).child("Phone").getValue().toString();
             }
 
             @Override

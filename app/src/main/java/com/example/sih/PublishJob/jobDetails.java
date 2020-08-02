@@ -1,5 +1,6 @@
 package com.example.sih.PublishJob;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -193,23 +194,25 @@ public class jobDetails extends AppCompatActivity implements AdapterView.OnItemS
                         reff.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Toast.makeText(jobDetails.this, JobType, Toast.LENGTH_SHORT).show();
-                                long count = snapshot.child("Jobs").child(JobType).getChildrenCount();
+                                long count = snapshot.child("Jobs Revolution").child("All Jobs").child(JobType).getChildrenCount();
                                 String children = Long.toString(count);
-                                Toast.makeText(jobDetails.this, children, Toast.LENGTH_SHORT).show();
                                 if(!isAdded) {
-                                    reff.child("Jobs").child(JobType).child(children).child("Company_Name").setValue(Company);
-                                    reff.child("Jobs").child(JobType).child(children).child("ID").setValue(children);
-                                    reff.child("Jobs").child(JobType).child(children).child("Job_Description").setValue(description.getText().toString().trim());
-                                    reff.child("Jobs").child(JobType).child(children).child("Job_Post").setValue(title.getText().toString().trim());
-                                    reff.child("Jobs").child(JobType).child(children).child("Job_Type").setValue(JobType);
-                                    reff.child("Jobs").child(JobType).child(children).child("Location").setValue(city.getText().toString().trim());
-                                    reff.child("Jobs").child(JobType).child(children).child("Key_Skills").setValue(skills.getText().toString().trim());
-                                    reff.child("Jobs").child(JobType).child(children).child("Qualification").setValue(qualification.getText().toString().trim());
-                                    reff.child("Jobs").child(JobType).child(children).child("Sector").setValue(sector.getText().toString().trim());
-                                    reff.child("Jobs").child(JobType).child(children).child("Salary_PA_in_Rs").setValue(Salary);
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Company_Name").setValue(Company);
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("ID").setValue(children);
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Job_Description").setValue(description.getText().toString().trim());
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Job_Post").setValue(title.getText().toString().trim());
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Job_Type").setValue(JobType);
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Location").setValue(city.getText().toString().trim());
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Key_Skills").setValue(skills.getText().toString().trim());
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Qualification").setValue(qualification.getText().toString().trim());
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Sector").setValue(sector.getText().toString().trim());
+                                    reff.child("Jobs Revolution").child("All Jobs").child(JobType).child(children).child("Salary_PA_in_Rs").setValue(Salary);
                                     reff.child("Users").child("Job Post").child(phone).child(title.getText().toString().trim()).setValue(details);
                                     isAdded = true;
+                                    reff.child("Job Post").child(phone).child(title.getText().toString().trim()).setValue(details);
+                                    Intent intent = new Intent(jobDetails.this, jobsPublished.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             }
 
