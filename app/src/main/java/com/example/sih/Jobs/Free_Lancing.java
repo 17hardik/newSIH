@@ -28,7 +28,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sih.MainActivity;
 import com.example.sih.Profile.Profile;
 import com.example.sih.R;
 import com.example.sih.Profile.Rating;
@@ -68,7 +67,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
     DatabaseReference reff, reff1, reff2, reff3, reff4, reff5, reff6;
     RecyclerView freelance;
     ArrayList<data_in_cardview> details;
-    gov_adapter govAdapter;
+    freelance_adapter govAdapter;
     ProgressDialog pd;
     AdView mAdView;
     int size, k;
@@ -89,7 +88,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         activity = preferences2.getString("Activity","");
         domain = preferences.getString("Domain", "");
         SharedPreferences preferences3 = getSharedPreferences(C,d);
-        Relation = preferences3.getString("Relation", "");
+        Relation = preferences3.getString("freelanceRelation", "");
         setContentView(R.layout.activity_free__lancing);
         freelance = findViewById(R.id.freelance);
 
@@ -183,7 +182,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
 
                                 data_in_cardview d = snapshot.getValue(data_in_cardview.class);
                                 details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
+                                govAdapter = new freelance_adapter(Free_Lancing.this, details);
                                 freelance.setAdapter(govAdapter);
 
                             }
@@ -210,98 +209,105 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 }
             });
 
-            reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("All Jobs").child("Freelancing");
-
-            reff2.addValueEventListener(new ValueEventListener() {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                public void run() {
 
-                    size = (int) dataSnapshot.getChildrenCount();
+                    reff2 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("All Jobs").child("Freelancing");
 
-                    for (int l = 0; l < size; l++) {
+                    reff2.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        String i = Integer.toString(l);
-                        reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("All Jobs").child("Freelancing").child(i);
-                        reff1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            size = (int) dataSnapshot.getChildrenCount();
 
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                details.add(d);
-                                govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                freelance.setAdapter(govAdapter);
+                            for (int l = 0; l < size; l++) {
 
+                                String i = Integer.toString(l);
+                                reff1 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child(domain).child("All Jobs").child("Freelancing").child(i);
+                                reff1.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                        details.add(d);
+                                        govAdapter = new freelance_adapter(Free_Lancing.this, details);
+                                        freelance.setAdapter(govAdapter);
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        if(check.equals(getResources().getString(R.string.english))){
+                                            Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }
+                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                if(check.equals(getResources().getString(R.string.english))){
-                                    Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                                }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            if(check.equals(getResources().getString(R.string.english))){
+                                Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                             }
-                        });
-                    }
-                }
+                        }
+                    });
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    if(check.equals(getResources().getString(R.string.english))){
-                        Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                    reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Freelancing");
+                    reff3.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            reff3 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Freelancing");
-            reff3.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            size = (int) dataSnapshot.getChildrenCount();
 
-                    size = (int) dataSnapshot.getChildrenCount();
+                            for (int k = 0; k < size; k++) {
 
-                    for (int k = 0; k < size; k++) {
+                                String i = Integer.toString(k);
+                                reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Freelancing").child(i);
+                                reff4.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String i = Integer.toString(k);
-                        reff4 = FirebaseDatabase.getInstance().getReference().child("Jobs Revolution").child("All Jobs").child("All Jobs").child("Freelancing").child(i);
-                        reff4.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                String subDomain = snapshot.child("sub_domain").getValue().toString();
+                                        data_in_cardview d = snapshot.getValue(data_in_cardview.class);
+                                        details.add(d);
+                                        govAdapter = new freelance_adapter(Free_Lancing.this, details);
+                                        freelance.setAdapter(govAdapter);
 
-                                data_in_cardview d = snapshot.getValue(data_in_cardview.class);
-                                if (!(subDomain.equals(domain))) {
-                                    details.add(d);
-                                    govAdapter = new gov_adapter(Free_Lancing.this, details);
-                                    freelance.setAdapter(govAdapter);
-                                }
 
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        if(check.equals(getResources().getString(R.string.english))){
+                                            Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }
+                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                if(check.equals(getResources().getString(R.string.english))){
-                                    Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                                }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            if(check.equals(getResources().getString(R.string.english))){
+                                Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
                             }
-                        });
-                    }
-                }
+                        }
+                    });
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    if(check.equals(getResources().getString(R.string.english))){
-                        Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Free_Lancing.this, getResources().getString(R.string.check_internet1), Toast.LENGTH_SHORT).show();
-                    }
                 }
-            });
+            }, 250);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -330,10 +336,10 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
         topJobs = menu2.findItem(R.id.topJobs);
         publishJob = menu2.findItem(R.id.publish);
         Jobs = menu2.findItem(R.id.title1);
+        Resources = menu2.findItem(R.id.resources);
         Features = menu2.findItem(R.id.title2);
         Top_Jobs = menu2.findItem(R.id.topJobs);
         Connection = menu2.findItem(R.id.chat);
-        Resources = menu2.findItem(R.id.resources);
         Publish = menu2.findItem(R.id.publish);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
@@ -468,14 +474,7 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 Intent intent5 = new Intent(Free_Lancing.this, Tenders.class);
                 startActivity(intent5);
                 break;
-            case R.id.resources:
-                Intent intent3 = new Intent(Free_Lancing.this, StudyResources.class);
-                startActivity(intent3);
-                break;
-            case R.id.premium:
-                Intent intent2 = new Intent(Free_Lancing.this, com.example.sih.Profile.Premium.class);
-                startActivity(intent2);
-                break;
+
             case R.id.chat:
                 Intent intent6 = new Intent(Free_Lancing.this, com.example.sih.chatApp.User_List.class);
                 startActivity(intent6);
@@ -548,6 +547,13 @@ public class Free_Lancing extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(Free_Lancing.this, ContactUs.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.resources:
+                Intent redirectIntent = new Intent(Intent.ACTION_VIEW);
+                redirectIntent.addCategory(Intent.CATEGORY_BROWSABLE);
+                redirectIntent.setData(Uri.parse("https://swayam.gov.in/"));
+                startActivity(redirectIntent);
+                break;
 
             default:
                 return super.onOptionsItemSelected(menuItem);
