@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.15">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -84,6 +84,20 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="modify your job post"
+                android:textSize="15sp"/>
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="delete your job post"
+                android:textSize="15sp"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

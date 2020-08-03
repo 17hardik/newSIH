@@ -97,7 +97,7 @@ public class CreateYourJob extends AppCompatActivity {
                         }
                         CRnum.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                     }
-                    else if(CRemail.getText().toString().contains("gmail") || CRemail.getText().toString().contains("outlook") || CRemail.getText().toString().contains("yahoo") || CRemail.getText().toString().contains("protonmail")){
+                    else if(CRemail.getText().toString().contains("outlook") || CRemail.getText().toString().contains("yahoo") || CRemail.getText().toString().contains("protonmail")){
                         if (!check.equals(getResources().getString(R.string.english))) {
                             CRemail.setError("कृपया अपना कार्य ईमेल दर्ज करें (जीमेल, आउटलुक आदि की अनुमति नहीं है)");
                         } else {
@@ -124,7 +124,7 @@ public class CreateYourJob extends AppCompatActivity {
                           reff.child("Users").child(phone).child("Company").setValue(Cname.getText().toString().trim());
                           reff.child("Company Representative Details").child(phone).setValue(users1);
                           if(check.equals("Eng")) {
-                              Toast.makeText(CreateYourJob.this, "Data inserted successfully", Toast.LENGTH_LONG).show();
+//                              Toast.makeText(CreateYourJob.this, "Data inserted successfully", Toast.LENGTH_LONG).show();
                           } else {
                               Toast.makeText(CreateYourJob.this, "डेटा सफलतापूर्वक डाला गया", Toast.LENGTH_LONG).show();
                           }

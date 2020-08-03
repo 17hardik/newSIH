@@ -102,7 +102,7 @@ public class gov_adapter extends RecyclerView.Adapter<gov_adapter.MyViewHolder> 
 
         TextView Job_Post, Company_Name, Location, Job_Type;
         ImageView company_logo;
-        String M;
+        String M, activity;
         int j;
         SharedPreferences preferences = context.getSharedPreferences(M,j);
 

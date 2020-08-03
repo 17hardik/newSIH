@@ -1,15 +1,16 @@
 package com.example.sih.PublishJob;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sih.Jobs.jobPost;
 import com.example.sih.R;
 
 import java.util.ArrayList;
@@ -31,12 +32,21 @@ public class jAdapter extends RecyclerView.Adapter<jAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.title.setText(posts.get(position).getTitle());
         holder.description.setText(posts.get(position).getDescription());
         holder.experience.setText(posts.get(position).getExperience());
         holder.city.setText(posts.get(position).getCity());
         holder.email.setText(posts.get(position).getEmail());
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, editJobPost.class);
+                String jobPost = posts.get(position).getTitle();
+                intent.putExtra("jobPost", jobPost);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -47,6 +57,7 @@ public class jAdapter extends RecyclerView.Adapter<jAdapter.MyViewHolder> {
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView title, description, experience, city, email;
+        Button edit, delete;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,6 +66,8 @@ public class jAdapter extends RecyclerView.Adapter<jAdapter.MyViewHolder> {
             experience = itemView.findViewById(R.id.exp);
             city = itemView.findViewById(R.id.city);
             email = itemView.findViewById(R.id.email);
+            edit = itemView.findViewById(R.id.edit);
+            delete = itemView.findViewById(R.id.delete);
         }
     }
 

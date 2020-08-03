@@ -1,4 +1,4 @@
-package com.example.sih.Jobs;
+package com.example.sih.PublishJob;
 
 public class jobPost {
     private String title;
@@ -8,6 +8,7 @@ public class jobPost {
     private String email;
 
     public jobPost() {
+
     }
 
     public jobPost(String title, String description, String experience, String city, String email) {

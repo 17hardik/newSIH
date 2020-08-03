@@ -31,8 +31,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.sih.Jobs.Government;
 import com.example.sih.Jobs.Non_Government;
+import com.example.sih.Jobs.StudyResources;
+import com.example.sih.MainActivity;
 import com.example.sih.R;
 import com.example.sih.Registration.Login;
+import com.example.sih.chatApp.ContactUs;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,7 +74,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     ActionBarDrawerToggle t;
     Boolean isRegistered = false;
     Menu menu1, menu2;
-    MenuItem Gov, Non_Gov, Tender, Free_Lancing, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
+    MenuItem Gov, Non_Gov, Tender, Free_Lancing, Resources, GetPremium, chat, topJobs, publishJob, Jobs, Features, Connection, Top_Jobs, Publish;
     ProgressDialog pd;
     String username;
     String path;
@@ -124,6 +127,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         Top_Jobs = menu2.findItem(R.id.topJobs);
         Connection = menu2.findItem(R.id.chat);
         Publish = menu2.findItem(R.id.publish);
+        Resources = menu2.findItem(R.id.resources);
         uname = navigationView.getHeaderView(0).findViewById(R.id.name_of_user);
         uphone = navigationView.getHeaderView(0).findViewById(R.id.phone_of_user);
         drawerProfile = navigationView.getHeaderView(0).findViewById(R.id.image_of_user);
@@ -354,6 +358,9 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 Intent intent5 = new Intent(Profile.this, Government.class);
                 startActivity(intent5);
                 break;
+            case R.id.resources:
+                Intent intent3 = new Intent(Profile.this, StudyResources.class);
+                startActivity(intent3);
             case R.id.premium:
                 Intent intent2 = new Intent(Profile.this, com.example.sih.Profile.Premium.class);
                 startActivity(intent2);
@@ -424,10 +431,8 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 return true;
 
             case R.id.contact_us:
-                String recipient = "firstloveyourself1999@gmail.com";
-                Intent intent4 = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-                intent4.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-                startActivity(intent4);
+                Intent intent = new Intent(Profile.this, ContactUs.class);
+                startActivity(intent);
                 return true;
 
             default:
